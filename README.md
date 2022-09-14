@@ -1,5 +1,5 @@
 # Twitter-Clone
-![Database Schema for Twitter Clone ](https://github.com/skimby/Twitter-Clone/blob/main/Twitter%20Diagram.png?raw=true)
+![Database Schema for Twitter Clone ](https://github.com/skimby/Twitter-Clone/blob/main/Twitter-Diagram.png?raw=true)
 
 
 ## `Users`
