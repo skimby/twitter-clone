@@ -53,7 +53,7 @@ module.exports = {
       "Users",
       {
         username: {
-          [Op.in]: ["Demo-lition", "TwitterBird", "redrobin"]
+          [Op.in]: ["Demo-lition", "blubird", "cardinalred"]
         }
       },
       {}
