@@ -5,18 +5,42 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert("Users", [
       {
+        firstName: 'Demo',
+        lastName: 'Lition',
         email: "demo@user.io",
         username: "Demo-lition",
+        bio: 'I am a demo user',
+        location: null,
+        website: null,
+        profileImage: null,
+        coverImage: null,
+        verified: false,
         password: bcrypt.hashSync("password")
       },
       {
-        email: "twitter@user.io",
-        username: "TwitterBird",
+        firstName: 'Blue',
+        lastName: 'Bird',
+        email: "bluebird@user.io",
+        username: "blubird",
+        bio: 'I am the Twitter logo bird!',
+        location: null,
+        website: null,
+        profileImage: null,
+        coverImage: null,
+        verified: false,
         password: bcrypt.hashSync("password")
       },
       {
-        email: "robin@user.io",
-        username: "redrobin",
+        firstName: 'Red',
+        lastName: 'Cardinal',
+        email: "redcardinal@user.io",
+        username: "cardinalred",
+        bio: 'I am a red cardinal',
+        location: null,
+        website: null,
+        profileImage: null,
+        coverImage: null,
+        verified: false,
         password: bcrypt.hashSync("password")
       }
     ]);
