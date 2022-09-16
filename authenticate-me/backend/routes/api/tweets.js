@@ -1,24 +1,40 @@
 const express = require("express");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Tweet, User, Comment, Retweet, Like, Follow } = require('../../db/models')
-const { check } = require("express-validator");
 
-const { handleValidationErrors } = require("../../utils/validation");
-const { where } = require("sequelize");
-const { get } = require("./users");
 const router = express.Router();
 
-//=======================================//
-const validateLogin = [
-    check("credential")
-        .exists({ checkFalsy: true })
-        .notEmpty()
-        .withMessage("Please provide a valid email or username."),
-    check("password")
-        .exists({ checkFalsy: true })
-        .withMessage("Please provide a password."),
-    handleValidationErrors
-];
+//================== CREATE A TWEET =================//
+router.post('/create', requireAuth, async (req, res, next) => {
+    const { tweet, image, gif } = req.body;
+
+    const newTweet = await Tweet.create({
+        userId: req.user.id,
+        tweet,
+        image,
+        gif
+    })
+    res.status(201)
+    return res.json(newTweet)
+})
+
+//===================== EDIT A TWEET ===================//
+router.put('/:tweetId', requireAuth, async (req, res, next) => {
+    const { tweetId } = req.params;
+    const { tweet, image, gif } = req.body;
+    const findTweet = await Tweet.findByPk(tweetId);
+
+    if (findTweet) {
+        if (findTweet.userId === req.user.id) {
+            findTweet.tweet = tweet
+            findTweet.image = image
+            findTweet.gif = gif
+
+            res.status(201)
+            return res.json(newTweet)
+        }
+    }
+})
 
 //==== FEED PAGE: GET ALL TWEETS FROM FOLLOWED USERS ONLY =====//
 router.get('/feed', requireAuth, async (req, res, next) => {
