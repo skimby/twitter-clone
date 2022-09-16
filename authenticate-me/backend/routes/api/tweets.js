@@ -153,4 +153,51 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
     })
 })
 
+//=========== GET TWEET BY ID / GET ALL COMMENTS ============//
+router.get('/:tweetId', async (req, res, next) => {
+    const { tweetId } = req.params;
+    const tweet = await Tweet.findOne({
+        where: {
+            id: tweetId
+        },
+        include: [{
+            model: User,
+            attributes: ['id', 'firstName', 'profileImage', 'username', 'verified']
+        }, {
+            model: Comment
+        }]
+    })
+
+    if (tweet) {
+        const comments = await Comment.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        const retweets = await Retweet.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        const likes = await Like.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        tweet.dataValues.commentCount = comments.count;
+        tweet.dataValues.retweetCount = retweets.count;
+        tweet.dataValues.likeCount = likes.count;
+
+        res.status(200)
+        res.json({
+            Tweet: tweet
+        })
+    } else {
+        const err = new Error("Tweet with that id does not exist.");
+        err.message = "Tweet with that id does not exist.";
+        err.status = 404;
+        return next(err);
+    }
+})
+
 module.exports = router;
