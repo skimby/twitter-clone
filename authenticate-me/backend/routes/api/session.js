@@ -17,9 +17,9 @@ const validateLogin = [
     .withMessage("Please provide a password."),
   handleValidationErrors
 ];
-//
 
-// =============  Log in =================//
+
+// ============= LOG IN =================//
 router.post("/", validateLogin, async (req, res, next) => {
   const { username, password } = req.body;
 
@@ -34,22 +34,20 @@ router.post("/", validateLogin, async (req, res, next) => {
   }
 
   await setTokenCookie(res, user);
-
+  res.status(200)
   return res.json({
     user
   });
 });
 
-//
 
-// Log out
+
+// ============= LOG OUT =================//
 router.delete("/", (_req, res) => {
   res.clearCookie("token");
+  res.status(200)
   return res.json({ message: "success" });
 });
-//
-//
 
-//
-//
+
 module.exports = router;

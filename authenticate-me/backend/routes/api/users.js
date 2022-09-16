@@ -1,7 +1,7 @@
 // backend/routes/api/users.js
 const express = require("express");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { User, Tweet, Comment, Like, Follow } = require("../../db/models");
 const router = express.Router();
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -42,12 +42,43 @@ const validateLogin = [
 //================== GET LOGGED USER ==========================//
 router.get('/me', requireAuth, async (req, res) => {
   const userId = req.user.id
-  const user = await User.findByPk(userId)
+  const user = await User.findByPk(userId);
+  const { firstName, lastName, username, bio, location, website, profileImage, coverImage, verified, createdAt, updatedAt } = user;
+  const tweets = await Tweet.findAndCountAll({
+    where: {
+      userId
+    }
+  })
+  const following = await Follow.findAndCountAll({
+    where: {
+      followerId: userId
+    }
+  })
+  const followers = await Follow.findAndCountAll({
+    where: {
+      userId
+    }
+  })
 
   if (user) {
+
     res.status(200)
     return res.json({
-      user
+      id: userId,
+      firstName,
+      lastName,
+      username,
+      bio,
+      location,
+      website,
+      profileImage,
+      coverImage,
+      verified,
+      tweetCount: tweets.count,
+      followingCount: following.count,
+      followerCount: followers.count,
+      createdAt,
+      updatedAt
     })
   } else {
     const err = new Error("Invalid credentials");
@@ -62,6 +93,22 @@ router.get('/me', requireAuth, async (req, res) => {
 router.get('/:userId', requireAuth, async (req, res, next) => {
   const { userId } = req.params;
   const user = await User.findByPk(userId)
+  const { firstName, lastName, username, bio, location, website, profileImage, coverImage, verified, createdAt, updatedAt } = user;
+  const tweets = await Tweet.findAndCountAll({
+    where: {
+      userId
+    }
+  })
+  const following = await Follow.findAndCountAll({
+    where: {
+      userId
+    }
+  })
+  const followers = await Follow.findAndCountAll({
+    where: {
+      followerId: userId
+    }
+  })
 
   if (!user) {
     res.status(404)
@@ -71,7 +118,21 @@ router.get('/:userId', requireAuth, async (req, res, next) => {
     next(err);
   } else {
     return res.json({
-      user
+      id: userId,
+      firstName,
+      lastName,
+      username,
+      bio,
+      location,
+      website,
+      profileImage,
+      coverImage,
+      verified,
+      tweetCount: tweets.count,
+      following: following.count,
+      follower: followers.count,
+      createdAt,
+      updatedAt
     })
   }
 })
