@@ -6,7 +6,7 @@ const router = express.Router();
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 
-//
+
 // =====================================================
 const validateSignup = [
   check("email")
@@ -25,11 +25,55 @@ const validateSignup = [
   handleValidationErrors
 ];
 //=======================================================
+const validateLogin = [
+  check("username")
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage("Please provide a valid username."),
+  check("password")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a password."),
+  handleValidationErrors
+];
 
-//================== Sign up ==========================//
+
+
+
+
+
+//================== GET USER BY ID ==========================//
+router.get('/:userId', requireAuth, async (req, res, next) => {
+  const { userId } = req.params;
+  const user = await User.findByPk(userId)
+
+  if (!user) {
+    res.status(404)
+    const err = new Error("User with that id cannot be found.");
+    err.message = "User with that id cannot be found.";
+    err.status = 404;
+    next(err);
+  } else {
+    return res.json({
+      user
+    })
+  }
+})
+
+//================== GET LOGGED USER ==========================//
+router.get('/me', requireAuth, async (req, res) => {
+  const { id } = req.user
+  const user = await User.findByPk(id)
+
+  res.status(200)
+  return res.json({
+    user
+  })
+})
+
+//================== SIGN UP ==========================//
 router.post("/", validateSignup, async (req, res) => {
-  const { email, password, username } = req.body;
-  const user = await User.signup({ email, username, password });
+  const { firstName, lastName, email, password, username } = req.body;
+  const user = await User.signup({ firstName, lastName, email, username, password });
 
   await setTokenCookie(res, user);
 
@@ -37,7 +81,5 @@ router.post("/", validateSignup, async (req, res) => {
     user
   });
 });
-//
-//
-//
+
 module.exports = router;

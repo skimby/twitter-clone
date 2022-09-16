@@ -52,7 +52,8 @@ module.exports = {
       },
       verified: {
         type: Sequelize.BOOLEAN,
-        allowNull: false
+        allowNull: true,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,

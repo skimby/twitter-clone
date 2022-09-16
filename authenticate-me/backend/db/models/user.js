@@ -106,7 +106,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       verified: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        allowNull: true
       }
     },
     {
@@ -114,7 +114,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "User",
       defaultScope: {
         attributes: {
-          exclude: ["password", "email", "createdAt", "updatedAt"]
+          exclude: ["password", "email"]
         }
       },
       scopes: {
