@@ -4,6 +4,8 @@ const { Tweet, User, Comment, Retweet, Like, Follow } = require('../../db/models
 const { check } = require("express-validator");
 
 const { handleValidationErrors } = require("../../utils/validation");
+const { where } = require("sequelize");
+const { get } = require("./users");
 const router = express.Router();
 
 //=======================================//
@@ -18,7 +20,7 @@ const validateLogin = [
     handleValidationErrors
 ];
 
-
+//==== FEED PAGE: GET ALL TWEETS FROM FOLLOWED USERS ONLY =====//
 router.get('/feed', requireAuth, async (req, res, next) => {
     const userId = req.user.id;
 
@@ -67,9 +69,88 @@ router.get('/feed', requireAuth, async (req, res, next) => {
         tweets2.push(tweet)
     }
 
+    res.status(200)
     return res.json({
         Tweets: tweets2
     })
 
 })
+
+//========== EXPLORER PAGE: GET ALL TWEETS ============//
+router.get('/explore', requireAuth, async (req, res, next) => {
+    const tweets = await Tweet.findAll({
+        attributes: ['id', 'userId', 'tweet', 'image', 'gif', 'createdAt', 'updatedAt'],
+        include: [{
+            model: User,
+            attributes: ['id', 'firstName', 'profileImage', 'username', 'verified']
+        }]
+
+
+    })
+
+    for (let i = 0; i < tweets.length; i++) {
+        let tweet = tweets[i];
+        const comments = await Comment.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        const retweets = await Retweet.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        const likes = await Like.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        tweet.dataValues.commentCount = comments.count;
+        tweet.dataValues.retweetCount = retweets.count;
+        tweet.dataValues.likeCount = likes.count;
+    }
+    res.status(200)
+    return res.json({
+        Tweets: tweets
+    })
+
+})
+
+//============== GET ALL TWEETS BY USER ID ===============//
+router.get('/users/:userId', requireAuth, async (req, res, next) => {
+    const userId = req.user.id
+    const tweets = await Tweet.findAll({
+        where: {
+            userId
+        }
+    })
+
+    for (let i = 0; i < tweets.length; i++) {
+        let tweet = tweets[i];
+        const comments = await Comment.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        const retweets = await Retweet.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        const likes = await Like.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        tweet.dataValues.commentCount = comments.count;
+        tweet.dataValues.retweetCount = retweets.count;
+        tweet.dataValues.likeCount = likes.count;
+    }
+
+    res.status(200)
+    return res.json({
+        Tweet: tweets
+    })
+})
+
 module.exports = router;
