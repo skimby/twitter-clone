@@ -85,7 +85,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       bio: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(160),
         allowNull: true
       },
       location: {
