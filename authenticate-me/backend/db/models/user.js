@@ -19,7 +19,14 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-      // define association here
+      User.hasMany(models.Tweet,
+        { foreignKey: 'userId' })
+
+      User.hasMany(models.Like,
+        { foreignKey: 'userId' })
+
+      User.hasMany(models.Follow,
+        { foreignKey: 'userId' })
     }
 
     static async login({ username, password }) {
