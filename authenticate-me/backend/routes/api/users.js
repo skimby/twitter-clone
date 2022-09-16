@@ -39,7 +39,24 @@ const validateLogin = [
 
 
 
+//================== GET LOGGED USER ==========================//
+router.get('/me', requireAuth, async (req, res) => {
+  const userId = req.user.id
+  const user = await User.findByPk(userId)
 
+  if (user) {
+    res.status(200)
+    return res.json({
+      user
+    })
+  } else {
+    const err = new Error("Invalid credentials");
+    err.message = "Invalid credentials";
+    err.status = 401;
+    err.errors = ['The provided credentials were invalid.'];
+    return next(err);
+  }
+})
 
 //================== GET USER BY ID ==========================//
 router.get('/:userId', requireAuth, async (req, res, next) => {
@@ -59,27 +76,24 @@ router.get('/:userId', requireAuth, async (req, res, next) => {
   }
 })
 
-//================== GET LOGGED USER ==========================//
-router.get('/me', requireAuth, async (req, res) => {
-  const { id } = req.user
-  const user = await User.findByPk(id)
-
-  res.status(200)
-  return res.json({
-    user
-  })
-})
-
 //================== SIGN UP ==========================//
 router.post("/", validateSignup, async (req, res) => {
   const { firstName, lastName, email, password, username } = req.body;
   const user = await User.signup({ firstName, lastName, email, username, password });
 
-  await setTokenCookie(res, user);
+  if (!user) {
+    await setTokenCookie(res, user);
 
-  return res.json({
-    user
-  });
+    return res.json({
+      user
+    });
+  } else {
+    res.status(404)
+    const err = new Error("A user with that username already exists. Please select another username.");
+    err.message = "A user with that username already exists. Please select another username.";
+    err.status = 404;
+    next(err);
+  }
 });
 
 module.exports = router;
