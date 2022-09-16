@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    tweetId: {
+    followerId: {
       type: DataTypes.INTEGER,
       allowNull: false
     }
