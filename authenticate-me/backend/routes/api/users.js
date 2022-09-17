@@ -36,9 +36,6 @@ const validateLogin = [
   handleValidationErrors
 ];
 
-
-
-
 //================== GET LOGGED USER ==========================//
 router.get('/me', requireAuth, async (req, res) => {
   const userId = req.user.id
@@ -61,7 +58,6 @@ router.get('/me', requireAuth, async (req, res) => {
   })
 
   if (user) {
-
     res.status(200)
     return res.json({
       id: userId,
@@ -81,42 +77,36 @@ router.get('/me', requireAuth, async (req, res) => {
       updatedAt
     })
   } else {
-    const err = new Error("Invalid credentials");
-    err.message = "Invalid credentials";
+    const err = new Error("There is no user logged in.");
+    err.message = "There is no user logged in.";
     err.status = 401;
-    err.errors = ['The provided credentials were invalid.'];
     return next(err);
   }
 })
 
-//================== GET USER BY ID ==========================//
+//================== GET USER BY USER ID =======================//
 router.get('/:userId', requireAuth, async (req, res, next) => {
   const { userId } = req.params;
   const user = await User.findByPk(userId)
-  const { firstName, lastName, username, bio, location, website, profileImage, coverImage, verified, createdAt, updatedAt } = user;
-  const tweets = await Tweet.findAndCountAll({
-    where: {
-      userId
-    }
-  })
-  const following = await Follow.findAndCountAll({
-    where: {
-      userId
-    }
-  })
-  const followers = await Follow.findAndCountAll({
-    where: {
-      followerId: userId
-    }
-  })
 
-  if (!user) {
-    res.status(404)
-    const err = new Error("User with that id cannot be found.");
-    err.message = "User with that id cannot be found.";
-    err.status = 404;
-    next(err);
-  } else {
+  if (user) {
+    const { firstName, lastName, username, bio, location, website, profileImage, coverImage, verified, createdAt, updatedAt } = user;
+    const tweets = await Tweet.findAndCountAll({
+      where: {
+        userId
+      }
+    })
+    const following = await Follow.findAndCountAll({
+      where: {
+        userId
+      }
+    })
+    const followers = await Follow.findAndCountAll({
+      where: {
+        followerId: userId
+      }
+    })
+    res.status(200)
     return res.json({
       id: userId,
       firstName,
@@ -134,6 +124,12 @@ router.get('/:userId', requireAuth, async (req, res, next) => {
       createdAt,
       updatedAt
     })
+  } else {
+    res.status(404)
+    const err = new Error("User with that id cannot be found.");
+    err.message = "User with that id cannot be found.";
+    err.status = 404;
+    next(err);
   }
 })
 
