@@ -27,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
 
       User.hasMany(models.Follow,
         { foreignKey: 'userId' })
+
+      User.hasMany(models.Comment,
+        { foreignKey: 'userId' })
     }
 
     static async login({ username, password }) {

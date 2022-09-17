@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Comment.belongsTo(models.Tweet,
         { foreignKey: 'tweetId' })
+
+      Comment.belongsTo(models.User,
+        { foreignKey: 'userId' })
     }
   }
   Comment.init({
@@ -35,11 +38,25 @@ module.exports = (sequelize, DataTypes) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
+      validate: {
+        onlyOneUrl(value) {
+          if (this.image !== null && this.gif !== null) {
+            throw new Error('Only one url input can be used in comment. (Either an image or gif but not both.)')
+          }
+        }
+      }
     },
     gif: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
+      validate: {
+        onlyOneUrl(value) {
+          if (this.image !== null && this.gif !== null) {
+            throw new Error('Only one url input can be used in comment. (Either an image or gif but not both.)')
+          }
+        }
+      }
     }
   }, {
     sequelize,

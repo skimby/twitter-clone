@@ -4,11 +4,13 @@ const sessionRouter = require("./session.js");
 const usersRouter = require("./users.js");
 const tweetsRouter = require('./tweets.js')
 const followsRouter = require('./follows.js')
+const commentsRouter = require('./comments.js')
 
 router.use("/session", sessionRouter);
 router.use("/users", usersRouter);
 router.use("/tweets", tweetsRouter)
 router.use("/follows", followsRouter)
+router.use("/comments", commentsRouter)
 
 router.post("/test", (req, res) => {
   res.json({ requestBody: req.body });
@@ -36,6 +38,7 @@ router.get("/restore-user", restoreUser, (req, res) => {
 
 // GET /api/require-auth
 const { requireAuth } = require("../../utils/auth.js");
+const { route } = require("./users.js");
 router.get("/require-auth", requireAuth, (req, res) => {
   return res.json(req.user);
 });
