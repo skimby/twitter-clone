@@ -7,8 +7,13 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 
 
-// =====================================================
 const validateSignup = [
+  check("firstName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a valid first name."),
+  check("lastName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a valid last name."),
   check("email")
     .exists({ checkFalsy: true })
     .isEmail()
@@ -136,18 +141,35 @@ router.get('/:userId', requireAuth, async (req, res, next) => {
 //================== SIGN UP ==========================//
 router.post("/", validateSignup, async (req, res, next) => {
   const { firstName, lastName, email, password, username } = req.body;
-  const user = await User.signup({ firstName, lastName, email, username, password });
 
-  if (!user) {
+  const existingEmail = await User.findOne({
+    where: {
+      email
+    }
+  })
+  const existingUsername = await User.findOne({
+    where: {
+      username
+    }
+  })
+  if (!existingEmail && !existingUsername) {
+    const user = await User.signup({ firstName, lastName, email, username, password });
     await setTokenCookie(res, user);
 
     return res.json({
       user
     });
-  } else {
+
+  } else if (existingEmail) {
     res.status(404)
-    const err = new Error("A user with that username already exists. Please select another username.");
-    err.message = "A user with that username already exists. Please select another username.";
+    const err = new Error("Unique email required.");
+    err.message = "A user with that email already exists. You may already have an account created.";
+    err.status = 404;
+    next(err);
+  } else if (existingUsername) {
+    res.status(404)
+    const err = new Error("Unique username required.");
+    err.message = "A user with that username already exists. You may already have an account created. Otherwise, please choose another username.";
     err.status = 404;
     next(err);
   }
