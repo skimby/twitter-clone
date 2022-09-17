@@ -8,7 +8,7 @@ const router = express.Router();
 //================== CREATE A LIKE =================//
 router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
     const { tweetId } = req.params;
-    const tweet = await Tweet.findByPek(tweetId)
+    const tweet = await Tweet.findByPk(tweetId)
     const existingLike = await Like.findOne({
         where: {
             userId: req.user.id,
@@ -50,8 +50,8 @@ router.delete('/:likeId/tweets/:tweetId', requireAuth, async (req, res, next) =>
             res.status(200)
             return res.json(like)
         } else {
-            const err = new Error("Cannot unlike a tweet twice.");
-            err.message = "Cannot unlike a tweet twice.";
+            const err = new Error("Cannot unlike a tweet you do not already like.");
+            err.message = "Cannot unlike a tweet you do not already like.";
             err.status = 404;
             return next(err);
 
