@@ -24,25 +24,22 @@ router.put('/:tweetId', requireAuth, async (req, res, next) => {
     const { tweetId } = req.params;
     const { tweet } = req.body;
     const findTweet = await Tweet.findByPk(tweetId);
-    const user = await User.findByPk(req.user.id)
 
-    if (user) {
-        if (findTweet) {
-            if (findTweet.userId === req.user.id) {
-                findTweet.tweet = tweet
-                await findTweet.save();
-                res.status(201)
-                return res.json(findTweet)
-            }
+    if (findTweet) {
+        if (findTweet.userId === req.user.id) {
+            findTweet.tweet = tweet
+            await findTweet.save();
+            res.status(201)
+            return res.json(findTweet)
         } else {
-            const err = new Error("Tweet with that id does not exist.");
-            err.message = "Tweet with that id does not exist.";
+            const err = new Error("Cannot edit a tweet that is not yours!");
+            err.message = "Cannot edit a tweet that is not yours!";
             err.status = 404;
             return next(err);
         }
     } else {
-        const err = new Error("Cannot edit a tweet that is not yours!");
-        err.message = "Cannot edit a tweet that is not yours!";
+        const err = new Error("Tweet with that id does not exist.");
+        err.message = "Tweet with that id does not exist.";
         err.status = 404;
         return next(err);
     }
@@ -112,8 +109,6 @@ router.get('/explore', requireAuth, async (req, res, next) => {
             model: User,
             attributes: ['id', 'firstName', 'profileImage', 'username', 'verified']
         }]
-
-
     })
 
     for (let i = 0; i < tweets.length; i++) {
