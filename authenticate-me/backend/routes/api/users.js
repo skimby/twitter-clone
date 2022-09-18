@@ -29,17 +29,6 @@ const validateSignup = [
     .withMessage("Password must be 6 characters or more."),
   handleValidationErrors
 ];
-//=======================================================
-const validateLogin = [
-  check("username")
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Please provide a valid username."),
-  check("password")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a password."),
-  handleValidationErrors
-];
 
 //================== GET LOGGED USER ==========================//
 router.get('/me', requireAuth, async (req, res) => {

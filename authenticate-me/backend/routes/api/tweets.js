@@ -2,11 +2,21 @@ const express = require("express");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Tweet, User, Comment, Retweet, Like, Follow } = require('../../db/models');
 const user = require("../../db/models/user");
-
+const { check } = require("express-validator");
+const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
 
+//================== VALIDATORS =====================//
+const validateTweet = [
+    check("tweet")
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a tweet."),
+    handleValidationErrors
+];
+
+
 //================== CREATE A TWEET =================//
-router.post('/create', requireAuth, async (req, res, next) => {
+router.post('/create', requireAuth, validateTweet, async (req, res, next) => {
     const { tweet, image, gif } = req.body;
 
     const newTweet = await Tweet.create({
@@ -20,7 +30,7 @@ router.post('/create', requireAuth, async (req, res, next) => {
 })
 
 //===================== EDIT A TWEET ===================//
-router.put('/:tweetId', requireAuth, async (req, res, next) => {
+router.put('/:tweetId', requireAuth, validateTweet, async (req, res, next) => {
     const { tweetId } = req.params;
     const { tweet } = req.body;
     const findTweet = await Tweet.findByPk(tweetId);
@@ -32,14 +42,14 @@ router.put('/:tweetId', requireAuth, async (req, res, next) => {
             res.status(201)
             return res.json(findTweet)
         } else {
-            const err = new Error("Cannot edit a tweet that is not yours!");
-            err.message = "Cannot edit a tweet that is not yours!";
+            const err = new Error("Cannot edit a tweet that is not yours.");
+            err.message = "Cannot edit a tweet that is not yours.";
             err.status = 404;
             return next(err);
         }
     } else {
-        const err = new Error("Tweet with that id does not exist.");
-        err.message = "Tweet with that id does not exist.";
+        const err = new Error("Could not find a tweet with the specified id.");
+        err.message = "Could not find a tweet with the specified id.";
         err.status = 404;
         return next(err);
     }
@@ -142,38 +152,47 @@ router.get('/explore', requireAuth, async (req, res, next) => {
 //============== GET ALL TWEETS BY USER ID ===============//
 router.get('/users/:userId', requireAuth, async (req, res, next) => {
     const userId = req.user.id
-    const tweets = await Tweet.findAll({
-        where: {
-            userId
+    const user = await User.findByPk(userId);
+
+    if (user) {
+        const tweets = await Tweet.findAll({
+            where: {
+                userId
+            }
+        })
+
+        for (let i = 0; i < tweets.length; i++) {
+            let tweet = tweets[i];
+            const comments = await Comment.findAndCountAll({
+                where: {
+                    tweetId: tweet.id
+                }
+            })
+            const retweets = await Retweet.findAndCountAll({
+                where: {
+                    tweetId: tweet.id
+                }
+            })
+            const likes = await Like.findAndCountAll({
+                where: {
+                    tweetId: tweet.id
+                }
+            })
+            tweet.dataValues.commentCount = comments.count;
+            tweet.dataValues.retweetCount = retweets.count;
+            tweet.dataValues.likeCount = likes.count;
         }
-    })
 
-    for (let i = 0; i < tweets.length; i++) {
-        let tweet = tweets[i];
-        const comments = await Comment.findAndCountAll({
-            where: {
-                tweetId: tweet.id
-            }
+        res.status(200)
+        return res.json({
+            Tweet: tweets
         })
-        const retweets = await Retweet.findAndCountAll({
-            where: {
-                tweetId: tweet.id
-            }
-        })
-        const likes = await Like.findAndCountAll({
-            where: {
-                tweetId: tweet.id
-            }
-        })
-        tweet.dataValues.commentCount = comments.count;
-        tweet.dataValues.retweetCount = retweets.count;
-        tweet.dataValues.likeCount = likes.count;
+    } else {
+        const err = new Error("Could not find a user with that id.");
+        err.message = "Could not find a user with that id.";
+        err.status = 404;
+        return next(err);
     }
-
-    res.status(200)
-    return res.json({
-        Tweet: tweets
-    })
 })
 
 //=========== GET TWEET BY ID / GET ALL COMMENTS ============//
@@ -220,8 +239,8 @@ router.get('/:tweetId', async (req, res, next) => {
             Tweet: tweet
         })
     } else {
-        const err = new Error("Tweet with that id does not exist.");
-        err.message = "Tweet with that id does not exist.";
+        const err = new Error("Could not find a tweet with the specified id.");
+        err.message = "Could not find a tweet with the specified id.";
         err.status = 404;
         return next(err);
     }
