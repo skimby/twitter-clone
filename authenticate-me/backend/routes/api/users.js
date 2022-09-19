@@ -113,8 +113,8 @@ router.get('/:userId', requireAuth, async (req, res, next) => {
       coverImage,
       verified,
       tweetCount: tweets.count,
-      following: following.count,
-      follower: followers.count,
+      followingCount: following.count,
+      followerCount: followers.count,
       createdAt,
       updatedAt
     })
