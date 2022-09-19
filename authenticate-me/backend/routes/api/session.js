@@ -20,7 +20,7 @@ const validateLogin = [
 
 
 // ============= LOG IN =================//
-router.post("/", validateLogin, async (req, res, next) => {
+router.post("/login", validateLogin, async (req, res, next) => {
   const { username, password } = req.body;
 
   const user = await User.login({ username, password });

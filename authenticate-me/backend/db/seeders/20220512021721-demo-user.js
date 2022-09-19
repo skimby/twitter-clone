@@ -8,7 +8,7 @@ module.exports = {
         firstName: 'Demo',
         lastName: 'Lition',
         email: "demo@user.io",
-        username: "Demo-lition",
+        username: "demo",
         bio: 'I am a demo user',
         location: null,
         website: null,
