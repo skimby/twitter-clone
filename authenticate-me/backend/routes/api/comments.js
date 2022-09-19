@@ -9,16 +9,25 @@ const router = express.Router();
 router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
     const { tweetId } = req.params;
     const { comment, image, gif } = req.body;
-    const tweet = await Comment.create({
-        userId: req.user.id,
-        tweetId,
-        comment,
-        image,
-        gif
-    })
+    const tweet = await Tweet.findByPk(tweetId);
 
-    res.status(200)
-    return res.json(tweet)
+    if (tweet) {
+        const newComment = await Comment.create({
+            userId: req.user.id,
+            tweetId,
+            comment,
+            image,
+            gif
+        })
+
+        res.status(200)
+        return res.json(newComment)
+    } else {
+        const err = new Error("Could not find a tweet with the specified id.");
+        err.message = "Could not find a tweet with the specified id.";
+        err.status = 404;
+        return next(err);
+    }
 })
 
 //===================== EDIT A COMMENT ===================//
@@ -35,14 +44,14 @@ router.put('/:commentId/tweets/:tweetId', requireAuth, async (req, res, next) =>
             res.status(200)
             return res.json(editComment)
         } else {
-            const err = new Error("Cannot edit a comments that is not yours!");
-            err.message = "Cannot edit a comments that is not yours!";
+            const err = new Error("Cannot edit a comments that is not yours.");
+            err.message = "Cannot edit a comments that is not yours.";
             err.status = 404;
             return next(err);
         }
     } else {
-        const err = new Error("Tweet with that id cannot be found.");
-        err.message = "Tweet with that id cannot be found.";
+        const err = new Error("Could not find a Tweet with the specified id.");
+        err.message = "Could not find a Tweet with the specified id.";
         err.status = 404;
         return next(err);
     }
@@ -66,8 +75,8 @@ router.delete('/:commentId/tweets/:tweetId', requireAuth, async (req, res, next)
             return next(err);
         }
     } else {
-        const err = new Error("Tweet with that id cannot be found.");
-        err.message = "Tweet with that id cannot be found.";
+        const err = new Error("Could not find a Tweet with the specified id.");
+        err.message = "Could not find a Tweet with the specified id .";
         err.status = 404;
         return next(err);
     }
