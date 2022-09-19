@@ -141,9 +141,11 @@ router.post("/", validateSignup, async (req, res, next) => {
       username
     }
   })
+
   if (!existingEmail && !existingUsername) {
     const user = await User.signup({ firstName, lastName, email, username, password });
     await setTokenCookie(res, user);
+    user.dataValues.token = req.cookies.token;
 
     return res.json({
       user
@@ -155,6 +157,7 @@ router.post("/", validateSignup, async (req, res, next) => {
     err.message = "A user with that email already exists. You may already have an account created.";
     err.status = 404;
     next(err);
+
   } else if (existingUsername) {
     res.status(404)
     const err = new Error("Unique username required.");

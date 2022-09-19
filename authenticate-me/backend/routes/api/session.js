@@ -6,6 +6,14 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
 
+
+// // GET /api/restore-user
+// const { restoreUser } = require('../../utils/auth.js');
+// router.get('/restore-user', restoreUser, (req, res) => {
+//   return res.json(req.user);
+// }
+// );
+
 //=======================================//
 const validateLogin = [
   check("username")
@@ -34,6 +42,8 @@ router.post("/login", validateLogin, async (req, res, next) => {
   }
 
   await setTokenCookie(res, user);
+  user.dataValues.token = req.cookies.token;
+
   res.status(200)
   return res.json({
     user
