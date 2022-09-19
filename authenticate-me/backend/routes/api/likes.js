@@ -31,8 +31,8 @@ router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
             return res.json(like)
         }
     } else {
-        const err = new Error("Tweet with that id cannot be found.");
-        err.message = "Tweet with that id cannot be found.";
+        const err = new Error("Could not find a Tweet with the specified id.");
+        err.message = "Could not find a Tweet with the specified id.";
         err.status = 404;
         return next(err);
     }
@@ -57,8 +57,8 @@ router.delete('/:likeId/tweets/:tweetId', requireAuth, async (req, res, next) =>
 
         }
     } else {
-        const err = new Error("Tweet with that id cannot be found.");
-        err.message = "Tweet with that id cannot be found.";
+        const err = new Error("Could not find a Tweet with the specified id.");
+        err.message = "Could not find a Tweet with the specified id.";
         err.status = 404;
         return next(err);
     }

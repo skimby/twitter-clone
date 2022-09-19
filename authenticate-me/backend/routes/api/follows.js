@@ -5,8 +5,7 @@ const { check } = require("express-validator");
 
 const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
-// import fetch from "node-fetch";
-// const { fetch } = require('node-fetch')
+
 
 //====== GET USERS THAT LOGGED USER FOLLOWS (FOLLOWS) ================//
 router.get('/users/me', requireAuth, async (req, res, next) => {
@@ -24,19 +23,18 @@ router.get('/users/me', requireAuth, async (req, res, next) => {
         })
         res.status(200)
         return res.json({
-            Follows: follows
+            LoggedUserFollowing: follows
         })
     } else {
-        const err = new Error("User with that id does not exist.");
-        err.message = "User with that id does not exist.";
+        const err = new Error("Could not find the logged User.");
+        err.message = "Could not find the logged User.";
         err.status = 401;
         return next(err);
     }
 })
 
-//====== GET USERS THAT FOLLOW USER (FOLLOWERS) ================//
+//=============== GET FOLOWERS ================//
 router.get('/users/:userId/followers', requireAuth, async (req, res, next) => {
-    const { loggedUserId } = req.user.id
     const { userId } = req.params;
     const user = await User.findByPk(userId);
 
@@ -52,19 +50,18 @@ router.get('/users/:userId/followers', requireAuth, async (req, res, next) => {
         })
         res.status(200)
         return res.json({
-            Follows: follows
+            Followers: follows
         })
     } else {
-        const err = new Error("User with that id does not exist.");
-        err.message = "User with that id does not exist.";
+        const err = new Error("Could not find a User with the specified id.");
+        err.message = "Could not find a User with the specified id.";
         err.status = 401;
         return next(err);
     }
 })
 
-//====== GET USERS THAT USER FOLLOWS (FOLLOWS) ================//
+//================= GET FOLLOWS ================//
 router.get('/users/:userId/following', requireAuth, async (req, res, next) => {
-    const { loggedUserId } = req.user.id
     const { userId } = req.params;
     const user = await User.findByPk(userId);
 
@@ -80,11 +77,11 @@ router.get('/users/:userId/following', requireAuth, async (req, res, next) => {
         })
         res.status(200)
         return res.json({
-            Follows: follows
+            Following: follows
         })
     } else {
-        const err = new Error("User with that id does not exist.");
-        err.message = "User with that id does not exist.";
+        const err = new Error("Could not find a User with the specified id.");
+        err.message = "Could not find a User with the specified id.";
         err.status = 401;
         return next(err);
     }
@@ -93,6 +90,7 @@ router.get('/users/:userId/following', requireAuth, async (req, res, next) => {
 //============= FOLLOW A USER (CREATE FOLLOW) ================//
 router.post('/users/:userId/follow', requireAuth, async (req, res, next) => {
     const { userId } = req.params;
+    const user = await User.findByPk(userId)
     const existingFollow = await Follow.findOne({
         where: {
             userId: req.user.id,
@@ -100,19 +98,27 @@ router.post('/users/:userId/follow', requireAuth, async (req, res, next) => {
         }
     })
 
-    if (existingFollow) {
-        const err = new Error("Cannot follow a user twice.");
-        err.message = "Cannot follow a user twice.";
-        err.status = 404;
-        return next(err);
+    if (user) {
+        if (existingFollow) {
+            const err = new Error("Cannot follow a user twice.");
+            err.message = "Cannot follow a user twice.";
+            err.status = 404;
+            return next(err);
+        } else {
+            const follow = await Follow.create({
+                userId: req.user.id,
+                followerId: userId
+            })
+            res.status(200)
+            return res.json(follow)
+        }
     } else {
-        const follow = await Follow.create({
-            userId: req.user.id,
-            followerId: userId
-        })
-        res.status(200)
-        return res.json(follow)
+        const err = new Error("Could not find a User with the specified id.");
+        err.message = "Could not find a User with the specified id.";
+        err.status = 401;
+        return next(err);
     }
+
 })
 
 //============== UNFOLLOW A USER (DELETE FOLLOW) =============//
@@ -133,8 +139,8 @@ router.delete('/users/:userId/follows/:followId', requireAuth, async (req, res, 
             return next(err);
         }
     } else {
-        const err = new Error("User with that id cannot be found.");
-        err.message = "User with that id cannot be found.";
+        const err = new Error("Could not find a User with the specified id.");
+        err.message = "Could not find a User with the specified id.";
         err.status = 404;
         return next(err);
     }
