@@ -68,25 +68,27 @@ router.get('/feed', requireAuth, async (req, res, next) => {
             userId
         }
     })
+    followers.push({ followerId: req.user.id })
 
     const tweets = []
     for (let i = 0; i < followers.length; i++) {
         let follower = followers[i]
+
         const tweet = await Tweet.findAll({
             where: {
-                userId: follower.userId
+                userId: follower.followerId
             },
             include: [{
                 model: User,
                 attributes: ['id', 'firstName', 'profileImage', 'username', 'verified']
             }]
         })
-        tweets.push(tweet)
+        tweets.push(...tweet)
     }
 
     const tweets2 = []
-    for (let i = 0; i < tweets[0].length; i++) {
-        let tweet = tweets[0][i];
+    for (let i = 0; i < tweets.length; i++) {
+        let tweet = tweets[i];
         const comments = await Comment.findAndCountAll({
             where: {
                 tweetId: tweet.id

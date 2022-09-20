@@ -37,6 +37,20 @@ module.exports = {
         tweet: 'Hello World',
         image: 'https://docs.microsoft.com/en-us/shows/hello-world/media/helloworld_383x215.png',
         gif: null
+      },
+      {
+        id: 6,
+        userId: 2,
+        tweet: '!!!',
+        image: null,
+        gif: null
+      },
+      {
+        id: 7,
+        userId: 1,
+        tweet: 'tweet tweet',
+        image: null,
+        gif: null
       }
     ])
   },
