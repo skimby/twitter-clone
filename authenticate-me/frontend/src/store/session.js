@@ -9,13 +9,13 @@ const REMOVE_USER = "session/removeUser";
 const setUser = (user) => {
   return {
     type: SET_USER,
-    payload: user,
+    payload: user
   };
 };
 
 const removeUser = () => {
   return {
-    type: REMOVE_USER,
+    type: REMOVE_USER
   };
 };
 
@@ -24,6 +24,9 @@ const removeUser = () => {
 export const login = (user) => async (dispatch) => {
   const { username, password } = user;
   const response = await csrfFetch("/api/session/login", {
+    headers: {
+      "Content-Type": "application/json"
+    },
     method: "POST",
     body: JSON.stringify({
       username,
@@ -36,6 +39,13 @@ export const login = (user) => async (dispatch) => {
   return data;
 };
 
+export const restoreUser = () => async (dispatch) => {
+  const response = await csrfFetch("/api/users/me");
+  const data = await response.json();
+  dispatch(setUser(data));
+  return response;
+};
+
 export const logout = () => async (dispatch) => {
   const response = await csrfFetch("/api/session/logout", {
     method: "DELETE",
@@ -44,12 +54,6 @@ export const logout = () => async (dispatch) => {
   return response;
 };
 
-export const restoreUser = () => async (dispatch) => {
-  const response = await csrfFetch("/api/session/login");
-  const data = await response.json();
-  dispatch(setUser(data.user));
-  return response;
-};
 
 export const signup = (user) => async (dispatch) => {
   const { firstName, lastName, username, email, password, profileImage } = user;

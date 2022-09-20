@@ -1,6 +1,6 @@
 // backend/routes/api/users.js
 const express = require("express");
-const { setTokenCookie, requireAuth } = require("../../utils/auth");
+const { setTokenCookie, requireAuth, restoreUser } = require("../../utils/auth");
 const { User, Tweet, Comment, Like, Follow } = require("../../db/models");
 const router = express.Router();
 const { check } = require("express-validator");
@@ -31,7 +31,7 @@ const validateSignup = [
 ];
 
 //================== GET LOGGED USER ==========================//
-router.get('/me', requireAuth, async (req, res) => {
+router.get('/me', requireAuth, restoreUser, async (req, res) => {
   const userId = req.user.id
   const user = await User.findByPk(userId);
   const { firstName, lastName, username, bio, location, website, profileImage, coverImage, verified, createdAt, updatedAt } = user;
