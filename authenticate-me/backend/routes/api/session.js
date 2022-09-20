@@ -19,9 +19,19 @@ const validateLogin = [
   handleValidationErrors
 ];
 
+// ============= RESTORE USER =================//
+router.get('/', restoreUser, (req, res) => {
+  const { user } = req;
+  if (user) {
+    return res.json({
+      user: user.toSafeObject()
+    });
+  } else return res.json({});
+}
+);
 
 // ============= LOG IN =================//
-router.post("/login", validateLogin, async (req, res, next) => {
+router.post("/login", validateLogin, restoreUser, async (req, res, next) => {
   const { username, password } = req.body;
 
   const user = await User.login({ username, password });
@@ -44,7 +54,7 @@ router.post("/login", validateLogin, async (req, res, next) => {
 
 
 // ============= LOG OUT =================//
-router.delete("/", (_req, res) => {
+router.delete("/logout", (_req, res) => {
   res.clearCookie("token");
   res.status(200)
   return res.json({ message: "success" });

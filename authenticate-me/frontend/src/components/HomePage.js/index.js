@@ -1,11 +1,14 @@
-
+import './index.css'
 
 function HomePage() {
 
 
     return (
         <>
-            <h1>Home Page</h1>
+            <div className='home-div'>
+                <h2>Home</h2>
+            </div>
+
         </>
     )
 }

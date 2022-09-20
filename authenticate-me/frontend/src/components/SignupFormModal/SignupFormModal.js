@@ -7,8 +7,15 @@ import "./SignupForm.css";
 function SignupForm() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [bio, setBio] = useState("");
+  const [location, setLocation] = useState("");
+  const [website, setWebsite] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+  const [coverImage, setCoverImage] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -19,7 +26,18 @@ function SignupForm() {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, password }))
+      return dispatch(sessionActions.signup({
+        firstName,
+        lastName,
+        username,
+        bio,
+        email,
+        location,
+        website,
+        profileImage,
+        coverImage,
+        password
+      }))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
@@ -33,6 +51,26 @@ function SignupForm() {
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
+      <label>
+        First Name
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+        />
+      </label>
+
+      <label>
+        Last Name
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          required
+        />
+      </label>
+
       <label>
         Email
         <input
@@ -51,6 +89,51 @@ function SignupForm() {
           required
         />
       </label>
+
+      <label>
+        Biography
+        <input
+          type="text"
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
+        />
+      </label>
+
+      <label>
+        Location
+        <input
+          type="text"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+      </label>
+
+      <label>
+        Website
+        <input
+          type="text"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+      </label>
+
+      <label>
+        Profile Image
+        <input
+          type="text"
+          value={profileImage}
+          onChange={(e) => setProfileImage(e.target.value)}
+        />
+      </label>
+      <label>
+        Cover Image
+        <input
+          type="text"
+          value={coverImage}
+          onChange={(e) => setCoverImage(e.target.value)}
+        />
+      </label>
+
       <label>
         Password
         <input

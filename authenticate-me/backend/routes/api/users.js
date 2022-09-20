@@ -128,7 +128,7 @@ router.get('/:userId', requireAuth, async (req, res, next) => {
 })
 
 //================== SIGN UP ==========================//
-router.post("/", validateSignup, async (req, res, next) => {
+router.post("/signup", validateSignup, async (req, res, next) => {
   const { firstName, lastName, email, password, username } = req.body;
 
   const existingEmail = await User.findOne({
