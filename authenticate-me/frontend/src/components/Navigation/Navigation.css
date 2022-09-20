@@ -32,3 +32,12 @@
 .logo-container {
     width: 35px;
 }
+
+.profile-image-box {
+    width: 40px;
+}
+
+.profile-img {
+    width: 43px;
+    border-radius: 100%;
+}
