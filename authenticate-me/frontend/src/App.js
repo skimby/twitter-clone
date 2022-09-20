@@ -20,19 +20,16 @@ function App() {
       <div id='main-container'>
 
         <Navigation isLoaded={isLoaded} />
-        {/* <Route path='/signup' exact >
-        <SignupFormModal />
-      </Route>
-      <Route path='/login' exact >
-        <LoginFormModal />
-      </Route> */}
+
         {isLoaded && (
           <Switch>
-            <div id="middle-container">
-              <Route path='/' exact >
-                <HomePage />
-              </Route>
-            </div>
+            <>
+              <div id="middle-container">
+                <Route path='/' exact >
+                  <HomePage />
+                </Route>
+              </div>
+            </>
           </Switch>
         )}
       </div>

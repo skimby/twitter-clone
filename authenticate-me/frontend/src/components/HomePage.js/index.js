@@ -11,7 +11,6 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(getFeedTweetsBackend())
-        console.log(tweets)
 
     }, [dispatch])
 
