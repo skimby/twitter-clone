@@ -7,7 +7,8 @@ function EditFormModal({ tweetId, tweet }) {
 
     return (
         <>
-            <i onClick={() => setShowModal(true)} className="fa-solid fa-ellipsis"></i>
+            <p onClick={() => setShowModal(true)} >Edit Tweet</p>
+
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
                     <EditTweetForm tweetId={tweetId} tweet={tweet} />

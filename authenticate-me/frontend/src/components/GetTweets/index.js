@@ -1,25 +1,24 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { getFeedTweetsBackend, deleteTweetBackend } from '../../store/tweet';
 import { editTweetBackend } from '../../store/tweet';
-
-import EditFormModal from './EditTweetModule';
+import TweetSettingsModal from './TweetSettingsModal';
+import EditFormModal from './EditTweetModal';
+import DeleteTweetModal from './DeleteTweetModal';
 import './GetTweets.css'
 
 
 function GetTweets() {
     const dispatch = useDispatch();
-
+    const [showSettings, setShowSettings] = useState(false);
+    const [isUserTweet, setIsUserTweet] = useState();
     const tweets = useSelector(state => state.tweets)
+
 
     useEffect(() => {
         dispatch(getFeedTweetsBackend())
     }, [dispatch])
 
-    const deleteTweet = () => {
-        // *** maybe need to build out the drop down link so you have access to tweetId to delete it.
-        // dispatch(deleteTweetBackend(tweetId))
-    }
 
     return (
         <>
@@ -35,10 +34,14 @@ function GetTweets() {
                                 <div>
                                     <h5>{tweet?.User?.firstName}  <span className='thin-styling'>@{tweet?.User?.username}</span></h5>
                                 </div>
+
                                 <div>
                                     <p>{tweet?.tweet}</p>
-                                    <EditFormModal tweetId={tweet?.id} tweet={tweet} />
-                                    <button onClick={deleteTweet}>Delete Tweet</button>
+                                </div>
+
+
+                                <div className='settings-btn' >
+                                    <TweetSettingsModal tweet={tweet} />
                                 </div>
 
                             </div>

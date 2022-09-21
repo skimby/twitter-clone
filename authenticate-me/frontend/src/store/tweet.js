@@ -70,7 +70,10 @@ export const editTweetBackend = (tweetId, tweetEdit) => async (dispatch) => {
 
 // DELETE TWEET
 export const deleteTweetBackend = (tweetId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/tweets/${tweetId}/delete`);
+    console.log(tweetId)
+    const res = await csrfFetch(`/api/tweets/${tweetId}/delete`, {
+        method: 'DELETE'
+    });
     if (res.ok) {
         const parsedRes = await res.json();
         dispatch(deleteTweet(parsedRes));

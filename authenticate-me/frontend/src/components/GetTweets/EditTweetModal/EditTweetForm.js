@@ -7,7 +7,6 @@ function EditTweetForm({ tweet, tweetId }) {
 
     const [editTweet, setEditTweet] = useState(tweet?.tweet);
 
-
     const handleSubmit = async () => {
         const tweetInput = { tweet: editTweet }
         await dispatch(editTweetBackend(tweetId, tweetInput))

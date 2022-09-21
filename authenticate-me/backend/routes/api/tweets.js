@@ -33,34 +33,6 @@ router.post('/create', requireAuth, validateTweet, async (req, res, next) => {
     return res.json(newTweet)
 })
 
-//===================== EDIT A TWEET ===================//
-router.put('/:tweetId', requireAuth, validateTweet, async (req, res, next) => {
-    const { tweetId } = req.params;
-    const { tweet } = req.body;
-    const findTweet = await Tweet.findByPk(tweetId);
-
-
-    if (findTweet) {
-        if (findTweet.userId === req.user.id) {
-            findTweet.tweet = tweet
-            await findTweet.save();
-            res.status(201)
-            return res.json(findTweet)
-        } else {
-            const err = new Error("Cannot edit a tweet that is not yours.");
-            err.message = "Cannot edit a tweet that is not yours.";
-            err.status = 404;
-            return next(err);
-        }
-    } else {
-        const err = new Error("Could not find a tweet with the specified id.");
-        err.message = "Could not find a tweet with the specified id.";
-        err.status = 404;
-        return next(err);
-    }
-})
-
-
 
 //==== FEED PAGE: GET ALL TWEETS FROM FOLLOWED USERS ONLY =====//
 router.get('/feed', requireAuth, async (req, res, next) => {
@@ -209,6 +181,35 @@ router.get('/:tweetId', async (req, res, next) => {
     }
 })
 
+
+//===================== EDIT A TWEET ===================//
+router.put('/:tweetId', requireAuth, validateTweet, async (req, res, next) => {
+    const { tweetId } = req.params;
+    const { tweet } = req.body;
+    const findTweet = await Tweet.findByPk(tweetId);
+
+
+    if (findTweet) {
+        if (findTweet.userId === req.user.id) {
+            findTweet.tweet = tweet
+            await findTweet.save();
+            res.status(201)
+            return res.json(findTweet)
+        } else {
+            const err = new Error("Cannot edit a tweet that is not yours.");
+            err.message = "Cannot edit a tweet that is not yours.";
+            err.status = 404;
+            return next(err);
+        }
+    } else {
+        const err = new Error("Could not find a tweet with the specified id.");
+        err.message = "Could not find a tweet with the specified id.";
+        err.status = 404;
+        return next(err);
+    }
+})
+
+
 //============== GET ALL TWEETS BY USER ID ===============//
 router.get('/users/:userId', requireAuth, async (req, res, next) => {
     const userId = req.user.id
@@ -256,10 +257,11 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
 })
 
 //================== DELETE A TWEET =================//
-router.post('/:tweetId/delete', requireAuth, async (req, res, next) => {
-    const tweetId = req.params;
+router.delete('/:tweetId/delete', requireAuth, async (req, res, next) => {
+    const { tweetId } = req.params;
     const tweet = await Tweet.findByPk(tweetId);
 
+    console.log(tweet)
     if (tweet) {
         const deletedTweet = await tweet.destroy();
         res.status(201)
