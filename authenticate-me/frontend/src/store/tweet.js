@@ -3,6 +3,8 @@ import { csrfFetch } from "./csrf";
 // TYPE
 const CREATE_TWEET = 'tweets/createTweet';
 const GET_FEED_TWEETS = 'tweets/getFeedTweets'
+const EDIT_TWEET = 'tweets/editTweet'
+
 
 // ACTION
 const createTweet = (tweet) => {
@@ -16,6 +18,13 @@ const getFeedTweets = (tweets) => {
     return {
         type: GET_FEED_TWEETS,
         payload: tweets
+    }
+}
+
+const editTweet = (tweet) => {
+    return {
+        type: EDIT_TWEET,
+        payload: tweet
     }
 }
 
@@ -40,6 +49,19 @@ export const getFeedTweetsBackend = () => async (dispatch) => {
     dispatch(getFeedTweets(parsedRes));
 }
 
+// EDIT TWEET
+export const editTweetBackend = (tweetId, tweetEdit) => async (dispatch) => {
+    console.log(tweetEdit)
+    const res = await csrfFetch(`/api/tweets/${tweetId}`, {
+        method: "PUT",
+        body: JSON.stringify(tweetEdit)
+    });
+    if (res.ok) {
+        const parsedRes = await res.json();
+        dispatch(editTweet(parsedRes));
+    }
+}
+
 //REDUCER
 const initialState = { feedTweets: {}, exploreTweets: {}, loggedUserTweets: {}, userTweets: {} }
 
@@ -58,6 +80,15 @@ const tweetsReducer = (state = initialState, action) => {
                 getFeedTweetsState.feedTweets[tweet.id] = tweet
             });
             return getFeedTweetsState;
+
+        case EDIT_TWEET:
+            console.log(action.payload)
+
+            const editTweetState = { ...state };
+            editTweetState.feedTweets[action.payload.id] = action.payload;
+            // editTweetState.exploreTweets[action.payload.id] = action.payload;
+            // editTweetState.loggedUserTweets[action.payload.id] = action.payload;
+            return editTweetState;
 
         default:
             return state;

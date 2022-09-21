@@ -39,6 +39,7 @@ router.put('/:tweetId', requireAuth, validateTweet, async (req, res, next) => {
     const { tweet } = req.body;
     const findTweet = await Tweet.findByPk(tweetId);
 
+
     if (findTweet) {
         if (findTweet.userId === req.user.id) {
             findTweet.tweet = tweet

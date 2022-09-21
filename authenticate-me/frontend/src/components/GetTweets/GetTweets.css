@@ -1,0 +1,31 @@
+.tweet-container {
+    padding: 3% 0;
+    display: block;
+
+}
+
+.tweet-container .profile-img {
+    display: inline-block;
+    margin-right: 14px;
+}
+
+.tweet-text-box {
+    display: inline-block;
+}
+
+h5 {
+    font-size: 15px;
+    margin: 0;
+}
+
+.thin-styling {
+    font-weight: 400;
+}
+
+.tweet-text-box p {
+    margin: 0;
+}
+
+.tweet-icon-box {
+    display: inline-flex;
+}
