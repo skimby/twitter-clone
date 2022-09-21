@@ -25,7 +25,6 @@ function EditTweetForm({ tweet, tweetId }) {
                 />
             </label>
             <button type="submit">Tweet</button>
-
         </form>
     )
 }

@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { getFeedTweetsBackend } from '../../store/tweet';
+import { getFeedTweetsBackend, deleteTweetBackend } from '../../store/tweet';
 import { editTweetBackend } from '../../store/tweet';
+
 import EditFormModal from './EditTweetModule';
 import './GetTweets.css'
 
@@ -11,11 +12,14 @@ function GetTweets() {
 
     const tweets = useSelector(state => state.tweets)
 
-
     useEffect(() => {
         dispatch(getFeedTweetsBackend())
     }, [dispatch])
 
+    const deleteTweet = () => {
+        // *** maybe need to build out the drop down link so you have access to tweetId to delete it.
+        // dispatch(deleteTweetBackend(tweetId))
+    }
 
     return (
         <>
@@ -34,6 +38,7 @@ function GetTweets() {
                                 <div>
                                     <p>{tweet?.tweet}</p>
                                     <EditFormModal tweetId={tweet?.id} tweet={tweet} />
+                                    <button onClick={deleteTweet}>Delete Tweet</button>
                                 </div>
 
                             </div>

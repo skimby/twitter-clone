@@ -4,7 +4,7 @@ import { csrfFetch } from "./csrf";
 const CREATE_TWEET = 'tweets/createTweet';
 const GET_FEED_TWEETS = 'tweets/getFeedTweets'
 const EDIT_TWEET = 'tweets/editTweet'
-
+const DELETE_TWEET = 'tweets/deleteTweet'
 
 // ACTION
 const createTweet = (tweet) => {
@@ -22,6 +22,13 @@ const getFeedTweets = (tweets) => {
 }
 
 const editTweet = (tweet) => {
+    return {
+        type: EDIT_TWEET,
+        payload: tweet
+    }
+}
+
+const deleteTweet = (tweet) => {
     return {
         type: EDIT_TWEET,
         payload: tweet
@@ -51,7 +58,6 @@ export const getFeedTweetsBackend = () => async (dispatch) => {
 
 // EDIT TWEET
 export const editTweetBackend = (tweetId, tweetEdit) => async (dispatch) => {
-    console.log(tweetEdit)
     const res = await csrfFetch(`/api/tweets/${tweetId}`, {
         method: "PUT",
         body: JSON.stringify(tweetEdit)
@@ -59,6 +65,15 @@ export const editTweetBackend = (tweetId, tweetEdit) => async (dispatch) => {
     if (res.ok) {
         const parsedRes = await res.json();
         dispatch(editTweet(parsedRes));
+    }
+}
+
+// DELETE TWEET
+export const deleteTweetBackend = (tweetId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/tweets/${tweetId}/delete`);
+    if (res.ok) {
+        const parsedRes = await res.json();
+        dispatch(deleteTweet(parsedRes));
     }
 }
 
@@ -82,14 +97,19 @@ const tweetsReducer = (state = initialState, action) => {
             return getFeedTweetsState;
 
         case EDIT_TWEET:
-            console.log(action.payload)
-
             const editTweetState = { ...state };
             editTweetState.feedTweets[action.payload.id] = action.payload;
-            // editTweetState.exploreTweets[action.payload.id] = action.payload;
-            // editTweetState.loggedUserTweets[action.payload.id] = action.payload;
+            editTweetState.exploreTweets[action.payload.id] = action.payload;
+            editTweetState.loggedUserTweets[action.payload.id] = action.payload;
             return editTweetState;
 
+        case DELETE_TWEET:
+            const deleteTweetState = { ...state };
+            delete deleteTweetState.feedTweets[action.payload.id]
+            delete deleteTweetState.exploreTweets[action.payload.id]
+            delete deleteTweetState.loggedUserTweets[action.payload.id]
+
+            return deleteTweetState;
         default:
             return state;
     }
