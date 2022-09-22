@@ -7,10 +7,10 @@ function DeleteTweetModal({ tweetId }) {
     return (
         <>
             <p onClick={() => setShowModal(true)} >Delete Tweet</p>
-            {/* <i onClick={() => setShowModal(true)} className="fa-solid fa-ellipsis"></i> */}
+
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <DeleteTweetForm tweetId={tweetId} />
+                    <DeleteTweetForm tweetId={tweetId} setShowModal={setShowModal} />
                 </Modal>
             )}
         </>

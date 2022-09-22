@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { getFeedTweetsBackend, deleteTweetBackend } from '../../store/tweet';
-import { editTweetBackend } from '../../store/tweet';
+import { getFeedTweetsBackend } from '../../store/tweet';
 import TweetSettingsModal from './TweetSettingsModal';
-import EditFormModal from './EditTweetModal';
-import DeleteTweetModal from './DeleteTweetModal';
+
 import './GetTweets.css'
 
 
 function GetTweets() {
     const dispatch = useDispatch();
-    const [showSettings, setShowSettings] = useState(false);
-    const [isUserTweet, setIsUserTweet] = useState();
     const tweets = useSelector(state => state.tweets)
 
 
@@ -38,7 +34,6 @@ function GetTweets() {
                                 <div>
                                     <p>{tweet?.tweet}</p>
                                 </div>
-
 
                                 <div className='settings-btn' >
                                     <TweetSettingsModal tweet={tweet} />

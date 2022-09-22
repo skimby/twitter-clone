@@ -18,7 +18,6 @@ const validateTweet = [
 //================== CREATE A TWEET =================//
 router.post('/create', requireAuth, validateTweet, async (req, res, next) => {
     let { tweet, image, gif } = req.body;
-    console.log(req.body)
 
     if (image === undefined) image = null;
     if (gif === undefined) gif = null;
@@ -29,6 +28,10 @@ router.post('/create', requireAuth, validateTweet, async (req, res, next) => {
         image,
         gif
     })
+
+    const user = await User.findByPk(req.user.id);
+    newTweet.dataValues.User = user
+
     res.status(201)
     return res.json(newTweet)
 })

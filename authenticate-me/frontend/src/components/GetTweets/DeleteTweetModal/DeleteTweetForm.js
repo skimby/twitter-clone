@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { deleteTweetBackend } from '../../../store/tweet';
+import { useHistory } from 'react-router-dom';
 
-function DeleteTweetForm({ tweetId }) {
+
+function DeleteTweetForm({ tweetId, setShowModal }) {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleDelete = async () => {
         await dispatch(deleteTweetBackend(tweetId))
+        setShowModal(false)
+        history.push('/')
     }
 
     return (

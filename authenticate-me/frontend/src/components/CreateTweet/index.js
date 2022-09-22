@@ -36,7 +36,8 @@ function CreateTweet() {
             gif,
             image
         }
-        dispatch(createTweetBackend(tweetInput))
+        console.log(tweetInput)
+        await dispatch(createTweetBackend(tweetInput))
     }
 
 

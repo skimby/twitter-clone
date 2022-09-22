@@ -8,7 +8,6 @@ import './HomePage.css'
 function HomePage() {
     const dispatch = useDispatch();
 
-
     return (
         <>
             <div className='home-div'>
@@ -22,8 +21,6 @@ function HomePage() {
             <div>
                 <GetTweets />
             </div>
-
-
 
         </>
     )

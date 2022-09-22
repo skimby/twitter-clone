@@ -1,11 +1,7 @@
-import { useState } from "react";
-import { useDispatch } from 'react-redux';
 import EditFormModal from "../EditTweetModal";
 import DeleteTweetModal from "../DeleteTweetModal";
 
 function TweetSettings({ tweet }) {
-    const dispatch = useDispatch();
-
 
     return (
         <div className='settings-box'>

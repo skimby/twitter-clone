@@ -30,7 +30,7 @@ const editTweet = (tweet) => {
 
 const deleteTweet = (tweet) => {
     return {
-        type: EDIT_TWEET,
+        type: DELETE_TWEET,
         payload: tweet
     }
 }
@@ -44,6 +44,7 @@ export const createTweetBackend = (tweetInput) => async (dispatch) => {
 
     if (res.ok) {
         const parsedRes = await res.json();
+        console.log(parsedRes)
         dispatch(createTweet(parsedRes));
         return parsedRes;
     }
@@ -70,7 +71,6 @@ export const editTweetBackend = (tweetId, tweetEdit) => async (dispatch) => {
 
 // DELETE TWEET
 export const deleteTweetBackend = (tweetId) => async (dispatch) => {
-    console.log(tweetId)
     const res = await csrfFetch(`/api/tweets/${tweetId}/delete`, {
         method: 'DELETE'
     });
@@ -87,9 +87,9 @@ const tweetsReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_TWEET:
             const createTweetState = { ...state };
-            createTweetState.feedTweets = action.payload;
-            createTweetState.exploreTweets = action.payload;
-            createTweetState.loggedUserTweets = action.payload;
+            createTweetState.feedTweets[action.payload.id] = action.payload;
+            createTweetState.exploreTweets[action.payload.id] = action.payload;
+            createTweetState.loggedUserTweets[action.payload.id] = action.payload;
             return createTweetState;
 
         case GET_FEED_TWEETS:
