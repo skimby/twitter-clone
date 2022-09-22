@@ -5,6 +5,7 @@ import ProfileButton from "./ProfileButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import logo from '../../images/twitter-logo.png'
+import CreateTweetModal from "../CreateTweetModal";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
@@ -44,7 +45,8 @@ function Navigation({ isLoaded }) {
         {isLoaded && sessionLinks}
       </li>
       <li>
-        <button className="nav-button">Tweet</button>
+        <CreateTweetModal />
+
       </li>
     </ul >
   );
