@@ -43,3 +43,12 @@
     object-fit: cover;
     border-radius: 100%;
 }
+
+.user-info-container {
+    display: inline-flex;
+}
+
+.user-info-content {
+    width: 80%;
+    padding-left: 15px;
+}
