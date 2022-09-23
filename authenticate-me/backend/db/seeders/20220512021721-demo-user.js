@@ -10,10 +10,10 @@ module.exports = {
         email: "demo@user.io",
         username: "demo",
         bio: 'I am a demo user',
-        location: null,
-        website: null,
+        location: 'Dallas, TX',
+        website: 'www.demo.com',
         profileImage: 'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F47%2F2020%2F11%2F03%2Fpomeranian-172575221-2000.jpg',
-        coverImage: null,
+        coverImage: 'https://www.akc.org/wp-content/uploads/2017/11/Pomeranian-puppies-sitting-on-a-white-background.jpg',
         verified: false,
         password: bcrypt.hashSync("password")
       },

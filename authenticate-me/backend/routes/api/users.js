@@ -34,7 +34,12 @@ const validateSignup = [
 router.get('/me', requireAuth, restoreUser, async (req, res) => {
   const userId = req.user.id
   const user = await User.findByPk(userId);
-  const { firstName, lastName, username, bio, location, website, profileImage, coverImage, verified, createdAt, updatedAt } = user;
+  let { firstName, lastName, username, bio, location, website, profileImage, coverImage, verified, createdAt, updatedAt } = user;
+  console.log('----')
+  console.log(createdAt.toString().split(' '))
+  // createdAt.split(' ')
+  console.log(createdAt)
+
   const tweets = await Tweet.findAndCountAll({
     where: {
       userId
@@ -67,8 +72,8 @@ router.get('/me', requireAuth, restoreUser, async (req, res) => {
       tweetCount: tweets.count,
       followingCount: following.count,
       followerCount: followers.count,
-      createdAt,
-      updatedAt
+      createdAt: createdAt.toDateString().toString().split(' '),
+      updatedAt: updatedAt.toDateString().toString().split(' ')
     })
   } else {
     const err = new Error("There is no user logged in.");
@@ -115,8 +120,8 @@ router.get('/:userId', requireAuth, async (req, res, next) => {
       tweetCount: tweets.count,
       followingCount: following.count,
       followerCount: followers.count,
-      createdAt,
-      updatedAt
+      createdAt: createdAt.toDateString().toString().split(' '),
+      updatedAt: updatedAt.toDateString().toString().split(' ')
     })
   } else {
     res.status(404)

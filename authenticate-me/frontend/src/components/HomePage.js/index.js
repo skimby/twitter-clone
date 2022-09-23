@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import CreateTweet from '../CreateTweet';
 import GetTweets from '../GetTweets';
+import { getFeedTweetsBackend } from '../../store/tweet'
 import SignupPage from '../SignupPage';
 import './HomePage.css'
 
@@ -10,9 +11,11 @@ function HomePage() {
     const [isLoggedIn, setIsLoggedIn] = useState();
 
     const sessionUser = useSelector(state => state.session);
+    const tweets = useSelector(state => state.tweets)
 
-    console.log(isLoggedIn)
-    console.log(sessionUser)
+    useEffect(() => {
+        dispatch(getFeedTweetsBackend())
+    }, [dispatch])
 
     useEffect(() => {
         if (sessionUser?.user) {
@@ -37,7 +40,7 @@ function HomePage() {
                 </div>
 
                 <div>
-                    <GetTweets />
+                    <GetTweets tweets={tweets?.feedTweets} />
                 </div>
             </div>
         </>

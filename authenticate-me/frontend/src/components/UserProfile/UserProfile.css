@@ -1,0 +1,18 @@
+.cover-img {
+    max-height: 190px;
+    width: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.user-profile-img-big {
+    width: 133px;
+    height: 133px;
+    object-fit: cover;
+    border-radius: 100%;
+    border: 5px white solid;
+    z-index: 1;
+    position: relative;
+    top: -70px;
+    left: 20px
+}

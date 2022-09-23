@@ -1,25 +1,14 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from "react-redux"
-import { getFeedTweetsBackend } from '../../store/tweet';
 import TweetSettingsModal from './TweetSettingsModal';
 
 import './GetTweets.css'
 
 
-function GetTweets() {
-    const dispatch = useDispatch();
-    const tweets = useSelector(state => state.tweets)
-
-
-    useEffect(() => {
-        dispatch(getFeedTweetsBackend())
-    }, [dispatch])
-
+function GetTweets({ tweets }) {
 
     return (
         <>
-            {tweets?.feedTweets && (
-                Object.values(tweets?.feedTweets).map((tweet, index) => {
+            {tweets && (
+                Object.values(tweets).map((tweet, index) => {
                     return (
                         <div className='tweet-container' key={index}>
                             <div className='profile-img'>
@@ -28,7 +17,7 @@ function GetTweets() {
 
                             <div className='tweet-text-box'>
                                 <div>
-                                    <h5>{tweet?.User?.firstName}  <span className='thin-styling'>@{tweet?.User?.username}</span></h5>
+                                    <h5>{tweet?.User?.firstName}  <span className='thin-styling'>@{tweet?.username}</span></h5>
                                 </div>
 
                                 <div>

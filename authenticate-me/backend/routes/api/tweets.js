@@ -222,7 +222,11 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
         const tweets = await Tweet.findAll({
             where: {
                 userId
-            }
+            },
+            include: [{
+                model: User,
+                attributes: ['id', 'firstName', 'profileImage', 'username', 'verified']
+            }]
         })
 
         for (let i = 0; i < tweets.length; i++) {
@@ -249,7 +253,7 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
 
         res.status(200)
         return res.json({
-            Tweet: tweets
+            Tweets: tweets
         })
     } else {
         const err = new Error("Could not find a user with that id.");

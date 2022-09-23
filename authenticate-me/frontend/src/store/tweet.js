@@ -5,6 +5,7 @@ const CREATE_TWEET = 'tweets/createTweet';
 const GET_FEED_TWEETS = 'tweets/getFeedTweets'
 const EDIT_TWEET = 'tweets/editTweet'
 const DELETE_TWEET = 'tweets/deleteTweet'
+const GET_TWEETS_USER = 'tweets/getTweetsUser'
 
 // ACTION
 const createTweet = (tweet) => {
@@ -35,6 +36,13 @@ const deleteTweet = (tweet) => {
     }
 }
 
+const getTweetsUser = (tweets) => {
+    return {
+        type: GET_TWEETS_USER,
+        payload: tweets
+    }
+}
+
 // THUNK
 export const createTweetBackend = (tweetInput) => async (dispatch) => {
     const res = await csrfFetch('/api/tweets/create', {
@@ -44,7 +52,6 @@ export const createTweetBackend = (tweetInput) => async (dispatch) => {
 
     if (res.ok) {
         const parsedRes = await res.json();
-        console.log(parsedRes)
         dispatch(createTweet(parsedRes));
         return parsedRes;
     }
@@ -79,6 +86,13 @@ export const deleteTweetBackend = (tweetId) => async (dispatch) => {
         dispatch(deleteTweet(parsedRes));
     }
 }
+// GET TWEETS BY USER
+export const getTweetsUserBackend = (userId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/tweets/users/${userId}`);
+    const parsedRes = await res.json();
+    dispatch(getTweetsUser(parsedRes));
+}
+
 
 //REDUCER
 const initialState = { feedTweets: {}, exploreTweets: {}, loggedUserTweets: {}, userTweets: {} }
@@ -113,6 +127,14 @@ const tweetsReducer = (state = initialState, action) => {
             delete deleteTweetState.loggedUserTweets[action.payload.id]
 
             return deleteTweetState;
+        case GET_TWEETS_USER:
+            console.log(action.payload)
+            const getTweetsUser = { ...state }
+            action.payload.Tweets.forEach(tweet => {
+                getTweetsUser.userTweets[tweet.id] = tweet
+            })
+
+            return getTweetsUser;
         default:
             return state;
     }
