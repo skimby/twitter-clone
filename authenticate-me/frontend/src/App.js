@@ -15,25 +15,17 @@ function App() {
 
   const sessionUser = useSelector(state => state.session.user)
 
-  console.log(sessionUser)
+  // console.log(sessionUser.user, isLoggedIn)
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (sessionUser.length > 0) {
-      setIsLoggedIn(true)
-      console.log('is logged in')
-    } else {
-      setIsLoggedIn(false)
-      console.log('is not logged in')
-    }
-  }, [])
+
 
   return (
     <>
-      {isLoggedIn && (
+      {sessionUser?.user && (
         <div id='main-container'>
           <Navigation isLoaded={isLoaded} />
 
@@ -53,7 +45,7 @@ function App() {
         </div>
       )}
 
-      {!isLoggedIn && (
+      {!sessionUser?.user && (
         <SignupPage />
       )}
     </>

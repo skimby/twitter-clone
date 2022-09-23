@@ -1,4 +1,5 @@
-
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 
 function SignupPage() {
 
@@ -6,6 +7,8 @@ function SignupPage() {
         <>
             <h1>Happening now</h1>
             <h2>Join Twitter today.</h2>
+            <LoginFormModal />
+            <SignupFormModal />
         </>
     )
 }
