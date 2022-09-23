@@ -9,8 +9,9 @@ function CreateTweetForm({ setShowModal }) {
     const [gif, setGif] = useState();
     const [image, setImage] = useState();
 
-    const user = useSelector(state => state.session.user.user);
+    const user = useSelector(state => state.session);
 
+    console.log(user)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,7 +35,7 @@ function CreateTweetForm({ setShowModal }) {
     return (
         <div>
             <div className='profile-image-box'>
-                {user?.profileImage && (
+                {user?.user?.profileImage && (
                     <img className='profile-img' src={user.profileImage} />
                 )}
                 {!user?.profileImage && (

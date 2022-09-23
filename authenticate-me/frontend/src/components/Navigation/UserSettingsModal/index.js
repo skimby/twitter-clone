@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux"
 function UserSettingsModal() {
     const [showModal, setShowModal] = useState(false);
     const [isUsersTweet, setIsUsersTweet] = useState();
-    const loggedUser = useSelector(state => state.session)
 
     useEffect(() => {
         // if (loggedUser?.user?.user?.id == tweet?.id) {

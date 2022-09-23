@@ -4,7 +4,7 @@ import { logout } from '../../../store/session'
 
 function UserSettings() {
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.session.user)
+    const sessionUser = useSelector(state => state.session)
 
     const handleLogout = () => {
         dispatch(logout())

@@ -11,7 +11,7 @@ import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session);
-  const user = `/${sessionUser?.user?.user?.username}`;
+  const user = `/${sessionUser?.user?.username}`;
 
 
   return (
@@ -47,13 +47,13 @@ function Navigation({ isLoaded }) {
 
         <div className='user-info-container' >
           <div className='profile-img'>
-            <img className='profile-img' src={sessionUser?.user?.user?.profileImage} />
+            <img className='profile-img' src={sessionUser?.user?.profileImage} />
           </div>
 
           <div className='user-info-content'>
             <div>
-              <h5>{sessionUser?.user?.user?.firstName}</h5>
-              <h5>  <span className='thin-styling'>@{sessionUser?.user?.user?.username}</span></h5>
+              <h5>{sessionUser?.user?.firstName}</h5>
+              <h5>  <span className='thin-styling'>@{sessionUser?.user?.username}</span></h5>
             </div>
 
             <div>

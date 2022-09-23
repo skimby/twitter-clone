@@ -9,13 +9,13 @@ function HomePage() {
     const dispatch = useDispatch();
     const [isLoggedIn, setIsLoggedIn] = useState();
 
-    const sessionUser = Object.values(useSelector(state => state.session.user));
+    const sessionUser = useSelector(state => state.session);
 
     console.log(isLoggedIn)
     console.log(sessionUser)
 
     useEffect(() => {
-        if (sessionUser.length > 0) {
+        if (sessionUser?.user) {
             setIsLoggedIn(true)
             console.log('is logged in')
         } else {

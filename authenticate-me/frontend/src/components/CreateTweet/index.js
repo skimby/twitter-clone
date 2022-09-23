@@ -15,7 +15,7 @@ function CreateTweet() {
     const [gif, setGif] = useState();
     const [image, setImage] = useState();
 
-    const user = useSelector(state => state.session.user.user);
+    const user = useSelector(state => state.session);
 
     // //emoji
     // useEffect(() => {
@@ -36,7 +36,6 @@ function CreateTweet() {
             gif,
             image
         }
-        console.log(tweetInput)
         await dispatch(createTweetBackend(tweetInput))
     }
 
@@ -50,10 +49,10 @@ function CreateTweet() {
     return (
         <div>
             <div className='profile-image-box'>
-                {user?.profileImage && (
-                    <img className='profile-img' src={user.profileImage} />
+                {user?.user?.profileImage && (
+                    <img className='profile-img' src={user?.user?.profileImage} />
                 )}
-                {!user?.profileImage && (
+                {!user?.user?.profileImage && (
                     <img className='profile-img' src='https://secure.gravatar.com/avatar/c51f0fc9375c537923f6bf012b337f43?s=150&d=mm&r=g' />
                 )}
                 <form onSubmit={handleSubmit} className='form'>

@@ -94,8 +94,9 @@ const sessionReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case SET_USER:
+      console.log(action.payload)
       const setUserState = { ...state };
-      setUserState.user = action.payload;
+      setUserState.user = action.payload.user;
       return setUserState;
 
     case REMOVE_USER:
