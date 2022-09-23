@@ -35,6 +35,7 @@ function GetTweets() {
                                     <p>{tweet?.tweet}</p>
                                 </div>
 
+
                                 <div className='settings-btn' >
                                     <TweetSettingsModal tweet={tweet} />
                                 </div>

@@ -12,7 +12,6 @@ function App() {
 
   const sessionUser = useSelector(state => state.session)
 
-  console.log(sessionUser)
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -22,7 +21,7 @@ function App() {
 
   return (
     <>
-      {sessionUser?.user?.user && (
+      {sessionUser?.user && (
         <div id='main-container'>
           <Navigation isLoaded={isLoaded} />
 
@@ -42,7 +41,7 @@ function App() {
         </div>
       )}
 
-      {!sessionUser?.user?.user && (
+      {!sessionUser?.user && (
         <SignupPage />
       )}
     </>

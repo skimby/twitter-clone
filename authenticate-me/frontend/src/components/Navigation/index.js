@@ -13,21 +13,6 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session);
   const user = `/${sessionUser?.user?.user?.username}`;
 
-  // let sessionLinks;
-  // if (sessionUser) {
-  //   sessionLinks = <>
-  //     {/* <i className="fa-regular fa-user nav-icons"></i> */}
-  //     <ProfileButton user={sessionUser} />
-  //   </>;
-  // } else {
-
-  //   sessionLinks = (
-  //     <>
-  //       <LoginFormModal />
-  //       <SignupFormModal />
-  //     </>
-  //   );
-  // }
 
   return (
     <ul className="nav-container">
@@ -52,9 +37,7 @@ function Navigation({ isLoaded }) {
           <h3>Profile</h3>
         </NavLink>
       </li>
-      {/* <li>
-        {isLoaded && sessionLinks}
-      </li> */}
+
       <li>
         <CreateTweetModal />
 
