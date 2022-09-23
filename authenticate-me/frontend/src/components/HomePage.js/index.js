@@ -2,11 +2,27 @@ import { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import CreateTweet from '../CreateTweet';
 import GetTweets from '../GetTweets';
-
+import SignupPage from '../SignupPage';
 import './HomePage.css'
 
 function HomePage() {
     const dispatch = useDispatch();
+    const [isLoggedIn, setIsLoggedIn] = useState();
+
+    const sessionUser = Object.values(useSelector(state => state.session.user));
+
+    console.log(isLoggedIn)
+    console.log(sessionUser)
+
+    useEffect(() => {
+        if (sessionUser.length > 0) {
+            setIsLoggedIn(true)
+            console.log('is logged in')
+        } else {
+            setIsLoggedIn(false)
+            console.log('is not logged in')
+        }
+    }, [])
 
     return (
         <>
@@ -21,8 +37,8 @@ function HomePage() {
             <div>
                 <GetTweets />
             </div>
-
         </>
+
     )
 }
 
