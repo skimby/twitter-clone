@@ -3,19 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import HomePage from "./components/HomePage.js";
 import SignupPage from "./components/SignupPage/index.js";
-import SignupFormModal from "./components/SignupFormModal";
-import LoginFormModal from "./components/LoginFormModal";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState();
 
-  const sessionUser = useSelector(state => state.session.user)
+  const sessionUser = useSelector(state => state.session)
 
-  // console.log(sessionUser.user, isLoggedIn)
+  console.log(sessionUser)
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -25,7 +22,7 @@ function App() {
 
   return (
     <>
-      {sessionUser?.user && (
+      {sessionUser?.user?.user && (
         <div id='main-container'>
           <Navigation isLoaded={isLoaded} />
 
@@ -45,7 +42,7 @@ function App() {
         </div>
       )}
 
-      {!sessionUser?.user && (
+      {!sessionUser?.user?.user && (
         <SignupPage />
       )}
     </>
