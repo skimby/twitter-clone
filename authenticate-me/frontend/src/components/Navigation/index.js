@@ -40,12 +40,10 @@ function Navigation({ isLoaded }) {
 
       <li>
         <CreateTweetModal />
-
       </li>
+
       <li>
-
-
-        <div className='user-info-container' >
+        <div className='user-info-container'>
           <div className='profile-img'>
             <img className='profile-img' src={sessionUser?.user?.profileImage} />
           </div>

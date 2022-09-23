@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import tweetsReducer from "./tweet";
+import usersReducer from "./user";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  tweets: tweetsReducer
+  tweets: tweetsReducer,
+  users: usersReducer
 });
 
 let enhancer;

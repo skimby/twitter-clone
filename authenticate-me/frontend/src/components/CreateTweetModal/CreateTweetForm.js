@@ -5,13 +5,12 @@ import { createTweetBackend } from '../../store/tweet'
 function CreateTweetForm({ setShowModal }) {
     const dispatch = useDispatch();
     const ref = useRef(null)
-    const [tweet, setTweet] = useState("What's happening?");
+    const [tweet, setTweet] = useState();
     const [gif, setGif] = useState();
     const [image, setImage] = useState();
 
     const user = useSelector(state => state.session);
 
-    console.log(user)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
