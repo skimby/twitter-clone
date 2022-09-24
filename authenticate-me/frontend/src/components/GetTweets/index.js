@@ -8,7 +8,7 @@ function GetTweets({ tweets }) {
     const history = useHistory();
 
     console.log(tweets);
-    // if
+    // if (tweets)
 
     return (
         <>

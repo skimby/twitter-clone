@@ -51,6 +51,27 @@ module.exports = {
         tweet: 'tweet tweet',
         image: null,
         gif: null
+      },
+      {
+        id: 8,
+        userId: 5,
+        tweet: "Me at anyone who thinks flamingos are cooler.",
+        image: null,
+        gif: 'https://media.giphy.com/media/esdnu2REdAek0Mv8ew/giphy-downsized-large.gif'
+      },
+      {
+        id: 9,
+        userId: 5,
+        tweet: "I know I'm biased but pink is not the new pink...",
+        image: null,
+        gif: null
+      },
+      {
+        id: 10,
+        userId: 9,
+        tweet: "I woke up like this",
+        image: null,
+        gif: 'https://media.giphy.com/media/sI9zGC4bh9eCI/giphy.gif'
       }
     ])
   },
