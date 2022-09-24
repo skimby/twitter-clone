@@ -20,11 +20,6 @@ function UserProfile({ sessionUser }) {
     const user = userPage?.User;
     let joinedDate = userPage?.User?.createdAt
 
-    console.log('-----')
-    console.log(userPageId, sessionUser?.id)
-    console.log(isOwnPage)
-    console.log(tweets)
-
     useEffect(() => {
         dispatch(getUserBackend(userPageId))
     }, [dispatch, userPageId])
@@ -33,10 +28,9 @@ function UserProfile({ sessionUser }) {
         if (userPageId === sessionUser?.id) {
             setIsOwnPage(true)
             dispatch(getTweetsLoggedUserBackend(parseInt(userPageId)))
-            console.log(tweets)
+
         } else {
             setIsOwnPage(false)
-            console.log(userPage?.User?.id)
             dispatch(getTweetsUserBackend(parseInt(userPageId)))
         }
     }, [dispatch, userPageId])

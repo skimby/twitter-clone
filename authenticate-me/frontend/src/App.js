@@ -6,6 +6,8 @@ import SignupPage from "./components/SignupPage/index.js";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import UserProfile from "./components/UserProfile/index.js";
+import Tweet from "./components/Tweet/index.js";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +36,10 @@ function App() {
 
                   <Route path='/:username' exact >
                     <UserProfile sessionUser={sessionUser?.user} />
+                  </Route>
+
+                  <Route path='/tweets/:tweetId' exact >
+                    <Tweet />
                   </Route>
                 </>
               </Switch>

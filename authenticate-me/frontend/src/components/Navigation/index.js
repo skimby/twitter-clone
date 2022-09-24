@@ -11,8 +11,6 @@ import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session);
-  const user = `/${sessionUser?.user?.username}`;
-
 
   return (
     <ul className="nav-container">
@@ -32,7 +30,12 @@ function Navigation({ isLoaded }) {
         </NavLink>
       </li>
       <li>
-        <NavLink exact to={user}>
+        <NavLink exact to={{
+          pathname: `/${sessionUser?.user?.username}`,
+          state: {
+            userPageId: sessionUser?.user?.id
+          }
+        }}>
           <i className="fa-regular fa-user nav-icons"></i>
           <h3>Profile</h3>
         </NavLink>

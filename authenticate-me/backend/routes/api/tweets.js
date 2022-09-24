@@ -61,7 +61,10 @@ router.get('/feed', requireAuth, async (req, res, next) => {
             include: [{
                 model: User,
                 attributes: ['id', 'firstName', 'profileImage', 'username', 'verified']
-            }]
+            }],
+            order: [
+                ['updatedAt', 'DESC']
+            ]
         })
         tweets.push(...tweet)
     }

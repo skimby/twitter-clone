@@ -7,6 +7,7 @@ const EDIT_TWEET = 'tweets/editTweet'
 const DELETE_TWEET = 'tweets/deleteTweet'
 const GET_TWEETS_USER = 'tweets/getTweetsUser'
 const GET_TWEETS_LOGGED_USER = 'tweets/getTweetsLoggedUser'
+const GET_ONE_TWEET = 'tweets/getOneTweet'
 
 // ACTION
 const createTweet = (tweet) => {
@@ -43,10 +44,17 @@ const getTweetsUser = (tweets) => {
         payload: tweets
     }
 }
+
 const getTweetsLoggedUser = (tweets) => {
     return {
         type: GET_TWEETS_LOGGED_USER,
         payload: tweets
+    }
+}
+const getOneTweet = (tweet) => {
+    return {
+        type: GET_ONE_TWEET,
+        payload: tweet
     }
 }
 
@@ -107,10 +115,16 @@ export const getTweetsLoggedUserBackend = (userId) => async (dispatch) => {
     dispatch(getTweetsLoggedUser(parsedRes));
 }
 
+// GET ONE TWEET
+export const getOneTweetBackend = (tweetId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/tweets/${tweetId}`);
+    const parsedRes = await res.json();
+    dispatch(getOneTweet(parsedRes));
+}
 
 
 //REDUCER
-const initialState = { feedTweets: {}, exploreTweets: {}, loggedUserTweets: {}, userTweets: {} }
+const initialState = { feedTweets: {}, exploreTweets: {}, loggedUserTweets: {}, userTweets: {}, currentTweet: {} }
 
 const tweetsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -157,6 +171,10 @@ const tweetsReducer = (state = initialState, action) => {
             })
 
             return getTweetsLoggedUser;
+        case GET_ONE_TWEET:
+            const getOneTweet = { ...state };
+            getOneTweet.currentTweet = action.payload.Tweet;
+            return getOneTweet;
         default:
             return state;
     }
