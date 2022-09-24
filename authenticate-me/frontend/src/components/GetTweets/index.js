@@ -7,7 +7,6 @@ import './GetTweets.css'
 function GetTweets({ tweets }) {
     const history = useHistory();
 
-    console.log(tweets)
     return (
         <>
             {tweets && (

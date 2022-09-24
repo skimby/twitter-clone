@@ -20,10 +20,8 @@ function HomePage() {
     useEffect(() => {
         if (sessionUser?.user) {
             setIsLoggedIn(true)
-            console.log('is logged in')
         } else {
             setIsLoggedIn(false)
-            console.log('is not logged in')
         }
     }, [])
 
@@ -40,6 +38,7 @@ function HomePage() {
                 </div>
 
                 <div>
+
                     <GetTweets tweets={tweets?.feedTweets} />
                 </div>
             </div>

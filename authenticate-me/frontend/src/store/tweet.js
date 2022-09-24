@@ -6,6 +6,7 @@ const GET_FEED_TWEETS = 'tweets/getFeedTweets'
 const EDIT_TWEET = 'tweets/editTweet'
 const DELETE_TWEET = 'tweets/deleteTweet'
 const GET_TWEETS_USER = 'tweets/getTweetsUser'
+const GET_TWEETS_LOGGED_USER = 'tweets/getTweetsLoggedUser'
 
 // ACTION
 const createTweet = (tweet) => {
@@ -42,6 +43,12 @@ const getTweetsUser = (tweets) => {
         payload: tweets
     }
 }
+const getTweetsLoggedUser = (tweets) => {
+    return {
+        type: GET_TWEETS_LOGGED_USER,
+        payload: tweets
+    }
+}
 
 // THUNK
 export const createTweetBackend = (tweetInput) => async (dispatch) => {
@@ -63,6 +70,7 @@ export const getFeedTweetsBackend = () => async (dispatch) => {
     const parsedRes = await res.json();
     dispatch(getFeedTweets(parsedRes));
 }
+
 
 // EDIT TWEET
 export const editTweetBackend = (tweetId, tweetEdit) => async (dispatch) => {
@@ -92,6 +100,13 @@ export const getTweetsUserBackend = (userId) => async (dispatch) => {
     const parsedRes = await res.json();
     dispatch(getTweetsUser(parsedRes));
 }
+// GET TWEETS BY LOGGED USER
+export const getTweetsLoggedUserBackend = (userId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/tweets/users/${userId}`);
+    const parsedRes = await res.json();
+    dispatch(getTweetsLoggedUser(parsedRes));
+}
+
 
 
 //REDUCER
@@ -127,14 +142,21 @@ const tweetsReducer = (state = initialState, action) => {
             delete deleteTweetState.loggedUserTweets[action.payload.id]
 
             return deleteTweetState;
+
         case GET_TWEETS_USER:
-            console.log(action.payload)
             const getTweetsUser = { ...state }
+            getTweetsUser.userTweets = {};
             action.payload.Tweets.forEach(tweet => {
                 getTweetsUser.userTweets[tweet.id] = tweet
             })
-
             return getTweetsUser;
+        case GET_TWEETS_LOGGED_USER:
+            const getTweetsLoggedUser = { ...state }
+            action.payload.Tweets.forEach(tweet => {
+                getTweetsLoggedUser.loggedUserTweets[tweet.id] = tweet
+            })
+
+            return getTweetsLoggedUser;
         default:
             return state;
     }

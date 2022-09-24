@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useLocation } from 'react-router-dom';
 import { getUserBackend } from '../../store/user'
-import { getTweetsUserBackend } from '../../store/tweet'
+import { getTweetsUserBackend, getTweetsLoggedUserBackend } from '../../store/tweet'
 import GetTweets from '../GetTweets';
 
 import './UserProfile.css'
@@ -14,25 +14,32 @@ function UserProfile({ sessionUser }) {
     const location = useLocation();
     const { userPageId } = location.state;
 
+    const [isOwnPage, setIsOwnPage] = useState();
     const tweets = useSelector(state => state.tweets)
     const userPage = useSelector(state => state.users);
     const user = userPage?.User;
     let joinedDate = userPage?.User?.createdAt
 
     console.log('-----')
-    console.log(userPageId)
-    console.log(userPage?.User?.id)
-    console.log(user)
-
+    console.log(userPageId, sessionUser?.id)
+    console.log(isOwnPage)
+    console.log(tweets)
 
     useEffect(() => {
-        console.log(userPageId)
         dispatch(getUserBackend(userPageId))
     }, [dispatch, userPageId])
 
     useEffect(() => {
-        dispatch(getTweetsUserBackend(parseInt(userPage?.User?.id)))
-    }, [dispatch])
+        if (userPageId === sessionUser?.id) {
+            setIsOwnPage(true)
+            dispatch(getTweetsLoggedUserBackend(parseInt(userPageId)))
+            console.log(tweets)
+        } else {
+            setIsOwnPage(false)
+            console.log(userPage?.User?.id)
+            dispatch(getTweetsUserBackend(parseInt(userPageId)))
+        }
+    }, [dispatch, userPageId])
 
     const handleBack = () => {
         history.push('/')
@@ -73,7 +80,13 @@ function UserProfile({ sessionUser }) {
                 </div>
 
                 <div>
-                    <GetTweets tweets={Object.values(tweets?.userTweets)} />
+                    {isOwnPage && (
+                        <GetTweets tweets={Object.values(tweets?.loggedUserTweets)} />
+                    )}
+                    {!isOwnPage && (
+                        <GetTweets tweets={Object.values(tweets?.userTweets)} />
+
+                    )}
                 </div>
             </div>
         </>
