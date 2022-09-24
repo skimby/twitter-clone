@@ -225,7 +225,7 @@ router.put('/:tweetId', requireAuth, validateTweet, async (req, res, next) => {
 
 //============== GET ALL TWEETS BY USER ID ===============//
 router.get('/users/:userId', requireAuth, async (req, res, next) => {
-    const userId = req.user.id
+    const { userId } = req.params;
     const user = await User.findByPk(userId);
 
     if (user) {

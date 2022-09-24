@@ -16,6 +16,7 @@ const getUser = (user) => {
 
 // Get user by ID
 export const getUserBackend = (userId) => async (dispatch) => {
+    console.log(userId)
     const res = await csrfFetch(`/api/users/${userId}`);
     const parsedRes = await res.json();
     dispatch(getUser(parsedRes))

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { getUserBackend } from '../../store/user'
 import { getTweetsUserBackend } from '../../store/tweet'
 import GetTweets from '../GetTweets';
@@ -11,16 +11,24 @@ import './UserProfile.css'
 function UserProfile({ sessionUser }) {
     const dispatch = useDispatch();
     const history = useHistory();
+    const location = useLocation();
+    const { userPageId } = location.state;
 
     const tweets = useSelector(state => state.tweets)
     const userPage = useSelector(state => state.users);
     const user = userPage?.User;
     let joinedDate = userPage?.User?.createdAt
 
+    console.log('-----')
+    console.log(userPageId)
+    console.log(userPage?.User?.id)
+    console.log(user)
+
 
     useEffect(() => {
-        dispatch(getUserBackend(sessionUser?.id))
-    }, [dispatch, sessionUser])
+        console.log(userPageId)
+        dispatch(getUserBackend(userPageId))
+    }, [dispatch, userPageId])
 
     useEffect(() => {
         dispatch(getTweetsUserBackend(parseInt(userPage?.User?.id)))

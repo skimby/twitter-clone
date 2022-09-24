@@ -12,13 +12,11 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const sessionUser = useSelector(state => state.session)
-  const user = `/${sessionUser?.user?.username}`
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  console.log(sessionUser?.user)
 
   return (
     <>
@@ -34,7 +32,7 @@ function App() {
                     <HomePage />
                   </Route>
 
-                  <Route path={user} exact >
+                  <Route path='/:username' exact >
                     <UserProfile sessionUser={sessionUser?.user} />
                   </Route>
                 </>
