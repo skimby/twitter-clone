@@ -28,6 +28,8 @@ router.post('/create', requireAuth, validateTweet, async (req, res, next) => {
         image,
         gif
     })
+    newTweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
+    newTweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
 
     const user = await User.findByPk(req.user.id);
     newTweet.dataValues.User = user
@@ -82,6 +84,8 @@ router.get('/feed', requireAuth, async (req, res, next) => {
                 tweetId: tweet.id
             }
         })
+        tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
+        tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
         tweet.dataValues.commentCount = comments.count;
         tweet.dataValues.retweetCount = retweets.count;
         tweet.dataValues.likeCount = likes.count;
@@ -122,6 +126,8 @@ router.get('/explore', requireAuth, async (req, res, next) => {
                 tweetId: tweet.id
             }
         })
+        tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
+        tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
         tweet.dataValues.commentCount = comments.count;
         tweet.dataValues.retweetCount = retweets.count;
         tweet.dataValues.likeCount = likes.count;
@@ -152,6 +158,9 @@ router.get('/:tweetId', async (req, res, next) => {
         }]
     })
 
+    tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
+    tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
+
     if (tweet) {
         const comments = await Comment.findAndCountAll({
             where: {
@@ -168,6 +177,7 @@ router.get('/:tweetId', async (req, res, next) => {
                 tweetId: tweet.id
             }
         })
+
         tweet.dataValues.commentCount = comments.count;
         tweet.dataValues.retweetCount = retweets.count;
         tweet.dataValues.likeCount = likes.count;
@@ -246,6 +256,8 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
                     tweetId: tweet.id
                 }
             })
+            tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
+            tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
             tweet.dataValues.commentCount = comments.count;
             tweet.dataValues.retweetCount = retweets.count;
             tweet.dataValues.likeCount = likes.count;
@@ -268,7 +280,6 @@ router.delete('/:tweetId/delete', requireAuth, async (req, res, next) => {
     const { tweetId } = req.params;
     const tweet = await Tweet.findByPk(tweetId);
 
-    console.log(tweet)
     if (tweet) {
         const deletedTweet = await tweet.destroy();
         res.status(201)

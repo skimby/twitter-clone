@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
+import { useHistory } from 'react-router-dom';
 import { getUserBackend } from '../../store/user'
 import { getTweetsUserBackend } from '../../store/tweet'
 import GetTweets from '../GetTweets';
@@ -9,13 +10,12 @@ import './UserProfile.css'
 
 function UserProfile({ sessionUser }) {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const tweets = useSelector(state => state.tweets)
     const userPage = useSelector(state => state.users);
     const user = userPage?.User;
     let joinedDate = userPage?.User?.createdAt
-
-    console.log(Object.values(tweets?.userTweets))
 
 
     useEffect(() => {
@@ -23,9 +23,12 @@ function UserProfile({ sessionUser }) {
     }, [dispatch, sessionUser])
 
     useEffect(() => {
-        console.log(parseInt(userPage?.User?.id))
         dispatch(getTweetsUserBackend(parseInt(userPage?.User?.id)))
     }, [dispatch])
+
+    const handleBack = () => {
+        history.push('/')
+    }
 
     return (
         <>
@@ -33,7 +36,7 @@ function UserProfile({ sessionUser }) {
 
                 <div>
                     <div>
-                        <i className="fa-solid fa-arrow-left-long"></i>
+                        <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
                     </div>
                     <div>
                         <h5>@{user?.username}</h5>

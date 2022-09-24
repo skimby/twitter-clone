@@ -17,7 +17,7 @@ function GetTweets({ tweets }) {
 
                             <div className='tweet-text-box'>
                                 <div>
-                                    <h5>{tweet?.User?.firstName}  <span className='thin-styling'>@{tweet?.username}</span></h5>
+                                    <h5>{tweet?.User?.firstName}  <span className='thin-styling'>@{tweet?.User?.username} • {tweet?.updatedAt[1]} {tweet?.updatedAt[2]}</span></h5>
                                 </div>
 
                                 <div>
