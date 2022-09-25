@@ -6,8 +6,8 @@ import './GetTweets.css'
 
 function GetTweets({ tweets }) {
     const history = useHistory();
-
-    console.log(tweets);
+    console.log('----')
+    console.log(Object.values(tweets));
     // if (tweets)
 
     return (
@@ -15,9 +15,7 @@ function GetTweets({ tweets }) {
             {tweets && (
                 Object.values(tweets).map((tweet, index) => {
                     return (
-                        <div className='tweet-container' key={index} onClick={(() => {
-                            history.push(`/tweets/${tweet?.id}`)
-                        })}>
+                        <div className='tweet-container' key={index} >
 
                             <div className='profile-img'>
                                 <Link to={{
@@ -31,7 +29,9 @@ function GetTweets({ tweets }) {
 
                                 </Link>
                             </div>
-                            <div className='tweet-text-box'>
+                            <div className='tweet-text-box' onClick={(() => {
+                                history.push(`/tweets/${tweet?.id}`)
+                            })}>
                                 <div>
                                     <h5 onClick={(() => {
                                         history.push(`/${tweet?.User?.username}`)

@@ -65,7 +65,12 @@ function UserProfile({ sessionUser }) {
                 <div>
                     <h3>{user?.firstName}</h3>
                     <p>@{user?.username}</p>
+                    <p>{user?.bio}</p>
+                    <i className="fa-solid fa-link"></i>
+                    <p>{user?.website}</p>
                     <i className="fa-regular fa-calendar-days"></i>
+
+
                     {joinedDate && (
                         <p>Joined {joinedDate[1]} {joinedDate[3]}</p>
                     )}

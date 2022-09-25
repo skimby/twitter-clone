@@ -160,6 +160,26 @@ router.get('/:tweetId', async (req, res, next) => {
             }]
         }]
     })
+    const following = await Follow.findAndCountAll({
+        where: {
+            userId: tweet.User.id
+        }
+    })
+    const followers = await Follow.findAndCountAll({
+        where: {
+            followerId: tweet.User.id
+        }
+    })
+    const tweets = await Tweet.findAndCountAll({
+        where: {
+            userId: tweet.User.id
+        }
+    })
+
+    tweet.dataValues.User.dataValues.tweetCount = tweets.count,
+        tweet.dataValues.User.dataValues.followingCount = following.count,
+        tweet.dataValues.User.dataValues.followerCount = followers.count
+
 
     tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
     tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
