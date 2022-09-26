@@ -10,11 +10,13 @@ function EditComment({ commentId, comment }) {
 
     const [editComment, setEditComment] = useState(comment?.comment);
 
-
+    console.log(commentId, comment?.tweetId)
 
     const handleSubmit = async () => {
         const commentInput = { comment: editComment }
+
         const tweetId = comment?.tweetId
+
         await dispatch(editCommentBackend(commentId, tweetId, commentInput))
         // history.push(`/tweets/${tweetId}`)
     }
@@ -22,7 +24,7 @@ function EditComment({ commentId, comment }) {
     return (
         <form onSubmit={handleSubmit}>
             <label>
-                Edit Tweet
+                Edit Comment
                 <input
                     type="text"
                     value={editComment}
@@ -30,7 +32,7 @@ function EditComment({ commentId, comment }) {
                     required
                 />
             </label>
-            <button type="submit">Tweet</button>
+            <button type="submit">Comment</button>
         </form>
     )
 }

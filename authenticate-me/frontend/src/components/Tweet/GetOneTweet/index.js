@@ -1,16 +1,26 @@
 import { useHistory } from 'react-router-dom';
 import GetComment from '../GetComment';
+import { getCommentsBackend } from '../../../store/comment'
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+
 
 function GetOneTweet({ tweet }) {
-
+    const dispatch = useDispatch();
     const user = tweet?.User;
+    const comments = useSelector(state => state.comments)
     const history = useHistory();
 
-    console.log(tweet?.id)
+    console.log(tweet?.id, tweet)
+
+    useEffect(() => {
+        dispatch(getCommentsBackend(tweet?.id))
+    }, [dispatch, tweet])
 
     const handleBack = () => {
         history.push('/')
     }
+
     return (
         <>
             <div id="middle-container">

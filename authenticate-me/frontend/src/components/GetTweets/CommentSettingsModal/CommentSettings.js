@@ -1,9 +1,9 @@
 import EditCommentModal from "./EditCommentModal";
 import DeleteTweetModal from "../DeleteTweetModal";
 
-function CommentSettings({ comment, tweetId }) {
+function CommentSettings({ comment }) {
 
-    console.log(tweetId)
+
     return (
         <div className='settings-box'>
             <ul>

@@ -5,6 +5,28 @@ const user = require("../../db/models/user");
 
 const router = express.Router();
 
+
+//================== GET ALL COMMENTS =================//
+router.get('/tweets/:tweetId', requireAuth, async (req, res, next) => {
+    const { tweetId } = req.params;
+    const comments = await Comment.findAll({
+        where: {
+            tweetId
+        }
+    });
+
+    if (comments) {
+        res.status(200)
+        return res.json({ Comments: comments })
+    } else {
+        const err = new Error("Could not find a tweet with the specified id.");
+        err.message = "Could not find a tweet with the specified id.";
+        err.status = 404;
+        return next(err);
+    }
+})
+
+
 //================== CREATE A COMMENT =================//
 router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
     const { tweetId } = req.params;
@@ -34,6 +56,9 @@ router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
 router.put('/:commentId/tweets/:tweetId', requireAuth, async (req, res, next) => {
     const { commentId, tweetId } = req.params;
     const { comment } = req.body;
+
+    console.log('---')
+    console.log(req.body)
     const tweet = await Tweet.findByPk(tweetId)
     const editComment = await Comment.findByPk(commentId)
 

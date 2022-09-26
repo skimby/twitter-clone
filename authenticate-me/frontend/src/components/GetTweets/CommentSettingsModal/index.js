@@ -4,7 +4,7 @@ import CommentSettings from "./CommentSettings";
 import { useDispatch, useSelector } from "react-redux"
 
 
-function CommentSettingsModal({ comment, tweetId }) {
+function CommentSettingsModal({ comment }) {
     const [showModal, setShowModal] = useState(false);
     const [isUsersTweet, setIsUsersTweet] = useState();
     const loggedUser = useSelector(state => state.session)

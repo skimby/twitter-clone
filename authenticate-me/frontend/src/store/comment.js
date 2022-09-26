@@ -1,39 +1,56 @@
 import { csrfFetch } from "./csrf";
 
 // TYPE
-const EDIT_COMMENT = 'tweets/editComment'
-const DELETE_COMMENT = 'tweets/deleteComment'
+const GET_COMMENTS = 'comments/getComments'
+const EDIT_COMMENT = 'comments/editComment'
+const DELETE_COMMENT = 'comments/deleteComment'
 
 
 // ACTION
-const editTweet = (comment) => {
+const getComments = (comments) => {
+    return {
+        type: GET_COMMENTS,
+        payload: comments
+    }
+}
+const editComment = (comment) => {
     return {
         type: EDIT_COMMENT,
         payload: comment
     }
 }
 
-const deleteTweet = (comment) => {
+const deleteComment = (comment) => {
     return {
         type: DELETE_COMMENT,
         payload: comment
     }
 }
 
-
-
 // THUNK
 
+// GET COMMENTS
+export const getCommentsBackend = (tweetId) => async (dispatch) => {
+    console.log(tweetId)
+    const res = await csrfFetch(`/api/comments/tweets/${tweetId}`);
+
+    if (res.ok) {
+        const parsedRes = await res.json();
+        dispatch(getComments(parsedRes));
+    }
+}
 
 // EDIT TWEET
 export const editCommentBackend = (commentId, commentInput, tweetId) => async (dispatch) => {
+    console.log(commentId, tweetId, commentInput)
+
     const res = await csrfFetch(`/api/comments/${commentId}/tweets/${tweetId}`, {
         method: "PUT",
         body: JSON.stringify(commentInput)
     });
     if (res.ok) {
         const parsedRes = await res.json();
-        dispatch(editTweet(parsedRes));
+        dispatch(editComment(parsedRes));
     }
 }
 
@@ -47,25 +64,7 @@ export const editCommentBackend = (commentId, commentInput, tweetId) => async (d
 //         dispatch(deleteTweet(parsedRes));
 //     }
 // }
-// // GET TWEETS BY USER
-// export const getTweetsUserBackend = (userId) => async (dispatch) => {
-//     const res = await csrfFetch(`/api/tweets/users/${userId}`);
-//     const parsedRes = await res.json();
-//     dispatch(getTweetsUser(parsedRes));
-// }
-// // GET TWEETS BY LOGGED USER
-// export const getTweetsLoggedUserBackend = (userId) => async (dispatch) => {
-//     const res = await csrfFetch(`/api/tweets/users/${userId}`);
-//     const parsedRes = await res.json();
-//     dispatch(getTweetsLoggedUser(parsedRes));
-// }
 
-// // GET ONE TWEET
-// export const getOneTweetBackend = (tweetId) => async (dispatch) => {
-//     const res = await csrfFetch(`/api/tweets/${tweetId}`);
-//     const parsedRes = await res.json();
-//     dispatch(getOneTweet(parsedRes));
-// }
 
 
 //REDUCER
@@ -73,6 +72,13 @@ const initialState = {}
 
 const commentsReducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_COMMENTS:
+            const getCommentsState = { ...state };
+            action.payload.Comments.forEach(comment => {
+                getCommentsState[comment.id] = comment;
+            })
+
+            return getCommentsState;
 
         case EDIT_COMMENT:
             const editCommentState = { ...state };
@@ -89,24 +95,7 @@ const commentsReducer = (state = initialState, action) => {
 
         //     return deleteTweetState;
 
-        // case GET_TWEETS_USER:
-        //     const getTweetsUser = { ...state }
-        //     getTweetsUser.userTweets = {};
-        //     action.payload.Tweets.forEach(tweet => {
-        //         getTweetsUser.userTweets[tweet.id] = tweet
-        //     })
-        //     return getTweetsUser;
-        // case GET_TWEETS_LOGGED_USER:
-        //     const getTweetsLoggedUser = { ...state }
-        //     action.payload.Tweets.forEach(tweet => {
-        //         getTweetsLoggedUser.loggedUserTweets[tweet.id] = tweet
-        //     })
 
-        //     return getTweetsLoggedUser;
-        // case GET_ONE_TWEET:
-        //     const getOneTweet = { ...state };
-        //     getOneTweet.currentTweet = action.payload.Tweet;
-        //     return getOneTweet;
         default:
             return state;
     }
