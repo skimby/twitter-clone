@@ -1,24 +1,26 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { editCommentBackend } from "../../../../store/comment";
-
+import { editCommentBackend } from '../../../../store/comment'
 
 function EditComment({ commentId, comment }) {
     const dispatch = useDispatch();
     const history = useHistory();
+    const tweetId = comment?.tweetId
 
     const [editComment, setEditComment] = useState(comment?.comment);
 
-    console.log(commentId, comment?.tweetId)
+    console.log('TWEETID ', tweetId, typeof tweetId)
 
-    const handleSubmit = async () => {
-        const commentInput = { comment: editComment }
 
-        const tweetId = comment?.tweetId
+    const commentInput = { comment: editComment }
 
-        await dispatch(editCommentBackend(commentId, tweetId, commentInput))
-        // history.push(`/tweets/${tweetId}`)
+    const handleSubmit = async (e) => {
+        // e.preventDefault();
+        if (comment?.tweetId) {
+            await dispatch(editCommentBackend(commentId, commentInput, tweetId))
+        }
+        history.push(`/tweets/${tweetId}`)
     }
 
     return (

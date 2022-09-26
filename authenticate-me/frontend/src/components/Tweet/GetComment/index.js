@@ -1,4 +1,3 @@
-import TweetSettingsModal from "../../GetTweets/TweetSettingsModal";
 import { Redirect, useHistory, Link } from 'react-router-dom';
 import CommentSettingsModal from "../../GetTweets/CommentSettingsModal";
 
@@ -14,19 +13,23 @@ function GetComment({ comment, tweetId }) {
                         userPageId: comment?.User?.id
                     }
                 }}>
-
                     <img className='profile-img' src={comment?.User?.profileImage} />
                 </Link>
+
             </div>
 
-            <div className='tweet-text-box' onClick={(() => {
-                history.push(`/tweets/${comment?.id}`)
-            })}>
+            <div className='tweet-text-box'>
                 <div>
-                    <h5 onClick={(() => {
+                    <Link to={{
+                        pathname: `/${comment?.User?.username}`,
+                        state: {
+                            userPageId: comment?.User?.id
+                        }
+                    }}>
+                        <h5>
+                            {comment?.User?.firstName}</h5>
+                    </Link>
 
-                        history.push(`/${comment?.User?.username}`)
-                    })}>{comment?.User?.firstName}</h5>
                     <h5><span className='thin-styling'>@{comment?.User?.username} • {comment?.updatedAt?.[1]} {comment?.updatedAt?.[2]}</span></h5>
                 </div>
 

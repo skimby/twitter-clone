@@ -6,8 +6,7 @@ import './GetTweets.css'
 
 function GetTweets({ tweets }) {
     const history = useHistory();
-    console.log('----')
-    console.log(Object.values(tweets));
+
     // if (tweets)
 
     return (
@@ -29,18 +28,24 @@ function GetTweets({ tweets }) {
 
                                 </Link>
                             </div>
-                            <div className='tweet-text-box' onClick={(() => {
-                                history.push(`/tweets/${tweet?.id}`)
-                            })}>
+                            <div className='tweet-text-box'>
                                 <div>
-                                    <h5 onClick={(() => {
-                                        history.push(`/${tweet?.User?.username}`)
-                                    })}>{tweet?.User?.firstName}  </h5>
+                                    <Link to={{
+                                        pathname: `/${tweet?.User?.username}`,
+                                        state: {
+                                            userPageId: tweet?.User?.id
+                                        }
+                                    }}>
+                                        <h5>{tweet?.User?.firstName}  </h5>
+                                    </Link>
                                     {/* <h5><span className='thin-styling'>@{tweet?.User?.username} • {tweet?.updatedAt[1]} {tweet?.updatedAt[2]}</span></h5> */}
                                 </div>
 
                                 <div>
-                                    <p>{tweet?.tweet}</p>
+
+                                    <Link to={`/tweets/${tweet.id}`}>
+                                        <p>{tweet?.tweet}</p>
+                                    </Link>
                                 </div>
 
 

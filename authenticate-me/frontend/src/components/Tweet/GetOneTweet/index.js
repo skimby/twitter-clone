@@ -8,14 +8,18 @@ import { useEffect } from 'react';
 function GetOneTweet({ tweet }) {
     const dispatch = useDispatch();
     const user = tweet?.User;
-    const comments = useSelector(state => state.comments)
     const history = useHistory();
 
-    console.log(tweet?.id, tweet)
+    const comments = useSelector(state => state.comments);
+
+    console.log(tweet?.id)
+    console.log(typeof tweet?.id)
 
     useEffect(() => {
-        dispatch(getCommentsBackend(tweet?.id))
-    }, [dispatch, tweet])
+        if (tweet?.id) {
+            dispatch(getCommentsBackend(tweet?.id))
+        }
+    }, [dispatch, tweet?.id])
 
     const handleBack = () => {
         history.push('/')
@@ -56,7 +60,7 @@ function GetOneTweet({ tweet }) {
 
                 <div>
                     <h3>{tweet?.tweet}</h3>
-                    <img src={tweet?.image} />
+                    <img src={tweet?.image} width='200' />
                     <img src={tweet?.gif} width='200' />
 
 
