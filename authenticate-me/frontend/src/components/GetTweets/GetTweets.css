@@ -1,16 +1,25 @@
 .tweet-container {
     padding: 3% 0;
-    display: block;
+    display: grid;
 
+    grid-template-columns: 60px 580px;
 }
 
-.tweet-container .profile-img {
+
+
+.tweet-profile-img {
+    width: 43px;
+    height: 43px;
+    object-fit: cover;
+    border-radius: 100%;
     display: inline-block;
     margin-right: 14px;
+
 }
 
 .tweet-text-box {
     display: inline-block;
+    width: 580px;
 }
 
 h5 {
@@ -24,8 +33,21 @@ h5 {
 
 .tweet-text-box p {
     margin: 0;
+    flex-direction: start;
 }
 
 .tweet-icon-box {
     display: inline-flex;
+    width: 100px;
+}
+
+.tweet-img-gif {
+    width: 100%;
+    float: left;
+    text-align: left;
+}
+
+.img-gif {
+    float: left;
+    text-align: left;
 }
