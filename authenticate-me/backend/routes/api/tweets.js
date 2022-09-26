@@ -176,13 +176,23 @@ router.get('/:tweetId', async (req, res, next) => {
         }
     })
 
-    tweet.dataValues.User.dataValues.tweetCount = tweets.count,
-        tweet.dataValues.User.dataValues.followingCount = following.count,
-        tweet.dataValues.User.dataValues.followerCount = followers.count
+    console.log('----')
+
+    console.log(tweet.dataValues.User.dataValues)
+
+    tweet.dataValues.User.dataValues.tweetCount = tweets.count
+    tweet.dataValues.User.dataValues.followingCount = following.count
+    tweet.dataValues.User.dataValues.followerCount = followers.count
 
 
     tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
     tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
+
+    tweet.dataValues.Comments.forEach(comment => {
+        comment.dataValues.createdAt = comment.dataValues.createdAt.toDateString().toString().split(' ');
+        comment.dataValues.updatedAt = comment.dataValues.updatedAt.toDateString().toString().split(' ');
+    })
+
 
     if (tweet) {
         const comments = await Comment.findAndCountAll({

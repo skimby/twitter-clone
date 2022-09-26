@@ -16,7 +16,6 @@ function Tweet() {
 
     return (
         <>
-
             <GetOneTweet tweet={tweet?.currentTweet} />
         </>
     )

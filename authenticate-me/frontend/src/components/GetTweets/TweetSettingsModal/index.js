@@ -10,7 +10,7 @@ function TweetSettingsModal({ tweet }) {
     const loggedUser = useSelector(state => state.session)
 
     useEffect(() => {
-        if (loggedUser?.user?.user?.id == tweet?.id) {
+        if (loggedUser?.user?.id == tweet?.User?.id) {
             setIsUsersTweet(true)
         }
     })

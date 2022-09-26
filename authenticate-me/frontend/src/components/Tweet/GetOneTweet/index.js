@@ -1,10 +1,12 @@
 import { useHistory } from 'react-router-dom';
+import GetComment from '../GetComment';
 
 function GetOneTweet({ tweet }) {
 
     const user = tweet?.User;
     const history = useHistory();
 
+    console.log(tweet?.id)
 
     const handleBack = () => {
         history.push('/')
@@ -45,22 +47,31 @@ function GetOneTweet({ tweet }) {
                 <div>
                     <h3>{tweet?.tweet}</h3>
                     <img src={tweet?.image} />
-                    <img src={tweet?.gif} />
-                    <p>{user?.bio}</p>
-                    <i className="fa-solid fa-link"></i>
-                    <p>{user?.website}</p>
-                    <i className="fa-regular fa-calendar-days"></i>
+                    <img src={tweet?.gif} width='200' />
 
 
-                    {tweet?.updatedAt && (
-                        <p>Joined {tweet?.updatedAt[1]} {tweet?.updatedAt[2]}</p>
+                    <p>{tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}, {tweet?.updatedAt?.[3]}</p>
+
+
+                    <p>{tweet?.retweetCount} Retweets</p>
+                    <p>{tweet?.commentCount} Quote Tweets</p>
+                    <p>{tweet?.likeCount} Likes</p>
+
+                    <i className="fa-regular fa-comment"></i>
+                    <i className="fa-solid fa-retweet"></i>
+                    <i className="fa-regular fa-heart"></i>
+
+
+                    {tweet?.Comments && (
+                        tweet?.Comments.map((comment, index) => {
+                            return (
+                                <div key={index}>
+                                    <GetComment comment={comment} />
+                                </div>
+                            )
+                        })
                     )}
-
-
-                    <p>{user?.followingCount} Following</p>
-                    <p>{user?.followerCount} Followers</p>
                 </div>
-
             </div>
         </>
     )

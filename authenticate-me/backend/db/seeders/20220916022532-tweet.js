@@ -8,14 +8,14 @@ module.exports = {
         userId: 1,
         tweet: 'my first tweet!',
         image: null,
-        gif: 'https://media.giphy.com/media/TdfyKrN7HGTIY/giphy.gif'
+        gif: 'https://media.giphy.com/media/YAGcqpFNT5DXO/giphy.gif'
       },
       {
         id: 2,
         userId: 1,
         tweet: 'my second tweet!',
         image: null,
-        gif: 'https://giphy.com/clips/studiosoriginals-excitement-0j1lyc4cqsnfZTXcIR'
+        gif: 'https://media.giphy.com/media/MNa0HKdhc3SGQ/giphy.gif'
       },
       {
         id: 3,
