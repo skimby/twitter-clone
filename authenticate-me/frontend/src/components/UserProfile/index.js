@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory, useLocation } from 'react-router-dom';
 import { getUserBackend } from '../../store/user'
 import { getTweetsUserBackend, getTweetsLoggedUserBackend } from '../../store/tweet'
+import FollowingButton from '../FollowButtons/FollowingButton';
+import FollowButton from '../FollowButtons/FollowButton';
+import { getFollowingBackend } from '../../store/follow';
 import GetTweets from '../GetTweets';
 
 import './UserProfile.css'
@@ -15,25 +18,47 @@ function UserProfile({ sessionUser }) {
     const { userPageId } = location.state;
 
     const [isOwnPage, setIsOwnPage] = useState();
+    const [alreadyFollowing, setAlreadyFollowing] = useState();
     const tweets = useSelector(state => state.tweets)
-    const userPage = useSelector(state => state.users);
-    const user = userPage?.User;
-    let joinedDate = userPage?.User?.createdAt
+    const loggedUser = useSelector(state => state.session.user)
+    const user = useSelector(state => state.users.User);
+    const follows = useSelector(state => state.follows)
+    const following = Object.values(follows?.following)
+    // const user = userPage?.User;
+    let joinedDate = user?.createdAt
+
 
     useEffect(() => {
+        // if (!userPage?.User) {
         dispatch(getUserBackend(userPageId))
-    }, [dispatch, userPageId])
+        // }
+    }, [dispatch, userPageId, follows])
 
     useEffect(() => {
         if (userPageId === sessionUser?.id) {
             setIsOwnPage(true)
             dispatch(getTweetsLoggedUserBackend(parseInt(userPageId)))
-
         } else {
             setIsOwnPage(false)
             dispatch(getTweetsUserBackend(parseInt(userPageId)))
         }
     }, [dispatch, userPageId])
+
+    useEffect(() => {
+        dispatch(getFollowingBackend(userPageId))
+    }, [dispatch, userPageId])
+
+    useEffect(() => {
+        // if (following.length) {
+        const isFollowing = following.find(follow => loggedUser?.id === follow.userId);
+
+        if (isFollowing) {
+            setAlreadyFollowing(true)
+        } else {
+            setAlreadyFollowing(false)
+        }
+        // }
+    }, [following])
 
     const handleBack = () => {
         history.push('/')
@@ -60,6 +85,13 @@ function UserProfile({ sessionUser }) {
 
                 <div>
                     <img className='user-profile-img-big' src={user?.profileImage} />
+
+                    {alreadyFollowing && (
+                        <FollowingButton userId={loggedUser?.id} userPageId={userPageId} />
+                    )}
+                    {!alreadyFollowing && (
+                        <FollowButton userId={loggedUser?.id} userPageId={userPageId} />
+                    )}
                 </div>
 
                 <div>

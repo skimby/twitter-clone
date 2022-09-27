@@ -38,7 +38,6 @@ const deleteComment = (comment) => {
 
 // GET COMMENTS
 export const getCommentsBackend = (tweetId) => async (dispatch) => {
-    console.log(tweetId)
     const res = await csrfFetch(`/api/comments/tweets/${tweetId}`);
 
     if (res.ok) {

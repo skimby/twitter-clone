@@ -4,12 +4,14 @@ import sessionReducer from "./session";
 import tweetsReducer from "./tweet";
 import usersReducer from "./user";
 import commentsReducer from "./comment";
+import followsReducer from "./follow";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   tweets: tweetsReducer,
   users: usersReducer,
-  comments: commentsReducer
+  comments: commentsReducer,
+  follows: followsReducer
 });
 
 let enhancer;
