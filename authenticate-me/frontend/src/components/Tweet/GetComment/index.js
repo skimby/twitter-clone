@@ -35,6 +35,8 @@ function GetComment({ comment, tweetId }) {
 
                 <div>
                     <p>{comment?.comment}</p>
+                    <img src={comment?.image} width='200' />
+                    <img src={comment?.gif} width='200' />
                 </div>
 
 

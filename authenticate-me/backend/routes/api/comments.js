@@ -29,8 +29,13 @@ router.get('/tweets/:tweetId', requireAuth, async (req, res, next) => {
 
 //================== CREATE A COMMENT =================//
 router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
+
     const { tweetId } = req.params;
-    const { comment, image, gif } = req.body;
+    let { comment, image, gif } = req.body;
+
+    if (image === undefined) image = null;
+    if (gif === undefined) gif = null;
+
     const tweet = await Tweet.findByPk(tweetId);
 
     if (tweet) {

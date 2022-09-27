@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Modal } from "../../../context/Modal"
 import DeleteTweetForm from "./DeleteTweetForm";
+
+
 function DeleteTweetModal({ tweetId }) {
     const [showModal, setShowModal] = useState();
 
@@ -10,7 +12,7 @@ function DeleteTweetModal({ tweetId }) {
 
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <DeleteTweetForm tweetId={tweetId} setShowModal={setShowModal} />
+                    <DeleteTweetForm tweetId={tweetId} />
                 </Modal>
             )}
         </>

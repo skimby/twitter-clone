@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from "react-redux"
+import { useHistory } from 'react-router-dom';
 import { createTweetBackend } from '../../store/tweet';
 import { createPopup } from '@picmo/popup-picker';
 import { createPicker } from 'picmo';
@@ -10,8 +11,9 @@ import { createRoot } from 'react-dom/client';
 
 function CreateTweet() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const ref = useRef(null)
-    const [tweet, setTweet] = useState("What's happening?");
+    const [tweet, setTweet] = useState('');
     const [gif, setGif] = useState();
     const [image, setImage] = useState();
 
@@ -36,7 +38,8 @@ function CreateTweet() {
             gif,
             image
         }
-        await dispatch(createTweetBackend(tweetInput))
+        const newTweet = await dispatch(createTweetBackend(tweetInput))
+        history.push(`/tweets/${newTweet?.id}`)
     }
 
 
@@ -52,9 +55,7 @@ function CreateTweet() {
                 {user?.user?.profileImage && (
                     <img className='profile-img' src={user?.user?.profileImage} />
                 )}
-                {!user?.user?.profileImage && (
-                    <img className='profile-img' src='https://secure.gravatar.com/avatar/c51f0fc9375c537923f6bf012b337f43?s=150&d=mm&r=g' />
-                )}
+
                 <form onSubmit={handleSubmit} className='form'>
                     <input
                         placeholder="What's happening?"

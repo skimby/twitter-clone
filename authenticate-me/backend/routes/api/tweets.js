@@ -28,8 +28,9 @@ router.post('/create', requireAuth, validateTweet, async (req, res, next) => {
         image,
         gif
     })
-    newTweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
-    newTweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
+
+    newTweet.dataValues.createdAt = newTweet.dataValues.createdAt.toDateString().toString().split(' ');
+    newTweet.dataValues.updatedAt = newTweet.dataValues.updatedAt.toDateString().toString().split(' ');
 
     const user = await User.findByPk(req.user.id);
     newTweet.dataValues.User = user
@@ -176,9 +177,6 @@ router.get('/:tweetId', async (req, res, next) => {
         }
     })
 
-    console.log('----')
-
-    console.log(tweet.dataValues.User.dataValues)
 
     tweet.dataValues.User.dataValues.tweetCount = tweets.count
     tweet.dataValues.User.dataValues.followingCount = following.count

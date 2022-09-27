@@ -26,6 +26,22 @@ module.exports = {
         comment: 'i feel the same way!',
         image: null,
         gif: 'https://media.giphy.com/media/QCJFiJfnDCdFa84sLG/giphy.gif'
+      },
+      {
+        id: 4,
+        userId: 1,
+        tweetId: 4,
+        comment: 'cool!',
+        image: null,
+        gif: 'https://media.giphy.com/media/QCJFiJfnDCdFa84sLG/giphy.gif'
+      },
+      {
+        id: 5,
+        userId: 1,
+        tweetId: 1,
+        comment: 'yay!',
+        image: null,
+        gif: 'https://media.giphy.com/media/TdfyKrN7HGTIY/giphy.gif'
       }
     ])
   },

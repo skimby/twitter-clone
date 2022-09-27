@@ -1,6 +1,5 @@
 import EditFormModal from "../EditTweetModal";
 import DeleteTweetModal from "../DeleteTweetModal";
-
 function TweetSettings({ tweet }) {
 
     return (

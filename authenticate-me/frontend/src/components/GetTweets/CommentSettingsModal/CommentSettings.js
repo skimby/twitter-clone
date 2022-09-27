@@ -1,5 +1,5 @@
 import EditCommentModal from "./EditCommentModal";
-import DeleteTweetModal from "../DeleteTweetModal";
+import DeleteCommentModal from "./DeleteCommentModal";
 
 function CommentSettings({ comment }) {
 
@@ -8,7 +8,7 @@ function CommentSettings({ comment }) {
         <div className='settings-box'>
             <ul>
                 <li><EditCommentModal commentId={comment?.id} comment={comment} /></li>
-                <li><DeleteTweetModal tweetId={comment?.id} /></li>
+                <li><DeleteCommentModal comment={comment} /></li>
             </ul>
         </div>
     )

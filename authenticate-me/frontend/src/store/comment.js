@@ -2,11 +2,18 @@ import { csrfFetch } from "./csrf";
 
 // TYPE
 const GET_COMMENTS = 'comments/getComments'
+const CREATE_COMMENT = 'comments/createComment'
 const EDIT_COMMENT = 'comments/editComment'
 const DELETE_COMMENT = 'comments/deleteComment'
 
 
 // ACTION
+const createComment = (comment) => {
+    return {
+        type: CREATE_COMMENT,
+        payload: comment
+    }
+}
 const getComments = (comments) => {
     return {
         type: GET_COMMENTS,
@@ -40,6 +47,18 @@ export const getCommentsBackend = (tweetId) => async (dispatch) => {
     }
 }
 
+// CREATE TWEET
+export const createCommentBackend = (tweetId, commentInput) => async (dispatch) => {
+    const res = await csrfFetch(`/api/comments/tweets/${tweetId}`, {
+        method: "POST",
+        body: JSON.stringify(commentInput)
+    });
+    if (res.ok) {
+        const parsedRes = await res.json();
+        dispatch(createComment(parsedRes));
+    }
+}
+
 // EDIT TWEET
 export const editCommentBackend = (commentId, commentInput, tweetId) => async (dispatch) => {
     console.log(commentId, tweetId, commentInput)
@@ -54,16 +73,16 @@ export const editCommentBackend = (commentId, commentInput, tweetId) => async (d
     }
 }
 
-// // DELETE TWEET
-// export const deleteTweetBackend = (tweetId) => async (dispatch) => {
-//     const res = await csrfFetch(`/api/tweets/${tweetId}/delete`, {
-//         method: 'DELETE'
-//     });
-//     if (res.ok) {
-//         const parsedRes = await res.json();
-//         dispatch(deleteTweet(parsedRes));
-//     }
-// }
+// DELETE TWEET
+export const deleteCommentBackend = (commentId, tweetId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/comments/${commentId}/tweets/${tweetId}`, {
+        method: 'DELETE'
+    });
+    if (res.ok) {
+        const parsedRes = await res.json();
+        dispatch(deleteComment(parsedRes));
+    }
+}
 
 
 
@@ -79,6 +98,11 @@ const commentsReducer = (state = initialState, action) => {
             })
 
             return getCommentsState;
+        case CREATE_COMMENT:
+            const createCommentState = { ...state };
+            createCommentState[action.payload.id] = action.payload
+
+            return createCommentState;
 
         case EDIT_COMMENT:
             const editCommentState = { ...state };
@@ -87,14 +111,11 @@ const commentsReducer = (state = initialState, action) => {
 
             return editCommentState;
 
-        // case DELETE_TWEET:
-        //     const deleteTweetState = { ...state };
-        //     delete deleteTweetState.feedTweets[action.payload.id]
-        //     delete deleteTweetState.exploreTweets[action.payload.id]
-        //     delete deleteTweetState.loggedUserTweets[action.payload.id]
+        case DELETE_COMMENT:
+            const deleteCommentState = { ...state };
+            delete deleteCommentState[action.payload.id]
 
-        //     return deleteTweetState;
-
+            return deleteCommentState;
 
         default:
             return state;

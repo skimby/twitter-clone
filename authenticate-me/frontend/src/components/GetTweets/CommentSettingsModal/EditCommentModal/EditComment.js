@@ -10,7 +10,6 @@ function EditComment({ commentId, comment }) {
 
     const [editComment, setEditComment] = useState(comment?.comment);
 
-    console.log('TWEETID ', tweetId, typeof tweetId)
 
 
     const commentInput = { comment: editComment }

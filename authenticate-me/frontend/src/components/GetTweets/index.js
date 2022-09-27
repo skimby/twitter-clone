@@ -1,13 +1,13 @@
 import TweetSettingsModal from './TweetSettingsModal';
 import { Redirect, useHistory, Link } from 'react-router-dom';
 import UserProfile from '../UserProfile';
+import CreateCommentModal from '../CreateCommentModal';
 import './GetTweets.css'
 
 
 function GetTweets({ tweets }) {
     const history = useHistory();
 
-    // if (tweets)
 
     return (
         <>
@@ -60,7 +60,7 @@ function GetTweets({ tweets }) {
 
                                 <div className='tweet-icons-box'>
 
-                                    <i className="fa-regular fa-comment"></i>{tweet?.commentCount}
+                                    <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} />
 
                                     <i className="fa-solid fa-retweet"></i>{tweet?.retweetCount}
 

@@ -1,37 +1,35 @@
 import { useState, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { createTweetBackend } from '../../store/tweet'
+import { createCommentBackend } from '../../store/comment';
 
-function CreateTweetForm() {
+function CreateComment({ tweetId }) {
     const dispatch = useDispatch();
     const history = useHistory();
+
     const ref = useRef(null)
-    const [tweet, setTweet] = useState('');
-    const [gif, setGif] = useState();
+    const [comment, setComment] = useState('');
     const [image, setImage] = useState();
+    const [gif, setGif] = useState();
 
     const user = useSelector(state => state.session);
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const tweetInput = {
-            tweet,
+        const commentInput = {
+            comment,
             gif,
             image
         }
-        const newTweet = await dispatch(createTweetBackend(tweetInput))
-
-        history.push(`/tweets/${newTweet?.id}`)
-        history.go()
+        await dispatch(createCommentBackend(tweetId, commentInput));
+        history.push(`/tweets/${tweetId}`)
     }
 
 
     const submitButton = () => {
         return (
-            <button type='submit'>Tweet</button>
+            <button type='submit'>Reply</button>
         )
     }
 
@@ -44,10 +42,10 @@ function CreateTweetForm() {
 
                 <form onSubmit={handleSubmit} className='form'>
                     <input
-                        placeholder="What's happening?"
+                        placeholder="Tweet your reply"
                         type='text'
-                        value={tweet}
-                        onChange={(e) => setTweet(e.target.value)}>
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}>
                     </input>
 
                     {/* emoji stuff */}
@@ -61,4 +59,4 @@ function CreateTweetForm() {
     )
 }
 
-export default CreateTweetForm;
+export default CreateComment;
