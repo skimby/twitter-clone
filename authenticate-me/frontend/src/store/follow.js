@@ -2,6 +2,8 @@ import { csrfFetch } from "./csrf";
 
 // TYPE
 const GET_FOLLOWING = 'follow/getFollowing'
+const GET_LOGGED_USER_FOLLOWING = 'follow/getLoggedUserFollowing'
+
 const CREATE_FOLLOW = 'follow/createFollow'
 // const EDIT_COMMENT = 'comments/editComment'
 const DELETE_FOLLOW = 'follow/deleteFollow'
@@ -11,6 +13,12 @@ const DELETE_FOLLOW = 'follow/deleteFollow'
 const getFollowing = (follows) => {
     return {
         type: GET_FOLLOWING,
+        payload: follows
+    }
+}
+const getLoggedUserFollowing = (follows) => {
+    return {
+        type: GET_LOGGED_USER_FOLLOWING,
         payload: follows
     }
 }
@@ -48,6 +56,16 @@ export const getFollowingBackend = (userId) => async (dispatch) => {
         dispatch(getFollowing(parsedRes));
     }
 }
+// GET LOGGED USER FOLLOWING
+export const getLoggedUserFollowingBackend = () => async (dispatch) => {
+
+    const res = await csrfFetch(`/api/follows/users/me`);
+
+    if (res.ok) {
+        const parsedRes = await res.json();
+        dispatch(getLoggedUserFollowing(parsedRes));
+    }
+}
 
 // CREATE FOLLOW
 export const createFollowBackend = (userId, userPageId) => async (dispatch) => {
@@ -74,22 +92,6 @@ export const deleteFollowBackend = (userId, userPageId) => async (dispatch) => {
     }
 }
 
-// // EDIT TWEET
-// export const editCommentBackend = (commentId, commentInput, tweetId) => async (dispatch) => {
-//     console.log(commentId, tweetId, commentInput)
-
-//     const res = await csrfFetch(`/api/comments/${commentId}/tweets/${tweetId}`, {
-//         method: "PUT",
-//         body: JSON.stringify(commentInput)
-//     });
-//     if (res.ok) {
-//         const parsedRes = await res.json();
-//         dispatch(editComment(parsedRes));
-//     }
-// }
-
-
-
 
 
 //REDUCER
@@ -104,6 +106,17 @@ const followsReducer = (state = initialState, action) => {
                 getFollowingState.following[follow.id] = follow;
             })
             return getFollowingState;
+
+        case GET_LOGGED_USER_FOLLOWING:
+
+            console.log(action.payload)
+
+            const getLoggedUserFollowingState = { ...state };
+            action.payload.LoggedUserFollowing.forEach(follow => {
+                getLoggedUserFollowingState.loggedUserFollowing[follow.id] = follow;
+            })
+            return getLoggedUserFollowingState;
+
         case CREATE_FOLLOW:
             const createFollowState = { ...state };
             if (action.userId === action.payload.id) {
@@ -112,13 +125,6 @@ const followsReducer = (state = initialState, action) => {
             createFollowState.following[action.payload.id] = action.payload
 
             return createFollowState;
-
-        // case EDIT_COMMENT:
-        //     const editCommentState = { ...state };
-
-        //     editCommentState[action.payload.id] = action.payload
-
-        //     return editCommentState;
 
         case DELETE_FOLLOW:
             const deleteFollowState = { ...state };

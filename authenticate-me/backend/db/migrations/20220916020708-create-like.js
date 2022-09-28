@@ -10,11 +10,21 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        onDelete: 'CASCADE',
+        reference: {
+          model: 'Users',
+          key: 'id'
+        }
       },
       tweetId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        onDelete: 'CASCADE',
+        reference: {
+          model: 'Tweets',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

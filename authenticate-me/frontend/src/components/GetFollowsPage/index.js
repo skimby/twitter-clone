@@ -26,7 +26,6 @@ function GetFollowsPage({ followingCount }) {
         } else {
             setAlreadyFollowing(false)
         }
-
     }, [following])
 
     // useEffect(() => {
@@ -72,15 +71,15 @@ function GetFollowsPage({ followingCount }) {
                                                 }
                                             }}>
 
-                                                <img className='profile-img' src={following?.User?.profileImage} />
+                                                <img className='profile-img' src={following?.Following?.profileImage} />
 
                                             </Link>
                                         </div>
                                         <div>
 
-                                            <h5>{following?.User?.firstName}  </h5>
-                                            <h5>@{following?.User?.username}</h5>
-                                            <p>{following?.User?.bio}</p>
+                                            <h5>{following?.Following?.firstName}  </h5>
+                                            <h5>@{following?.Following?.username}</h5>
+                                            <p>{following?.Following?.bio}</p>
 
                                             {alreadyFollowing && (
                                                 <FollowingButton userId={loggedUser?.id} userPageId={userPage?.id} />

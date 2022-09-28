@@ -10,7 +10,12 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        onDelete: 'CASCADE',
+        reference: {
+          model: 'Users',
+          key: 'id'
+        }
       },
       tweet: {
         type: Sequelize.STRING(280),

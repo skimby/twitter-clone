@@ -5,7 +5,7 @@ import { getUserBackend } from '../../store/user'
 import { getTweetsUserBackend, getTweetsLoggedUserBackend } from '../../store/tweet'
 import FollowingButton from '../FollowButtons/FollowingButton';
 import FollowButton from '../FollowButtons/FollowButton';
-import { getFollowingBackend } from '../../store/follow';
+import { getFollowingBackend, getLoggedUserFollowingBackend } from '../../store/follow';
 import GetTweets from '../GetTweets';
 import GetFollowsPage from '../GetFollowsPage';
 import './UserProfile.css'
@@ -38,6 +38,7 @@ function UserProfile({ sessionUser }) {
         if (userPageId === sessionUser?.id) {
             setIsOwnPage(true)
             dispatch(getTweetsLoggedUserBackend(parseInt(userPageId)))
+            dispatch(getLoggedUserFollowingBackend())
         } else {
             setIsOwnPage(false)
             dispatch(getTweetsUserBackend(parseInt(userPageId)))
@@ -49,8 +50,7 @@ function UserProfile({ sessionUser }) {
     }, [dispatch, userPageId])
 
     useEffect(() => {
-        // if (following.length) {
-        const isFollowing = following.find(follow => loggedUser?.id === follow.userId);
+        const isFollowing = Object.values(follows.loggedUserFollowing).find(follow => loggedUser?.id === follow.followerId);
 
         if (isFollowing) {
             setAlreadyFollowing(true)
@@ -58,7 +58,7 @@ function UserProfile({ sessionUser }) {
             setAlreadyFollowing(false)
         }
         // }
-    }, [following])
+    }, [following, follows])
 
     const handleBack = () => {
         history.push('/')
