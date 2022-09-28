@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 import { getUserBackend } from '../../store/user'
 import { getTweetsUserBackend, getTweetsLoggedUserBackend } from '../../store/tweet'
 import FollowingButton from '../FollowButtons/FollowingButton';
 import FollowButton from '../FollowButtons/FollowButton';
 import { getFollowingBackend } from '../../store/follow';
 import GetTweets from '../GetTweets';
-
+import GetFollowsPage from '../GetFollowsPage';
 import './UserProfile.css'
 
 
@@ -106,7 +106,16 @@ function UserProfile({ sessionUser }) {
                     {joinedDate && (
                         <p>Joined {joinedDate[1]} {joinedDate[3]}</p>
                     )}
-                    <p>{user?.followingCount} Following</p>
+
+                    <Link to={{
+                        pathname: '/follows',
+                        state: {}
+                    }}>
+                        <p >{user?.followingCount} Following</p>
+                    </Link>
+                    {/* <GetFollowsPage followingCount={user?.followingCount} /> */}
+                    {/* <FollowingModal followingCount={user?.followingCount} /> */}
+                    {/* <p>{user?.followingCount} Following</p> */}
                     <p>{user?.followerCount} Followers</p>
                 </div>
 

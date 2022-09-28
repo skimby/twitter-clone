@@ -6,6 +6,7 @@ import SignupPage from "./components/SignupPage/index.js";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import UserProfile from "./components/UserProfile/index.js";
+import GetFollowsPage from "./components/GetFollowsPage/index.js";
 import Tweet from "./components/Tweet/index.js";
 
 
@@ -32,6 +33,10 @@ function App() {
                 <>
                   <Route path='/' exact >
                     <HomePage />
+                  </Route>
+
+                  <Route path='/follows' exact >
+                    <GetFollowsPage />
                   </Route>
 
                   <Route path='/:username' exact >
