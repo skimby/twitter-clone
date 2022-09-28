@@ -39,19 +39,48 @@ router.get('/users/:userId/followers', requireAuth, async (req, res, next) => {
     const user = await User.findByPk(userId);
 
     if (user) {
+
         const follows = await Follow.findAll({
             where: {
                 followerId: userId
             },
             include: [{
-                model: User,
+                model: User, as: 'Following',
                 attributes: ['id', 'firstName', 'profileImage', 'username', 'bio', 'verified']
             }]
         })
         res.status(200)
         return res.json({
-            Followers: follows
+            Following: follows
         })
+
+
+        // const follows = await User.findByPk(userId, {
+        //     // attributes: [],
+        //     include: [{
+        //         // attributes: [],
+        //         model: Follow,
+        //         include: [{
+        //             model: User, as: 'Following'
+        //         }]
+        //     }]
+        // })
+        // res.json(follows)
+
+
+        // const follows = await Follow.findAll({
+        //     where: {
+        //         followerId: userId
+        //     },
+        //     include: [{
+        //         association: 'Follower',
+        //         attributes: ['id', 'firstName', 'profileImage', 'username', 'bio', 'verified']
+        //     }]
+        // })
+        // res.status(200)
+        // return res.json({
+        //     Followers: follows
+        // })
     } else {
         const err = new Error("Could not find a User with the specified id.");
         err.message = "Could not find a User with the specified id.";
@@ -66,12 +95,25 @@ router.get('/users/:userId/following', requireAuth, async (req, res, next) => {
     const user = await User.findByPk(userId);
 
     if (user) {
+        // const follows = await User.findByPk(userId, {
+        //     // attributes: [],
+        //     include: [{
+        //         // attributes: [],
+        //         model: Follow,
+        //         include: [{
+        //             model: User
+        //             , as: 'Follower'
+        //         }]
+        //     }]
+        // })
+        // res.json(follows)
+
         const follows = await Follow.findAll({
             where: {
-                followerId: userId
+                userId
             },
             include: [{
-                model: User,
+                model: User, as: 'Follower',
                 attributes: ['id', 'firstName', 'profileImage', 'username', 'bio', 'verified']
             }]
         })

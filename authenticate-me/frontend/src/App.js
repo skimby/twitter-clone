@@ -35,13 +35,13 @@ function App() {
                     <HomePage />
                   </Route>
 
-                  <Route path='/follows' exact >
-                    <GetFollowsPage />
-                  </Route>
-
                   <Route path='/:username' exact >
                     <UserProfile sessionUser={sessionUser?.user} />
                   </Route>
+                  <Route path='/:username/follows' exact >
+                    <GetFollowsPage />
+                  </Route>
+
 
                   <Route path='/tweets/:tweetId' exact >
                     <Tweet />

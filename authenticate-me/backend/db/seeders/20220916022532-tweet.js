@@ -68,10 +68,38 @@ module.exports = {
       },
       {
         id: 10,
-        userId: 9,
+        userId: 5,
         tweet: "I woke up like this",
         image: null,
         gif: 'https://media.giphy.com/media/sI9zGC4bh9eCI/giphy.gif'
+      },
+      {
+        id: 11,
+        userId: 4,
+        tweet: "I woke up like this",
+        image: null,
+        gif: 'https://media.giphy.com/media/sI9zGC4bh9eCI/giphy.gif'
+      },
+      {
+        id: 12,
+        userId: 4,
+        tweet: "pink",
+        image: null,
+        gif: null
+      },
+      {
+        id: 13,
+        userId: 2,
+        tweet: "!",
+        image: null,
+        gif: null
+      },
+      {
+        id: 14,
+        userId: 4,
+        tweet: ":)",
+        image: null,
+        gif: null
       }
     ])
   },

@@ -7,7 +7,9 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       Follow.belongsTo(models.User,
-        { foreignKey: 'userId' })
+        { foreignKey: 'userId', as: 'Following' })
+      Follow.belongsTo(models.User,
+        { foreignKey: 'followerId', as: 'Follower' })
     }
   }
   Follow.init({
