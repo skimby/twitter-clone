@@ -125,15 +125,18 @@ router.post('/users/:userId/follow', requireAuth, async (req, res, next) => {
 
 //============== UNFOLLOW A USER (DELETE FOLLOW) =============//
 router.delete('/users/:userId/unfollow', requireAuth, async (req, res, next) => {
-    const { userId } = req.params;
-    const user = await User.findByPk(userId)
+    let { userId } = req.params;
+    userId = parseInt(userId)
+    const user = await User.findByPk(req.user.id)
     const existingFollow = await Follow.findOne({
         where: {
             userId: req.user.id,
             followerId: userId
         }
     })
+    console.log('----')
 
+    console.log(userId, userId)
     if (user) {
         if (existingFollow) {
             const follow = await existingFollow.destroy();

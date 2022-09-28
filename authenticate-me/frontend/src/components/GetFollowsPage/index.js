@@ -82,10 +82,10 @@ function GetFollowsPage({ followingCount }) {
                                             <p>{following?.Following?.bio}</p>
 
                                             {alreadyFollowing && (
-                                                <FollowingButton userId={loggedUser?.id} userPageId={userPage?.id} />
+                                                <FollowingButton userId={loggedUser?.id} userPageId={following?.followerId} />
                                             )}
                                             {!alreadyFollowing && (
-                                                <FollowButton userId={loggedUser?.id} userPageId={userPage?.id} />
+                                                <FollowButton userId={loggedUser?.id} userPageId={following?.followerId} />
                                             )}
                                         </div>
                                     </div>
