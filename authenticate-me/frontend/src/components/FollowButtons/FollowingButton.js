@@ -7,7 +7,7 @@ function FollowingButton({ userId, userPageId }) {
 
 
     const handleUnfollow = async () => {
-        await dispatch(deleteFollowBackend(userId, userPageId));
+        await dispatch(deleteFollowBackend(parseInt(userId), parseInt(userPageId)));
     }
     return (
         <button onClick={handleUnfollow}>Following</button>

@@ -23,22 +23,20 @@ function UserProfile({ sessionUser }) {
     const loggedUser = useSelector(state => state.session.user)
     const user = useSelector(state => state.users.User);
     const follows = useSelector(state => state.follows)
+    const loggedUserFollowingTest = Object.values(useSelector(state => state.follows.loggedUserFollowing));
     const following = Object.values(follows?.following)
     // const user = userPage?.User;
     let joinedDate = user?.createdAt
 
 
     useEffect(() => {
-        // if (!userPage?.User) {
         dispatch(getUserBackend(userPageId))
-        // }
     }, [dispatch, userPageId, follows])
 
     useEffect(() => {
         if (userPageId === sessionUser?.id) {
             setIsOwnPage(true)
             dispatch(getTweetsLoggedUserBackend(parseInt(userPageId)))
-            dispatch(getLoggedUserFollowingBackend())
         } else {
             setIsOwnPage(false)
             dispatch(getTweetsUserBackend(parseInt(userPageId)))
@@ -46,19 +44,25 @@ function UserProfile({ sessionUser }) {
     }, [dispatch, userPageId])
 
     useEffect(() => {
+        dispatch(getLoggedUserFollowingBackend())
         dispatch(getFollowingBackend(userPageId))
     }, [dispatch, userPageId])
 
     useEffect(() => {
-        const isFollowing = Object.values(follows.loggedUserFollowing).find(follow => loggedUser?.id === follow.followerId);
+        let isTrue = 0;
+        for (let i = 0; i < loggedUserFollowingTest.length; i++) {
+            if (userPageId === loggedUserFollowingTest[i].followerId) {
+                console.log(userPageId, loggedUserFollowingTest[i].followerId)
+                isTrue = true
+            }
+        }
 
-        if (isFollowing) {
+        if (isTrue) {
             setAlreadyFollowing(true)
         } else {
             setAlreadyFollowing(false)
         }
-        // }
-    }, [following, follows])
+    }, [loggedUserFollowingTest])
 
     const handleBack = () => {
         history.push('/')

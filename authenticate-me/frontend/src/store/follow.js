@@ -69,11 +69,12 @@ export const getLoggedUserFollowingBackend = () => async (dispatch) => {
 
 // CREATE FOLLOW
 export const createFollowBackend = (userId, userPageId) => async (dispatch) => {
+
     const res = await csrfFetch(`/api/follows/users/${userPageId}/follow`, {
         method: "POST",
         body: JSON.stringify({
             userId: userId,
-            followerId: userPageId
+            followerId: parseInt(userPageId)
         })
     });
     if (res.ok) {
@@ -108,9 +109,6 @@ const followsReducer = (state = initialState, action) => {
             return getFollowingState;
 
         case GET_LOGGED_USER_FOLLOWING:
-
-            console.log(action.payload)
-
             const getLoggedUserFollowingState = { ...state };
             action.payload.LoggedUserFollowing.forEach(follow => {
                 getLoggedUserFollowingState.loggedUserFollowing[follow.id] = follow;
@@ -118,20 +116,22 @@ const followsReducer = (state = initialState, action) => {
             return getLoggedUserFollowingState;
 
         case CREATE_FOLLOW:
+            console.log(action.payload)
             const createFollowState = { ...state };
-            if (action.userId === action.payload.id) {
-                createFollowState.loggedUserFollowing[action.payload.id] = action.payload
+            createFollowState.loggedUserFollowing[action.payload.id] = action.payload
+            if (action.userId === action.payload.followerId) {
+                createFollowState.following[action.payload.id] = action.payload
             }
-            createFollowState.following[action.payload.id] = action.payload
 
             return createFollowState;
 
         case DELETE_FOLLOW:
+            console.log(action.payload)
             const deleteFollowState = { ...state };
-            delete deleteFollowState.following[action.payload.id]
+            delete deleteFollowState.loggedUserFollowing[action.payload.id]
 
-            if (action.userId === action.payload.id) {
-                delete deleteFollowState.loggedUserFollowing[action.payload.id]
+            if (action.userId === action.payload.userId) {
+                delete deleteFollowState.following[action.payload.id]
             }
             return deleteFollowState;
 

@@ -7,7 +7,7 @@ function FollowButton({ userId, userPageId }) {
     const dispatch = useDispatch();
     const history = useHistory()
     const handleFollow = async () => {
-        await dispatch(createFollowBackend(userId, userPageId))
+        await dispatch(createFollowBackend(parseInt(userId), parseInt(userPageId)))
         // history.push(`/${userPage.username}`);
     }
 

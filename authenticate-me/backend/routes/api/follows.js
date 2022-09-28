@@ -96,7 +96,7 @@ router.post('/users/:userId/follow', requireAuth, async (req, res, next) => {
     const existingFollow = await Follow.findOne({
         where: {
             userId: req.user.id,
-            followerId: userId
+            followerId: parseInt(userId)
         }
     })
 
@@ -109,7 +109,7 @@ router.post('/users/:userId/follow', requireAuth, async (req, res, next) => {
         } else {
             const follow = await Follow.create({
                 userId: req.user.id,
-                followerId: userId
+                followerId: parseInt(userId)
             })
             res.status(200)
             return res.json(follow)
