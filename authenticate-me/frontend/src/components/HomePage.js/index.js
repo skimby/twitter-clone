@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import CreateTweet from '../CreateTweet';
 import GetTweets from '../GetTweets';
 import { getFeedTweetsBackend } from '../../store/tweet'
-import SignupPage from '../SignupPage';
+
 import './HomePage.css'
 
 function HomePage() {
@@ -12,10 +12,11 @@ function HomePage() {
 
     const sessionUser = useSelector(state => state.session);
     const tweets = useSelector(state => state.tweets)
+    const likes = useSelector(state => state.likes)
 
     useEffect(() => {
         dispatch(getFeedTweetsBackend())
-    }, [dispatch])
+    }, [dispatch, likes])
 
     useEffect(() => {
         if (sessionUser?.user) {

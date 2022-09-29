@@ -60,7 +60,6 @@ export const createCommentBackend = (tweetId, commentInput) => async (dispatch) 
 
 // EDIT TWEET
 export const editCommentBackend = (commentId, commentInput, tweetId) => async (dispatch) => {
-    console.log(commentId, tweetId, commentInput)
 
     const res = await csrfFetch(`/api/comments/${commentId}/tweets/${tweetId}`, {
         method: "PUT",

@@ -7,7 +7,6 @@ import FollowingButton from '../FollowButtons/FollowingButton';
 import FollowButton from '../FollowButtons/FollowButton';
 import { getFollowingBackend, getLoggedUserFollowingBackend } from '../../store/follow';
 import GetTweets from '../GetTweets';
-import GetFollowsPage from '../GetFollowsPage';
 import './UserProfile.css'
 
 

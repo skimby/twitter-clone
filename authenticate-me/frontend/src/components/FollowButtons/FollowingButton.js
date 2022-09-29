@@ -5,7 +5,6 @@ import { deleteFollowBackend } from '../../store/follow'
 function FollowingButton({ userId, userPageId, isOwnPage }) {
     const dispatch = useDispatch();
 
-    console.log(userId, userPageId, isOwnPage)
 
     const handleUnfollow = async () => {
         await dispatch(deleteFollowBackend(parseInt(userId), parseInt(userPageId), isOwnPage));

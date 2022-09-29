@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useHistory, Link } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { getFollowersBackend, getLoggedUserFollowingBackend } from '../../store/follow';
 import EachFollower from './EachFollower';
 
 
-function GetFollowersPage({ followingCount }) {
+function GetFollowersPage() {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
@@ -29,7 +29,6 @@ function GetFollowersPage({ followingCount }) {
         dispatch(getFollowersBackend(userPage?.id))
         dispatch(getLoggedUserFollowingBackend())
     }, [dispatch])
-
 
 
     const handleBack = () => {

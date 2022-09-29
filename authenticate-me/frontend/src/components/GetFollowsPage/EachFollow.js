@@ -10,7 +10,6 @@ function EachFollow({ follow, userPage, isOwnPage }) {
     const loggedUser = useSelector(state => state.session.user)
     const [alreadyFollowing, setAlreadyFollowing] = useState();
 
-    // const [isOwnPage, setIsOwnPage] = useState();
     const follows = useSelector(state => state.follows);
     const loggedUserFollowing = Object.values(follows?.loggedUserFollowing);
 
@@ -28,11 +27,7 @@ function EachFollow({ follow, userPage, isOwnPage }) {
         } else {
             setAlreadyFollowing(false)
         }
-
-
     }, [follows, follows?.loggedUserFollowing])
-
-
 
 
     return (
@@ -46,7 +41,6 @@ function EachFollow({ follow, userPage, isOwnPage }) {
                 }}>
 
                     <img className='profile-img' src={follow?.Following?.profileImage} />
-
                 </Link>
             </div>
             <div>

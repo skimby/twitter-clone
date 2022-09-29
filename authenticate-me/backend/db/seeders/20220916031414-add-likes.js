@@ -23,6 +23,26 @@ module.exports = {
         userId: 3,
         tweetId: 1
       },
+      {
+        id: 5,
+        userId: 3,
+        tweetId: 2
+      },
+      {
+        id: 6,
+        userId: 3,
+        tweetId: 5
+      },
+      {
+        id: 7,
+        userId: 3,
+        tweetId: 6
+      },
+      {
+        id: 8,
+        userId: 2,
+        tweetId: 1
+      },
     ])
   },
 

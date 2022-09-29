@@ -12,8 +12,6 @@ function GetOneTweet({ tweet }) {
 
     const comments = useSelector(state => state.comments);
 
-    console.log(tweet?.id)
-    console.log(typeof tweet?.id)
 
     useEffect(() => {
         if (tweet?.id) {

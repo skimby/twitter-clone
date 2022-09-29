@@ -62,16 +62,10 @@ router.put('/:commentId/tweets/:tweetId', requireAuth, async (req, res, next) =>
     const { commentId, tweetId } = req.params;
     const { comment } = req.body;
 
-    console.log('---BODY----')
-    console.log(req.body)
-
-    //This backend body input is giving us the User object, not the edited comment.. why?
-
     const tweet = await Tweet.findByPk(tweetId)
     const editComment = await Comment.findByPk(commentId)
 
-    console.log('---')
-    console.log(editComment)
+
 
     if (tweet) {
         if (editComment.userId === req.user.id) {

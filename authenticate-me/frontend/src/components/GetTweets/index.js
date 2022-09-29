@@ -1,12 +1,18 @@
 import TweetSettingsModal from './TweetSettingsModal';
+import { useDispatch } from "react-redux"
+
 import { Redirect, useHistory, Link } from 'react-router-dom';
-import UserProfile from '../UserProfile';
+
+import Likes from '../Likes';
 import CreateCommentModal from '../CreateCommentModal';
 import './GetTweets.css'
+import { useEffect } from 'react';
 
 
 function GetTweets({ tweets }) {
     const history = useHistory();
+    const dispatch = useDispatch()
+
 
 
     return (
@@ -64,7 +70,9 @@ function GetTweets({ tweets }) {
 
                                     <i className="fa-solid fa-retweet"></i>{tweet?.retweetCount}
 
-                                    <i className="fa-regular fa-heart"></i>{tweet?.commentCount}
+                                    <Likes likeCount={tweet?.likeCount} tweet={tweet} />
+
+                                    {/* <i onClick={handleLike(tweet)} className="fa-regular fa-heart"></i>{tweet?.likeCount} */}
 
                                 </div>
                             </div>

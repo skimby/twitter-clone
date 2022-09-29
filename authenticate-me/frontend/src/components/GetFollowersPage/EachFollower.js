@@ -14,7 +14,6 @@ function EachFollower({ follow, userPage, isOwnPage }) {
     const follows = useSelector(state => state.follows);
     const loggedUserFollowing = Object.values(follows?.loggedUserFollowing);
 
-    // console.log(follow?.userId, loggedUserFollowing[2]?.followerId)
 
     useEffect(() => {
         dispatch(getLoggedUserFollowingBackend())
@@ -32,7 +31,6 @@ function EachFollower({ follow, userPage, isOwnPage }) {
                 setAlreadyFollowing(false)
             }
         }
-
 
     }, [follows, follows?.loggedUserFollowing])
 

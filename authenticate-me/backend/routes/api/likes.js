@@ -5,6 +5,29 @@ const user = require("../../db/models/user");
 
 const router = express.Router();
 
+//================== GET LIKES =================//
+router.get('/tweets/:tweetId', requireAuth, async (req, res, next) => {
+    const { tweetId } = req.params;
+    const tweet = await Tweet.findByPk(tweetId)
+
+    if (tweet) {
+        const likes = await Like.findAll({
+            where: {
+                tweetId
+            }
+        })
+
+        res.status(200)
+        return res.json(likes)
+
+    } else {
+        const err = new Error("Could not find a Tweet with the specified id.");
+        err.message = "Could not find a Tweet with the specified id.";
+        err.status = 404;
+        return next(err);
+    }
+})
+
 //================== CREATE A LIKE =================//
 router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
     const { tweetId } = req.params;

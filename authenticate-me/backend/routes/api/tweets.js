@@ -93,6 +93,8 @@ router.get('/feed', requireAuth, async (req, res, next) => {
         tweet.dataValues.commentCount = comments.count;
         tweet.dataValues.retweetCount = retweets.count;
         tweet.dataValues.likeCount = likes.count;
+        tweet.dataValues.likes = likes.rows;
+
         tweets2.push(tweet)
     }
 

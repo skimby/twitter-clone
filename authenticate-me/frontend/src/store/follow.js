@@ -129,7 +129,6 @@ const followsReducer = (state = initialState, action) => {
             return getFollowingState;
 
         case GET_FOLLOWERS:
-            // console.log(action.payload)
             const getFollowersState = { ...state };
             getFollowersState.followers = {};
             action.payload.Following.forEach(follow => {
@@ -145,7 +144,6 @@ const followsReducer = (state = initialState, action) => {
             return getLoggedUserFollowingState;
 
         case CREATE_FOLLOW:
-            // console.log(action.payload)
             const createFollowState = { ...state };
             createFollowState.loggedUserFollowing[action.payload.id] = action.payload
 
@@ -156,7 +154,6 @@ const followsReducer = (state = initialState, action) => {
             return createFollowState;
 
         case DELETE_FOLLOW:
-            console.log(action.payload)
             const deleteFollowState = { ...state };
             delete deleteFollowState.loggedUserFollowing[action.payload.id]
 
