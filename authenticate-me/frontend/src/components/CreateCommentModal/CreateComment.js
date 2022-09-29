@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { createCommentBackend } from '../../store/comment';
@@ -7,7 +7,6 @@ function CreateComment({ tweetId }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const ref = useRef(null)
     const [comment, setComment] = useState('');
     const [image, setImage] = useState();
     const [gif, setGif] = useState();
@@ -24,7 +23,7 @@ function CreateComment({ tweetId }) {
         }
         await dispatch(createCommentBackend(tweetId, commentInput));
 
-        history.push(`/${user?.username}/tweets/${tweetId}`)
+        history.push(`/${user?.user?.username}/tweets/${tweetId}`)
         history.go()
     }
 

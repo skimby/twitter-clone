@@ -24,7 +24,7 @@ function CreateTweetForm() {
         }
         const newTweet = await dispatch(createTweetBackend(tweetInput))
 
-        history.push(`/${user?.username}/tweets/${newTweet?.id}`)
+        history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
         history.go()
     }
 
