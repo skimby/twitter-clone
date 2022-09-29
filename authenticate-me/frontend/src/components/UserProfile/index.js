@@ -15,7 +15,9 @@ function UserProfile({ sessionUser }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
-    const { userPageId } = location.state;
+    let { userPageId } = location.state;
+    userPageId = parseInt(userPageId)
+
 
     const [isOwnPage, setIsOwnPage] = useState();
     const [alreadyFollowing, setAlreadyFollowing] = useState();
@@ -45,14 +47,13 @@ function UserProfile({ sessionUser }) {
 
     useEffect(() => {
         dispatch(getLoggedUserFollowingBackend())
-        dispatch(getFollowingBackend(userPageId))
+        dispatch(getFollowingBackend(userPageId, isOwnPage))
     }, [dispatch, userPageId])
 
     useEffect(() => {
         let isTrue = 0;
         for (let i = 0; i < loggedUserFollowingTest.length; i++) {
             if (userPageId === loggedUserFollowingTest[i].followerId) {
-                console.log(userPageId, loggedUserFollowingTest[i].followerId)
                 isTrue = true
             }
         }

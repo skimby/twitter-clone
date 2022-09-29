@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useHistory, Link } from 'react-router-dom';
-import { getFollowingBackend } from '../../store/follow';
+import { getFollowingBackend, getLoggedUserFollowingBackend } from '../../store/follow';
+import EachFollow from './EachFollow';
 import FollowButton from '../FollowButtons/FollowButton';
 import FollowingButton from '../FollowButtons/FollowingButton';
 
@@ -12,34 +13,36 @@ function GetFollowsPage({ followingCount }) {
     const { userPage } = location.state;
 
     const [alreadyFollowing, setAlreadyFollowing] = useState();
+    const [isOwnPage, setIsOwnPage] = useState();
 
     const loggedUser = useSelector(state => state.session.user)
     const follows = useSelector(state => state.follows);
     const following = Object.values(follows?.following);
+    const loggedUserFollowing = Object.values(follows?.loggedUserFollowing);
 
-
-    useEffect(() => {
-        const isFollowing = following.find(follow => loggedUser?.id === follow.userId);
-
-        if (isFollowing) {
-            setAlreadyFollowing(true)
-        } else {
-            setAlreadyFollowing(false)
-        }
-    }, [following])
 
     // useEffect(() => {
-    //     if (userPage?.id === sessionUser?.id) {
-    //         setIsOwnPage(true)
-    //         dispatch(getTweetsLoggedUserBackend(parseInt(userPage?.id)))
+
+    //     const isFollowing = loggedUserFollowing.find(follow => loggedUser?.id === follow?.followerId);
+
+    //     if (isFollowing) {
+    //         setAlreadyFollowing(true)
     //     } else {
-    //         setIsOwnPage(false)
-    //         dispatch(getTweetsUserBackend(parseInt(userPage?.id)))
+    //         setAlreadyFollowing(false)
     //     }
-    // }, [dispatch, userPageId])
+    // }, [follows, follows?.loggedUserFollowing])
+
+    useEffect(() => {
+        if (parseInt(userPage?.id) === loggedUser?.id) {
+            setIsOwnPage(true)
+        } else {
+            setIsOwnPage(false)
+        }
+    }, [dispatch, userPage])
 
     useEffect(() => {
         dispatch(getFollowingBackend(userPage?.id))
+        dispatch(getLoggedUserFollowingBackend())
     }, [dispatch])
 
     const handleBack = () => {
@@ -60,42 +63,16 @@ function GetFollowsPage({ followingCount }) {
                     <div>
                         <h4>Following</h4>
                         {following && (
-                            following.map((following, index) => {
+                            following.map((follow, index) => {
                                 return (
                                     <div key={index}>
-                                        <div className='tweet-profile-img'>
-                                            <Link to={{
-                                                pathname: `/${userPage?.username}`,
-                                                state: {
-                                                    userPageId: userPage?.id
-                                                }
-                                            }}>
-
-                                                <img className='profile-img' src={following?.Following?.profileImage} />
-
-                                            </Link>
-                                        </div>
-                                        <div>
-
-                                            <h5>{following?.Following?.firstName}  </h5>
-                                            <h5>@{following?.Following?.username}</h5>
-                                            <p>{following?.Following?.bio}</p>
-
-                                            {alreadyFollowing && (
-                                                <FollowingButton userId={loggedUser?.id} userPageId={following?.followerId} />
-                                            )}
-                                            {!alreadyFollowing && (
-                                                <FollowButton userId={loggedUser?.id} userPageId={following?.followerId} />
-                                            )}
-                                        </div>
+                                        <EachFollow follow={follow} userPage={userPage} isOwnPage={isOwnPage} />
                                     </div>
                                 )
                             })
                         )}
                     </div>
-
                 </div>
-
             </div>
         </>
     )

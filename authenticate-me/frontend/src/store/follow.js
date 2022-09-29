@@ -10,10 +10,11 @@ const DELETE_FOLLOW = 'follow/deleteFollow'
 
 
 // ACTION
-const getFollowing = (follows) => {
+const getFollowing = (follows, isOwnPage) => {
     return {
         type: GET_FOLLOWING,
-        payload: follows
+        payload: follows,
+        isOwnPage: isOwnPage
     }
 }
 const getLoggedUserFollowing = (follows) => {
@@ -36,24 +37,25 @@ const createFollow = (follow, userId) => {
 //     }
 // }
 
-const deleteFollow = (follow, userId) => {
+const deleteFollow = (follow, userId, isOwnPage) => {
     return {
         type: DELETE_FOLLOW,
         payload: follow,
-        userId: userId
+        userId: userId,
+        isOwnPage: isOwnPage
     }
 }
 
 // THUNK
 
 // GET FOLLOWING
-export const getFollowingBackend = (userId) => async (dispatch) => {
+export const getFollowingBackend = (userId, isOwnPage) => async (dispatch) => {
 
     const res = await csrfFetch(`/api/follows/users/${userId}/following`);
 
     if (res.ok) {
         const parsedRes = await res.json();
-        dispatch(getFollowing(parsedRes));
+        dispatch(getFollowing(parsedRes, isOwnPage));
     }
 }
 // GET LOGGED USER FOLLOWING
@@ -83,13 +85,13 @@ export const createFollowBackend = (userId, userPageId) => async (dispatch) => {
     }
 }
 // DELETE TWEET
-export const deleteFollowBackend = (userId, userPageId) => async (dispatch) => {
+export const deleteFollowBackend = (userId, userPageId, isOwnPage) => async (dispatch) => {
     const res = await csrfFetch(`/api/follows/users/${userPageId}/unfollow`, {
         method: 'DELETE'
     });
     if (res.ok) {
         const parsedRes = await res.json();
-        dispatch(deleteFollow(parsedRes, userId));
+        dispatch(deleteFollow(parsedRes, userId, isOwnPage));
     }
 }
 
@@ -119,7 +121,8 @@ const followsReducer = (state = initialState, action) => {
             console.log(action.payload)
             const createFollowState = { ...state };
             createFollowState.loggedUserFollowing[action.payload.id] = action.payload
-            if (action.userId === action.payload.followerId) {
+
+            if (action.isOwnPage) {
                 createFollowState.following[action.payload.id] = action.payload
             }
 
@@ -130,7 +133,7 @@ const followsReducer = (state = initialState, action) => {
             const deleteFollowState = { ...state };
             delete deleteFollowState.loggedUserFollowing[action.payload.id]
 
-            if (action.userId === action.payload.userId) {
+            if (action.isOwnPage) {
                 delete deleteFollowState.following[action.payload.id]
             }
             return deleteFollowState;
