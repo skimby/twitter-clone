@@ -137,6 +137,8 @@ router.get('/explore', requireAuth, async (req, res, next) => {
         tweet.dataValues.commentCount = comments.count;
         tweet.dataValues.retweetCount = retweets.count;
         tweet.dataValues.likeCount = likes.count;
+        tweet.dataValues.likes = likes.rows;
+
     }
     res.status(200)
     return res.json({
@@ -150,7 +152,7 @@ router.get('/:tweetId', async (req, res, next) => {
     const { tweetId } = req.params;
     const tweet = await Tweet.findOne({
         where: {
-            id: tweetId
+            id: parseInt(tweetId)
         },
         include: [{
             model: User,
@@ -214,6 +216,8 @@ router.get('/:tweetId', async (req, res, next) => {
         tweet.dataValues.commentCount = comments.count;
         tweet.dataValues.retweetCount = retweets.count;
         tweet.dataValues.likeCount = likes.count;
+        tweet.dataValues.likes = likes.rows;
+
 
         res.status(200)
         res.json({
@@ -294,6 +298,8 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
             tweet.dataValues.commentCount = comments.count;
             tweet.dataValues.retweetCount = retweets.count;
             tweet.dataValues.likeCount = likes.count;
+            tweet.dataValues.likes = likes.rows;
+
         }
 
         res.status(200)

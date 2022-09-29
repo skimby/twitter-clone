@@ -48,7 +48,7 @@ router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
         } else {
             const like = await Like.create({
                 userId: req.user.id,
-                tweetId
+                tweetId: parseInt(tweetId)
             })
             res.status(200)
             return res.json(like)

@@ -1,23 +1,36 @@
 import { useHistory } from 'react-router-dom';
 import GetComment from '../GetComment';
-import { getCommentsBackend } from '../../../store/comment'
+import { getCommentsBackend } from '../../../store/comment';
 import { useDispatch, useSelector } from 'react-redux';
+import Likes from '../../Likes';
 import { useEffect } from 'react';
+import { getUserBackend } from "../../../store/user";
+import { getOneTweetBackend } from '../../../store/tweet'
 
 
-function GetOneTweet({ tweet }) {
+function GetOneTweet({ tweetId, userPageId }) {
     const dispatch = useDispatch();
-    const user = tweet?.User;
     const history = useHistory();
+    const user = useSelector(state => state.users)
+    const likes = useSelector(state => state.likes)
+    const tweets = useSelector(state => state.tweets)
+    const tweet = tweets?.currentTweet
 
-    const comments = useSelector(state => state.comments);
 
+    useEffect(() => {
+        dispatch(getOneTweetBackend(tweetId))
+    }, [dispatch, tweetId, likes])
 
     useEffect(() => {
         if (tweet?.id) {
             dispatch(getCommentsBackend(tweet?.id))
         }
     }, [dispatch, tweet?.id])
+
+
+    useEffect(() => {
+        dispatch(getUserBackend(userPageId))
+    }, [dispatch, userPageId])
 
     const handleBack = () => {
         history.push('/')
@@ -38,13 +51,13 @@ function GetOneTweet({ tweet }) {
 
                 <div className='user-info-container'>
                     <div className='profile-img'>
-                        <img className='profile-img' src={user?.profileImage} />
+                        <img className='profile-img' src={user?.User?.profileImage} />
                     </div>
 
                     <div className='user-info-content'>
                         <div>
-                            <h5>{user?.firstName}</h5>
-                            <h5>  <span className='thin-styling'>@{user?.username}</span></h5>
+                            <h5>{user?.User?.firstName}</h5>
+                            <h5>  <span className='thin-styling'>@{user?.User?.username}</span></h5>
                         </div>
                     </div>
                 </div>
@@ -57,21 +70,27 @@ function GetOneTweet({ tweet }) {
                 </div> */}
 
                 <div>
-                    <h3>{tweet?.tweet}</h3>
-                    <img src={tweet?.image} width='200' />
-                    <img src={tweet?.gif} width='200' />
+                    {tweet && (
+                        <>
+                            <h3>{tweet?.tweet}</h3>
+                            <img src={tweet?.image} width='200' />
+                            <img src={tweet?.gif} width='200' />
 
 
-                    <p>{tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}, {tweet?.updatedAt?.[3]}</p>
+                            <p>{tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}, {tweet?.updatedAt?.[3]}</p>
 
 
-                    <p>{tweet?.retweetCount} Retweets</p>
-                    <p>{tweet?.commentCount} Quote Tweets</p>
-                    <p>{tweet?.likeCount} Likes</p>
+                            <p>{tweet?.retweetCount} Retweets</p>
+                            <p>{tweet?.commentCount} Quote Tweets</p>
+                            <p>{tweet?.likeCount} Likes</p>
 
-                    <i className="fa-regular fa-comment"></i>
-                    <i className="fa-solid fa-retweet"></i>
-                    <i className="fa-regular fa-heart"></i>
+
+
+                            <i className="fa-regular fa-comment"></i>
+                            <i className="fa-solid fa-retweet"></i>
+                            <Likes likeCount={tweet?.likeCount} tweet={tweet} />
+                        </>
+                    )}
 
 
                     {tweet?.Comments && (

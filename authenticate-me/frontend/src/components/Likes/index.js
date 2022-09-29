@@ -8,36 +8,35 @@ function Likes({ likeCount, tweet }) {
     const [liked, setLiked] = useState();
     const likes = tweet?.likes
     const loggedUser = useSelector(state => state.session.user)
-    // let myLike;
     const myLike = useRef()
 
     useEffect(() => {
-        // if (likes) {
-        const tweetIsLiked = likes.find(like => like.userId === loggedUser?.id)
+        if (likes) {
 
-        myLike.current = tweetIsLiked;
-        if (tweetIsLiked) {
-            setLiked(true)
-        } else {
-            setLiked(false)
+            const tweetIsLiked = likes.find(like => like.userId === loggedUser?.id)
+
+            myLike.current = tweetIsLiked;
+            if (tweetIsLiked) {
+                setLiked(true)
+            } else {
+                setLiked(false)
+            }
         }
-        // }
-        console.log(myLike?.id)
+
     }, [dispatch, likes])
 
 
     const handleLike = () => {
-        dispatch(createLikeBackend(tweet?.id))
+        dispatch(createLikeBackend(parseInt(tweet?.id)))
+        // dispatch(getLikesBackend(tweet?.id));
+
         setLiked(true)
     }
 
     const handleUnlike = () => {
-
-        dispatch(deleteLikeBackend(tweet?.id, myLike?.current?.id))
+        dispatch(deleteLikeBackend(parseInt(tweet?.id), parseInt(myLike?.current?.id)))
         dispatch(getLikesBackend(tweet?.id));
         setLiked(false)
-
-
     }
 
     return (
