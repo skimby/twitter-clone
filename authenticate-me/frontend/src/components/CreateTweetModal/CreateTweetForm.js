@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { createTweetBackend } from '../../store/tweet'
@@ -6,7 +6,7 @@ import { createTweetBackend } from '../../store/tweet'
 function CreateTweetForm() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const ref = useRef(null)
+
     const [tweet, setTweet] = useState('');
     const [gif, setGif] = useState();
     const [image, setImage] = useState();
@@ -27,7 +27,6 @@ function CreateTweetForm() {
         history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
         history.go()
     }
-
 
     const submitButton = () => {
         return (

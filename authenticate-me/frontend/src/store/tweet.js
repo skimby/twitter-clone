@@ -8,6 +8,7 @@ const DELETE_TWEET = 'tweets/deleteTweet'
 const GET_TWEETS_USER = 'tweets/getTweetsUser'
 const GET_TWEETS_LOGGED_USER = 'tweets/getTweetsLoggedUser'
 const GET_ONE_TWEET = 'tweets/getOneTweet'
+const GET_EXPLORE_TWEETS = 'tweets/getExploreTweets'
 
 // ACTION
 const createTweet = (tweet) => {
@@ -58,6 +59,12 @@ const getOneTweet = (tweet) => {
     }
 }
 
+const getExploreTweets = (tweets) => {
+    return {
+        type: GET_EXPLORE_TWEETS,
+        payload: tweets
+    }
+}
 // THUNK
 export const createTweetBackend = (tweetInput) => async (dispatch) => {
     const res = await csrfFetch('/api/tweets/create', {
@@ -120,6 +127,13 @@ export const getOneTweetBackend = (tweetId) => async (dispatch) => {
     const res = await csrfFetch(`/api/tweets/${tweetId}`);
     const parsedRes = await res.json();
     dispatch(getOneTweet(parsedRes));
+}
+
+// GET EXPLORE TWEETS
+export const getExploreTweetsBackend = () => async (dispatch) => {
+    const res = await csrfFetch(`/api/tweets/explore`);
+    const parsedRes = await res.json();
+    dispatch(getExploreTweets(parsedRes));
 }
 
 
