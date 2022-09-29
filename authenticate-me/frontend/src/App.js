@@ -36,18 +36,18 @@ function App() {
                     <HomePage />
                   </Route>
 
-                  <Route path='/:username' exact >
+                  <Route path='/:username/:userId' exact >
                     <UserProfile sessionUser={sessionUser?.user} />
                   </Route>
-                  <Route path='/:username/follows' exact >
+                  <Route path='/:username/:userId/follows' exact >
                     <GetFollowsPage />
                   </Route>
-                  <Route path='/:username/followers' exact >
+                  <Route path='/:username/:userId/followers' exact >
                     <GetFollowersPage />
                   </Route>
 
 
-                  <Route path='/tweets/:tweetId' exact >
+                  <Route path='/:username/tweets/:tweetId' exact >
                     <Tweet />
                   </Route>
                 </>

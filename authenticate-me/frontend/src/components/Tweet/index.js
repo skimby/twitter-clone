@@ -1,14 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
-import { getOneTweetBackend } from '../../store/tweet';
+import { useParams } from 'react-router-dom';
 import GetOneTweet from './GetOneTweet';
 
 function Tweet() {
-    let { tweetId } = useParams();
+    let { tweetId, userId } = useParams();
     tweetId = parseInt(tweetId);
-
-    // const location = useLocation();
+    userId = parseInt(userId);
 
     // const { userPageId } = location.state
 
@@ -22,7 +18,7 @@ function Tweet() {
 
     return (
         <>
-            <GetOneTweet tweetId={tweetId} />
+            <GetOneTweet tweetId={tweetId} userId={userId} />
         </>
     )
 }

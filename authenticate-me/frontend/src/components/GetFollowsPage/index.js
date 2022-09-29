@@ -1,42 +1,45 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useHistory, Link } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { getFollowingBackend, getLoggedUserFollowingBackend } from '../../store/follow';
+import { getUserBackend } from '../../store/user';
 import EachFollow from './EachFollow';
 
 
 function GetFollowsPage({ followingCount }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const location = useLocation();
-    const { userPage } = location.state;
+    const { userId } = useParams();
 
-    const [alreadyFollowing, setAlreadyFollowing] = useState();
     const [isOwnPage, setIsOwnPage] = useState();
 
-    const loggedUser = useSelector(state => state.session.user)
+    const user = useSelector(state => state.users)
+    const loggedUser = useSelector(state => state.session.users)
     const follows = useSelector(state => state.follows);
     const following = Object.values(follows?.following);
 
 
     useEffect(() => {
-        if (parseInt(userPage?.id) === loggedUser?.id) {
+        dispatch(getUserBackend(userId))
+    }, [dispatch, userId])
+
+    useEffect(() => {
+        if (parseInt(userId) === loggedUser?.id) {
             setIsOwnPage(true)
         } else {
             setIsOwnPage(false)
         }
-    }, [dispatch, userPage])
+    }, [dispatch, userId])
 
     useEffect(() => {
-        dispatch(getFollowingBackend(userPage?.id))
+        dispatch(getFollowingBackend(userId))
         dispatch(getLoggedUserFollowingBackend())
     }, [dispatch])
 
-
-
     const handleBack = () => {
-        history.push('/')
+        history.goBack();
     }
+
     return (
         <>
             <div id="middle-container">
@@ -45,8 +48,8 @@ function GetFollowsPage({ followingCount }) {
                         <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
                     </div>
                     <div>
-                        <h3>{userPage?.firstName}</h3>
-                        <h5>@{userPage?.username}</h5>
+                        <h3>{user?.User?.firstName}</h3>
+                        <h5>@{user?.User?.username}</h5>
                     </div>
 
                     <div>
@@ -55,7 +58,7 @@ function GetFollowsPage({ followingCount }) {
                             following.map((follow, index) => {
                                 return (
                                     <div key={index}>
-                                        <EachFollow follow={follow} userPage={userPage} isOwnPage={isOwnPage} />
+                                        <EachFollow follow={follow} isOwnPage={isOwnPage} />
                                     </div>
                                 )
                             })

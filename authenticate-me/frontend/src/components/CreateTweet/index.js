@@ -39,7 +39,7 @@ function CreateTweet() {
             image
         }
         const newTweet = await dispatch(createTweetBackend(tweetInput))
-        history.push(`/tweets/${newTweet?.id}`)
+        history.push(`/${user?.username}/tweets/${newTweet?.id}`)
     }
 
 

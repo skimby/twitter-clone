@@ -7,12 +7,7 @@ function GetComment({ comment, tweetId }) {
     return (
         <>
             <div className='profile-img'>
-                <Link to={{
-                    pathname: `/${comment?.User?.username}`,
-                    state: {
-                        userPageId: comment?.User?.id
-                    }
-                }}>
+                <Link to={`/${comment?.User?.username}/${comment?.User?.id}`}>
                     <img className='profile-img' src={comment?.User?.profileImage} />
                 </Link>
 
@@ -20,12 +15,7 @@ function GetComment({ comment, tweetId }) {
 
             <div className='tweet-text-box'>
                 <div>
-                    <Link to={{
-                        pathname: `/${comment?.User?.username}`,
-                        state: {
-                            userPageId: comment?.User?.id
-                        }
-                    }}>
+                    <Link to={`/${comment?.User?.username}/${comment?.User?.id}/tweets/${comment?.tweetId}`}>
                         <h5>
                             {comment?.User?.firstName}</h5>
                     </Link>

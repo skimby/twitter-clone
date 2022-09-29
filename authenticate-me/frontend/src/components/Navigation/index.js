@@ -29,12 +29,7 @@ function Navigation({ isLoaded }) {
         </NavLink>
       </li>
       <li>
-        <NavLink exact to={{
-          pathname: `/${sessionUser?.user?.username}`,
-          state: {
-            userPageId: sessionUser?.user?.id
-          }
-        }}>
+        <NavLink exact to={`/${sessionUser?.user?.username}/${sessionUser?.user?.id}`}>
           <i className="fa-regular fa-user nav-icons"></i>
           <h3>Profile</h3>
         </NavLink>

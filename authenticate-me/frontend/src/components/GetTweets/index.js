@@ -1,21 +1,14 @@
 import TweetSettingsModal from './TweetSettingsModal';
-import { useDispatch } from "react-redux"
 
-import { Redirect, useHistory, Link } from 'react-router-dom';
-import UserProfile from '../UserProfile';
-import { getLikesBackend } from '../../store/like';
+import { useHistory } from 'react-router-dom';
 
 import Likes from '../Likes';
 import CreateCommentModal from '../CreateCommentModal';
 import './GetTweets.css'
-import { useEffect } from 'react';
 
 
 function GetTweets({ tweets }) {
     const history = useHistory();
-    const dispatch = useDispatch()
-
-
 
     return (
         <>
@@ -24,36 +17,27 @@ function GetTweets({ tweets }) {
                     return (
                         <div className='tweet-container' key={index} >
 
-                            <div className='tweet-profile-img'>
-                                <Link to={{
-                                    pathname: `/${tweet?.User?.username}`,
-                                    state: {
-                                        userPageId: tweet?.User?.id
-                                    }
-                                }}>
+                            <div className='tweet-profile-img' onClick={() => { history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`) }}>
 
-                                    <img className='profile-img' src={tweet?.User?.profileImage} />
+                                <img className='profile-img' src={tweet?.User?.profileImage} />
 
-                                </Link>
+
                             </div>
 
                             <div className='tweet-text-box'>
                                 <div>
-                                    <Link to={`/${tweet?.User?.username}`}>
-                                        <h5>{tweet?.User?.firstName}  </h5>
-                                    </Link>
+
+                                    <h5 onClick={() => { history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`) }}>
+                                        {tweet?.User?.firstName}
+                                    </h5>
+
+
                                     {/* <h5><span className='thin-styling'>@{tweet?.User?.username} • {tweet?.updatedAt[1]} {tweet?.updatedAt[2]}</span></h5> */}
 
 
-                                    <Link to={{
-                                        pathname: `/tweets/${tweet.id}`,
-                                        state: {
-                                            userPageId: tweet?.User?.id
-                                        }
-                                    }}>
-
-                                        <p>{tweet?.tweet}</p>
-                                    </Link>
+                                    <p onClick={() => { history.push(`/${tweet?.User?.username}/tweets/${tweet.id}`) }}>
+                                        {tweet?.tweet}
+                                    </p>
 
                                 </div>
 

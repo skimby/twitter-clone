@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory, useLocation, Link } from 'react-router-dom';
+import { useHistory, Link, useParams } from 'react-router-dom';
 import { getUserBackend } from '../../store/user'
 import { getTweetsUserBackend, getTweetsLoggedUserBackend } from '../../store/tweet'
 import FollowingButton from '../FollowButtons/FollowingButton';
@@ -13,46 +13,45 @@ import './UserProfile.css'
 function UserProfile({ sessionUser }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const location = useLocation();
-    let { userPageId } = location.state;
-    userPageId = parseInt(userPageId)
+    let { userId } = useParams();
+    userId = parseInt(userId);
+
 
 
     const [isOwnPage, setIsOwnPage] = useState();
     const [alreadyFollowing, setAlreadyFollowing] = useState();
     const tweets = useSelector(state => state.tweets)
-    const loggedUser = useSelector(state => state.session.user)
+    // const loggedUser = useSelector(state => state.session.user)
     const user = useSelector(state => state.users.User);
     const follows = useSelector(state => state.follows)
     const loggedUserFollowingTest = Object.values(useSelector(state => state.follows.loggedUserFollowing));
     const following = Object.values(follows?.following)
-    // const user = userPage?.User;
     let joinedDate = user?.createdAt
 
 
     useEffect(() => {
-        dispatch(getUserBackend(userPageId))
-    }, [dispatch, userPageId, follows])
+        dispatch(getUserBackend(userId))
+    }, [dispatch, userId, follows])
 
     useEffect(() => {
-        if (userPageId === sessionUser?.id) {
+        if (userId === sessionUser?.id) {
             setIsOwnPage(true)
-            dispatch(getTweetsLoggedUserBackend(parseInt(userPageId)))
+            dispatch(getTweetsLoggedUserBackend(parseInt(userId)))
         } else {
             setIsOwnPage(false)
-            dispatch(getTweetsUserBackend(parseInt(userPageId)))
+            dispatch(getTweetsUserBackend(parseInt(userId)))
         }
-    }, [dispatch, userPageId])
+    }, [dispatch, userId])
 
     useEffect(() => {
         dispatch(getLoggedUserFollowingBackend())
-        dispatch(getFollowingBackend(userPageId, isOwnPage))
-    }, [dispatch, userPageId])
+        dispatch(getFollowingBackend(userId, isOwnPage))
+    }, [dispatch, userId])
 
     useEffect(() => {
         let isTrue = 0;
         for (let i = 0; i < loggedUserFollowingTest.length; i++) {
-            if (userPageId === loggedUserFollowingTest[i].followerId) {
+            if (userId === loggedUserFollowingTest[i].followerId) {
                 isTrue = true
             }
         }
@@ -91,10 +90,10 @@ function UserProfile({ sessionUser }) {
                     <img className='user-profile-img-big' src={user?.profileImage} />
 
                     {alreadyFollowing && (
-                        <FollowingButton userId={loggedUser?.id} userPageId={userPageId} />
+                        <FollowingButton loggedUserId={sessionUser?.id} userId={userId} />
                     )}
                     {!alreadyFollowing && (
-                        <FollowButton userId={loggedUser?.id} userPageId={userPageId} />
+                        <FollowButton loggedUserId={sessionUser?.id} userId={userId} />
                     )}
                 </div>
 
@@ -113,23 +112,19 @@ function UserProfile({ sessionUser }) {
 
                     {user && (
                         <>
-                            <Link to={{
-                                pathname: `/${user?.username}/follows`,
-                                state: {
-                                    userPage: user
-                                }
-                            }}>
-                                <p >{user?.followingCount} Following</p>
-                            </Link>
 
-                            <Link to={{
-                                pathname: `/${user?.username}/followers`,
-                                state: {
-                                    userPage: user
-                                }
+                            <p onClick={() => {
+                                history.push(`/${user?.username}/${userId}/follows`)
+                            }}>{user?.followingCount} Following</p>
+
+
+
+                            <p onClick={() => {
+                                history.push(`/${user?.username}/${userId}/followers`)
                             }}>
-                                <p >{user?.followerCount} Followers</p>
-                            </Link>
+                                {user?.followerCount} Followers
+                            </p>
+
                         </>
                     )}
 

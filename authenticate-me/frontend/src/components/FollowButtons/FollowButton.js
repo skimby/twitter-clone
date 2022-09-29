@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { createFollowBackend } from '../../store/follow';
 
-function FollowButton({ userId, userPageId, isOwnPage }) {
+function FollowButton({ userId, loggedUserId, isOwnPage }) {
     const dispatch = useDispatch();
+
     const handleFollow = async () => {
-        await dispatch(createFollowBackend(parseInt(userId), parseInt(userPageId), isOwnPage))
-        // history.push(`/${userPage.username}`);
+        await dispatch(createFollowBackend(parseInt(loggedUserId), parseInt(userId), isOwnPage))
     }
 
     return (

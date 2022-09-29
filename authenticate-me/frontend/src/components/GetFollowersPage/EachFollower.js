@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { getLoggedUserFollowingBackend } from '../../store/follow'
 
-import FollowButton from '../FollowerButtons/FollowButton2';
-import FollowingButton2 from '../FollowerButtons/FollowingButton2';
+import FollowButton from '../FollowButtons/FollowButton';
+import FollowingButton from '../FollowButtons/FollowingButton';
 
-function EachFollower({ follow, userPage, isOwnPage }) {
+
+function EachFollower({ follow, isOwnPage }) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const loggedUser = useSelector(state => state.session.user)
     const [alreadyFollowing, setAlreadyFollowing] = useState();
 
@@ -37,16 +39,10 @@ function EachFollower({ follow, userPage, isOwnPage }) {
 
     return (
         <>
-            <div className='tweet-profile-img'>
-                <Link to={{
-                    pathname: `/${userPage?.username}`,
-                    state: {
-                        userPageId: userPage?.id
-                    }
-                }}>
-
-                    <img className='profile-img' src={follow?.Follower?.profileImage} />
-                </Link>
+            <div className='tweet-profile-img' onClick={() => {
+                history.push(`/${follow?.Follower?.username}/${follow?.userId}`)
+            }}>
+                <img className='profile-img' src={follow?.Follower?.profileImage} />
             </div>
             <div>
 
@@ -56,11 +52,11 @@ function EachFollower({ follow, userPage, isOwnPage }) {
 
 
                 {alreadyFollowing && (
-                    <FollowingButton2 userId={loggedUser?.id} userPageId={follow?.Follower.id} isOwnPage={isOwnPage} />
+                    <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.Follower.id} isOwnPage={isOwnPage} />
                 )}
 
                 {!alreadyFollowing && (
-                    <FollowButton userId={loggedUser?.id} userPageId={follow?.userId} isOwnPage={isOwnPage} />
+                    <FollowButton loggedUserId={loggedUser?.id} userId={follow?.userId} isOwnPage={isOwnPage} />
                 )}
             </div>
         </>

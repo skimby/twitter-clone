@@ -24,7 +24,7 @@ function CreateComment({ tweetId }) {
         }
         await dispatch(createCommentBackend(tweetId, commentInput));
 
-        history.push(`/tweets/${tweetId}`)
+        history.push(`/${user?.username}/tweets/${tweetId}`)
         history.go()
     }
 

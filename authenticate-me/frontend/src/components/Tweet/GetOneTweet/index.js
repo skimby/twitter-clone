@@ -16,6 +16,7 @@ function GetOneTweet({ tweetId }) {
     const tweets = useSelector(state => state.tweets)
     const tweet = tweets?.currentTweet
 
+
     useEffect(() => {
         dispatch(getOneTweetBackend(tweetId))
     }, [dispatch, tweetId, likes])
@@ -28,7 +29,7 @@ function GetOneTweet({ tweetId }) {
 
     useEffect(() => {
         if (tweet) {
-            dispatch(getUserBackend(tweet?.User?.id))
+            dispatch(getUserBackend(tweet?.userId))
         }
     }, [dispatch, tweet])
 

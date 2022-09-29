@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import CreateTweet from '../CreateTweet';
 import GetTweets from '../GetTweets';
@@ -39,7 +39,6 @@ function HomePage() {
                 </div>
 
                 <div>
-
                     <GetTweets tweets={tweets?.feedTweets} />
                 </div>
             </div>
