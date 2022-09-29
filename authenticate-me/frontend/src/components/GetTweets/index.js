@@ -39,12 +39,7 @@ function GetTweets({ tweets }) {
 
                             <div className='tweet-text-box'>
                                 <div>
-                                    <Link to={{
-                                        pathname: `/${tweet?.User?.username}`,
-                                        state: {
-                                            userPageId: tweet?.User?.id
-                                        }
-                                    }}>
+                                    <Link to={`/${tweet?.User?.username}`}>
                                         <h5>{tweet?.User?.firstName}  </h5>
                                     </Link>
                                     {/* <h5><span className='thin-styling'>@{tweet?.User?.username} • {tweet?.updatedAt[1]} {tweet?.updatedAt[2]}</span></h5> */}

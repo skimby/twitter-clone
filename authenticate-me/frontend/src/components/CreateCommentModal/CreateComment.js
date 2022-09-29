@@ -23,7 +23,9 @@ function CreateComment({ tweetId }) {
             image
         }
         await dispatch(createCommentBackend(tweetId, commentInput));
+
         history.push(`/tweets/${tweetId}`)
+        history.go()
     }
 
 

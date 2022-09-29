@@ -6,16 +6,15 @@ import Likes from '../../Likes';
 import { useEffect } from 'react';
 import { getUserBackend } from "../../../store/user";
 import { getOneTweetBackend } from '../../../store/tweet'
+import CreateCommentModal from '../../CreateCommentModal'
 
-
-function GetOneTweet({ tweetId, userPageId }) {
+function GetOneTweet({ tweetId }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector(state => state.users)
     const likes = useSelector(state => state.likes)
     const tweets = useSelector(state => state.tweets)
     const tweet = tweets?.currentTweet
-
 
     useEffect(() => {
         dispatch(getOneTweetBackend(tweetId))
@@ -27,10 +26,12 @@ function GetOneTweet({ tweetId, userPageId }) {
         }
     }, [dispatch, tweet?.id])
 
-
     useEffect(() => {
-        dispatch(getUserBackend(userPageId))
-    }, [dispatch, userPageId])
+        if (tweet) {
+            dispatch(getUserBackend(tweet?.User?.id))
+        }
+    }, [dispatch, tweet])
+
 
     const handleBack = () => {
         history.push('/')
@@ -85,8 +86,8 @@ function GetOneTweet({ tweetId, userPageId }) {
                             <p>{tweet?.likeCount} Likes</p>
 
 
-
-                            <i className="fa-regular fa-comment"></i>
+                            <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} />
+                            {/* <i className="fa-regular fa-comment"></i> */}
                             <i className="fa-solid fa-retweet"></i>
                             <Likes likeCount={tweet?.likeCount} tweet={tweet} />
                         </>

@@ -8,10 +8,10 @@ function Tweet() {
     let { tweetId } = useParams();
     tweetId = parseInt(tweetId);
 
-    const location = useLocation();
-    const { userPageId } = location.state
+    // const location = useLocation();
 
-    console.log(userPageId)
+    // const { userPageId } = location.state
+
     // const dispatch = useDispatch();
 
     // const tweet = useSelector(state => state.tweets);
@@ -22,7 +22,7 @@ function Tweet() {
 
     return (
         <>
-            <GetOneTweet tweetId={tweetId} userPageId={userPageId} />
+            <GetOneTweet tweetId={tweetId} />
         </>
     )
 }
