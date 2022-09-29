@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 // TYPE
 const LIKE = 'likes/like'
+const UNLIKE = 'likes/unlike'
 const GET_LIKES = 'likes/getLikes'
 // const GET_LOGGED_USER_FOLLOWING = 'follow/getLoggedUserFollowing'
 // const CREATE_FOLLOW = 'follow/createFollow'
@@ -12,6 +13,12 @@ const GET_LIKES = 'likes/getLikes'
 const createLike = (like) => {
     return {
         type: LIKE,
+        payload: like
+    }
+}
+const unlike = (like) => {
+    return {
+        type: UNLIKE,
         payload: like
     }
 }
@@ -63,6 +70,17 @@ export const createLikeBackend = (tweetId) => async (dispatch) => {
     if (res.ok) {
         const parsedRes = await res.json();
         dispatch(createLike(parsedRes));
+    }
+}
+
+// DELETE LIKE
+export const deleteLikeBackend = (tweetId, likeId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/likes/${likeId}/tweets/${tweetId}`, {
+        method: 'DELETE'
+    });
+    if (res.ok) {
+        const parsedRes = await res.json();
+        dispatch(unlike(parsedRes));
     }
 }
 

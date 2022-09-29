@@ -16,7 +16,7 @@ function HomePage() {
 
     useEffect(() => {
         dispatch(getFeedTweetsBackend())
-    }, [dispatch, likes])
+    }, [dispatch, likes, sessionUser])
 
     useEffect(() => {
         if (sessionUser?.user) {
