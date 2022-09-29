@@ -7,6 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import UserProfile from "./components/UserProfile/index.js";
 import GetFollowsPage from "./components/GetFollowsPage/index.js";
+import GetFollowersPage from "./components/GetFollowersPage/index.js";
 import Tweet from "./components/Tweet/index.js";
 
 
@@ -40,6 +41,9 @@ function App() {
                   </Route>
                   <Route path='/:username/follows' exact >
                     <GetFollowsPage />
+                  </Route>
+                  <Route path='/:username/followers' exact >
+                    <GetFollowersPage />
                   </Route>
 
 

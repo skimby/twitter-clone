@@ -2,10 +2,9 @@ import { csrfFetch } from "./csrf";
 
 // TYPE
 const GET_FOLLOWING = 'follow/getFollowing'
+const GET_FOLLOWERS = 'follow/getFollowers'
 const GET_LOGGED_USER_FOLLOWING = 'follow/getLoggedUserFollowing'
-
 const CREATE_FOLLOW = 'follow/createFollow'
-// const EDIT_COMMENT = 'comments/editComment'
 const DELETE_FOLLOW = 'follow/deleteFollow'
 
 
@@ -13,6 +12,13 @@ const DELETE_FOLLOW = 'follow/deleteFollow'
 const getFollowing = (follows, isOwnPage) => {
     return {
         type: GET_FOLLOWING,
+        payload: follows,
+        isOwnPage: isOwnPage
+    }
+}
+const getFollowers = (follows, isOwnPage) => {
+    return {
+        type: GET_FOLLOWERS,
         payload: follows,
         isOwnPage: isOwnPage
     }
@@ -58,6 +64,18 @@ export const getFollowingBackend = (userId, isOwnPage) => async (dispatch) => {
         dispatch(getFollowing(parsedRes, isOwnPage));
     }
 }
+
+// GET FOLLOWING
+export const getFollowersBackend = (userId, isOwnPage) => async (dispatch) => {
+
+    const res = await csrfFetch(`/api/follows/users/${userId}/followers`);
+
+    if (res.ok) {
+        const parsedRes = await res.json();
+        dispatch(getFollowers(parsedRes, isOwnPage));
+    }
+}
+
 // GET LOGGED USER FOLLOWING
 export const getLoggedUserFollowingBackend = () => async (dispatch) => {
 
@@ -110,6 +128,15 @@ const followsReducer = (state = initialState, action) => {
             })
             return getFollowingState;
 
+        case GET_FOLLOWERS:
+            // console.log(action.payload)
+            const getFollowersState = { ...state };
+            getFollowersState.followers = {};
+            action.payload.Following.forEach(follow => {
+                getFollowersState.followers[follow.id] = follow;
+            })
+            return getFollowersState;
+
         case GET_LOGGED_USER_FOLLOWING:
             const getLoggedUserFollowingState = { ...state };
             action.payload.LoggedUserFollowing.forEach(follow => {
@@ -118,7 +145,7 @@ const followsReducer = (state = initialState, action) => {
             return getLoggedUserFollowingState;
 
         case CREATE_FOLLOW:
-            console.log(action.payload)
+            // console.log(action.payload)
             const createFollowState = { ...state };
             createFollowState.loggedUserFollowing[action.payload.id] = action.payload
 

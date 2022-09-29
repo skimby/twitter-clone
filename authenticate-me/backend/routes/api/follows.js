@@ -134,9 +134,7 @@ router.delete('/users/:userId/unfollow', requireAuth, async (req, res, next) => 
             followerId: userId
         }
     })
-    console.log('----')
 
-    console.log(userId, userId)
     if (user) {
         if (existingFollow) {
             const follow = await existingFollow.destroy();

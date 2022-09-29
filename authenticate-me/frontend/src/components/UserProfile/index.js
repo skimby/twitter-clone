@@ -113,20 +113,27 @@ function UserProfile({ sessionUser }) {
                     )}
 
                     {user && (
+                        <>
+                            <Link to={{
+                                pathname: `/${user?.username}/follows`,
+                                state: {
+                                    userPage: user
+                                }
+                            }}>
+                                <p >{user?.followingCount} Following</p>
+                            </Link>
 
-                        <Link to={{
-                            pathname: `/${user?.username}/follows`,
-                            state: {
-                                userPage: user
-                            }
-                        }}>
-                            <p >{user?.followingCount} Following</p>
-                        </Link>
+                            <Link to={{
+                                pathname: `/${user?.username}/followers`,
+                                state: {
+                                    userPage: user
+                                }
+                            }}>
+                                <p >{user?.followerCount} Followers</p>
+                            </Link>
+                        </>
                     )}
-                    {/* <GetFollowsPage followingCount={user?.followingCount} /> */}
-                    {/* <FollowingModal followingCount={user?.followingCount} /> */}
-                    {/* <p>{user?.followingCount} Following</p> */}
-                    <p>{user?.followerCount} Followers</p>
+
                 </div>
 
                 <div>
