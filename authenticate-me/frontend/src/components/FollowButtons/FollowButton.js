@@ -1,16 +1,17 @@
 import { useDispatch } from "react-redux"
 import { createFollowBackend } from '../../store/follow';
+import './FollowButtons.css'
 
 function FollowButton({ userId, loggedUserId, isOwnPage }) {
     const dispatch = useDispatch();
 
-    console.log(loggedUserId, userId)
+
     const handleFollow = async () => {
         await dispatch(createFollowBackend(parseInt(loggedUserId), parseInt(userId), isOwnPage))
     }
 
     return (
-        <button onClick={handleFollow}>Follow</button>
+        <button className='follow-btn' onClick={handleFollow}>Follow</button>
     )
 }
 export default FollowButton;

@@ -1,24 +1,51 @@
 .nav-container {
-    width: 10%;
-    padding: 0;
+    width: 200px;
+    /* padding-left: 220px; */
     margin: 10px 40px 0 0;
-
+    display: block;
+    position: fixed;
 }
+
+
 
 .nav-container li {
     text-decoration: none;
     padding: 0 0 8px 0;
 }
 
+.nav-grid {
+    display: grid;
+    grid-template-columns: 55px 100px;
+    margin-bottom: 20px;
+}
+
+.nav-icon-box {
+    width: 30px;
+    /* margin: auto; */
+}
+
 .nav-container h3 {
     display: inline-block;
     font-size: 20px;
+    margin: 0;
 }
 
 .nav-icons {
     font-size: 25px;
-    padding-right: 30px;
+    /* padding-right: 30px; */
     align-items: center;
+    margin: auto;
+}
+
+.nav-icons1 {
+    font-size: 25px;
+    padding-left: 2px;
+    align-items: center;
+    margin: 0;
+}
+
+.nav1 {
+    padding-top: 2px;
 }
 
 .nav-icon::after {
@@ -31,10 +58,12 @@
 
 .logo-container {
     width: 35px;
+    padding-bottom: 20px;
 }
 
 .profile-image-box {
     width: 40px;
+    display: inline-block;
 }
 
 .profile-img {
@@ -51,4 +80,10 @@
 .user-info-content {
     width: 80%;
     padding-left: 15px;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 10%;
 }

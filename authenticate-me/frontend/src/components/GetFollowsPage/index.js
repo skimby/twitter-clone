@@ -42,7 +42,7 @@ function GetFollowsPage({ followingCount }) {
 
     return (
         <>
-            <div id="middle-container">
+            <div className="middle-container">
                 <div>
                     <div>
                         <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>

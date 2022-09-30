@@ -1,0 +1,46 @@
+.create-tweet-container {
+    display: grid;
+    grid-template-columns: 50px 400px;
+    width: auto;
+    column-gap: 10px;
+    padding-bottom: 10px;
+    /* border-bottom: 1px solid rgb(235, 235, 235); */
+    padding: 13px;
+}
+
+.form {
+    display: inline-block;
+}
+
+.form input {
+    border: none;
+    padding: 5px;
+    width: 80%;
+    margin-bottom: 30px;
+
+}
+
+.form input[type=text] {
+    font-size: 17px;
+
+}
+
+.form :placeholder-shown {
+    color: gray;
+    font-size: 17px;
+}
+
+.create-tweet-box {
+    display: inline-block;
+}
+
+.tweet-button {
+    padding: 10px 20px;
+    display: block;
+    width: 80px;
+    /* width: 100%; */
+}
+
+.tweet-addons-box {
+    display: inline-block;
+}

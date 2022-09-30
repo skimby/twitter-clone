@@ -41,30 +41,29 @@ function GetFollowersPage() {
     }
     return (
         <>
-            <div id="middle-container">
+            <div>
                 <div>
-                    <div>
-                        <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
-                    </div>
-                    <div>
-                        <h3>{user?.User?.firstName}</h3>
-                        <h5>@{user?.User?.username}</h5>
-                    </div>
+                    <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
+                </div>
+                <div>
+                    <h3>{user?.User?.firstName}</h3>
+                    <h5>@{user?.User?.username}</h5>
+                </div>
 
-                    <div>
-                        <h4>Followers</h4>
-                        {followers && (
-                            followers.map((follow, index) => {
-                                return (
-                                    <div key={index}>
-                                        <EachFollower follow={follow} isOwnPage={isOwnPage} />
-                                    </div>
-                                )
-                            })
-                        )}
-                    </div>
+                <div>
+                    <h4>Followers</h4>
+                    {followers && (
+                        followers.map((follow, index) => {
+                            return (
+                                <div key={index}>
+                                    <EachFollower follow={follow} isOwnPage={isOwnPage} />
+                                </div>
+                            )
+                        })
+                    )}
                 </div>
             </div>
+
         </>
     )
 }

@@ -12,53 +12,72 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session);
 
   return (
-    <ul className="nav-container">
-      <li>
-        <img src={logo} className='logo-container' />
-      </li>
-      <li>
+    <div className="nav-container">
+      <ul >
+        <li >
+          <img src={logo} className='logo-container' />
+        </li>
+
         <NavLink exact to="/">
-          <i className="fa-solid fa-house nav-icons"></i>
-          <h3>Home</h3>
+          <li className="nav-grid">
+            <div className='nav-icon-box'>
+              <i className="fa-solid fa-house nav-icons"></i>
+            </div>
+            <div>
+              <h3>Home</h3>
+            </div>
+          </li>
         </NavLink>
-      </li>
-      <li>
+
         <NavLink exact to="/explore">
-          <i className="fa-light fa-hashtag nav-icons"></i>
-          <h3>Explore</h3>
+          <li className="nav-grid">
+            <div className='nav-icon-box'>
+              <i className="fa-light fa-hashtag nav-icons1"></i>
+            </div>
+            <div>
+              <h3 className="nav1">Explore</h3>
+            </div>
+          </li>
         </NavLink>
-      </li>
-      <li>
+
+
         <NavLink exact to={`/${sessionUser?.user?.username}/${sessionUser?.user?.id}`}>
-          <i className="fa-regular fa-user nav-icons"></i>
-          <h3>Profile</h3>
+          <li className="nav-grid">
+            <div className='nav-icon-box'>
+              <i className="fa-regular fa-user nav-icons"></i>
+            </div>
+            <div>
+              <h3>Profile</h3>
+            </div>
+          </li>
         </NavLink>
-      </li>
 
-      <li>
-        <CreateTweetModal />
-      </li>
 
-      <li>
-        <div className='user-info-container'>
-          <div className='profile-img'>
-            <img className='profile-img' src={sessionUser?.user?.profileImage} />
-          </div>
+        <li>
+          <CreateTweetModal />
+        </li>
 
-          <div className='user-info-content'>
-            <div>
-              <h5>{sessionUser?.user?.firstName}</h5>
-              <h5>  <span className='thin-styling'>@{sessionUser?.user?.username}</span></h5>
+        <div id='footer'>
+          <li>
+            <div className='user-info-container'>
+              <div className='profile-img'>
+                <img className='profile-img' src={sessionUser?.user?.profileImage} />
+              </div>
+
+              <div className='user-info-content'>
+                <div>
+                  <h5>{sessionUser?.user?.firstName}</h5>
+                  <h5>  <span className='thin-styling'>@{sessionUser?.user?.username}</span></h5>
+                </div>
+
+                <UserSettingsModal />
+              </div>
+
             </div>
-
-            <div>
-              <UserSettingsModal />
-            </div>
-
-          </div>
+          </li>
         </div>
-      </li>
-    </ul >
+      </ul >
+    </div>
   );
 }
 

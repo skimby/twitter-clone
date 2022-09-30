@@ -1,11 +1,32 @@
 .tweet-container {
-    padding: 3% 0;
+    padding: 13px;
     display: grid;
-
-    grid-template-columns: 60px 580px;
+    grid-template-columns: 60px 1fr;
+    border: 1px solid rgb(235, 235, 235);
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
 }
 
+.tweet-user-header {
+    display: inline-block;
+    width: 100%;
+    padding-bottom: 7px;
+}
 
+.username-name-box {
+    display: inline-block;
+    width: 96.5%;
+
+}
+
+.settings-btn {
+    display: inline-block;
+}
+
+.tweet-tweet-box {
+    padding: 0 0 10px 0;
+}
 
 .tweet-profile-img {
     width: 43px;
@@ -14,12 +35,11 @@
     border-radius: 100%;
     display: inline-block;
     margin-right: 14px;
-
 }
 
 .tweet-text-box {
     display: inline-block;
-    width: 580px;
+    width: auto;
 }
 
 h5 {
@@ -29,6 +49,7 @@ h5 {
 
 .thin-styling {
     font-weight: 400;
+    color: rgb(83, 100, 113);
 }
 
 .tweet-text-box p {
@@ -36,10 +57,6 @@ h5 {
     flex-direction: start;
 }
 
-.tweet-icon-box {
-    display: inline-flex;
-    width: 100px;
-}
 
 .tweet-img-gif {
     width: 100%;
@@ -50,4 +67,18 @@ h5 {
 .img-gif {
     float: left;
     text-align: left;
+    width: 100%;
+    border-radius: 3%;
+
+}
+
+.tweet-icons-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.name-username {
+    display: inline-block;
 }

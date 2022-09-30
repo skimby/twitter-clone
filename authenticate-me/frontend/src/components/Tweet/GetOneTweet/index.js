@@ -40,7 +40,7 @@ function GetOneTweet({ tweetId }) {
 
     return (
         <>
-            <div id="middle-container">
+            <div className="middle-container">
 
                 <div>
                     <div>

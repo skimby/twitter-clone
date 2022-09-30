@@ -6,7 +6,7 @@ import { createPopup } from '@picmo/popup-picker';
 import { createPicker } from 'picmo';
 import { picker } from '../../index';
 import { createRoot } from 'react-dom/client';
-
+import './CreateTweet.css'
 
 
 function CreateTweet() {
@@ -45,17 +45,18 @@ function CreateTweet() {
 
     const submitButton = () => {
         return (
-            <button type='submit'>Tweet</button>
+            <button className='tweet-button' type='submit' onClick={handleSubmit}>Tweet</button>
         )
     }
 
     return (
-        <div>
+        <div className='create-tweet-container'>
             <div className='profile-image-box'>
                 {user?.user?.profileImage && (
                     <img className='profile-img' src={user?.user?.profileImage} />
                 )}
-
+            </div>
+            <div className='create-tweet-box'>
                 <form onSubmit={handleSubmit} className='form'>
                     <input
                         placeholder="What's happening?"
@@ -68,10 +69,17 @@ function CreateTweet() {
                     {/* <div className="pickerContainer" ref={ref} value={tweet} onChange={(e) => setTweet(e.target.value)}></div> */}
 
 
-                    {submitButton()}
+
                 </form>
             </div>
+
+
+            <div className='tweet-addons-box'></div>
+            <div>
+                {submitButton()}
+            </div>
         </div>
+
     )
 }
 

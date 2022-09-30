@@ -26,6 +26,7 @@ a {
 
 button {
     border-radius: 20px;
+    font-weight: 700;
     background-color: rgb(30, 155, 239);
     border: none;
     display: inline-block;
@@ -35,14 +36,21 @@ button {
 
 #main-container {
     padding: 0 18%;
-    display: inline-flex;
-    width: 100%;
+    display: inline-block;
+    /* width: 100%;s */
 }
 
-#middle-container {
+.mid-end-container {
     display: inline-block;
-    width: 35%;
+    margin-left: 240px;
+    width: 100%;
+    vertical-align: top;
+}
+
+.middle-container {
+    display: inline-block;
+    width: 500px;
     border: 1px solid rgb(235, 235, 235);
     border-top: none;
-    padding: 0 14px;
+    margin: 0 14px;
 }

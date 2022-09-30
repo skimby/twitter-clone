@@ -69,77 +69,76 @@ function UserProfile({ sessionUser }) {
 
     return (
         <>
-            <div id="middle-container">
 
+            <div>
                 <div>
-                    <div>
-                        <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
-                    </div>
-                    <div>
-                        <h5>@{user?.username}</h5>
-                        <p>{user?.tweetCount} Tweets</p>
-                    </div>
-
+                    <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
                 </div>
-
-                <div className='cover-image-container'>
-                    <img className='cover-img' src={user?.coverImage} />
-                </div>
-
                 <div>
-                    <img className='user-profile-img-big' src={user?.profileImage} />
-
-                    {alreadyFollowing && (
-                        <FollowingButton loggedUserId={sessionUser?.id} userId={userId} />
-                    )}
-                    {!alreadyFollowing && (
-                        <FollowButton loggedUserId={sessionUser?.id} userId={userId} />
-                    )}
+                    <h5>@{user?.username}</h5>
+                    <p>{user?.tweetCount} Tweets</p>
                 </div>
 
-                <div>
-                    <h3>{user?.firstName}</h3>
-                    <p>@{user?.username}</p>
-                    <p>{user?.bio}</p>
-                    <i className="fa-solid fa-link"></i>
-                    <p>{user?.website}</p>
-                    <i className="fa-regular fa-calendar-days"></i>
-
-
-                    {joinedDate && (
-                        <p>Joined {joinedDate[1]} {joinedDate[3]}</p>
-                    )}
-
-                    {user && (
-                        <>
-
-                            <p onClick={() => {
-                                history.push(`/${user?.username}/${userId}/follows`)
-                            }}>{user?.followingCount} Following</p>
-
-
-
-                            <p onClick={() => {
-                                history.push(`/${user?.username}/${userId}/followers`)
-                            }}>
-                                {user?.followerCount} Followers
-                            </p>
-
-                        </>
-                    )}
-
-                </div>
-
-                <div>
-                    {isOwnPage && (
-                        <GetTweets tweets={Object.values(tweets?.loggedUserTweets)} />
-                    )}
-                    {!isOwnPage && (
-                        <GetTweets tweets={Object.values(tweets?.userTweets)} />
-
-                    )}
-                </div>
             </div>
+
+            <div className='cover-image-container'>
+                <img className='cover-img' src={user?.coverImage} />
+            </div>
+
+            <div>
+                <img className='user-profile-img-big' src={user?.profileImage} />
+
+                {alreadyFollowing && (
+                    <FollowingButton loggedUserId={sessionUser?.id} userId={userId} />
+                )}
+                {!alreadyFollowing && (
+                    <FollowButton loggedUserId={sessionUser?.id} userId={userId} />
+                )}
+            </div>
+
+            <div>
+                <h3>{user?.firstName}</h3>
+                <p>@{user?.username}</p>
+                <p>{user?.bio}</p>
+                <i className="fa-solid fa-link"></i>
+                <p>{user?.website}</p>
+                <i className="fa-regular fa-calendar-days"></i>
+
+
+                {joinedDate && (
+                    <p>Joined {joinedDate[1]} {joinedDate[3]}</p>
+                )}
+
+                {user && (
+                    <>
+
+                        <p onClick={() => {
+                            history.push(`/${user?.username}/${userId}/follows`)
+                        }}>{user?.followingCount} Following</p>
+
+
+
+                        <p onClick={() => {
+                            history.push(`/${user?.username}/${userId}/followers`)
+                        }}>
+                            {user?.followerCount} Followers
+                        </p>
+
+                    </>
+                )}
+
+            </div>
+
+            <div>
+                {isOwnPage && (
+                    <GetTweets tweets={Object.values(tweets?.loggedUserTweets)} />
+                )}
+                {!isOwnPage && (
+                    <GetTweets tweets={Object.values(tweets?.userTweets)} />
+
+                )}
+            </div>
+
         </>
     )
 }

@@ -29,20 +29,19 @@ function HomePage() {
 
     return (
         <>
-            <div id="middle-container">
 
-                <div className='home-div'>
-                    <h2>Home</h2>
-                </div>
-
-                <div>
-                    <CreateTweet />
-                </div>
-
-                <div>
-                    <GetTweets tweets={tweets?.feedTweets} />
-                </div>
+            <div className='home-div'>
+                <h2>Home</h2>
             </div>
+
+
+            <CreateTweet />
+
+
+            <div>
+                <GetTweets tweets={tweets?.feedTweets} />
+            </div>
+
         </>
 
     )

@@ -29,38 +29,46 @@ function App() {
       {sessionUser?.user && (
         <div id='main-container'>
           <Navigation isLoaded={isLoaded} />
-          <WhoToFollow />
 
-          {isLoaded && (
-            <>
-              <Switch>
-                <>
-                  <Route path='/' exact >
-                    <HomePage />
-                  </Route>
+          <div className="mid-end-container">
+            {isLoaded && (
+              <>
+                <Switch>
+                  <>
+                    <div className="middle-container">
+                      <Route path='/' exact >
+                        <HomePage />
+                      </Route>
 
-                  <Route path='/explore' exact >
-                    <ExplorePage />
-                  </Route>
+                      <Route path='/explore' exact >
+                        <ExplorePage />
+                      </Route>
 
-                  <Route path='/:username/:userId' exact >
-                    <UserProfile sessionUser={sessionUser?.user} />
-                  </Route>
-                  <Route path='/:username/:userId/follows' exact >
-                    <GetFollowsPage />
-                  </Route>
-                  <Route path='/:username/:userId/followers' exact >
-                    <GetFollowersPage />
-                  </Route>
+                      <Route path='/:username/:userId' exact >
+                        <UserProfile sessionUser={sessionUser?.user} />
+                      </Route>
+                      <Route path='/:username/:userId/follows' exact >
+                        <GetFollowsPage />
+                      </Route>
+                      <Route path='/:username/:userId/followers' exact >
+                        <GetFollowersPage />
+                      </Route>
 
 
-                  <Route path='/:username/tweets/:tweetId' exact >
-                    <Tweet />
-                  </Route>
-                </>
-              </Switch>
-            </>
-          )}
+                      <Route path='/:username/tweets/:tweetId' exact >
+                        <Tweet />
+                      </Route>
+                    </div>
+                  </>
+                </Switch>
+
+                <div className='end-container'>
+                  <WhoToFollow />
+                </div>
+
+              </>
+            )}
+          </div>
         </div>
       )}
 

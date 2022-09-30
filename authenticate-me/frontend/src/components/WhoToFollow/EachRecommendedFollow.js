@@ -5,7 +5,7 @@ import { getLoggedUserFollowingBackend } from '../../store/follow'
 
 import FollowButton from '../FollowButtons/FollowButton';
 import FollowingButton from '../FollowButtons/FollowingButton';
-
+import './WhoToFollow.css'
 
 
 function EachRecommendedFollow({ follow, loggedUser }) {
@@ -40,24 +40,28 @@ function EachRecommendedFollow({ follow, loggedUser }) {
 
     return (
         <>
-            <div className='tweet-profile-img' onClick={() => {
-                history.push(`/${follow?.username}/${follow?.id}`)
-            }}>
-                <img className='profile-img' src={follow?.profileImage} />
-            </div>
-            <div>
+            <div className='each-follower-box'>
+                <div className='follow-profile-img' onClick={() => {
+                    history.push(`/${follow?.username}/${follow?.id}`)
+                }}>
+                    <img className='profile-img' src={follow?.profileImage} />
+                </div>
 
-                <h5>{follow?.firstName}  </h5>
-                <h5>@{follow?.username}</h5>
+                <div className='follower-info-box'>
+                    <p className='small-p-bold'>{follow?.firstName}  </p>
+                    <p className='small-p'>@{follow?.username}</p>
+                </div>
 
 
-                {alreadyFollowing && (
-                    <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.id} />
-                )}
+                <div className='follow-btn-box'>
+                    {alreadyFollowing && (
+                        <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.id} />
+                    )}
 
-                {!alreadyFollowing && (
-                    <FollowButton loggedUserId={loggedUser?.id} userId={follow?.id} />
-                )}
+                    {!alreadyFollowing && (
+                        <FollowButton loggedUserId={loggedUser?.id} userId={follow?.id} />
+                    )}
+                </div>
             </div>
         </>
     )
