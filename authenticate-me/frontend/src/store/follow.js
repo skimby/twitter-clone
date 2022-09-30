@@ -177,6 +177,7 @@ const followsReducer = (state = initialState, action) => {
         case GET_NONFOLLOWERS:
             console.log(action.payload)
             const getNonFollowersState = { ...state };
+            getNonFollowersState.nonFollowers = {}
             action.payload.nonFollowers.forEach((follow) => {
                 getNonFollowersState.nonFollowers[follow.id] = follow
             })

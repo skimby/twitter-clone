@@ -41,22 +41,22 @@ function EachRecommendedFollow({ follow, loggedUser }) {
     return (
         <>
             <div className='tweet-profile-img' onClick={() => {
-                history.push(`/${follow?.Following?.username}/${follow?.userId}`)
+                history.push(`/${follow?.username}/${follow?.userId}`)
             }}>
-                <img className='profile-img' src={follow?.Following?.profileImage} />
+                <img className='profile-img' src={follow?.profileImage} />
             </div>
             <div>
 
-                <h5>{follow?.Following?.firstName}  </h5>
-                <h5>@{follow?.Following?.username}</h5>
+                <h5>{follow?.firstName}  </h5>
+                <h5>@{follow?.username}</h5>
 
 
                 {alreadyFollowing && (
-                    <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.userId} />
+                    <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.id} />
                 )}
 
                 {!alreadyFollowing && (
-                    <FollowButton loggedUserId={loggedUser?.id} userId={follow?.followerId} />
+                    <FollowButton loggedUserId={loggedUser?.id} userId={follow?.id} />
                 )}
             </div>
         </>
