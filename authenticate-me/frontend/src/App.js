@@ -8,10 +8,8 @@ import Navigation from "./components/Navigation";
 import UserProfile from "./components/UserProfile/index.js";
 import GetFollowsPage from "./components/GetFollowsPage/index.js";
 import GetFollowersPage from "./components/GetFollowersPage/index.js";
-import ExplorePage from "./components/ExplorePage/index.js";
 import Tweet from "./components/Tweet/index.js";
-
-
+import ExplorePage from "./components/ExplorePage/index.js";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);

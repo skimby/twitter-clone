@@ -151,6 +151,7 @@ const tweetsReducer = (state = initialState, action) => {
 
         case GET_FEED_TWEETS:
             const getFeedTweetsState = { ...state };
+            getFeedTweetsState.feedTweets = {};
             action.payload.Tweets.forEach(tweet => {
                 getFeedTweetsState.feedTweets[tweet.id] = tweet
             });
@@ -189,6 +190,13 @@ const tweetsReducer = (state = initialState, action) => {
             const getOneTweet = { ...state };
             getOneTweet.currentTweet = action.payload.Tweet;
             return getOneTweet;
+        case GET_EXPLORE_TWEETS:
+            const getExploreTweetsState = { ...state };
+            action.payload.Tweets.forEach(tweet => {
+                getExploreTweetsState.exploreTweets[tweet.id] = tweet
+            })
+
+            return getExploreTweetsState;
         default:
             return state;
     }

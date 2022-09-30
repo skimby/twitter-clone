@@ -51,6 +51,12 @@ router.get('/feed', requireAuth, async (req, res, next) => {
     })
     followers.push({ followerId: req.user.id })
 
+    console.log('---')
+
+    console.log(followers)
+
+
+
     const tweets = []
     for (let i = 0; i < followers.length; i++) {
         let follower = followers[i]
