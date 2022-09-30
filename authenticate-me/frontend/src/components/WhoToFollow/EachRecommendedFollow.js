@@ -17,7 +17,7 @@ function EachRecommendedFollow({ follow, loggedUser }) {
     const loggedUserFollowing = Object.values(follows?.loggedUserFollowing);
 
 
-    console.log(follow)
+    // console.log(follow)
     useEffect(() => {
         dispatch(getLoggedUserFollowingBackend())
     }, [dispatch])
@@ -35,13 +35,13 @@ function EachRecommendedFollow({ follow, loggedUser }) {
             }
         }
 
-    }, [follows, follows?.loggedUserFollowing])
+    }, [follows, follows?.loggedUserFollowing, follows?.nonFollowers])
 
 
     return (
         <>
             <div className='tweet-profile-img' onClick={() => {
-                history.push(`/${follow?.username}/${follow?.userId}`)
+                history.push(`/${follow?.username}/${follow?.id}`)
             }}>
                 <img className='profile-img' src={follow?.profileImage} />
             </div>

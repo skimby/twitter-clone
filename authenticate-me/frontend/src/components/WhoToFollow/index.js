@@ -6,8 +6,8 @@ import EachRecommendedFollow from './EachRecommendedFollow';
 function WhoToFollow() {
     const dispatch = useDispatch();
     const loggedUser = useSelector(state => state.session.user)
-    const follows = useSelector(state => state.follows)
-
+    let follows = useSelector(state => state.follows)
+    follows = Object.values(follows?.nonFollowers)
 
     useEffect(() => {
         if (loggedUser) {
@@ -19,17 +19,35 @@ function WhoToFollow() {
 
     return (
         <>
-            {follows?.nonFollowers && (
+            {follows && follows[0] && (
+                <div>
+                    <EachRecommendedFollow follow={follows[0]} loggedUser={loggedUser} />
+                </div>
+            )
+            }
+            {follows && follows[1] && (
+                <div>
+                    <EachRecommendedFollow follow={follows[1]} loggedUser={loggedUser} />
+                </div>
+            )
+            }
+
+
+            {/* {follows?.nonFollowers && (
                 Object.values(follows?.nonFollowers).map((follow, index) => {
                     return (
-                        <div key={index}>
-                            <EachRecommendedFollow follow={follow} loggedUser={loggedUser} />
-                        </div>
+                        <>
+                            {follow && (
+                                <div key={index}>
+                                    <EachRecommendedFollow follow={follow} loggedUser={loggedUser} />
+                                </div>
+
+                            )}
+                        </>
                     )
                 }
                 )
-
-            )}
+            )} */}
         </>
     )
 }
