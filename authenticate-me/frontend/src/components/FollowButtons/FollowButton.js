@@ -4,6 +4,7 @@ import { createFollowBackend } from '../../store/follow';
 function FollowButton({ userId, loggedUserId, isOwnPage }) {
     const dispatch = useDispatch();
 
+    console.log(loggedUserId, userId)
     const handleFollow = async () => {
         await dispatch(createFollowBackend(parseInt(loggedUserId), parseInt(userId), isOwnPage))
     }

@@ -88,41 +88,43 @@ router.get('/users/:userId/following', requireAuth, async (req, res, next) => {
         return next(err);
     }
 })
+const { Op } = require("sequelize");
 
 //================= GET NON-FOLLOWERS ================//
 router.get('/users/:userId/nonFollowers', requireAuth, async (req, res, next) => {
     const { userId } = req.params;
-    const allFollows = await Follow.findAll({
+    const allUsers = await User.findAll({
 
+    })
+
+    const follows = await Follow.findAll({
+        where: {
+            userId
+        },
         include: [{
             model: User, as: 'Follower',
             attributes: ['id', 'firstName', 'profileImage', 'username', 'bio', 'verified']
         }]
     })
 
-    const follows = await Follow.findAll({
-        where: {
-            userId
-        }
-    })
 
     const nonFollowers = []
-    for (let i = 0; i < allFollows.length; i++) {
-
-        for (let j = 0; j < follows.length; j++) {
-            if (allFollows[i].id !== follows[j].id) {
-                nonFollowers.push(allFollows[i])
-            }
+    for (let i = 0; i < allUsers.length; i++) {
+        const isFollowed = follows.find(follow => allUsers[i].id === follow.followerId)
+        if ((!isFollowed) && (allUsers[i].id !== +userId)) {
+            nonFollowers.push(allUsers[i])
         }
     }
 
+    const uniqueUsers = [...new Set(nonFollowers)];
 
     res.status(200)
     return res.json({
-        nonFollowers: nonFollowers
+        // test: [allUsers, follows]
+        nonFollowers: uniqueUsers
+        // nonFollowers: nonFollowers
 
     })
-
 })
 
 //============= FOLLOW A USER (CREATE FOLLOW) ================//

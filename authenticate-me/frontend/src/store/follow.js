@@ -155,6 +155,10 @@ const followsReducer = (state = initialState, action) => {
         case CREATE_FOLLOW:
             const createFollowState = { ...state };
             createFollowState.loggedUserFollowing[action.payload.id] = action.payload
+            if (createFollowState.nonFollowers[action.payload.id]) {
+                delete createFollowState.nonFollowers[action.payload.id]
+
+            }
 
             if (action.isOwnPage) {
                 createFollowState.following[action.payload.id] = action.payload

@@ -22,16 +22,6 @@ module.exports = {
         id: 4,
         userId: 3,
         followerId: 1
-      },
-      {
-        id: 5,
-        userId: 1,
-        followerId: 4
-      },
-      {
-        id: 6,
-        userId: 1,
-        followerId: 5
       }
     ])
   },

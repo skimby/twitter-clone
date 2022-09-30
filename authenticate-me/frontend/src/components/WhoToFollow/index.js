@@ -12,7 +12,6 @@ function WhoToFollow() {
     useEffect(() => {
         if (loggedUser) {
             dispatch(getNonFollowersBackend(loggedUser?.id))
-
         }
     }, [dispatch])
 
@@ -24,7 +23,7 @@ function WhoToFollow() {
                 Object.values(follows?.nonFollowers).map((follow, index) => {
                     return (
                         <div key={index}>
-                            <EachRecommendedFollow follow={follow} />
+                            <EachRecommendedFollow follow={follow} loggedUser={loggedUser} />
                         </div>
                     )
                 }

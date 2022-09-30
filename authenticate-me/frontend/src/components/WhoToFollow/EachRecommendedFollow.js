@@ -8,11 +8,9 @@ import FollowingButton from '../FollowButtons/FollowingButton';
 
 
 
-
-function EachRecommendedFollow({ follow }) {
+function EachRecommendedFollow({ follow, loggedUser }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const loggedUser = useSelector(state => state.session.user)
     const [alreadyFollowing, setAlreadyFollowing] = useState();
 
     const follows = useSelector(state => state.follows);
@@ -23,26 +21,42 @@ function EachRecommendedFollow({ follow }) {
     useEffect(() => {
         dispatch(getLoggedUserFollowingBackend())
     }, [dispatch])
+
+    useEffect(() => {
+        if (loggedUserFollowing) {
+            let isFollowing;
+
+            isFollowing = loggedUserFollowing.find(usersFollow => follow?.userId === usersFollow?.followerId);
+
+            if (isFollowing) {
+                setAlreadyFollowing(true)
+            } else {
+                setAlreadyFollowing(false)
+            }
+        }
+
+    }, [follows, follows?.loggedUserFollowing])
+
+
     return (
         <>
             <div className='tweet-profile-img' onClick={() => {
-                history.push(`/${follow?.Follower?.username}/${follow?.userId}`)
+                history.push(`/${follow?.Following?.username}/${follow?.userId}`)
             }}>
-                <img className='profile-img' src={follow?.Follower?.profileImage} />
+                <img className='profile-img' src={follow?.Following?.profileImage} />
             </div>
             <div>
 
-                <h5>{follow?.Follower?.firstName}  </h5>
-                <h5>@{follow?.Follower?.username}</h5>
-                <p>{follow?.Follower?.bio}</p>
+                <h5>{follow?.Following?.firstName}  </h5>
+                <h5>@{follow?.Following?.username}</h5>
 
 
                 {alreadyFollowing && (
-                    <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.Follower.id} />
+                    <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.userId} />
                 )}
 
                 {!alreadyFollowing && (
-                    <FollowButton loggedUserId={loggedUser?.id} userId={follow?.userId} />
+                    <FollowButton loggedUserId={loggedUser?.id} userId={follow?.followerId} />
                 )}
             </div>
         </>
