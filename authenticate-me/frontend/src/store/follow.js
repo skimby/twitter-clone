@@ -6,7 +6,7 @@ const GET_FOLLOWERS = 'follow/getFollowers'
 const GET_LOGGED_USER_FOLLOWING = 'follow/getLoggedUserFollowing'
 const CREATE_FOLLOW = 'follow/createFollow'
 const DELETE_FOLLOW = 'follow/deleteFollow'
-
+const GET_NONFOLLOWERS = 'follow/getNonFollowers'
 
 // ACTION
 const getFollowing = (follows, isOwnPage) => {
@@ -36,12 +36,7 @@ const createFollow = (follow, userId) => {
         userId: userId
     }
 }
-// const editComment = (comment) => {
-//     return {
-//         type: EDIT_COMMENT,
-//         payload: comment
-//     }
-// }
+
 
 const deleteFollow = (follow, userId, isOwnPage) => {
     return {
@@ -51,7 +46,12 @@ const deleteFollow = (follow, userId, isOwnPage) => {
         isOwnPage: isOwnPage
     }
 }
-
+const getNonFollowers = (follows) => {
+    return {
+        type: GET_NONFOLLOWERS,
+        payload: follows
+    }
+}
 // THUNK
 
 // GET FOLLOWING
@@ -112,11 +112,20 @@ export const deleteFollowBackend = (userId, userPageId, isOwnPage) => async (dis
         dispatch(deleteFollow(parsedRes, userId, isOwnPage));
     }
 }
+// GET NONFOLLOWING
+export const getNonFollowersBackend = (userId) => async (dispatch) => {
 
+    const res = await csrfFetch(`/api/follows/users/${userId}/nonFollowers`);
+
+    if (res.ok) {
+        const parsedRes = await res.json();
+        dispatch(getNonFollowers(parsedRes));
+    }
+}
 
 
 //REDUCER
-const initialState = { following: {}, followers: {}, loggedUserFollowing: {} }
+const initialState = { following: {}, followers: {}, loggedUserFollowing: {}, nonFollowers: {} }
 
 const followsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -161,6 +170,13 @@ const followsReducer = (state = initialState, action) => {
                 delete deleteFollowState.following[action.payload.id]
             }
             return deleteFollowState;
+        case GET_NONFOLLOWERS:
+            console.log(action.payload)
+            const getNonFollowersState = { ...state };
+            action.payload.nonFollowers.forEach((follow) => {
+                getNonFollowersState.nonFollowers[follow.id] = follow
+            })
+            return getNonFollowersState;
 
         default:
             return state;

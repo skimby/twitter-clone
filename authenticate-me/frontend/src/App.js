@@ -10,6 +10,9 @@ import GetFollowsPage from "./components/GetFollowsPage/index.js";
 import GetFollowersPage from "./components/GetFollowersPage/index.js";
 import Tweet from "./components/Tweet/index.js";
 import ExplorePage from "./components/ExplorePage/index.js";
+import WhoToFollow from "./components/WhoToFollow/index.js";
+
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -26,6 +29,7 @@ function App() {
       {sessionUser?.user && (
         <div id='main-container'>
           <Navigation isLoaded={isLoaded} />
+          <WhoToFollow />
 
           {isLoaded && (
             <>

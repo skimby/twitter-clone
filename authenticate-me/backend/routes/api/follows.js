@@ -89,6 +89,42 @@ router.get('/users/:userId/following', requireAuth, async (req, res, next) => {
     }
 })
 
+//================= GET NON-FOLLOWERS ================//
+router.get('/users/:userId/nonFollowers', requireAuth, async (req, res, next) => {
+    const { userId } = req.params;
+    const allFollows = await Follow.findAll({
+
+        include: [{
+            model: User, as: 'Follower',
+            attributes: ['id', 'firstName', 'profileImage', 'username', 'bio', 'verified']
+        }]
+    })
+
+    const follows = await Follow.findAll({
+        where: {
+            userId
+        }
+    })
+
+    const nonFollowers = []
+    for (let i = 0; i < allFollows.length; i++) {
+
+        for (let j = 0; j < follows.length; j++) {
+            if (allFollows[i].id !== follows[j].id) {
+                nonFollowers.push(allFollows[i])
+            }
+        }
+    }
+
+
+    res.status(200)
+    return res.json({
+        nonFollowers: nonFollowers
+
+    })
+
+})
+
 //============= FOLLOW A USER (CREATE FOLLOW) ================//
 router.post('/users/:userId/follow', requireAuth, async (req, res, next) => {
     const { userId } = req.params;
