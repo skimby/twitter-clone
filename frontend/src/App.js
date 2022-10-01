@@ -17,7 +17,7 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const sessionUser = useSelector(state => state.session)
+  const sessionUser = useSelector(state => state.session.user)
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -26,55 +26,63 @@ function App() {
 
   return (
     <>
-      {sessionUser?.user && (
-        <div id='main-container'>
-          <Navigation isLoaded={isLoaded} />
+      <Switch>
+        {!sessionUser && (
+          <Route path='/' exact >
+            <SignupPage />
+          </Route>
+        )}
 
-          <div className="mid-end-container">
-            {isLoaded && (
-              <>
-                <Switch>
-                  <>
-                    <div className="middle-container">
-                      <Route path='/' exact >
-                        <HomePage />
-                      </Route>
+        {sessionUser && (
+          <div id='main-container'>
+            <Navigation isLoaded={isLoaded} />
 
-                      <Route path='/explore' exact >
-                        <ExplorePage />
-                      </Route>
+            <div className="mid-end-container">
+              {isLoaded && (
+                <>
+                  <Switch>
+                    <>
+                      <div className="middle-container">
+                        <Route path='/' exact >
+                          <HomePage />
+                        </Route>
 
-                      <Route path='/:username/:userId' exact >
-                        <UserProfile sessionUser={sessionUser?.user} />
-                      </Route>
-                      <Route path='/:username/:userId/follows' exact >
-                        <GetFollowsPage />
-                      </Route>
-                      <Route path='/:username/:userId/followers' exact >
-                        <GetFollowersPage />
-                      </Route>
+                        <Route path='/explore' exact >
+                          <ExplorePage />
+                        </Route>
+
+                        <Route path='/:username/:userId' exact >
+                          <UserProfile sessionUser={sessionUser?.user} />
+                        </Route>
+                        <Route path='/:username/:userId/follows' exact >
+                          <GetFollowsPage />
+                        </Route>
+                        <Route path='/:username/:userId/followers' exact >
+                          <GetFollowersPage />
+                        </Route>
 
 
-                      <Route path='/:username/tweets/:tweetId' exact >
-                        <Tweet />
-                      </Route>
-                    </div>
-                  </>
-                </Switch>
+                        <Route path='/:username/tweets/:tweetId' exact >
+                          <Tweet />
+                        </Route>
+                      </div>
+                    </>
+                  </Switch>
 
-                <div className='end-container'>
-                  <WhoToFollow />
-                </div>
+                  <div className='end-container'>
+                    <WhoToFollow />
+                  </div>
 
-              </>
-            )}
+                </>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {!sessionUser?.user && (
+        {/* {!sessionUser && (
         <SignupPage />
-      )}
+      )} */}
+      </Switch>
     </>
   );
 }

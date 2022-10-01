@@ -33,7 +33,10 @@ function CreateTweetForm() {
             <button type='submit'>Tweet</button>
         )
     }
-
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+    };
     return (
         <div>
             <div className='profile-image-box'>
@@ -48,7 +51,9 @@ function CreateTweetForm() {
                         value={tweet}
                         onChange={(e) => setTweet(e.target.value)}>
                     </input>
-
+                    <label>
+                        <input type="file" onChange={updateFile} />
+                    </label>
                     {/* emoji stuff */}
                     {/* <div className="pickerContainer" ref={ref} value={tweet} onChange={(e) => setTweet(e.target.value)}></div> */}
 

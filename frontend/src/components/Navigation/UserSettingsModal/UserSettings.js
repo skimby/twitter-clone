@@ -1,13 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { logout } from '../../../store/session'
 
 function UserSettings() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector(state => state.session)
 
-    const handleLogout = () => {
-        dispatch(logout())
+    const handleLogout = async () => {
+        await dispatch(logout())
+        history.push('/')
     }
 
 

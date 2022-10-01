@@ -43,9 +43,17 @@ function SignupForm() {
       }))
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
+          if (data && data.errors) {
+            setErrors(data.errors)
+          } else {
+            history.go()
+          }
         });
 
+      // if (!errors.length) {
+
+      //   history.go()
+      // }
     } else {
       return setErrors(['Confirm Password field must be the same as the Password field']);
     }
@@ -54,6 +62,10 @@ function SignupForm() {
   const updateFile = (e) => {
     const file = e.target.files[0];
     if (file) setProfileImage(file);
+  };
+  const updateFile2 = (e) => {
+    const file = e.target.files[0];
+    if (file) setCoverImage(file);
   };
 
   return (
@@ -134,12 +146,10 @@ function SignupForm() {
 
       <label>
         Cover Image
-        <input
-          type="text"
-          value={coverImage}
-          onChange={(e) => setCoverImage(e.target.value)}
-        />
+        <input type="file" onChange={updateFile2} />
       </label>
+
+
 
       <label>
         Password

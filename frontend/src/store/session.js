@@ -72,16 +72,17 @@ export const signup = (user) => async (dispatch) => {
   formData.append("lastName", lastName);
   formData.append("username", username);
   formData.append("bio", bio);
+  // formData.append("coverImage", coverImage);
   formData.append("email", email);
   formData.append("location", location);
   formData.append("website", website);
-  formData.append("coverImage", coverImage);
   formData.append("password", password);
 
   if (profileImage) formData.append("image", profileImage);
-  // if (!profileImage) formData.append("image", 'https://secure.gravatar.com/avatar/c51f0fc9375c537923f6bf012b337f43?s=150&d=mm&r=g')
+  if (coverImage) formData.append("image2", coverImage);
 
-  console.log(profileImage)
+
+
 
   const response = await csrfFetch("/api/users/signup", {
     method: "POST",
@@ -100,17 +101,19 @@ export const signup = (user) => async (dispatch) => {
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
-  let newState;
+
   switch (action.type) {
     case SET_USER:
-      const setUserState = { ...state };
-      setUserState.user = action.payload.user;
-      return setUserState;
+      if (!Object.values(action.payload).length) {
+        return { user: null }
+      } else {
+        const setUserState = { ...state };
+        setUserState.user = action.payload;
+        return setUserState;
+      }
 
     case REMOVE_USER:
-      newState = Object.assign({}, state);
-      newState.user = null;
-      return newState;
+      return { user: null };
     default:
       return state;
   }

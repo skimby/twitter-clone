@@ -11,6 +11,7 @@ import "./Navigation.css";
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session);
 
+
   return (
     <div className="nav-container">
       <ul >

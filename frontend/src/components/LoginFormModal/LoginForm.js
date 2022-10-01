@@ -23,7 +23,7 @@ function LoginForm() {
         if (data && data.errors) setErrors(data.errors);
       }
     );
-    history.go()
+
   };
 
   return (

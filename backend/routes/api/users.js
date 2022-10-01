@@ -5,7 +5,7 @@ const { User, Tweet, Comment, Like, Follow } = require("../../db/models");
 const router = express.Router();
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
-const { singlePublicFileUpload, singleMulterUpload } = require('../../aws-sdk.js')
+const { singlePublicFileUpload, singleMulterUpload, fieldMulterUpload } = require('../../aws-sdk.js')
 
 
 const validateSignup = [
@@ -131,15 +131,22 @@ router.get('/:userId', requireAuth, async (req, res, next) => {
 })
 
 //================== SIGN UP ==========================//
-router.post("/signup", singleMulterUpload("image"), validateSignup, async (req, res, next) => {
-  let { firstName, lastName, email, bio, location, website, coverImage, password, username } = req.body;
+router.post("/signup", fieldMulterUpload([{ name: "image" }, { name: "image2" }]), validateSignup, async (req, res, next) => {
+  let { firstName, lastName, email, bio, location, website, password, username } = req.body;
 
   let profileImg;
+  let coverImg;
 
-  if (req.file) {
-    profileImg = await singlePublicFileUpload(req.file);
+  if (req.files.image) {
+    profileImg = await singlePublicFileUpload(req.files.image[0]);
   } else {
     profileImg = 'https://secure.gravatar.com/avatar/c51f0fc9375c537923f6bf012b337f43?s=150&d=mm&r=g'
+  }
+
+  if (req.files.image2) {
+    coverImg = await singlePublicFileUpload(req.files.image2[0]);
+  } else {
+    coverImg = 'https://www.keyimagazine.com/wp-content/themes/miyazaki/assets/images/default-fallback-image.png'
   }
 
 
@@ -163,21 +170,21 @@ router.post("/signup", singleMulterUpload("image"), validateSignup, async (req, 
       location,
       website,
       profileImage: profileImg,
-      coverImage,
+      coverImage: coverImg,
       password,
       username
     });
 
-    console.log('------')
-    console.log(user)
 
     await setTokenCookie(res, user);
     user.dataValues.token = req.cookies.token;
 
+    console.log('-----')
+    console.log(user)
     return res.json({
       user
     });
-
+    // return
   } else if (existingEmail) {
     res.status(404)
     const err = new Error("Unique email required.");
