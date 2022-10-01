@@ -46,6 +46,6 @@ router.use("/api", apiRouter);
 //     res.cookie('XSRF-TOKEN', req.csrfToken());
 //     res.status(201).json({});
 //   });
-}
+// }
 
 module.exports = router;
