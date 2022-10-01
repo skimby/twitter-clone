@@ -35,6 +35,8 @@ router.get("/set-token-cookie", async (_req, res) => {
 // GET /api/restore-user
 const { restoreUser } = require("../../utils/auth.js");
 router.get("/restore-user", restoreUser, (req, res) => {
+  // console.log('----')
+  // console.log(req.user)
   return res.json(req.user);
 });
 

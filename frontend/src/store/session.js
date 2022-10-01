@@ -104,6 +104,8 @@ const sessionReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case SET_USER:
+
+      console.log(action.payload)
       if (!Object.values(action.payload).length) {
         return { user: null }
       } else {
