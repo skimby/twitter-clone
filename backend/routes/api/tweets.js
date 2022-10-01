@@ -43,7 +43,6 @@ router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, 
 
     const user = await User.findByPk(req.user.id);
     newTweet.dataValues.User = user
-
     res.status(201)
     return res.json(newTweet)
 
