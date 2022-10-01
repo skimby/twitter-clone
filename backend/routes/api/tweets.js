@@ -5,6 +5,9 @@ const user = require("../../db/models/user");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
+const { singlePublicFileUpload, singleMulterUpload } = require('../../aws-sdk.js')
+const asyncHandler = require('express-async-handler')
+
 
 //================== VALIDATORS =====================//
 const validateTweet = [
@@ -16,17 +19,23 @@ const validateTweet = [
 
 
 //================== CREATE A TWEET =================//
-router.post('/create', requireAuth, validateTweet, async (req, res, next) => {
+router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, async (req, res, next) => {
     let { tweet, image, gif } = req.body;
 
+
+    const twitterImg = await singlePublicFileUpload(req.file);
+    // res.json(tweet)
+    // return
     if (image === undefined) image = null;
-    if (gif === undefined) gif = null;
+    if (gif === undefined) {
+        gif = null;
+    }
 
     const newTweet = await Tweet.create({
         userId: req.user.id,
         tweet,
-        image,
-        gif
+        image: twitterImg,
+        gif: null
     })
 
     newTweet.dataValues.createdAt = newTweet.dataValues.createdAt.toDateString().toString().split(' ');
@@ -37,6 +46,45 @@ router.post('/create', requireAuth, validateTweet, async (req, res, next) => {
 
     res.status(201)
     return res.json(newTweet)
+
+    // if (image) {
+    //     const newTweet = await Tweet.create({
+    //         userId: req.user.id,
+    //         tweet,
+    //         image: twitterImg,
+    //         gif: null
+    //     })
+
+    //     newTweet.dataValues.createdAt = newTweet.dataValues.createdAt.toDateString().toString().split(' ');
+    //     newTweet.dataValues.updatedAt = newTweet.dataValues.updatedAt.toDateString().toString().split(' ');
+
+    //     const user = await User.findByPk(req.user.id);
+    //     newTweet.dataValues.User = user
+
+    //     res.status(201)
+    //     return res.json(newTweet)
+    // }
+
+    // if (gif) {
+    //     const newTweet = await Tweet.create({
+    //         userId: req.user.id,
+    //         tweet,
+    //         image: null,
+    //         gif
+    //     })
+
+    //     newTweet.dataValues.createdAt = newTweet.dataValues.createdAt.toDateString().toString().split(' ');
+    //     newTweet.dataValues.updatedAt = newTweet.dataValues.updatedAt.toDateString().toString().split(' ');
+
+    //     const user = await User.findByPk(req.user.id);
+    //     newTweet.dataValues.User = user
+
+    //     res.status(201)
+    //     return res.json(newTweet)
+    // }
+
+
+
 })
 
 
@@ -51,9 +99,6 @@ router.get('/feed', requireAuth, async (req, res, next) => {
     })
     followers.push({ followerId: req.user.id })
 
-    console.log('---')
-
-    console.log(followers)
 
 
 

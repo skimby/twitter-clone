@@ -18,6 +18,7 @@ const app = express();
 app.use(morgan("dev"));
 //Cookie Parse middleware for parsing cookies
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 //routes
 

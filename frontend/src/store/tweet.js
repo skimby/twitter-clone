@@ -67,9 +67,23 @@ const getExploreTweets = (tweets) => {
 }
 // THUNK
 export const createTweetBackend = (tweetInput) => async (dispatch) => {
+    const { tweet, image, gif } = tweetInput;
+    console.log(tweet, image)
+
+    const formData = new FormData();
+    formData.append("tweet", tweet);
+    formData.append("gif", gif);
+    // console.log(formData.get(tweet))
+
+
+    if (image) formData.append("image", image);
+
     const res = await csrfFetch('/api/tweets/create', {
         method: "POST",
-        body: JSON.stringify(tweetInput)
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        body: formData
     });
 
     if (res.ok) {

@@ -15,7 +15,8 @@ function CreateTweet() {
     const ref = useRef(null)
     const [tweet, setTweet] = useState('');
     const [gif, setGif] = useState();
-    const [image, setImage] = useState();
+    const [errors, setErrors] = useState();
+    const [image, setImage] = useState(null);
 
     const user = useSelector(state => state.session);
 
@@ -39,6 +40,14 @@ function CreateTweet() {
             image
         }
         const newTweet = await dispatch(createTweetBackend(tweetInput))
+        // .catch(async (res) => {
+        //     const data = await res.json();
+        //     if (data && data.errors) {
+        //         const newErrors = data.errors;
+        //         setErrors(newErrors);
+        //         console.log(errors)
+        //     }
+        // });
         history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
     }
 
@@ -49,6 +58,10 @@ function CreateTweet() {
         )
     }
 
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+    };
     return (
         <div className='create-tweet-container'>
             <div className='profile-image-box'>
@@ -64,7 +77,9 @@ function CreateTweet() {
                         value={tweet}
                         onChange={(e) => setTweet(e.target.value)}>
                     </input>
-
+                    <label>
+                        <input type="file" onChange={updateFile} />
+                    </label>
                     {/* emoji stuff */}
                     {/* <div className="pickerContainer" ref={ref} value={tweet} onChange={(e) => setTweet(e.target.value)}></div> */}
 
