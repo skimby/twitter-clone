@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/skimby/Twitter-Clone/issues"
   },
-  "homepage": "https://github.com/skimby/Twitter-Clone#readme"
+  "homepage": "https://github.com/skimby/Twitter-Clone#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
 }
