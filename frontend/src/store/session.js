@@ -67,23 +67,32 @@ export const signup = (user) => async (dispatch) => {
     coverImage,
     password } = user;
 
+  const formData = new FormData();
+  formData.append("firstName", firstName);
+  formData.append("lastName", lastName);
+  formData.append("username", username);
+  formData.append("bio", bio);
+  formData.append("email", email);
+  formData.append("location", location);
+  formData.append("website", website);
+  formData.append("coverImage", coverImage);
+  formData.append("password", password);
+
+  if (profileImage) formData.append("image", profileImage);
+  // if (!profileImage) formData.append("image", 'https://secure.gravatar.com/avatar/c51f0fc9375c537923f6bf012b337f43?s=150&d=mm&r=g')
+
+  console.log(profileImage)
+
   const response = await csrfFetch("/api/users/signup", {
     method: "POST",
-    body: JSON.stringify({
-      firstName,
-      lastName,
-      username,
-      bio,
-      email,
-      location,
-      website,
-      profileImage,
-      coverImage,
-      password
-    }),
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    body: formData
   });
   const data = await response.json();
-  dispatch(setUser(data.user));
+  dispatch(setUser(data.user))
+
   return response;
 };
 

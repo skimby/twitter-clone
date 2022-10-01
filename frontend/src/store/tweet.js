@@ -68,7 +68,6 @@ const getExploreTweets = (tweets) => {
 // THUNK
 export const createTweetBackend = (tweetInput) => async (dispatch) => {
     const { tweet, image, gif } = tweetInput;
-    console.log(tweet, image)
 
     const formData = new FormData();
     formData.append("tweet", tweet);

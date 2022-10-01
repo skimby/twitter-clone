@@ -17,7 +17,7 @@ function SignupForm() {
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
   const [website, setWebsite] = useState("");
-  const [profileImage, setProfileImage] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
   const [coverImage, setCoverImage] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -45,10 +45,15 @@ function SignupForm() {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         });
-      history.go()
 
+    } else {
+      return setErrors(['Confirm Password field must be the same as the Password field']);
     }
-    return setErrors(['Confirm Password field must be the same as the Password field']);
+  };
+
+  const updateFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setProfileImage(file);
   };
 
   return (
@@ -124,12 +129,9 @@ function SignupForm() {
 
       <label>
         Profile Image
-        <input
-          type="text"
-          value={profileImage}
-          onChange={(e) => setProfileImage(e.target.value)}
-        />
+        <input type="file" onChange={updateFile} />
       </label>
+
       <label>
         Cover Image
         <input

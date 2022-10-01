@@ -5,6 +5,7 @@ const { User, Tweet, Comment, Like, Follow } = require("../../db/models");
 const router = express.Router();
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const { singlePublicFileUpload, singleMulterUpload } = require('../../aws-sdk.js')
 
 
 const validateSignup = [
@@ -130,8 +131,17 @@ router.get('/:userId', requireAuth, async (req, res, next) => {
 })
 
 //================== SIGN UP ==========================//
-router.post("/signup", validateSignup, async (req, res, next) => {
-  const { firstName, lastName, email, password, username } = req.body;
+router.post("/signup", singleMulterUpload("image"), validateSignup, async (req, res, next) => {
+  let { firstName, lastName, email, bio, location, website, coverImage, password, username } = req.body;
+
+  let profileImg;
+
+  if (req.file) {
+    profileImg = await singlePublicFileUpload(req.file);
+  } else {
+    profileImg = 'https://secure.gravatar.com/avatar/c51f0fc9375c537923f6bf012b337f43?s=150&d=mm&r=g'
+  }
+
 
   const existingEmail = await User.findOne({
     where: {
@@ -145,7 +155,22 @@ router.post("/signup", validateSignup, async (req, res, next) => {
   })
 
   if (!existingEmail && !existingUsername) {
-    const user = await User.signup({ firstName, lastName, email, username, password });
+    const user = await User.signup({
+      firstName,
+      lastName,
+      email,
+      bio,
+      location,
+      website,
+      profileImage: profileImg,
+      coverImage,
+      password,
+      username
+    });
+
+    console.log('------')
+    console.log(user)
+
     await setTokenCookie(res, user);
     user.dataValues.token = req.cookies.token;
 
