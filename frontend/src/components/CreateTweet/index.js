@@ -17,7 +17,7 @@ function CreateTweet() {
     const [gif, setGif] = useState();
     const [errors, setErrors] = useState();
     const [image, setImage] = useState(null);
-
+    const [openEmojiBox, setOpenEmojiBox] = useState(false);
     const user = useSelector(state => state.session);
 
     // //emoji
@@ -51,6 +51,22 @@ function CreateTweet() {
         history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
     }
 
+    // useEffect(() => {
+    //     if (openEmojiBox) {
+
+    //     }
+    // })
+    const picker = () => {
+        return picker2
+    }
+    const picker2 = createPopup({
+        // picker options go here
+    }, {
+        // referenceElement: openEmojiBox,
+        triggerElement: openEmojiBox
+    });
+
+
 
     const submitButton = () => {
         return (
@@ -62,6 +78,12 @@ function CreateTweet() {
         const file = e.target.files[0];
         if (file) setImage(file);
     };
+
+
+
+    const openEmoji = (e) => {
+        setOpenEmojiBox(true)
+    }
     return (
         <div className='create-tweet-container'>
             <div className='profile-image-box'>
@@ -91,6 +113,9 @@ function CreateTweet() {
 
             <div className='tweet-addons-box'></div>
             <div>
+                <button onClick={openEmojiBox} className='emoji-popup'>emoji popup</button>
+                {picker}
+
                 {submitButton()}
             </div>
         </div>
