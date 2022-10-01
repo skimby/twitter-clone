@@ -46,42 +46,6 @@ router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, 
     res.status(201)
     return res.json(newTweet)
 
-    // if (image) {
-    //     const newTweet = await Tweet.create({
-    //         userId: req.user.id,
-    //         tweet,
-    //         image: twitterImg,
-    //         gif: null
-    //     })
-
-    //     newTweet.dataValues.createdAt = newTweet.dataValues.createdAt.toDateString().toString().split(' ');
-    //     newTweet.dataValues.updatedAt = newTweet.dataValues.updatedAt.toDateString().toString().split(' ');
-
-    //     const user = await User.findByPk(req.user.id);
-    //     newTweet.dataValues.User = user
-
-    //     res.status(201)
-    //     return res.json(newTweet)
-    // }
-
-    // if (gif) {
-    //     const newTweet = await Tweet.create({
-    //         userId: req.user.id,
-    //         tweet,
-    //         image: null,
-    //         gif
-    //     })
-
-    //     newTweet.dataValues.createdAt = newTweet.dataValues.createdAt.toDateString().toString().split(' ');
-    //     newTweet.dataValues.updatedAt = newTweet.dataValues.updatedAt.toDateString().toString().split(' ');
-
-    //     const user = await User.findByPk(req.user.id);
-    //     newTweet.dataValues.User = user
-
-    //     res.status(201)
-    //     return res.json(newTweet)
-    // }
-
 
 
 })

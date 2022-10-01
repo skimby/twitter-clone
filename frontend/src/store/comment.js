@@ -46,11 +46,23 @@ export const getCommentsBackend = (tweetId) => async (dispatch) => {
     }
 }
 
-// CREATE TWEET
+// CREATE COMMENT
 export const createCommentBackend = (tweetId, commentInput) => async (dispatch) => {
+    const { comment, image, gif } = commentInput;
+
+    const formData = new FormData();
+    formData.append("comment", comment);
+    formData.append("gif", gif);
+
+
+    if (image) formData.append("image", image);
+
     const res = await csrfFetch(`/api/comments/tweets/${tweetId}`, {
         method: "POST",
-        body: JSON.stringify(commentInput)
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        body: formData
     });
     if (res.ok) {
         const parsedRes = await res.json();
@@ -58,7 +70,7 @@ export const createCommentBackend = (tweetId, commentInput) => async (dispatch) 
     }
 }
 
-// EDIT TWEET
+// EDIT COMMENT
 export const editCommentBackend = (commentId, commentInput, tweetId) => async (dispatch) => {
 
     const res = await csrfFetch(`/api/comments/${commentId}/tweets/${tweetId}`, {

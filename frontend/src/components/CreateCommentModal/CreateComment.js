@@ -34,6 +34,11 @@ function CreateComment({ tweetId }) {
         )
     }
 
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+    };
+
     return (
         <div>
             <div className='profile-image-box'>
@@ -51,7 +56,9 @@ function CreateComment({ tweetId }) {
 
                     {/* emoji stuff */}
                     {/* <div className="pickerContainer" ref={ref} value={tweet} onChange={(e) => setTweet(e.target.value)}></div> */}
-
+                    <label>
+                        <input type="file" onChange={updateFile} />
+                    </label>
 
                     {submitButton()}
                 </form>

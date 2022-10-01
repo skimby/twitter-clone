@@ -2,7 +2,7 @@ const express = require("express");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Tweet, User, Comment, Retweet, Like, Follow } = require('../../db/models');
 const user = require("../../db/models/user");
-
+const { singlePublicFileUpload, singleMulterUpload } = require('../../aws-sdk.js')
 const router = express.Router();
 
 
@@ -28,10 +28,16 @@ router.get('/tweets/:tweetId', requireAuth, async (req, res, next) => {
 
 
 //================== CREATE A COMMENT =================//
-router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
+router.post('/tweets/:tweetId', singleMulterUpload("image"), requireAuth, async (req, res, next) => {
 
     const { tweetId } = req.params;
     let { comment, image, gif } = req.body;
+    let commentImg;
+    if (req.file) {
+        commentImg = await singlePublicFileUpload(req.file);
+
+    }
+
 
     if (image === undefined) image = null;
     if (gif === undefined) gif = null;
@@ -43,8 +49,8 @@ router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
             userId: req.user.id,
             tweetId,
             comment,
-            image,
-            gif
+            image: commentImg,
+            gif: null
         })
 
         res.status(200)
