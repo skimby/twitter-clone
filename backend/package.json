@@ -30,6 +30,7 @@
     "mysql2": "^2.3.3",
     "node-fetch": "^3.2.10",
     "per-env": "^1.0.2",
+    "pg": "^8.8.0",
     "sequelize": "^6.21.6",
     "sequelize-cli": "^6.4.1",
     "sqlite3": "^5.1.0"

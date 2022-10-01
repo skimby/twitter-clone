@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/skimby/Twitter-Clone#readme",
   "dependencies": {
-    "dotenv": "^16.0.3"
-  },
-  "devDependencies": {}
+    "dotenv": "^16.0.3",
+    "pg": "^8.8.0"
+  }
 }
