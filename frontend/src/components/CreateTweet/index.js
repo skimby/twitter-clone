@@ -17,18 +17,9 @@ function CreateTweet() {
     const [gif, setGif] = useState();
     const [errors, setErrors] = useState();
     const [image, setImage] = useState(null);
-    const [openEmojiBox, setOpenEmojiBox] = useState(false);
+    const [openEmoji, setOpenEmoji] = useState(false)
+
     const user = useSelector(state => state.session);
-
-    // //emoji
-    // useEffect(() => {
-    //     const test = ref.current
-    //     const picker = createPicker({
-    //         rootElement: test
-    //     });
-
-    // }, [])
-
 
 
     const handleSubmit = async (e) => {
@@ -51,21 +42,32 @@ function CreateTweet() {
         history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
     }
 
-    // useEffect(() => {
-    //     if (openEmojiBox) {
+    const triggerButton = document.querySelector('#emoji-button');
+    const rootElement = document.querySelector('.emoji-container');
 
-    //     }
-    // })
-    const picker = () => {
-        return picker2
-    }
-    const picker2 = createPopup({
-        // picker options go here
+    // Create the picker
+    let picker = createPopup({
+        animate: false,
+        autoFocus: 'auto',
+        rootElement
     }, {
-        // referenceElement: openEmojiBox,
-        triggerElement: openEmojiBox
+        triggerElement: triggerButton,
+        referenceElement: triggerButton,
+        position: 'bottom-start'
     });
 
+    picker.addEventListener('emoji:select', event => {
+        setTweet(tweet + event.emoji)
+    });
+
+
+    //inline emoji
+    // useEffect(() => {
+    //     const test = document.querySelector('.pickerContainer')
+    //     const picker = createPicker({
+    //         rootElement: test
+    //     });
+    // }, [])
 
 
     const submitButton = () => {
@@ -79,11 +81,10 @@ function CreateTweet() {
         if (file) setImage(file);
     };
 
-
-
-    const openEmoji = (e) => {
-        setOpenEmojiBox(true)
+    const handleOpenEmoji = () => {
+        picker.open()
     }
+
     return (
         <div className='create-tweet-container'>
             <div className='profile-image-box'>
@@ -102,19 +103,23 @@ function CreateTweet() {
                     <label>
                         <input type="file" onChange={updateFile} />
                     </label>
-                    {/* emoji stuff */}
-                    {/* <div className="pickerContainer" ref={ref} value={tweet} onChange={(e) => setTweet(e.target.value)}></div> */}
 
-
+                    {/* inline emoji */}
+                    <div className="pickerContainer">
+                    </div>
 
                 </form>
             </div>
 
 
             <div className='tweet-addons-box'></div>
+
+
             <div>
-                <button onClick={openEmojiBox} className='emoji-popup'>emoji popup</button>
-                {picker}
+                <div className='emoji-container'></div>
+
+                <button id='emoji-button' onClick={handleOpenEmoji}>emoji popup</button>
+
 
                 {submitButton()}
             </div>
