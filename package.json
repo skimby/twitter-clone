@@ -25,6 +25,7 @@
   "homepage": "https://github.com/skimby/Twitter-Clone#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
+    "node-fetch": "^3.2.10",
     "pg": "^8.8.0"
   }
 }

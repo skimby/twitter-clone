@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from 'react-router-dom';
 import { createTweetBackend } from '../../store/tweet';
 import { createPopup } from '@picmo/popup-picker';
+import Giphy from '../GiphyModal/Giphy';
 
 import './CreateTweet.css'
 
@@ -102,6 +103,12 @@ function CreateTweet() {
                 <div id='emoji-button' onClick={handleOpenEmoji}>
                     <i className="fa-regular fa-face-smile blue-icon"></i>
                 </div>
+
+                <div>
+                    <Giphy tweet={tweet} setTweet={setTweet} />
+                    <i className="fa-solid fa-gift blue-icon"></i>
+                </div>
+
 
             </div>
 

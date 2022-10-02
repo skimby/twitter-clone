@@ -1,12 +1,11 @@
 const express = require("express");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Tweet, User, Comment, Retweet, Like, Follow } = require('../../db/models');
-const user = require("../../db/models/user");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
 const { singlePublicFileUpload, singleMulterUpload } = require('../../aws-sdk.js')
-const asyncHandler = require('express-async-handler')
+const fetch = require('node-fetch');
 
 
 //================== VALIDATORS =====================//
@@ -329,6 +328,24 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
         err.status = 404;
         return next(err);
     }
+})
+
+//================== SEARCH GIPHY API =================//
+router.get('/searchGiphy/:query', requireAuth, async (req, res, next) => {
+    let { query } = req.params;
+    const search = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${query}`;
+
+    const promise = await fetch(search)
+        .then((response) => {
+            return response.json()
+        }).then((json) => {
+            return json
+        })
+        .catch((err) => {
+            return err.message
+        })
+    return await res.json(promise.data)
+
 })
 
 //================== DELETE A TWEET =================//

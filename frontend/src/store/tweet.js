@@ -9,6 +9,7 @@ const GET_TWEETS_USER = 'tweets/getTweetsUser'
 const GET_TWEETS_LOGGED_USER = 'tweets/getTweetsLoggedUser'
 const GET_ONE_TWEET = 'tweets/getOneTweet'
 const GET_EXPLORE_TWEETS = 'tweets/getExploreTweets'
+const GET_GIF = 'tweets/getGf'
 
 // ACTION
 const createTweet = (tweet) => {
