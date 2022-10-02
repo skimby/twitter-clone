@@ -19,6 +19,7 @@ function CreateTweet() {
 
     const user = useSelector(state => state.session);
 
+    console.log(tweet)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -105,7 +106,7 @@ function CreateTweet() {
                 </div>
 
                 <div>
-                    <Giphy tweet={tweet} setTweet={setTweet} />
+                    <Giphy />
                     <i className="fa-solid fa-gift blue-icon"></i>
                 </div>
 

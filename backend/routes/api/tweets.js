@@ -331,7 +331,7 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
 })
 
 //================== SEARCH GIPHY API =================//
-router.get('/searchGiphy/:query', requireAuth, async (req, res, next) => {
+router.get('/search/:query', requireAuth, async (req, res, next) => {
     let { query } = req.params;
     const search = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${query}`;
 
@@ -344,6 +344,12 @@ router.get('/searchGiphy/:query', requireAuth, async (req, res, next) => {
         .catch((err) => {
             return err.message
         })
+
+    // const result = []
+    // for (let i = 0; i < await promise.length; i++) {
+    //     result.push(await promise[i].images.original.url)
+    // }
+    // return await result
     return await res.json(promise.data)
 
 })

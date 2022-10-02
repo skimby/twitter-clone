@@ -6,6 +6,7 @@ import usersReducer from "./user";
 import commentsReducer from "./comment";
 import followsReducer from "./follow";
 import likesReducer from "./like";
+import gifReducer from "./gif";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   users: usersReducer,
   comments: commentsReducer,
   follows: followsReducer,
-  likes: likesReducer
+  likes: likesReducer,
+  gifs: gifReducer
 });
 
 let enhancer;
