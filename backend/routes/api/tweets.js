@@ -22,8 +22,11 @@ const validateTweet = [
 router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, async (req, res, next) => {
     let { tweet, image, gif } = req.body;
 
+    let twitterImg;
+    if (req.file) {
+        twitterImg = await singlePublicFileUpload(req.file);
 
-    const twitterImg = await singlePublicFileUpload(req.file);
+    }
     // res.json(tweet)
     // return
     if (image === undefined) image = null;
