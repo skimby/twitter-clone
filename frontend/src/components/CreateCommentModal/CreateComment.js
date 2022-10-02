@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { createCommentBackend } from '../../store/comment';
+import { createPopup } from '@picmo/popup-picker';
+
 
 function CreateComment({ tweetId }) {
     const dispatch = useDispatch();
@@ -39,6 +41,27 @@ function CreateComment({ tweetId }) {
         if (file) setImage(file);
     };
 
+    //EMOJI STUFF
+    const triggerButton = document.querySelector('#emoji-button-comment-modal');
+    const rootElement = document.querySelector('.emoji-container-comment-modal');
+
+    // Create the picker
+    let picker = createPopup({
+        animate: false,
+        autoFocus: 'auto',
+        rootElement
+    }, {
+        triggerElement: triggerButton,
+        referenceElement: triggerButton,
+        position: 'bottom-start'
+    });
+
+    picker.addEventListener('emoji:select', event => {
+        setComment(comment + event.emoji)
+    });
+    const handleOpenEmoji = () => {
+        picker.open()
+    }
     return (
         <div>
             <div className='profile-image-box'>
@@ -60,6 +83,11 @@ function CreateComment({ tweetId }) {
                         <input type="file" onChange={updateFile} />
                     </label>
 
+                    <div className='emoji-container-comment-modal'></div>
+
+                    <div id='emoji-button-comment-modal' onClick={handleOpenEmoji}>
+                        <i className="fa-regular fa-face-smile blue-icon"></i>
+                    </div>
                     {submitButton()}
                 </form>
             </div>

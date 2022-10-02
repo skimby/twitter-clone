@@ -54,3 +54,7 @@ button {
     border-top: none;
     margin: 0 14px;
 }
+
+.blue-icon {
+    color: rgb(99, 181, 243);
+}

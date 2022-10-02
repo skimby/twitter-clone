@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from 'react-router-dom';
 import { createTweetBackend } from '../../store/tweet';
 import { createPopup } from '@picmo/popup-picker';
-import { createPicker } from 'picmo';
-import { picker } from '../../index';
-import { createRoot } from 'react-dom/client';
+
 import './CreateTweet.css'
 
 
@@ -17,7 +15,6 @@ function CreateTweet() {
     const [gif, setGif] = useState();
     const [errors, setErrors] = useState();
     const [image, setImage] = useState(null);
-    const [openEmoji, setOpenEmoji] = useState(false)
 
     const user = useSelector(state => state.session);
 
@@ -61,15 +58,6 @@ function CreateTweet() {
     });
 
 
-    //inline emoji
-    // useEffect(() => {
-    //     const test = document.querySelector('.pickerContainer')
-    //     const picker = createPicker({
-    //         rootElement: test
-    //     });
-    // }, [])
-
-
     const submitButton = () => {
         return (
             <button className='tweet-button' type='submit' onClick={handleSubmit}>Tweet</button>
@@ -103,22 +91,23 @@ function CreateTweet() {
                     <label>
                         <input type="file" onChange={updateFile} />
                     </label>
-
-                    {/* inline emoji */}
-                    <div className="pickerContainer">
-                    </div>
-
                 </form>
             </div>
 
 
-            <div className='tweet-addons-box'></div>
+            <div className='tweet-addons-box'>
+
+                <div className='emoji-container'></div>
+
+                <div id='emoji-button' onClick={handleOpenEmoji}>
+                    <i className="fa-regular fa-face-smile blue-icon"></i>
+                </div>
+
+            </div>
 
 
             <div>
-                <div className='emoji-container'></div>
 
-                <button id='emoji-button' onClick={handleOpenEmoji}>emoji popup</button>
 
 
                 {submitButton()}

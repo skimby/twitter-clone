@@ -36,11 +36,12 @@
 
 .tweet-button {
     padding: 10px 20px;
-    display: block;
+    display: inline-block;
     width: 80px;
     /* width: 100%; */
 }
 
 .tweet-addons-box {
     display: inline-block;
+    width: 100px;
 }

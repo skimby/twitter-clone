@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { createTweetBackend } from '../../store/tweet'
+import { createPopup } from '@picmo/popup-picker';
+
 import './CreateTweetModal.css'
 function CreateTweetForm() {
     const dispatch = useDispatch();
@@ -37,6 +39,28 @@ function CreateTweetForm() {
         const file = e.target.files[0];
         if (file) setImage(file);
     };
+
+    //EMOJI STUFF
+    const triggerButton = document.querySelector('#emoji-button-modal');
+    const rootElement = document.querySelector('.emoji-container-modal');
+
+    // Create the picker
+    let picker = createPopup({
+        animate: false,
+        autoFocus: 'auto',
+        rootElement
+    }, {
+        triggerElement: triggerButton,
+        referenceElement: triggerButton,
+        position: 'bottom-start'
+    });
+
+    picker.addEventListener('emoji:select', event => {
+        setTweet(tweet + event.emoji)
+    });
+    const handleOpenEmoji = () => {
+        picker.open()
+    }
     return (
         <div>
             <div className='profile-image-box'>
@@ -54,9 +78,12 @@ function CreateTweetForm() {
                     <label>
                         <input type="file" onChange={updateFile} />
                     </label>
-                    {/* emoji stuff */}
-                    {/* <div className="pickerContainer" ref={ref} value={tweet} onChange={(e) => setTweet(e.target.value)}></div> */}
 
+                    <div className='emoji-container-modal'></div>
+
+                    <div id='emoji-button-modal' onClick={handleOpenEmoji}>
+                        <i className="fa-regular fa-face-smile blue-icon"></i>
+                    </div>
 
                     {submitButton()}
                 </form>
