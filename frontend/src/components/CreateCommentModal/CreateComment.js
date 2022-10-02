@@ -77,8 +77,7 @@ function CreateComment({ tweetId }) {
                         onChange={(e) => setComment(e.target.value)}>
                     </input>
 
-                    {/* emoji stuff */}
-                    {/* <div className="pickerContainer" ref={ref} value={tweet} onChange={(e) => setTweet(e.target.value)}></div> */}
+
                     <label>
                         <input type="file" onChange={updateFile} />
                     </label>
