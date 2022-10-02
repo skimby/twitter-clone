@@ -333,7 +333,7 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
 //================== SEARCH GIPHY API =================//
 router.get('/search/:query', requireAuth, async (req, res, next) => {
     let { query } = req.params;
-    const search = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${query}`;
+    const search = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${query}&limit=30`;
 
     const promise = await fetch(search)
         .then((response) => {

@@ -1,0 +1,44 @@
+.giphy-modal-container {
+    width: 615px;
+    height: 615px;
+}
+
+.form .search-styling {
+    border: 2px solid rgb(29, 155, 240);
+    border-radius: 20px;
+    margin: 10px;
+    width: 350px;
+}
+
+.gif-display-grid {
+    display: grid;
+    grid-template-columns: 200px 200px 200px;
+    grid-template-rows: 200px 200px 200px;
+    overflow: scroll;
+}
+
+.gif-header {
+    display: inline-block;
+}
+
+.back-button {
+    display: inline-block;
+    width: 50px;
+    padding-left: 15px;
+}
+
+.search-gif {
+    display: inline-block;
+    width: 500px;
+}
+
+.search-button {
+    display: inline-block;
+    width: 40px;
+}
+
+.search-btn-icon {
+    width: 40px;
+    padding: 10px;
+    margin-left: 45px;
+}

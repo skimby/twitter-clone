@@ -1,54 +1,59 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { getAllSearchedGifsBackend } from '../../store/gif';
-
+import { useHistory } from 'react-router-dom';
+import './GiphyModal.css';
 
 function Giphy() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [query, setQuery] = useState('');
 
     const gifs = useSelector(state => state.gifs)
     const allGifs = Object.values(gifs?.allGifs);
 
-    console.log(allGifs[0])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('test')
+
         await dispatch(getAllSearchedGifsBackend(query))
     }
-
+    const handleBack = () => {
+        history.goBack()
+    }
 
     return (
-        <div>
-            <h1>Giphy</h1>
-            <div className='search-gif'>
-                <form onSubmit={handleSubmit} className='form'>
+        <div className='giphy-modal-container'>
+            <div className='gif-header'>
+                <div className='back-button'>
+                    <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
+                </div>
+                <div className='search-gif'>
+                    {/* <div className='search-div'> */}
+                    <form onSubmit={handleSubmit} className='form'>
+                        <input className='search-styling' type='text' onChange={(e) => setQuery(e.target.value)}>
+                        </input>
 
-                    <input type='text' onChange={(e) => setQuery(e.target.value)}>
-                    </input>
-                    <button type='submit'>Search</button>
-                </form>
+                        <div className='search-button'>
+                            <button className='search-btn-icon' type='submit' onSubmit={handleSubmit}><i className="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div>
 
-
-                {allGifs[0] && (
-                    <img src={allGifs[0]?.images?.original?.url} />
-                )}
-            </div>
-            {/* <div>
+            <div className='gif-display-grid'>
                 {gifs && (
                     Object.values(gifs?.allGifs).map((gif, index) => {
                         return (
-                            <div key={index}>
-                                <img src={gif.url} />
+                            <div key={index} width='200px' height='200px' >
+                                <img src={gif?.images?.original?.url} width='200px' height='200px' />
                             </div>
                         )
                     })
 
                 )}
-            </div> */}
+            </div>
 
         </div>
     )

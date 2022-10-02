@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from 'react-router-dom';
 import { createTweetBackend } from '../../store/tweet';
 import { createPopup } from '@picmo/popup-picker';
-import Giphy from '../GiphyModal/Giphy';
-
+import GiphyModal from '../GiphyModal';
 import './CreateTweet.css'
 
 
@@ -106,8 +105,8 @@ function CreateTweet() {
                 </div>
 
                 <div>
-                    <Giphy />
-                    <i className="fa-solid fa-gift blue-icon"></i>
+                    <GiphyModal />
+                    {/* <i className="fa-solid fa-gift blue-icon"></i> */}
                 </div>
 
 
