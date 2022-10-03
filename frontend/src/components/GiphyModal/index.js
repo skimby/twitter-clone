@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal } from "../../context/Modal";
+import { GifModal } from "../../context/Modal";
 import Giphy from "./Giphy";
 
 function GiphyModal() {
@@ -9,9 +9,9 @@ function GiphyModal() {
         <>
             <i onClick={() => setShowModal(true)} className="fa-solid fa-gift blue-icon"></i>
             {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
+                <GifModal onClose={() => setShowModal(false)}>
                     <Giphy />
-                </Modal>
+                </GifModal>
             )}
         </>
     );

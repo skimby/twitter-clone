@@ -20,5 +20,14 @@
 
 #modal-content {
   position: absolute;
-  background-color:white;
+  background-color: white;
+}
+
+#modal-content-gif {
+  position: absolute;
+  background-color: white;
+  border-radius: 20px;
+  overflow: scroll;
+  width: 615px;
+  height: 615px;
 }
