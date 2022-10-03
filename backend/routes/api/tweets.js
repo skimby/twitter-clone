@@ -21,11 +21,6 @@ const validateTweet = [
 router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, async (req, res, next) => {
     let { tweet, image, gif } = req.body;
 
-
-    console.log('----')
-    console.log(image, gif)
-
-
     let twitterImg;
     let newTweet;
     if (req.file) {
@@ -50,14 +45,6 @@ router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, 
         })
     }
 
-
-    // const newTweet = await Tweet.create({
-    //     userId: req.user.id,
-    //     tweet,
-    //     image: twitterImg,
-    //     gif
-    // })
-
     newTweet.dataValues.createdAt = newTweet.dataValues.createdAt.toDateString().toString().split(' ');
     newTweet.dataValues.updatedAt = newTweet.dataValues.updatedAt.toDateString().toString().split(' ');
 
@@ -65,8 +52,6 @@ router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, 
     newTweet.dataValues.User = user
     res.status(201)
     return res.json(newTweet)
-
-
 
 })
 
@@ -307,7 +292,10 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
             include: [{
                 model: User,
                 attributes: ['id', 'firstName', 'profileImage', 'username', 'verified']
-            }]
+            }],
+            order: [
+                ['createdAt', 'DESC'],
+            ]
         })
 
         for (let i = 0; i < tweets.length; i++) {
@@ -327,6 +315,7 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
                     tweetId: tweet.id
                 }
             })
+            // tweet.dataValues.createdAt1 = tweet.dataValues.createdAt
             tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
             tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
             tweet.dataValues.commentCount = comments.count;
@@ -363,11 +352,7 @@ router.get('/search/:query', requireAuth, async (req, res, next) => {
             return err.message
         })
 
-    // const result = []
-    // for (let i = 0; i < await promise.length; i++) {
-    //     result.push(await promise[i].images.original.url)
-    // }
-    // return await result
+
     return await res.json(promise.data)
 
 })

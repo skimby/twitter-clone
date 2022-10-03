@@ -32,29 +32,38 @@ router.post('/tweets/:tweetId', singleMulterUpload("image"), requireAuth, async 
 
     const { tweetId } = req.params;
     let { comment, image, gif } = req.body;
-    let commentImg;
-    if (req.file) {
-        commentImg = await singlePublicFileUpload(req.file);
-
-    }
-
-
-    if (image === undefined) image = null;
-    if (gif === undefined) gif = null;
 
     const tweet = await Tweet.findByPk(tweetId);
 
+
     if (tweet) {
-        const newComment = await Comment.create({
-            userId: req.user.id,
-            tweetId,
-            comment,
-            image: commentImg,
-            gif: null
-        })
+
+        let newComment;
+        let commentImg;
+
+        if (req.file) {
+            commentImg = await singlePublicFileUpload(req.file);
+
+            newComment = await Tweet.create({
+                userId: req.user.id,
+                tweet,
+                image: twitterImg,
+                gif: null
+            })
+        } else {
+
+            newComment = await Comment.create({
+                userId: req.user.id,
+                tweetId,
+                comment,
+                image: null,
+                gif
+            })
+        }
 
         res.status(200)
         return res.json(newComment)
+
     } else {
         const err = new Error("Could not find a tweet with the specified id.");
         err.message = "Could not find a tweet with the specified id.";

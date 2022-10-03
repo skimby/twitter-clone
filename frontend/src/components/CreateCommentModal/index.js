@@ -3,15 +3,15 @@ import { Modal } from "../../context/Modal"
 import CreateComment from "./CreateComment";
 
 function CreateCommentModal({ commentCount, tweet }) {
-    const [showModal, setShowModal] = useState();
+    const [showModalComment, setShowModalComment] = useState();
 
     return (
         <>
-            <i onClick={() => setShowModal(true)} className="fa-regular fa-comment"></i>{commentCount}
+            <i onClick={() => setShowModalComment(true)} className="fa-regular fa-comment"></i>{commentCount}
 
-            {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
-                    <CreateComment tweetId={tweet?.id}
+            {showModalComment && (
+                <Modal onClose={() => setShowModalComment(false)}>
+                    <CreateComment setShowModalComment={setShowModalComment} tweetId={tweet?.id}
                     />
 
                 </Modal>

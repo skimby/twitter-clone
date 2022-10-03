@@ -72,7 +72,7 @@ export const createTweetBackend = (tweetInput) => async (dispatch) => {
     const formData = new FormData();
     formData.append("tweet", tweet);
     formData.append("gif", gif);
-    // console.log(formData.get(tweet))
+    console.log(formData.get(tweet))
 
     // console.log(gif)
 
@@ -187,6 +187,7 @@ const tweetsReducer = (state = initialState, action) => {
             return deleteTweetState;
 
         case GET_TWEETS_USER:
+            // console.log(action.payload)
             const getTweetsUser = { ...state }
             getTweetsUser.userTweets = {};
             action.payload.Tweets.forEach(tweet => {

@@ -14,12 +14,13 @@ function GetOneTweet({ tweetId }) {
     const user = useSelector(state => state.users)
     const likes = useSelector(state => state.likes)
     const tweets = useSelector(state => state.tweets)
+    const comments = useSelector(state => state.comments)
     const tweet = tweets?.currentTweet
 
 
     useEffect(() => {
         dispatch(getOneTweetBackend(tweetId))
-    }, [dispatch, tweetId, likes])
+    }, [dispatch, tweetId, likes, comments])
 
     useEffect(() => {
         if (tweet?.id) {

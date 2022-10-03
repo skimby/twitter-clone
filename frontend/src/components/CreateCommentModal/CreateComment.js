@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { createCommentBackend } from '../../store/comment';
 import { createPopup } from '@picmo/popup-picker';
+import GiphyModal from "../GiphyModal";
 
-
-function CreateComment({ tweetId }) {
+function CreateComment({ tweetId, setShowModalComment }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -15,6 +15,9 @@ function CreateComment({ tweetId }) {
 
     const user = useSelector(state => state.session);
 
+
+    console.log(tweetId)
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -23,10 +26,18 @@ function CreateComment({ tweetId }) {
             gif,
             image
         }
-        await dispatch(createCommentBackend(tweetId, commentInput));
+        await dispatch(createCommentBackend(tweetId, commentInput))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (!data.errors) {
+
+                    setShowModalComment(false)
+
+                }
+            });
 
         history.push(`/${user?.user?.username}/tweets/${tweetId}`)
-        history.go()
+        // history.go()
     }
 
 
@@ -86,6 +97,10 @@ function CreateComment({ tweetId }) {
 
                     <div id='emoji-button-comment-modal' onClick={handleOpenEmoji}>
                         <i className="fa-regular fa-face-smile blue-icon"></i>
+                    </div>
+
+                    <div>
+                        <GiphyModal setGif={setGif} />
                     </div>
                     {submitButton()}
                 </form>

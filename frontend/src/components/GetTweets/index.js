@@ -10,6 +10,7 @@ import './GetTweets.css'
 function GetTweets({ tweets }) {
     const history = useHistory();
 
+
     return (
         <>
             {tweets && (
