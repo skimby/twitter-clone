@@ -51,14 +51,23 @@ router.post('/tweets/:tweetId', singleMulterUpload("image"), requireAuth, async 
                 gif: null
             })
         } else {
-
-            newComment = await Comment.create({
-                userId: req.user.id,
-                tweetId,
-                comment,
-                image: null,
-                gif
-            })
+            if (gif !== null) {
+                newComment = await Comment.create({
+                    userId: req.user.id,
+                    tweetId,
+                    comment,
+                    image: null,
+                    gif
+                })
+            } else {
+                newComment = await Comment.create({
+                    userId: req.user.id,
+                    tweetId,
+                    comment,
+                    image: null,
+                    gif: null
+                })
+            }
         }
 
         res.status(200)

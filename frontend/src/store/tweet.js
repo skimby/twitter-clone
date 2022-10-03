@@ -69,10 +69,11 @@ const getExploreTweets = (tweets) => {
 export const createTweetBackend = (tweetInput) => async (dispatch) => {
     const { tweet, image, gif } = tweetInput;
 
+
     const formData = new FormData();
     formData.append("tweet", tweet);
     formData.append("gif", gif);
-    console.log(formData.get(tweet))
+    // console.log(formData.get(tweet))
 
     // console.log(gif)
 

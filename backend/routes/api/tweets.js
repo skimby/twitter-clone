@@ -19,13 +19,17 @@ const validateTweet = [
 
 //================== CREATE A TWEET =================//
 router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, async (req, res, next) => {
-    let { tweet, image, gif } = req.body;
+    let { tweet, gif } = req.body;
+
+
+    console.log('---')
+    console.log(gif)
 
     let twitterImg;
     let newTweet;
+
     if (req.file) {
         twitterImg = await singlePublicFileUpload(req.file);
-        gif = null
 
         newTweet = await Tweet.create({
             userId: req.user.id,
@@ -35,14 +39,22 @@ router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, 
         })
 
     } else {
-        image = null;
+        if (gif !== null) {
+            newTweet = await Tweet.create({
+                userId: req.user.id,
+                tweet,
+                image: null,
+                gif
+            })
 
-        newTweet = await Tweet.create({
-            userId: req.user.id,
-            tweet,
-            image: null,
-            gif
-        })
+        } else {
+            newTweet = await Tweet.create({
+                userId: req.user.id,
+                tweet,
+                image: null,
+                gif: null
+            })
+        }
     }
 
     newTweet.dataValues.createdAt = newTweet.dataValues.createdAt.toDateString().toString().split(' ');
@@ -50,6 +62,11 @@ router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, 
 
     const user = await User.findByPk(req.user.id);
     newTweet.dataValues.User = user
+
+
+    console.log('---')
+    console.log(newTweet)
+
     res.status(201)
     return res.json(newTweet)
 

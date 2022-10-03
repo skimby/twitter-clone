@@ -12,7 +12,7 @@ function CreateTweet() {
     const history = useHistory();
     const ref = useRef(null)
     const [tweet, setTweet] = useState('');
-    const [gif, setGif] = useState();
+    const [gif, setGif] = useState(null);
     const [errors, setErrors] = useState();
     const [image, setImage] = useState(null);
 

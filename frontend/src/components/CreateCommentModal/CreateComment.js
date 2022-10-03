@@ -10,8 +10,8 @@ function CreateComment({ tweetId, setShowModalComment }) {
     const history = useHistory();
 
     const [comment, setComment] = useState('');
-    const [image, setImage] = useState();
-    const [gif, setGif] = useState();
+    const [image, setImage] = useState(null);
+    const [gif, setGif] = useState(null);
 
     const user = useSelector(state => state.session);
 
@@ -29,10 +29,9 @@ function CreateComment({ tweetId, setShowModalComment }) {
         await dispatch(createCommentBackend(tweetId, commentInput))
             .catch(async (res) => {
                 const data = await res.json();
+                console.log(data)
                 if (!data.errors) {
-
                     setShowModalComment(false)
-
                 }
             });
 

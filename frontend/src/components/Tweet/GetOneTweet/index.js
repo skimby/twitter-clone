@@ -17,6 +17,8 @@ function GetOneTweet({ tweetId }) {
     const comments = useSelector(state => state.comments)
     const tweet = tweets?.currentTweet
 
+    console.log(tweet)
+
 
     useEffect(() => {
         dispatch(getOneTweetBackend(tweetId))
@@ -76,8 +78,13 @@ function GetOneTweet({ tweetId }) {
                     {tweet && (
                         <>
                             <h3>{tweet?.tweet}</h3>
-                            <img src={tweet?.image} width='200' />
-                            <img src={tweet?.gif} width='200' />
+
+                            {tweet?.image !== null && (
+                                <img src={tweet?.image} width='200' />
+                            )}
+                            {tweet?.gif !== null && (
+                                <img src={tweet?.gif} width='200' />
+                            )}
 
 
                             <p>{tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}, {tweet?.updatedAt?.[3]}</p>

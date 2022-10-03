@@ -47,8 +47,12 @@ function GetTweets({ tweets }) {
                                 </div>
 
                                 <div className='tweet-img-gif'>
-                                    <img className='img-gif' src={tweet?.image} />
-                                    <img className='img-gif' src={tweet?.gif} />
+                                    {tweet?.image !== null && (
+                                        <img className='img-gif' src={tweet?.image} />
+                                    )}
+                                    {tweet?.gif !== null && (
+                                        <img className='img-gif' src={tweet?.gif} />
+                                    )}
                                 </div>
 
 

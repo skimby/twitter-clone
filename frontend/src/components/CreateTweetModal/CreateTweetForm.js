@@ -12,8 +12,8 @@ function CreateTweetForm() {
     const history = useHistory();
 
     const [tweet, setTweet] = useState('');
-    const [gif, setGif] = useState();
-    const [image, setImage] = useState();
+    const [gif, setGif] = useState(null);
+    const [image, setImage] = useState(null);
 
     const user = useSelector(state => state.session);
 
@@ -26,10 +26,12 @@ function CreateTweetForm() {
             gif,
             image
         }
+
+        // console.log(tweetInput)
         const newTweet = await dispatch(createTweetBackend(tweetInput))
 
         history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
-        history.go()
+        // history.go()
     }
 
     const submitButton = () => {
