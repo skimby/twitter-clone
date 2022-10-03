@@ -21,24 +21,42 @@ const validateTweet = [
 router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, async (req, res, next) => {
     let { tweet, image, gif } = req.body;
 
+
+    console.log('----')
+    console.log(image, gif)
+
+
     let twitterImg;
+    let newTweet;
     if (req.file) {
         twitterImg = await singlePublicFileUpload(req.file);
+        gif = null
 
-    }
-    // res.json(tweet)
-    // return
-    if (image === undefined) image = null;
-    if (gif === undefined) {
-        gif = null;
+        newTweet = await Tweet.create({
+            userId: req.user.id,
+            tweet,
+            image: twitterImg,
+            gif: null
+        })
+
+    } else {
+        image = null;
+
+        newTweet = await Tweet.create({
+            userId: req.user.id,
+            tweet,
+            image: null,
+            gif
+        })
     }
 
-    const newTweet = await Tweet.create({
-        userId: req.user.id,
-        tweet,
-        image: twitterImg,
-        gif: null
-    })
+
+    // const newTweet = await Tweet.create({
+    //     userId: req.user.id,
+    //     tweet,
+    //     image: twitterImg,
+    //     gif
+    // })
 
     newTweet.dataValues.createdAt = newTweet.dataValues.createdAt.toDateString().toString().split(' ');
     newTweet.dataValues.updatedAt = newTweet.dataValues.updatedAt.toDateString().toString().split(' ');

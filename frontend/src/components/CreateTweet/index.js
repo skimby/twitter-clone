@@ -18,7 +18,7 @@ function CreateTweet() {
 
     const user = useSelector(state => state.session);
 
-    console.log(tweet)
+    // console.log(gif)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -105,8 +105,7 @@ function CreateTweet() {
                 </div>
 
                 <div>
-                    <GiphyModal />
-                    {/* <i className="fa-solid fa-gift blue-icon"></i> */}
+                    <GiphyModal setGif={setGif} />
                 </div>
 
 

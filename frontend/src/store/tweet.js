@@ -74,6 +74,7 @@ export const createTweetBackend = (tweetInput) => async (dispatch) => {
     formData.append("gif", gif);
     // console.log(formData.get(tweet))
 
+    // console.log(gif)
 
     if (image) formData.append("image", image);
 

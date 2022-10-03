@@ -7,7 +7,7 @@
     border: 2px solid rgb(29, 155, 240);
     border-radius: 20px;
     margin: 10px;
-    width: 350px;
+    width: 430px;
 }
 
 .gif-display-grid {
@@ -19,6 +19,7 @@
 
 .gif-header {
     display: inline-block;
+    padding-top: 6px;
 }
 
 .back-button {
@@ -29,7 +30,7 @@
 
 .search-gif {
     display: inline-block;
-    width: 500px;
+    width: 550px;
 }
 
 .search-button {
@@ -40,5 +41,5 @@
 .search-btn-icon {
     width: 40px;
     padding: 10px;
-    margin-left: 45px;
+    margin-left: 20px;
 }

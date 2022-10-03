@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { GifModal } from "../../context/Modal";
 import Giphy from "./Giphy";
 
-function GiphyModal() {
+function GiphyModal({ setGif }) {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -10,7 +10,7 @@ function GiphyModal() {
             <i onClick={() => setShowModal(true)} className="fa-solid fa-gift blue-icon"></i>
             {showModal && (
                 <GifModal onClose={() => setShowModal(false)}>
-                    <Giphy />
+                    <Giphy setGif={setGif} setShowModal={setShowModal} />
                 </GifModal>
             )}
         </>
