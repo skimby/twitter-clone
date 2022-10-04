@@ -51,9 +51,24 @@
 }
 
 .website-box {
-    display: inline-block;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+    padding-right: 30px;
 }
 
 .calendar-box {
-    display: inline-block;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+
+}
+
+.no-margin {
+    margin: 0;
+    padding-top: 20px;
+}
+
+.follower-styling {
+    display: inline-flex;
 }

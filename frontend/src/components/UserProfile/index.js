@@ -101,46 +101,40 @@ function UserProfile({ sessionUser }) {
             <div className='user-info-box-contents'>
                 <h5 className='user-bold-styling'>{user?.firstName}</h5>
                 <p className='p-gray-small'>@{user?.username}</p>
-                <p>{user?.bio}</p>
+                <p className='no-margin'>{user?.bio}</p>
 
                 <div className='website-calendar-box'>
                     {user?.website && (
                         <div className='website-box'>
                             <i className="fa-solid fa-link gray-icon"></i>
-                            <p>{user?.website}</p>
+                            <p className='gray-p'>{user?.website}</p>
                         </div>
-
                     )}
 
 
                     <div className='calendar-box'>
-                        <p>{user?.website}</p>
-
                         <i className="fa-regular fa-calendar-days gray-icon"></i>
-                        <p>Joined {joinedDate[1]} {joinedDate[3]}</p>
+
+                        <p className='gray-p'>Joined {joinedDate?.[1]} {joinedDate?.[3]}</p>
                     </div>
-
-
                 </div>
-
-
 
 
                 {user && (
                     <>
+                        <div className='followers-box'>
+                            <p className='gray-p follower-styling' onClick={() => {
+                                history.push(`/${user?.username}/${userId}/follows`)
+                            }}>{user?.followingCount} Following</p>
 
-                        <p onClick={() => {
-                            history.push(`/${user?.username}/${userId}/follows`)
-                        }}>{user?.followingCount} Following</p>
 
 
-
-                        <p onClick={() => {
-                            history.push(`/${user?.username}/${userId}/followers`)
-                        }}>
-                            {user?.followerCount} Followers
-                        </p>
-
+                            <p className='gray-p follower-styling' onClick={() => {
+                                history.push(`/${user?.username}/${userId}/followers`)
+                            }}>
+                                {user?.followerCount} Followers
+                            </p>
+                        </div>
                     </>
                 )}
 
