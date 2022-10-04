@@ -61,8 +61,7 @@ router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, 
     newTweet.dataValues.User = user
 
 
-    console.log('---')
-    console.log(newTweet)
+
 
     res.status(201)
     return res.json(newTweet)

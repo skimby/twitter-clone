@@ -27,7 +27,7 @@ function CreateTweetForm() {
             image
         }
 
-        // console.log(tweetInput)
+        console.log(tweetInput)
         const newTweet = await dispatch(createTweetBackend(tweetInput))
 
         history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)

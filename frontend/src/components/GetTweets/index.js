@@ -7,16 +7,9 @@ import CreateCommentModal from '../CreateCommentModal';
 import './GetTweets.css'
 
 
-function GetTweets({ tweets, isOwnPage }) {
+function GetTweets({ tweets }) {
     const history = useHistory();
 
-    // const [currentTweets, setCurrentTweets] = useState([...tweets])
-
-    // if (isOwnPage) {
-    //     setCurrentTweets(currentTweets.sort((a, b) => b.createdAt1 - a.createdAt1))
-    // }
-
-    console.log('!!!!!!', tweets)
 
     return (
         <>

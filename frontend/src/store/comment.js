@@ -52,9 +52,8 @@ export const createCommentBackend = (tweetId, commentInput) => async (dispatch) 
 
     const formData = new FormData();
     formData.append("comment", comment);
-    formData.append("gif", gif);
 
-
+    if (gif) formData.append("gif", gif);
     if (image) formData.append("image", image);
 
     const res = await csrfFetch(`/api/comments/tweets/${tweetId}`, {

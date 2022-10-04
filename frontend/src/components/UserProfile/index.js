@@ -31,9 +31,6 @@ function UserProfile({ sessionUser }) {
 
 
 
-
-    console.log(userId, sessionUser?.id)
-    // console.log(tweets?.loggedUserTweets)
     useEffect(() => {
         dispatch(getUserBackend(userId))
     }, [dispatch, userId, follows])
@@ -75,13 +72,13 @@ function UserProfile({ sessionUser }) {
     return (
         <>
 
-            <div>
-                <div>
+            <div className='user-profile-header'>
+                <div className='x-box'>
                     <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
                 </div>
-                <div>
-                    <h5>@{user?.username}</h5>
-                    <p>{user?.tweetCount} Tweets</p>
+                <div className='user-information-box'>
+                    <h5 className='user-bold-styling'>{user?.username}</h5>
+                    <p className='p-gray-small'>{user?.tweetCount} Tweets</p>
                 </div>
 
             </div>
@@ -90,29 +87,44 @@ function UserProfile({ sessionUser }) {
                 <img className='cover-img' src={user?.coverImage} />
             </div>
 
-            <div>
-                <img className='user-profile-img-big' src={user?.profileImage} />
+            {/* <div> */}
+            <img className='user-profile-img-big' src={user?.profileImage} />
 
-                {alreadyFollowing && (
-                    <FollowingButton loggedUserId={sessionUser?.id} userId={userId} />
-                )}
-                {!alreadyFollowing && (
-                    <FollowButton loggedUserId={sessionUser?.id} userId={userId} />
-                )}
-            </div>
+            {alreadyFollowing && (
+                <FollowingButton loggedUserId={sessionUser?.id} userId={userId} />
+            )}
+            {!alreadyFollowing && (
+                <FollowButton loggedUserId={sessionUser?.id} userId={userId} />
+            )}
+            {/* </div> */}
 
-            <div>
-                <h3>{user?.firstName}</h3>
-                <p>@{user?.username}</p>
+            <div className='user-info-box-contents'>
+                <h5 className='user-bold-styling'>{user?.firstName}</h5>
+                <p className='p-gray-small'>@{user?.username}</p>
                 <p>{user?.bio}</p>
-                <i className="fa-solid fa-link"></i>
-                <p>{user?.website}</p>
-                <i className="fa-regular fa-calendar-days"></i>
+
+                <div className='website-calendar-box'>
+                    {user?.website && (
+                        <div className='website-box'>
+                            <i className="fa-solid fa-link gray-icon"></i>
+                            <p>{user?.website}</p>
+                        </div>
+
+                    )}
 
 
-                {joinedDate && (
-                    <p>Joined {joinedDate[1]} {joinedDate[3]}</p>
-                )}
+                    <div className='calendar-box'>
+                        <p>{user?.website}</p>
+
+                        <i className="fa-regular fa-calendar-days gray-icon"></i>
+                        <p>Joined {joinedDate[1]} {joinedDate[3]}</p>
+                    </div>
+
+
+                </div>
+
+
+
 
                 {user && (
                     <>
@@ -138,12 +150,12 @@ function UserProfile({ sessionUser }) {
                 {isOwnPage && (
                     <GetTweets tweets={Object.values(tweets?.loggedUserTweets).sort((a, b) => {
                         return new Date(b.createdAt1) - new Date(a.createdAt1)
-                    })} isOwnPage={isOwnPage} />
+                    })} />
                 )}
                 {!isOwnPage && (
                     <GetTweets tweets={Object.values(tweets?.userTweets).sort((a, b) => {
                         return new Date(b.createdAt1) - new Date(a.createdAt1)
-                    })} isOwnPage={isOwnPage} />
+                    })} />
 
                 )}
             </div>

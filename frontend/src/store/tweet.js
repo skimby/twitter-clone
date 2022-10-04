@@ -72,11 +72,8 @@ export const createTweetBackend = (tweetInput) => async (dispatch) => {
 
     const formData = new FormData();
     formData.append("tweet", tweet);
-    formData.append("gif", gif);
-    // console.log(formData.get(tweet))
 
-    // console.log(gif)
-
+    if (gif) formData.append("gif", gif);
     if (image) formData.append("image", image);
 
     const res = await csrfFetch('/api/tweets/create', {

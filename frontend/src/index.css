@@ -24,6 +24,10 @@ a {
     text-decoration: none;
 }
 
+p {
+    font-size: 14.5px;
+}
+
 button {
     border-radius: 20px;
     font-weight: 700;

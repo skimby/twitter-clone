@@ -12,7 +12,48 @@
     border-radius: 100%;
     border: 5px white solid;
     z-index: 1;
-    position: relative;
-    top: -70px;
-    left: 20px
+    position: absolute;
+    top: 175px;
+    left: 450px
+}
+
+.user-profile-header {
+    padding: 5px 0;
+}
+
+.user-information-box {
+    display: inline-block;
+    padding: 5px 0 0 25px;
+}
+
+.user-bold-styling {
+    font-size: 18px;
+}
+
+.user-information-box p {
+    margin: 0;
+}
+
+.p-gray-small {
+    font-size: 13px;
+    color: rgb(121, 135, 145);
+    padding-top: 2px;
+    margin: 0;
+    ;
+}
+
+.user-info-box-contents {
+    padding: 40px 15px;
+}
+
+.website-calendar-box {
+    display: block;
+}
+
+.website-box {
+    display: inline-block;
+}
+
+.calendar-box {
+    display: inline-block;
 }
