@@ -87,16 +87,18 @@ function UserProfile({ sessionUser }) {
                 <img className='cover-img' src={user?.coverImage} />
             </div>
 
-            {/* <div> */}
-            <img className='user-profile-img-big' src={user?.profileImage} />
+            <div className='user-profile-img-big-container'>
+                <img className='user-profile-img-big' src={user?.profileImage} />
+            </div>
 
-            {alreadyFollowing && (
-                <FollowingButton loggedUserId={sessionUser?.id} userId={userId} />
-            )}
-            {!alreadyFollowing && (
-                <FollowButton loggedUserId={sessionUser?.id} userId={userId} />
-            )}
-            {/* </div> */}
+            <div className='following-button-box'>
+                {alreadyFollowing && (
+                    <FollowingButton loggedUserId={sessionUser?.id} userId={userId} />
+                )}
+                {!alreadyFollowing && (
+                    <FollowButton loggedUserId={sessionUser?.id} userId={userId} />
+                )}
+            </div>
 
             <div className='user-info-box-contents'>
                 <h5 className='user-bold-styling'>{user?.firstName}</h5>
@@ -125,14 +127,15 @@ function UserProfile({ sessionUser }) {
                         <div className='followers-box'>
                             <p className='gray-p follower-styling' onClick={() => {
                                 history.push(`/${user?.username}/${userId}/follows`)
-                            }}>{user?.followingCount} Following</p>
+                            }}><span className='bold'>{user?.followingCount}</span> Following</p>
 
 
 
                             <p className='gray-p follower-styling' onClick={() => {
                                 history.push(`/${user?.username}/${userId}/followers`)
                             }}>
-                                {user?.followerCount} Followers
+                                <span className='bold'>
+                                    {user?.followerCount}</span> Followers
                             </p>
                         </div>
                     </>

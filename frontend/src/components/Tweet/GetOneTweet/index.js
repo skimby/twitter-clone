@@ -7,6 +7,9 @@ import { useEffect } from 'react';
 import { getUserBackend } from "../../../store/user";
 import { getOneTweetBackend } from '../../../store/tweet'
 import CreateCommentModal from '../../CreateCommentModal'
+import '../../UserProfile/UserProfile.css'
+import './GetOneTweet.css'
+import '../../GetTweets/GetTweets.css'
 
 function GetOneTweet({ tweetId }) {
     const dispatch = useDispatch();
@@ -16,8 +19,6 @@ function GetOneTweet({ tweetId }) {
     const tweets = useSelector(state => state.tweets)
     const comments = useSelector(state => state.comments)
     const tweet = tweets?.currentTweet
-
-    console.log(tweet)
 
 
     useEffect(() => {
@@ -43,16 +44,17 @@ function GetOneTweet({ tweetId }) {
 
     return (
         <>
-            <div className="middle-container">
-
-                <div>
-                    <div>
-                        <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
-                    </div>
-                    <div>
-                        <h5>Tweet</h5>
-                    </div>
+            <div className='user-profile-header'>
+                <div className='x-box'>
+                    <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
                 </div>
+                <div className='user-information-box'>
+                    <h5 className='tweet-bold-styling'>Tweet</h5>
+                </div>
+            </div>
+
+
+            <div className='one-tweet-container'>
 
                 <div className='user-info-container'>
                     <div className='profile-img'>
@@ -74,45 +76,55 @@ function GetOneTweet({ tweetId }) {
                     <img className='user-profile-img-big' src={user?.profileImage} />
                 </div> */}
 
-                <div>
-                    {tweet && (
-                        <>
-                            <h3>{tweet?.tweet}</h3>
 
+                {tweet && (
+                    <>
+                        <h3>{tweet?.tweet}</h3>
+
+                        <div className='comment-img-gif'>
                             {tweet?.image !== null && (
-                                <img src={tweet?.image} width='200' />
+                                <img src={tweet?.image} className='img-gif' width='200' />
                             )}
                             {tweet?.gif !== null && (
-                                <img src={tweet?.gif} width='200' />
+                                <img className='img-gif' src={tweet?.gif} width='200' />
                             )}
+                        </div>
 
 
-                            <p>{tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}, {tweet?.updatedAt?.[3]}</p>
+                        <div>
+                            <p className='gray-p'>{tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}, {tweet?.updatedAt?.[3]}</p>
+                        </div>
 
 
-                            <p>{tweet?.retweetCount} Retweets</p>
-                            <p>{tweet?.commentCount} Quote Tweets</p>
-                            <p>{tweet?.likeCount} Likes</p>
+                        <div>
+                            <div className='comment-stats-box'>
+
+                                <p className='gray-p follower-styling' >
+                                    <span className='bold'>{tweet?.retweetCount} </span>
+                                    Retweets</p>
+                                <p className='gray-p follower-styling'><span className='bold'>{tweet?.commentCount} </span>Quote Tweets</p>
+                                <p className='gray-p follower-styling'><span className='bold'>{tweet?.likeCount} </span>Likes</p>
+                            </div>
+                        </div>
+
+                        <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} />
+                        {/* <i className="fa-regular fa-comment"></i> */}
+                        <i className="fa-solid fa-retweet"></i>
+                        <Likes likeCount={tweet?.likeCount} tweet={tweet} />
+                    </>
+                )}
 
 
-                            <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} />
-                            {/* <i className="fa-regular fa-comment"></i> */}
-                            <i className="fa-solid fa-retweet"></i>
-                            <Likes likeCount={tweet?.likeCount} tweet={tweet} />
-                        </>
-                    )}
+                {tweet?.Comments && (
+                    tweet?.Comments.map((comment, index) => {
+                        return (
+                            <div key={index}>
+                                <GetComment comment={comment} />
+                            </div>
+                        )
+                    })
+                )}
 
-
-                    {tweet?.Comments && (
-                        tweet?.Comments.map((comment, index) => {
-                            return (
-                                <div key={index}>
-                                    <GetComment comment={comment} />
-                                </div>
-                            )
-                        })
-                    )}
-                </div>
             </div>
         </>
     )

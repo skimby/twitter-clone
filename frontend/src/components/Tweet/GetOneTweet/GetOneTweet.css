@@ -1,0 +1,20 @@
+.tweet-bold-styling {
+    font-size: 18px;
+    padding-top: 7px;
+}
+
+.one-tweet-container {
+    padding: 13px;
+
+}
+
+.comment-img-gif {
+    width: 100%;
+    float: left;
+    text-align: left;
+    /* padding-bottom: 20px; */
+}
+
+.comment-stats-box {
+    display: inline-flex;
+}
