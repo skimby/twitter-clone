@@ -3,8 +3,10 @@ import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import "./LoginForm.css";
+import logo from '../../images/twitter-logo.png'
 
-function LoginForm() {
+
+function LoginForm({ setShowModal }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session);
@@ -23,36 +25,59 @@ function LoginForm() {
         if (data && data.errors) setErrors(data.errors);
       }
     );
-
   };
 
+  const signUpLink = () => {
+    //update this later
+    history.go()
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => (
-          <li key={idx}>{error}</li>
-        ))}
-      </ul>
-      <label>
-        Username
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
+    <>
+      <div className="login-header">
+        <div className="x-box" onClick={() => setShowModal(false)}>
+          <i className="fa-solid fa-x"></i>
+        </div>
+        <div className="logo-box">
+          <img src={logo} className='logo-container-module' />
+        </div>
+      </div>
+
+      <h1 className="center-h1">Sign in to Twitter</h1>
+
+      <div className="login-form-container">
+
+        <form className="login-form" onSubmit={handleSubmit}>
+
+          <input
+            type="text"
+            value={username}
+            placeholder='Username'
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+
+          <input
+            type="password"
+            placeholder='Password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+
+          <button className='login-btn-styling' type="submit">Log In</button>
+        </form>
+
+        <ul className="validation-errors">
+          {errors.map((error, idx) => (
+            <li key={idx}>{error}</li>
+          ))}
+        </ul>
+
+        <p className="gray-p">Don't have an account? <span className='link-styling' onClick={signUpLink}>Sign up</span></p>
+      </div>
+    </>
   );
 }
 

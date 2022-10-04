@@ -1,0 +1,56 @@
+.signup-modal-container {
+    width: 390px;
+    margin: 0 auto;
+
+}
+
+.signup-form-full-input {
+    border: 1px solid rgb(235, 235, 235);
+    border-radius: 5px;
+    padding: 10px;
+    width: 93%;
+    margin-bottom: 10px;
+}
+
+form input[type='file'] {
+    color: red
+}
+
+input #file-upload-button {
+    border: none;
+}
+
+.half-input {
+    width: 43%;
+    border: 1px solid rgb(235, 235, 235);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    /* margin-left: 7px; */
+}
+
+.half-input1 {
+    margin-right: 7px;
+    width: 43%;
+    border: 1px solid rgb(235, 235, 235);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+
+.signup-form input:hover {
+    border: 1px solid rgb(29, 155, 240);
+}
+
+.signup-form input[type=text] {
+    font-size: 17px;
+
+}
+
+.signup-form :placeholder-shown {
+    color: gray;
+    font-size: 17px;
+}

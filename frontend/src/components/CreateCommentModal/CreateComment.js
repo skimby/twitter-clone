@@ -16,7 +16,6 @@ function CreateComment({ tweetId, setShowModalComment }) {
     const user = useSelector(state => state.session);
 
 
-    console.log(tweetId)
 
     const handleSubmit = async (e) => {
         e.preventDefault();

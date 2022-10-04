@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import "./SignupForm.css";
+import logo from '../../images/twitter-logo.png'
 
-function SignupForm() {
+
+
+function SignupForm({ setShowModal }) {
   const dispatch = useDispatch();
   const history = useHistory();
-
 
   const sessionUser = useSelector((state) => state.session);
   const [firstName, setFirstName] = useState("");
@@ -23,7 +25,6 @@ function SignupForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  // if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,108 +70,122 @@ function SignupForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
-      <label>
-        First Name
-        <input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
-      </label>
-
-      <label>
-        Last Name
-        <input
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
-      </label>
-
-      <label>
-        Email
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Username
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-      </label>
-
-      <label>
-        Biography
-        <input
-          type="text"
-          value={bio}
-          onChange={(e) => setBio(e.target.value)}
-        />
-      </label>
-
-      <label>
-        Location
-        <input
-          type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-      </label>
-
-      <label>
-        Website
-        <input
-          type="text"
-          value={website}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </label>
-
-      <label>
-        Profile Image
-        <input type="file" onChange={updateFile} />
-      </label>
-
-      <label>
-        Cover Image
-        <input type="file" onChange={updateFile2} />
-      </label>
+    <>
+      <div className="login-header">
+        <div className="x-box" onClick={() => setShowModal(false)}>
+          <i className="fa-solid fa-x"></i>
+        </div>
+        <div className="logo-box">
+          <img src={logo} className='logo-container-module' />
+        </div>
+      </div>
 
 
+      <h1 className="center-h1">Create your account</h1>
 
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Confirm Password
-        <input
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Sign Up</button>
-    </form>
+
+      <div className="signup-modal-container">
+        <form className='signup-form' onSubmit={handleSubmit}>
+          <ul>
+            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+          </ul>
+
+          <input className="half-input1"
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+
+          <input
+            className="half-input"
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+
+          <input
+            className="signup-form-full-input"
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <input
+            className="signup-form-full-input"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+
+          <input
+            className="signup-form-full-input"
+            type="text"
+            placeholder="Biography"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+          />
+
+          <input
+            className="signup-form-full-input"
+            type="text"
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+          <input
+            className="signup-form-full-input"
+            type="text"
+            placeholder="Website"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+          />
+
+
+          <label>
+            Profile Image
+            <input className="half-input1" type="file" onChange={updateFile}
+            />
+          </label>
+
+          <label>
+            Cover Image
+            <input
+              className="half-input"
+              type="file"
+              onChange={updateFile2} />
+          </label>
+
+
+          <input
+            className="half-input1"
+            type="password"
+            value={password}
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <input
+            className="half-input"
+            type="password"
+            value={confirmPassword}
+            placeholder="Confirm Password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </>
   );
 }
 

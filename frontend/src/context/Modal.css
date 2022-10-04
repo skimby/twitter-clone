@@ -16,11 +16,17 @@
   left: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
+
+
 }
 
 #modal-content {
   position: absolute;
   background-color: white;
+  width: 615px;
+  height: 615px;
+  border-radius: 20px;
+
 }
 
 #modal-content-gif {
@@ -30,4 +36,13 @@
   overflow: scroll;
   width: 615px;
   height: 615px;
+}
+
+#modal-content-signup {
+  position: absolute;
+  background-color: white;
+  border-radius: 20px;
+  /* overflow: scroll; */
+  width: 615px;
+  height: 750px;
 }
