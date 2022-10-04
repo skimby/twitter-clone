@@ -58,3 +58,13 @@ button {
 .blue-icon {
     color: rgb(99, 181, 243);
 }
+
+.gray-icon {
+    color: rgb(83, 100, 113);
+    padding-right: 13px;
+}
+
+.gray-p {
+    color: rgb(83, 100, 113);
+    display: inline-block;
+}

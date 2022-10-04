@@ -7,7 +7,8 @@ function CreateCommentModal({ commentCount, tweet }) {
 
     return (
         <>
-            <i onClick={() => setShowModalComment(true)} className="fa-regular fa-comment"></i>{commentCount}
+            <i onClick={() => setShowModalComment(true)} className="fa-regular fa-comment gray-icon"></i>
+            <p className="gray-p">{commentCount}</p>
 
             {showModalComment && (
                 <Modal onClose={() => setShowModalComment(false)}>

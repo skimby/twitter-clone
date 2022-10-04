@@ -43,13 +43,13 @@ function Likes({ likeCount, tweet }) {
         <>
             {liked && (
                 <>
-                    <i onClick={handleUnlike} className="fa-solid fa-heart"></i>{likeCount}
+                    <i onClick={handleUnlike} className="fa-solid fa-heart gray-icon"></i>{likeCount}
                 </>
             )}
 
             {!liked && (
                 <>
-                    <i onClick={handleLike} className="fa-regular fa-heart"></i>{likeCount}
+                    <i onClick={handleLike} className="fa-regular fa-heart gray-icon"></i>{likeCount}
                 </>
             )}
 

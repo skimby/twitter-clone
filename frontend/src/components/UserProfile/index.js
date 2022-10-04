@@ -20,7 +20,8 @@ function UserProfile({ sessionUser }) {
 
     const [isOwnPage, setIsOwnPage] = useState();
     const [alreadyFollowing, setAlreadyFollowing] = useState();
-    const tweets = useSelector(state => state.tweets)
+    const tweets = useSelector(state => state.tweets);
+
     // const loggedUser = useSelector(state => state.session.user)
     const user = useSelector(state => state.users.User);
     const follows = useSelector(state => state.follows)
@@ -29,6 +30,10 @@ function UserProfile({ sessionUser }) {
     let joinedDate = user?.createdAt
 
 
+
+
+    console.log(userId, sessionUser?.id)
+    // console.log(tweets?.loggedUserTweets)
     useEffect(() => {
         dispatch(getUserBackend(userId))
     }, [dispatch, userId, follows])
@@ -131,10 +136,14 @@ function UserProfile({ sessionUser }) {
 
             <div>
                 {isOwnPage && (
-                    <GetTweets tweets={Object.values(tweets?.loggedUserTweets)} />
+                    <GetTweets tweets={Object.values(tweets?.loggedUserTweets).sort((a, b) => {
+                        return new Date(b.createdAt1) - new Date(a.createdAt1)
+                    })} isOwnPage={isOwnPage} />
                 )}
                 {!isOwnPage && (
-                    <GetTweets tweets={Object.values(tweets?.userTweets)} />
+                    <GetTweets tweets={Object.values(tweets?.userTweets).sort((a, b) => {
+                        return new Date(b.createdAt1) - new Date(a.createdAt1)
+                    })} isOwnPage={isOwnPage} />
 
                 )}
             </div>

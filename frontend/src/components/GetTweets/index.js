@@ -1,5 +1,5 @@
 import TweetSettingsModal from './TweetSettingsModal';
-
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Likes from '../Likes';
@@ -7,9 +7,16 @@ import CreateCommentModal from '../CreateCommentModal';
 import './GetTweets.css'
 
 
-function GetTweets({ tweets }) {
+function GetTweets({ tweets, isOwnPage }) {
     const history = useHistory();
 
+    // const [currentTweets, setCurrentTweets] = useState([...tweets])
+
+    // if (isOwnPage) {
+    //     setCurrentTweets(currentTweets.sort((a, b) => b.createdAt1 - a.createdAt1))
+    // }
+
+    console.log('!!!!!!', tweets)
 
     return (
         <>
@@ -59,13 +66,14 @@ function GetTweets({ tweets }) {
 
                                 <div className='tweet-icons-box'>
 
-                                    <div>
+                                    <div className='tweet-icon'>
                                         <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} />
                                     </div>
-                                    <div>
-                                        <i className="fa-solid fa-retweet"></i>{tweet?.retweetCount}
+                                    <div className='tweet-icon'>
+                                        <i className="fa-solid fa-retweet gray-icon"></i>
+                                        <p className='gray-p'></p>{tweet?.retweetCount}
                                     </div>
-                                    <div>
+                                    <div className='tweet-icon'>
                                         <Likes likeCount={tweet?.likeCount} tweet={tweet} />
                                     </div>
                                     {/* <i onClick={handleLike(tweet)} className="fa-regular fa-heart"></i>{tweet?.likeCount} */}

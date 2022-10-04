@@ -22,9 +22,6 @@ router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, 
     let { tweet, gif } = req.body;
 
 
-    console.log('---')
-    console.log(gif)
-
     let twitterImg;
     let newTweet;
 
@@ -332,7 +329,7 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
                     tweetId: tweet.id
                 }
             })
-            // tweet.dataValues.createdAt1 = tweet.dataValues.createdAt
+            tweet.dataValues.createdAt1 = tweet.dataValues.createdAt
             tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
             tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
             tweet.dataValues.commentCount = comments.count;

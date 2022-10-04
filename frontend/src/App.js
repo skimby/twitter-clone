@@ -52,7 +52,7 @@ function App() {
                         </Route>
 
                         <Route path='/:username/:userId' exact >
-                          <UserProfile sessionUser={sessionUser?.user} />
+                          <UserProfile sessionUser={sessionUser} />
                         </Route>
                         <Route path='/:username/:userId/follows' exact >
                           <GetFollowsPage />

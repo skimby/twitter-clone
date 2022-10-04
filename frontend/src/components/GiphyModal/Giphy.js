@@ -29,7 +29,7 @@ function Giphy({ setShowModal, setGif }) {
         <div className='giphy-modal-container'>
             <div className='gif-header'>
                 <div className='back-button'>
-                    <i className="fa-solid fa-arrow-left-long" onClick={{ handleBack }}></i>
+                    <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
                 </div>
                 <div className='search-gif'>
                     {/* <div className='search-div'> */}
