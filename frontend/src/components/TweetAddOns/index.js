@@ -124,7 +124,7 @@ function TweetAddOns({ tweetId, setShowModalComment }) {
 
     return (
         <div className="comment-inline-container">
-            <div className="tweet-comment-container">
+            <div className="tweet-comment-container2">
                 <div className='profile-image-box'>
                     {user?.user?.profileImage && (
                         <img className='profile-img' src={user?.user?.profileImage} />

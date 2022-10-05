@@ -81,9 +81,18 @@ button {
     color: rgb(30, 155, 239);
 }
 
+.blue-text {
+    color: rgb(30, 155, 239);
+
+}
+
 .pink-icon {
     color: rgb(249, 24, 128);
     padding-right: 13px;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 .fa-heart:hover {

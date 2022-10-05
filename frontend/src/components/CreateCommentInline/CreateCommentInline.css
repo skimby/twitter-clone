@@ -11,6 +11,12 @@
     border-bottom: 1px solid rgb(235, 235, 235);
 }
 
+.tweet-comment-container2 {
+    padding: 13px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+}
+
 .comment-form {
     display: block;
 }

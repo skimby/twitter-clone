@@ -48,8 +48,11 @@ function CreateComment({ tweetId, setShowModalComment, tweet }) {
         }
     }, [])
 
-    console.log(tweet)
 
+    const linkToUserPage = () => {
+        history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`)
+        setShowModalComment(false)
+    }
 
 
     return (
@@ -66,9 +69,9 @@ function CreateComment({ tweetId, setShowModalComment, tweet }) {
 
                     <img className='profile-img' src={tweet?.User?.profileImage} />
 
-                    <div className="line-box">
-                        <div className="vl"></div>
-                    </div>
+                    {/* <div className="line-box"> */}
+                    <div className="vl"></div>
+                    {/* </div> */}
                 </div>
 
 
@@ -84,7 +87,7 @@ function CreateComment({ tweetId, setShowModalComment, tweet }) {
                         <p onClick={() => { history.push(`/${tweet?.User?.username}/tweets/${tweet.id}`) }}>
                             {tweet?.tweet}
                         </p>
-                        <p>replying to @{tweet?.User?.username}</p>
+                        <p className="gray-p">replying to <span className="blue-text pointer" onClick={linkToUserPage}>@{tweet?.User?.username}</span></p>
                     </div>
                 </div>
 
