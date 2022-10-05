@@ -88,3 +88,10 @@ h5 {
 .name-username {
     display: inline-block;
 }
+
+.vl {
+    border-right: 2px solid lightgrey;
+    height: 95px;
+    margin-right: 21px;
+    margin-top: 5px;
+}

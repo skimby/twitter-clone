@@ -5,7 +5,7 @@ import { createCommentBackend } from '../../store/comment';
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
 import TweetAddOns from "../TweetAddOns";
-
+import '../GetTweets/GetTweets.css'
 
 function CreateComment({ tweetId, setShowModalComment, tweet }) {
     const dispatch = useDispatch();
@@ -60,8 +60,38 @@ function CreateComment({ tweetId, setShowModalComment, tweet }) {
                 </div>
             </div>
 
+            <div className='tweet-container'>
+
+                <div className='tweet-profile-img' onClick={() => { history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`) }}>
+
+                    <img className='profile-img' src={tweet?.User?.profileImage} />
+
+                    <div>
+                        <div class="vl"></div>
+                    </div>
+                </div>
 
 
+                <div className='tweet-user-header'>
+                    <div className='username-name-box'>
+                        <h5 className='name-username' onClick={() => { history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`) }}>
+                            {tweet?.User?.firstName}
+
+                            <span className='thin-styling'> @{tweet?.User?.username} · {tweet?.updatedAt[1]} {tweet?.updatedAt[2]}</span></h5>
+                    </div>
+
+                    <div className='tweet-tweet-box'>
+                        <p onClick={() => { history.push(`/${tweet?.User?.username}/tweets/${tweet.id}`) }}>
+                            {tweet?.tweet}
+                        </p>
+                        <p>replying to @{tweet?.User?.username}</p>
+                    </div>
+                </div>
+
+
+
+
+            </div>
             <div>
                 <TweetAddOns tweetId={tweetId} setShowModalComment={setShowModalComment} />
             </div>
