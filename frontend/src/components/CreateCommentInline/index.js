@@ -19,8 +19,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     const [inputClick, setInputClick] = useState(false);
     const [errors, setErrors] = useState([]);
     const [completeComment, setCompleteComment] = useState(false);
-    const [gifSet, setGifSet] = useState(false);
-    const [imageSet, setImageSet] = useState(false);
+    const [gifOrImg, setGifOrImg] = useState(false);
 
     const user = useSelector(state => state.session);
 
@@ -33,7 +32,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     useEffect(() => {
         triggerButton = refButton.current
         rootElement = refContainer.current;
-    }, [inputClick])
+    }, [inputClick, gifOrImg])
 
     // Create the picker
     useEffect(() => {
@@ -52,7 +51,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                 setComment(comment + event.emoji)
             });
         }
-    }, [inputClick])
+    }, [inputClick, gifOrImg])
 
     useEffect(() => {
         if (comment) {
@@ -62,23 +61,16 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
         }
     }, [comment])
 
-    console.log(gif)
 
     useEffect(() => {
-        if (gif) {
-            setGifSet(true)
+        if (gif || image) {
+            setGifOrImg(true)
         } else {
-            setGifSet(false)
+            setGifOrImg(false)
         }
-    }, [gif]);
+    }, [gif, image]);
 
-    useEffect(() => {
-        if (image) {
-            setImage(true)
-        } else {
-            setImageSet(false)
-        }
-    }, [image]);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -98,16 +90,21 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                     setErrors(data.errors)
                     console.log(data)
                 } else {
-                    //   history.go()
+
                 }
             });
+        if (!errors.length) {
+            setComment('')
+            setImage(null)
+            setGif(null)
+        }
         // console.log(errors)
 
         // history.push(`/${user?.user?.username}/tweets/${tweetId}`)
         // history.go()
     }
 
-
+    // console.log(image.name)
     const updateFile = (e) => {
         const file = e.target.files[0];
         if (file) setImage(file);
@@ -121,6 +118,9 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     const focusInput = (e) => {
         setInputClick(true)
     }
+    const removeGif = () => {
+        setGif(false)
+    }
 
     return (
         <div className="comment-inline-container">
@@ -133,6 +133,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
 
                 <div className='tweet-text-box'>
 
+
                     <form onSubmit={handleSubmit} className='form comment-form'>
                         <input
                             onClick={focusInput}
@@ -142,40 +143,56 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                             onChange={(e) => setComment(e.target.value)}>
                         </input>
 
+
+                        {gif && (
+                            <div className="display-img-gif">
+                                <div className="remove-gif-box">
+                                    <i className="fa-solid fa-circle-xmark" onClick={removeGif}></i>
+                                </div>
+                                <img src={gif} className='img-gif' width='200' />
+                            </div>
+                        )}
+
+
                         {inputClick && (
                             <>
                                 <div className="comment-icons-gif-img">
-                                    <label className="upload-btn" htmlFor='inputTag'>
-                                        <i className="fa-regular fa-image blue-icon"></i>
-                                        <input id='inputTag' type="file" onChange={updateFile} />
-                                    </label>
+                                    {!gifOrImg && (
+                                        <>
+                                            <label className="upload-btn inline" htmlFor='inputTag'>
+                                                <i className="fa-regular fa-image blue-icon"></i>
+                                                <input id='inputTag' type="file" onChange={updateFile} />
+                                            </label>
 
-                                    <div className='emoji-container3' id='inline' ref={refContainer} ></div>
+                                            <div className="inline">
+                                                <GiphyModal setGif={setGif} />
+                                            </div>
+                                        </>
+                                    )}
+
+                                    {gifOrImg && (
+                                        <>
+                                            <div className="inline">
+                                                <i className="fa-regular fa-image disabled-blue-icon"></i>
+                                            </div>
+                                            <div className="inline">
+                                                <i className="fa-solid fa-gift disabled-blue-icon" />
+                                            </div>
+                                        </>
+                                    )}
 
                                     <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji4}>
                                         <i className="fa-regular fa-face-smile blue-icon"></i>
                                     </div>
 
-
-                                    {gifSet && (
-                                        <div className="inline">
-                                            <i className="fa-solid fa-gift disabled-blue-icon" />
-                                        </div>
-                                    )}
-                                    {!gifSet && (
-                                        <div className="inline">
-                                            <GiphyModal setGif={setGif} />
-
-                                        </div>
-                                    )}
+                                    <div className='emoji-container3' id='inline' ref={refContainer} ></div>
 
                                     {completeComment && (
-                                        <button type='submit'>Tweet</button>
+                                        <button className='btn-float-right' type=' submit'>Tweet</button>
                                     )}
                                     {!completeComment && (
-                                        <button type='submit' className="disabled-btn">Tweet</button>
+                                        <button className="disabled-btn btn-float-right">Tweet</button>
                                     )}
-
                                 </div>
                             </>
                         )}
@@ -188,7 +205,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

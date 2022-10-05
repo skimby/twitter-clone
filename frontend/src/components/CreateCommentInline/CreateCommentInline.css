@@ -42,8 +42,18 @@
     padding: 10px 20px;
 }
 
-.upload-btn {
-    /* background-color: red;
-    width: 40px;
-    height: 40px; */
+
+.display-img-gif {
+    width: 100%;
+    margin-bottom: 20px;
+    float: left;
+    text-align: left;
+
+}
+
+.remove-gif-box {
+    z-index: 3;
+    position: relative;
+    top: 25px;
+    left: 5px;
 }

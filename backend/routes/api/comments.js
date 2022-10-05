@@ -1,11 +1,18 @@
 const express = require("express");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Tweet, User, Comment, Retweet, Like, Follow } = require('../../db/models');
-const user = require("../../db/models/user");
 const { singlePublicFileUpload, singleMulterUpload } = require('../../aws-sdk.js')
-const router = express.Router();
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const router = express.Router();
+
+const validateComment = [
+    check('comment')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Please provide a comment."),
+    handleValidationErrors
+];
 
 
 //================== GET ALL COMMENTS =================//
@@ -31,22 +38,19 @@ router.get('/tweets/:tweetId', requireAuth, async (req, res, next) => {
 })
 
 
-const validateComment = [
-    check("comment")
-        .exists({ checkFalsy: true })
-        .notEmpty()
-        .withMessage("Please provide a comment."),
-    handleValidationErrors
-];
 
 //================== CREATE A COMMENT =================//
-router.post('/tweets/:tweetId', validateComment, singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+router.post('/tweets/:tweetId', singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+    let { comment, gif } = req.body;
 
     const { tweetId } = req.params;
-    let { comment, image, gif } = req.body;
+
+    console.log('-----')
+    console.log(req.file, comment)
 
     const tweet = await Tweet.findByPk(tweetId);
-
+    console.log('-----')
+    console.log(tweet)
     if (tweet) {
 
         let newComment;
@@ -55,10 +59,11 @@ router.post('/tweets/:tweetId', validateComment, singleMulterUpload("image"), re
         if (req.file) {
             commentImg = await singlePublicFileUpload(req.file);
 
-            newComment = await Tweet.create({
+            newComment = await Comment.create({
                 userId: req.user.id,
-                tweet,
-                image: twitterImg,
+                tweetId,
+                comment,
+                image: commentImg,
                 gif: null
             })
         } else {

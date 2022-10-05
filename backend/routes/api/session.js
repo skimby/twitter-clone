@@ -23,8 +23,7 @@ const validateLogin = [
 router.get('/', restoreUser, (req, res) => {
   const { user } = req;
   if (user) {
-    console.log('----')
-    console.log(user)
+
 
     return res.json(user)
   } else return res.json({});
@@ -36,6 +35,9 @@ router.post("/login", validateLogin, restoreUser, async (req, res, next) => {
   const { username, password } = req.body;
 
   const user = await User.login({ username, password });
+
+  console.log('----')
+  console.log(username)
 
   if (!user) {
     const err = new Error("Login failed");

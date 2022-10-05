@@ -15,7 +15,7 @@ function CreateCommentModal({ commentCount, tweet, singleTweet }) {
 
             {showModalComment && (
                 <Modal onClose={() => setShowModalComment(false)}>
-                    <CreateComment setShowModalComment={setShowModalComment} tweetId={tweet?.id}
+                    <CreateComment setShowModalComment={setShowModalComment} tweetId={tweet?.id} tweet={tweet}
                     />
 
                 </Modal>
