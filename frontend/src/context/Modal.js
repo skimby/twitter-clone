@@ -57,3 +57,16 @@ export function GifModal({ onClose, children }) {
     modalNode
   );
 }
+
+export function CommentModal({ onClose, children }) {
+  const modalNode = useContext(ModalContext);
+  if (!modalNode) return null;
+
+  return ReactDOM.createPortal(
+    <div id="modal">
+      <div id="modal-background" onClick={onClose} />
+      <div id="modal-content-comment">{children}</div>
+    </div>,
+    modalNode
+  );
+}

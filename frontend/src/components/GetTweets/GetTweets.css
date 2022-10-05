@@ -8,6 +8,13 @@
     border-bottom: none;
 }
 
+.tweet-container2 {
+    padding: 13px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+
+}
+
 .tweet-user-header {
     display: inline-block;
     width: 100%;
@@ -89,9 +96,13 @@ h5 {
     display: inline-block;
 }
 
+.line-box {
+    height: 230%;
+}
+
 .vl {
     border-right: 2px solid lightgrey;
-    height: 95px;
+    height: 100%;
     margin-right: 21px;
     margin-top: 5px;
 }

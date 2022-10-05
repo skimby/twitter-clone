@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal } from "../../context/Modal"
+import { CommentModal } from "../../context/Modal"
 import CreateComment from "./CreateComment";
 
 function CreateCommentModal({ commentCount, tweet, singleTweet }) {
@@ -14,11 +14,11 @@ function CreateCommentModal({ commentCount, tweet, singleTweet }) {
             )}
 
             {showModalComment && (
-                <Modal onClose={() => setShowModalComment(false)}>
+                <CommentModal onClose={() => setShowModalComment(false)}>
                     <CreateComment setShowModalComment={setShowModalComment} tweetId={tweet?.id} tweet={tweet}
                     />
 
-                </Modal>
+                </CommentModal>
             )}
         </>
     );

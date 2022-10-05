@@ -60,14 +60,14 @@ function CreateComment({ tweetId, setShowModalComment, tweet }) {
                 </div>
             </div>
 
-            <div className='tweet-container'>
 
+            <div className='tweet-container2'>
                 <div className='tweet-profile-img' onClick={() => { history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`) }}>
 
                     <img className='profile-img' src={tweet?.User?.profileImage} />
 
-                    <div>
-                        <div class="vl"></div>
+                    <div className="line-box">
+                        <div className="vl"></div>
                     </div>
                 </div>
 

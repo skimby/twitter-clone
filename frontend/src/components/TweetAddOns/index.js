@@ -31,7 +31,7 @@ function TweetAddOns({ tweetId, setShowModalComment }) {
     useEffect(() => {
         triggerButton = refButton.current
         rootElement = refContainer.current;
-    }, [inputClick, gifOrImg, comment])
+    }, [inputClick, gifOrImg, comment, gif])
 
     // Create the picker
     useEffect(() => {
@@ -50,7 +50,7 @@ function TweetAddOns({ tweetId, setShowModalComment }) {
                 setComment(comment + event.emoji)
             });
         }
-    }, [inputClick, gifOrImg, comment])
+    }, [inputClick, gifOrImg, comment, gif])
 
     useEffect(() => {
         if (comment) {

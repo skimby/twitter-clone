@@ -46,3 +46,12 @@
   width: 615px;
   height: 750px;
 }
+
+#modal-content-comment {
+  position: absolute;
+  background-color: white;
+  width: 615px;
+  height: auto;
+  border-radius: 20px;
+
+}
