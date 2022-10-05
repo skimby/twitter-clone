@@ -30,6 +30,7 @@ router.get('/tweets/:tweetId', requireAuth, async (req, res, next) => {
     }
 })
 
+
 const validateComment = [
     check("comment")
         .exists({ checkFalsy: true })
@@ -92,7 +93,7 @@ router.post('/tweets/:tweetId', validateComment, singleMulterUpload("image"), re
 })
 
 //===================== EDIT A COMMENT ===================//
-router.put('/:commentId/tweets/:tweetId', requireAuth, async (req, res, next) => {
+router.put('/:commentId/tweets/:tweetId', validateComment, requireAuth, async (req, res, next) => {
     const { commentId, tweetId } = req.params;
     const { comment } = req.body;
 
