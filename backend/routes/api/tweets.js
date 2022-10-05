@@ -223,6 +223,8 @@ router.get('/:tweetId', async (req, res, next) => {
     tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
 
     tweet.dataValues.Comments.forEach(comment => {
+        comment.dataValues.createdAt1 = comment.dataValues.createdAt
+
         comment.dataValues.createdAt = comment.dataValues.createdAt.toDateString().toString().split(' ');
         comment.dataValues.updatedAt = comment.dataValues.updatedAt.toDateString().toString().split(' ');
     })

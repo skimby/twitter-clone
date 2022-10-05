@@ -4,6 +4,8 @@ const { Tweet, User, Comment, Retweet, Like, Follow } = require('../../db/models
 const user = require("../../db/models/user");
 const { singlePublicFileUpload, singleMulterUpload } = require('../../aws-sdk.js')
 const router = express.Router();
+const { check } = require("express-validator");
+const { handleValidationErrors } = require("../../utils/validation");
 
 
 //================== GET ALL COMMENTS =================//
@@ -16,6 +18,8 @@ router.get('/tweets/:tweetId', requireAuth, async (req, res, next) => {
     });
 
     if (comments) {
+        // tweet.dataValues.createdAt1 = tweet.dataValues.createdAt
+
         res.status(200)
         return res.json({ Comments: comments })
     } else {
@@ -26,15 +30,21 @@ router.get('/tweets/:tweetId', requireAuth, async (req, res, next) => {
     }
 })
 
+const validateComment = [
+    check("comment")
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Please provide a comment."),
+    handleValidationErrors
+];
 
 //================== CREATE A COMMENT =================//
-router.post('/tweets/:tweetId', singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+router.post('/tweets/:tweetId', validateComment, singleMulterUpload("image"), requireAuth, async (req, res, next) => {
 
     const { tweetId } = req.params;
     let { comment, image, gif } = req.body;
 
     const tweet = await Tweet.findByPk(tweetId);
-
 
     if (tweet) {
 

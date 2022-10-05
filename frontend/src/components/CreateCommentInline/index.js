@@ -17,6 +17,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
+    const [errors, setErrors] = useState([]);
 
     const user = useSelector(state => state.session);
 
@@ -53,21 +54,25 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setErrors([]);
+
         const commentInput = {
             comment,
             gif,
             image
         }
 
-        console.log(tweetId)
         await dispatch(createCommentBackend(tweetId, commentInput))
             .catch(async (res) => {
                 const data = await res.json();
-                console.log(data)
-                if (!data.errors) {
-                    setShowModalComment(false)
+                if (data && data.errors) {
+                    setErrors(data.errors)
+                    console.log(data)
+                } else {
+                    //   history.go()
                 }
             });
+        console.log(errors)
 
         // history.push(`/${user?.user?.username}/tweets/${tweetId}`)
         // history.go()
@@ -79,7 +84,6 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
         if (file) setImage(file);
     };
 
-    console.log(triggerButton, rootElement, picker4)
 
     const handleOpenEmoji4 = () => {
         picker4.open()
@@ -99,6 +103,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                 </div>
 
                 <div className='tweet-text-box'>
+
                     <form onSubmit={handleSubmit} className='form comment-form'>
                         <input
                             onClick={focusInput}
@@ -132,7 +137,12 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                             </>
                         )}
                     </form>
+                    {errors && (
+                        <ul>
+                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                        </ul>
 
+                    )}
                 </div>
             </div>
         </div>

@@ -21,8 +21,17 @@ function GetOneTweet({ tweetId }) {
     const likes = useSelector(state => state.likes)
     const tweets = useSelector(state => state.tweets)
     const comments = useSelector(state => state.comments)
-    const tweet = tweets?.currentTweet
 
+
+    const tweet = tweets?.currentTweet
+    const allComments2 = tweet?.Comments
+
+    if (allComments2) {
+        allComments2.sort((a, b) => {
+            return new Date(b.createdAt1) - new Date(a.createdAt1)
+        })
+
+    }
 
     useEffect(() => {
         dispatch(getOneTweetBackend(tweetId))
@@ -126,6 +135,8 @@ function GetOneTweet({ tweetId }) {
                     </>
                 )}
                 <CreateCommentInline tweetId={tweetId} />
+
+
 
                 {tweet?.Comments && (
                     tweet?.Comments.map((comment, index) => {
