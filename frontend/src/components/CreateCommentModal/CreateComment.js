@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { createCommentBackend } from '../../store/comment';
@@ -8,6 +8,8 @@ import GiphyModal from "../GiphyModal";
 function CreateComment({ tweetId, setShowModalComment }) {
     const dispatch = useDispatch();
     const history = useHistory();
+    const refButton = useRef(null);
+    const refContainer = useRef(null);
 
     const [comment, setComment] = useState('');
     const [image, setImage] = useState(null);
@@ -15,26 +17,34 @@ function CreateComment({ tweetId, setShowModalComment }) {
 
     const user = useSelector(state => state.session);
 
+    let triggerButton;
+    let rootElement;
+    let picker3;
 
     //EMOJI STUFF
-    const triggerButton = document.querySelector('#emoji-button-comment-modal');
-    const rootElement = document.querySelector('.emoji-container-comment-modal');
+    useEffect(() => {
+        triggerButton = refButton.current;
+        rootElement = refContainer.current;
+    }, [])
 
-    // Create the picker
-    let picker = createPopup({
-        animate: false,
-        autoFocus: 'auto',
-        rootElement
-    }, {
-        triggerElement: triggerButton,
-        referenceElement: triggerButton,
-        position: 'bottom-start'
-    });
+    useEffect(() => {
+        if (triggerButton && rootElement) {
+            // Create the picker
+            picker3 = createPopup({
+                animate: false,
+                autoFocus: 'auto',
+                rootElement
+            }, {
+                triggerElement: triggerButton,
+                referenceElement: triggerButton,
+                position: 'bottom-start'
+            });
 
-    picker.addEventListener('emoji:select', event => {
-        setComment(comment + event.emoji)
-    });
-    console.log(picker)
+            picker3.addEventListener('emoji:select', event => {
+                setComment(comment + event.emoji)
+            });
+        }
+    }, [])
 
 
     const handleSubmit = async (e) => {
@@ -71,7 +81,7 @@ function CreateComment({ tweetId, setShowModalComment }) {
     };
 
     const handleOpenEmoji2 = () => {
-        picker.open()
+        picker3.open()
     }
     return (
         <div>
@@ -94,8 +104,9 @@ function CreateComment({ tweetId, setShowModalComment }) {
                     </label>
 
                     {/* where the popup emoji goes */}
-                    <div className='emoji-container-comment-modal'></div>
-                    <div id='emoji-button-comment-modal' onClick={handleOpenEmoji2}>
+                    <div className='emoji-container-comment-modal' ref={refContainer}></div>
+
+                    <div id='emoji-button-comment-modal' ref={refButton} onClick={handleOpenEmoji2}>
                         <i className="fa-regular fa-face-smile blue-icon"></i>
                     </div>
 

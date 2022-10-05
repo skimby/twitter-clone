@@ -125,7 +125,7 @@ function GetOneTweet({ tweetId }) {
                         </div>
                     </>
                 )}
-                <CreateCommentInline />
+                <CreateCommentInline tweetId={tweetId} />
 
                 {tweet?.Comments && (
                     tweet?.Comments.map((comment, index) => {

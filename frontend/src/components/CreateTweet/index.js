@@ -10,7 +10,8 @@ import './CreateTweet.css'
 function CreateTweet() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const ref = useRef(null)
+    const refContainer = useRef(null)
+    const refButton = useRef()
     const [tweet, setTweet] = useState('');
     const [gif, setGif] = useState(null);
     const [errors, setErrors] = useState();
@@ -40,9 +41,11 @@ function CreateTweet() {
         history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
     }
 
-    const triggerButton = document.querySelector('#emoji-button');
-    const rootElement = document.querySelector('.emoji-container');
-
+    // const triggerButton = document.querySelector('#emoji-button');
+    // const rootElement = document.querySelector('.emoji-container');
+    const triggerButton = refButton.current;
+    const rootElement = refContainer.current;
+    // let picker;
     // Create the picker
     let picker = createPopup({
         animate: false,
@@ -70,9 +73,11 @@ function CreateTweet() {
         if (file) setImage(file);
     };
 
-    console.log(picker)
+    console.log(triggerButton, rootElement, picker)
     const handleOpenEmoji = () => {
+        console.log(picker.isOpen)
         picker.open()
+        console.log(picker.isOpen)
     }
 
     return (
@@ -99,9 +104,9 @@ function CreateTweet() {
 
             <div className='tweet-addons-box'>
 
-                <div className='emoji-container'></div>
+                <div className='emoji-container' ref={refContainer}></div>
 
-                <div id='emoji-button' onClick={handleOpenEmoji}>
+                <div id='emoji-button' ref={refButton} onClick={handleOpenEmoji}>
                     <i className="fa-regular fa-face-smile blue-icon"></i>
                 </div>
 

@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { createTweetBackend } from '../../store/tweet'
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
 import './CreateTweetModal.css'
+import { restoreCSRF } from "../../store/csrf";
 
 
 function CreateTweetForm() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const refButton = useRef();
+    const refContainer = useRef();
+
 
     const [tweet, setTweet] = useState('');
     const [gif, setGif] = useState(null);
@@ -17,25 +21,6 @@ function CreateTweetForm() {
 
     const user = useSelector(state => state.session);
 
-
-    //EMOJI STUFF
-    const triggerButton = document.querySelector('#emoji-button-modal');
-    const rootElement = document.querySelector('.emoji-container-modal');
-
-    // Create the picker
-    let picker = createPopup({
-        animate: false,
-        autoFocus: 'auto',
-        rootElement
-    }, {
-        triggerElement: triggerButton,
-        referenceElement: triggerButton,
-        position: 'bottom-start'
-    });
-
-    picker.addEventListener('emoji:select', event => {
-        setTweet(tweet + event.emoji)
-    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -61,9 +46,33 @@ function CreateTweetForm() {
     };
 
 
-    console.log(picker)
+    //EMOJI STUFF
+    let triggerButton;
+    let rootElement;
+    let picker1;
+    useEffect(() => {
+        triggerButton = refButton.current;
+        rootElement = refContainer.current;
+    }, [])
+
+    useEffect(() => {
+        picker1 = createPopup({
+            animate: false,
+            autoFocus: 'auto',
+            rootElement
+        }, {
+            triggerElement: triggerButton,
+            referenceElement: triggerButton,
+            position: 'bottom-start'
+        });
+        picker1.addEventListener('emoji:select', event => {
+            setTweet(tweet + event.emoji)
+        });
+
+    })
+
     const handleOpenEmoji = () => {
-        picker.open()
+        picker1.open()
     }
 
     return (
@@ -84,9 +93,11 @@ function CreateTweetForm() {
                         <input type="file" onChange={updateFile} />
                     </label>
 
-                    <div className='emoji-container-modal'></div>
+                    <div className='emoji-container2'
+                        ref={refContainer}
+                    ></div>
 
-                    <div id='emoji-button-modal' onClick={handleOpenEmoji}>
+                    <div id='emoji-button2' ref={refButton} onClick={handleOpenEmoji}>
                         <i className="fa-regular fa-face-smile blue-icon"></i>
                     </div>
 

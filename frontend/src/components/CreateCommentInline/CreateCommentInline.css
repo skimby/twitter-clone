@@ -25,6 +25,12 @@
     padding-top: 10px;
 }
 
+#inline {
+    display: inline-block;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+
 #inputTag {
     display: none;
 

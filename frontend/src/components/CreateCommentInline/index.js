@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { createCommentBackend } from '../../store/comment';
@@ -10,7 +10,8 @@ import './CreateCommentInline.css'
 function CreateCommentInline({ tweetId, setShowModalComment }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const ref = useRef();
+    const refButton = useRef(null);
+    const refContainer = useRef(null);
 
     const [comment, setComment] = useState('');
     const [image, setImage] = useState(null);
@@ -21,23 +22,33 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
 
 
     //EMOJI STUFF
-    const triggerButton = document.querySelector('#emoji-button-comment-modal');
-    const rootElement = document.querySelector('.emoji-container-comment-modal');
+    let triggerButton;
+    let rootElement;
+    let picker4;
+
+    useEffect(() => {
+        triggerButton = refButton.current
+        rootElement = refContainer.current;
+    }, [inputClick])
 
     // Create the picker
-    let picker2 = createPopup({
-        // animate: false,
-        // autoFocus: 'auto',
-        rootElement
-    }, {
-        triggerElement: triggerButton,
-        referenceElement: triggerButton,
-        position: 'bottom-start'
-    });
+    useEffect(() => {
+        if (triggerButton && rootElement) {
+            picker4 = createPopup({
+                animate: false,
+                autoFocus: 'auto',
+                rootElement
+            }, {
+                triggerElement: triggerButton,
+                referenceElement: triggerButton,
+                position: 'bottom-start'
+            });
 
-    picker2.addEventListener('emoji:select', event => {
-        setComment(comment + event.emoji)
-    });
+            picker4.addEventListener('emoji:select', event => {
+                setComment(comment + event.emoji)
+            });
+        }
+    }, [inputClick])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -47,6 +58,8 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
             gif,
             image
         }
+
+        console.log(tweetId)
         await dispatch(createCommentBackend(tweetId, commentInput))
             .catch(async (res) => {
                 const data = await res.json();
@@ -56,7 +69,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                 }
             });
 
-        history.push(`/${user?.user?.username}/tweets/${tweetId}`)
+        // history.push(`/${user?.user?.username}/tweets/${tweetId}`)
         // history.go()
     }
 
@@ -66,13 +79,16 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
         if (file) setImage(file);
     };
 
-    const handleOpenEmoji = () => {
-        picker2.open()
+    console.log(triggerButton, rootElement, picker4)
+
+    const handleOpenEmoji4 = () => {
+        picker4.open()
     }
 
-    const test = (e) => {
+    const focusInput = (e) => {
         setInputClick(true)
     }
+
     return (
         <div className="comment-inline-container">
             <div className="tweet-comment-container">
@@ -85,8 +101,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                 <div className='tweet-text-box'>
                     <form onSubmit={handleSubmit} className='form comment-form'>
                         <input
-                            onClick={test}
-                            ref={ref}
+                            onClick={focusInput}
                             placeholder="Tweet your reply"
                             type='text'
                             value={comment}
@@ -101,9 +116,9 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                                         <input id='inputTag' type="file" onChange={updateFile} />
                                     </label>
 
-                                    <div className='emoji-container-comment-modal inline'></div>
+                                    <div className='emoji-container3' id='inline' ref={refContainer} ></div>
 
-                                    <div className='inline' id='emoji-button-comment-modal' onClick={handleOpenEmoji}>
+                                    <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji4}>
                                         <i className="fa-regular fa-face-smile blue-icon"></i>
                                     </div>
 
