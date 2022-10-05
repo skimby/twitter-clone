@@ -18,32 +18,6 @@ function CreateTweetForm() {
     const user = useSelector(state => state.session);
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const tweetInput = {
-            tweet,
-            gif,
-            image
-        }
-
-        console.log(tweetInput)
-        const newTweet = await dispatch(createTweetBackend(tweetInput))
-
-        history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
-        // history.go()
-    }
-
-    const submitButton = () => {
-        return (
-            <button type='submit'>Tweet</button>
-        )
-    }
-    const updateFile = (e) => {
-        const file = e.target.files[0];
-        if (file) setImage(file);
-    };
-
     //EMOJI STUFF
     const triggerButton = document.querySelector('#emoji-button-modal');
     const rootElement = document.querySelector('.emoji-container-modal');
@@ -62,9 +36,36 @@ function CreateTweetForm() {
     picker.addEventListener('emoji:select', event => {
         setTweet(tweet + event.emoji)
     });
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const tweetInput = {
+            tweet,
+            gif,
+            image
+        }
+        const newTweet = await dispatch(createTweetBackend(tweetInput))
+        history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
+        // history.go()
+    }
+
+    const submitButton = () => {
+        return (
+            <button type='submit'>Tweet</button>
+        )
+    }
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+    };
+
+
+    console.log(picker)
     const handleOpenEmoji = () => {
         picker.open()
     }
+
     return (
         <div>
             <div className='profile-image-box'>

@@ -64,7 +64,7 @@ function GetTweets({ tweets }) {
                                     </div>
                                     <div className='tweet-icon'>
                                         <i className="fa-solid fa-retweet gray-icon"></i>
-                                        <p className='gray-p'></p>{tweet?.retweetCount}
+                                        <p className='gray-p'></p>
                                     </div>
                                     <div className='tweet-icon'>
                                         <Likes likeCount={tweet?.likeCount} tweet={tweet} />

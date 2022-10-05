@@ -16,6 +16,26 @@ function CreateComment({ tweetId, setShowModalComment }) {
     const user = useSelector(state => state.session);
 
 
+    //EMOJI STUFF
+    const triggerButton = document.querySelector('#emoji-button-comment-modal');
+    const rootElement = document.querySelector('.emoji-container-comment-modal');
+
+    // Create the picker
+    let picker = createPopup({
+        animate: false,
+        autoFocus: 'auto',
+        rootElement
+    }, {
+        triggerElement: triggerButton,
+        referenceElement: triggerButton,
+        position: 'bottom-start'
+    });
+
+    picker.addEventListener('emoji:select', event => {
+        setComment(comment + event.emoji)
+    });
+    console.log(picker)
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,25 +70,7 @@ function CreateComment({ tweetId, setShowModalComment }) {
         if (file) setImage(file);
     };
 
-    //EMOJI STUFF
-    const triggerButton = document.querySelector('#emoji-button-comment-modal');
-    const rootElement = document.querySelector('.emoji-container-comment-modal');
-
-    // Create the picker
-    let picker = createPopup({
-        animate: false,
-        autoFocus: 'auto',
-        rootElement
-    }, {
-        triggerElement: triggerButton,
-        referenceElement: triggerButton,
-        position: 'bottom-start'
-    });
-
-    picker.addEventListener('emoji:select', event => {
-        setComment(comment + event.emoji)
-    });
-    const handleOpenEmoji = () => {
+    const handleOpenEmoji2 = () => {
         picker.open()
     }
     return (
@@ -91,9 +93,9 @@ function CreateComment({ tweetId, setShowModalComment }) {
                         <input type="file" onChange={updateFile} />
                     </label>
 
+                    {/* where the popup emoji goes */}
                     <div className='emoji-container-comment-modal'></div>
-
-                    <div id='emoji-button-comment-modal' onClick={handleOpenEmoji}>
+                    <div id='emoji-button-comment-modal' onClick={handleOpenEmoji2}>
                         <i className="fa-regular fa-face-smile blue-icon"></i>
                     </div>
 

@@ -1,0 +1,43 @@
+.comment-inline-container {
+    padding: 18px 0;
+    display: grid;
+}
+
+.tweet-comment-container {
+    padding: 13px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+.comment-form {
+    display: block;
+}
+
+.comment-icons-gif-img {
+    display: block;
+
+}
+
+.inline {
+    display: inline-block;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+
+#inputTag {
+    display: none;
+
+}
+
+.btn-float-right {
+    float: right;
+    vertical-align: center;
+    padding: 10px 20px;
+}
+
+.upload-btn {
+    /* background-color: red;
+    width: 40px;
+    height: 40px; */
+}

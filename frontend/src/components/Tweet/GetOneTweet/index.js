@@ -3,10 +3,11 @@ import GetComment from '../GetComment';
 import { getCommentsBackend } from '../../../store/comment';
 import { useDispatch, useSelector } from 'react-redux';
 import Likes from '../../Likes';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getUserBackend } from "../../../store/user";
 import { getOneTweetBackend } from '../../../store/tweet'
 import CreateCommentModal from '../../CreateCommentModal'
+import CreateCommentInline from '../../CreateCommentInline';
 import '../../UserProfile/UserProfile.css'
 import './GetOneTweet.css'
 import '../../GetTweets/GetTweets.css'
@@ -14,6 +15,8 @@ import '../../GetTweets/GetTweets.css'
 function GetOneTweet({ tweetId }) {
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const [singleTweet, setSingleTweet] = useState(true);
     const user = useSelector(state => state.users)
     const likes = useSelector(state => state.likes)
     const tweets = useSelector(state => state.tweets)
@@ -96,7 +99,7 @@ function GetOneTweet({ tweetId }) {
                         </div>
 
 
-                        <div>
+                        <div className='outline'>
                             <div className='comment-stats-box'>
 
                                 <p className='gray-p follower-styling' >
@@ -107,13 +110,22 @@ function GetOneTweet({ tweetId }) {
                             </div>
                         </div>
 
-                        <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} />
-                        {/* <i className="fa-regular fa-comment"></i> */}
-                        <i className="fa-solid fa-retweet"></i>
-                        <Likes likeCount={tweet?.likeCount} tweet={tweet} />
+                        <div className='comment-icons-box'>
+                            <div className='tweet-icon'>
+                                <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} singleTweet={singleTweet} />
+                            </div>
+                            <div className='tweet-icon'>
+                                <i className="fa-solid fa-retweet gray-icon"></i>
+
+                            </div>
+                            <div className='tweet-icon'>
+                                <Likes likeCount={tweet?.likeCount} tweet={tweet} singleTweet={singleTweet} />
+                            </div>
+
+                        </div>
                     </>
                 )}
-
+                <CreateCommentInline />
 
                 {tweet?.Comments && (
                     tweet?.Comments.map((comment, index) => {

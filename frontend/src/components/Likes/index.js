@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
 import { useRef } from 'react'
 
-function Likes({ likeCount, tweet }) {
+function Likes({ likeCount, tweet, singleTweet }) {
     const dispatch = useDispatch();
     const [liked, setLiked] = useState();
     const likes = tweet?.likes
@@ -43,13 +43,19 @@ function Likes({ likeCount, tweet }) {
         <>
             {liked && (
                 <>
-                    <i onClick={handleUnlike} className="fa-solid fa-heart gray-icon"></i>{likeCount}
+                    <i onClick={handleUnlike} className="fa-solid fa-heart pink-icon"></i>
+                    {!singleTweet && (
+                        <p className="gray-p">{likeCount}</p>
+                    )}
                 </>
             )}
 
             {!liked && (
                 <>
-                    <i onClick={handleLike} className="fa-regular fa-heart gray-icon"></i>{likeCount}
+                    <i onClick={handleLike} className="fa-regular fa-heart gray-icon"></i>
+                    {!singleTweet && (
+                        <p className="gray-p">{likeCount}</p>
+                    )}
                 </>
             )}
 

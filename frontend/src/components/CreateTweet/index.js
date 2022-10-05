@@ -18,7 +18,7 @@ function CreateTweet() {
 
     const user = useSelector(state => state.session);
 
-    // console.log(gif)
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,14 +29,14 @@ function CreateTweet() {
             image
         }
         const newTweet = await dispatch(createTweetBackend(tweetInput))
-        // .catch(async (res) => {
-        //     const data = await res.json();
-        //     if (data && data.errors) {
-        //         const newErrors = data.errors;
-        //         setErrors(newErrors);
-        //         console.log(errors)
-        //     }
-        // });
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    const newErrors = data.errors;
+                    setErrors(newErrors);
+                    // console.log(errors)
+                }
+            });
         history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
     }
 
@@ -70,6 +70,7 @@ function CreateTweet() {
         if (file) setImage(file);
     };
 
+    console.log(picker)
     const handleOpenEmoji = () => {
         picker.open()
     }

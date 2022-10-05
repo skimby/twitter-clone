@@ -8,6 +8,12 @@
 
 }
 
+.outline {
+    border-top: 1px solid rgb(235, 235, 235);
+
+    padding: 15px 0;
+}
+
 .comment-img-gif {
     width: 100%;
     float: left;
@@ -17,4 +23,21 @@
 
 .comment-stats-box {
     display: inline-flex;
+    padding-left: 4px;
+}
+
+.comment-icons-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    /* height: 30px; */
+    padding: 15px 0;
+    justify-content: center;
+    border-top: 1px solid rgb(235, 235, 235);
+    border-bottom: 1px solid rgb(235, 235, 235);
+
+}
+
+.test {
+    vertical-align: center;
 }
