@@ -18,6 +18,9 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
     const [errors, setErrors] = useState([]);
+    const [completeComment, setCompleteComment] = useState(false);
+    const [gifSet, setGifSet] = useState(false);
+    const [imageSet, setImageSet] = useState(false);
 
     const user = useSelector(state => state.session);
 
@@ -51,6 +54,32 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
         }
     }, [inputClick])
 
+    useEffect(() => {
+        if (comment) {
+            setCompleteComment(true)
+        } else {
+            setCompleteComment(false)
+        }
+    }, [comment])
+
+    console.log(gif)
+
+    useEffect(() => {
+        if (gif) {
+            setGifSet(true)
+        } else {
+            setGifSet(false)
+        }
+    }, [gif]);
+
+    useEffect(() => {
+        if (image) {
+            setImage(true)
+        } else {
+            setImageSet(false)
+        }
+    }, [image]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -72,7 +101,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                     //   history.go()
                 }
             });
-        console.log(errors)
+        // console.log(errors)
 
         // history.push(`/${user?.user?.username}/tweets/${tweetId}`)
         // history.go()
@@ -127,11 +156,25 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                                         <i className="fa-regular fa-face-smile blue-icon"></i>
                                     </div>
 
-                                    <div className="inline">
-                                        <GiphyModal setGif={setGif} />
-                                    </div>
 
-                                    <button type='submit' className="btn-float-right">Reply</button>
+                                    {gifSet && (
+                                        <div className="inline">
+                                            <i className="fa-solid fa-gift disabled-blue-icon" />
+                                        </div>
+                                    )}
+                                    {!gifSet && (
+                                        <div className="inline">
+                                            <GiphyModal setGif={setGif} />
+
+                                        </div>
+                                    )}
+
+                                    {completeComment && (
+                                        <button type='submit'>Tweet</button>
+                                    )}
+                                    {!completeComment && (
+                                        <button type='submit' className="disabled-btn">Tweet</button>
+                                    )}
 
                                 </div>
                             </>

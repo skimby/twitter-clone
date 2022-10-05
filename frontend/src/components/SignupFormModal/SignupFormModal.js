@@ -86,9 +86,11 @@ function SignupForm({ setShowModal }) {
 
       <div className="signup-modal-container">
         <form className='signup-form' onSubmit={handleSubmit}>
-          <ul>
-            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-          </ul>
+          {errors && (
+            <ul>
+              {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+            </ul>
+          )}
 
           <input className="half-input1"
             type="text"

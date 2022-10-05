@@ -15,9 +15,8 @@ function Giphy({ setShowModal, setGif }) {
 
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmitGif = async (e) => {
         e.preventDefault()
-
         await dispatch(getAllSearchedGifsBackend(query))
     }
 
@@ -33,14 +32,16 @@ function Giphy({ setShowModal, setGif }) {
                 </div>
                 <div className='search-gif'>
                     {/* <div className='search-div'> */}
-                    <form onSubmit={handleSubmit} className='form'>
-                        <input className='search-styling' type='text' onChange={(e) => setQuery(e.target.value)}>
-                        </input>
+                    {/* <form onSubmit={handleSubmitGif} className='form'> */}
+                    <input className='search-styling' type='text' onChange={(e) => setQuery(e.target.value)}>
+                    </input>
 
-                        <div className='search-button'>
-                            <button className='search-btn-icon' type='submit' onSubmit={handleSubmit}><i className="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </form>
+                    <div className='search-button'>
+                        <button className='search-btn-icon' type='submit' onClick={handleSubmitGif}  >
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    {/* </form> */}
                 </div>
             </div>
 

@@ -7,9 +7,9 @@ function GiphyModal({ setGif }) {
 
     return (
         <>
-            <div onClick={() => setShowModal(true)} >
-                <i className="fa-solid fa-gift blue-icon" />
-            </div>
+            {/* <div onClick={() => setShowModal(true)} > */}
+            <i className="fa-solid fa-gift blue-icon" onClick={() => setShowModal(true)} />
+            {/* </div> */}
             {showModal && (
                 <GifModal onClose={() => setShowModal(false)}>
                     <Giphy setGif={setGif} setShowModal={setShowModal} />

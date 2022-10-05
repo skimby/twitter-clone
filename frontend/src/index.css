@@ -60,7 +60,16 @@ button {
 }
 
 .blue-icon {
-    color: rgb(99, 181, 243);
+    color: rgb(29, 155, 240);
+}
+
+.disabled-blue-icon {
+    color: rgb(142, 205, 248);
+}
+
+.disabled-btn {
+    background-color: rgb(142, 205, 248);
+
 }
 
 .gray-icon {

@@ -18,38 +18,75 @@ function CreateTweetForm() {
     const [tweet, setTweet] = useState('');
     const [gif, setGif] = useState(null);
     const [image, setImage] = useState(null);
+    const [errors, setErrors] = useState()
+    const [completeTweet, setCompleteTweet] = useState(false);
+    const [gifSet, setGifSet] = useState(false);
+    const [imageSet, setImageSet] = useState(false);
 
     const user = useSelector(state => state.session);
 
+    console.log(gif)
 
-    const handleSubmit = async (e) => {
+    const handleSubmitTweet = async (e) => {
         e.preventDefault();
 
+        setErrors([])
         const tweetInput = {
             tweet,
             gif,
             image
         }
         const newTweet = await dispatch(createTweetBackend(tweetInput))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    const newErrors = data.errors;
+                    setErrors(newErrors);
+                    console.log(errors)
+                }
+            });
+
         history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
         // history.go()
     }
 
-    const submitButton = () => {
-        return (
-            <button type='submit'>Tweet</button>
-        )
-    }
+
     const updateFile = (e) => {
         const file = e.target.files[0];
         if (file) setImage(file);
     };
+
+    useEffect(() => {
+        if (tweet) {
+            setCompleteTweet(true)
+        } else {
+            setCompleteTweet(false)
+        }
+    }, [tweet, gif, image])
+
+
+    useEffect(() => {
+        if (gif) {
+            setGifSet(true)
+        } else {
+            setGifSet(false)
+        }
+    }, [gif]);
+
+    useEffect(() => {
+        if (image) {
+            setImageSet(true)
+        } else {
+            setImageSet(false)
+        }
+    }, [image]);
 
 
     //EMOJI STUFF
     let triggerButton;
     let rootElement;
     let picker1;
+
     useEffect(() => {
         triggerButton = refButton.current;
         rootElement = refContainer.current;
@@ -82,7 +119,7 @@ function CreateTweetForm() {
                     <img className='profile-img' src={user?.user?.profileImage} />
                 )}
 
-                <form onSubmit={handleSubmit} className='form'>
+                <form onSubmit={handleSubmitTweet} className='form'>
                     <input
                         placeholder="What's happening?"
                         type='text'
@@ -101,12 +138,35 @@ function CreateTweetForm() {
                         <i className="fa-regular fa-face-smile blue-icon"></i>
                     </div>
 
-                    <div>
-                        <GiphyModal setGif={setGif} />
-                    </div>
+                    {!gifSet && (
+                        <div>
+                            <GiphyModal setGif={setGif} />
+                        </div>
+                    )}
+                    {gifSet && (
+                        <div>
+                            <i className="fa-solid fa-gift disabled-blue-icon" />
+                        </div>
+                    )}
 
-                    {submitButton()}
+
+
+
+                    {errors && (
+                        <ul>
+                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                        </ul>
+                    )}
+
+                    {completeTweet && (
+                        <button type='submit'>Tweet</button>
+                    )}
+                    {!completeTweet && (
+                        <button type='submit' className="disabled-btn">Tweet</button>
+                    )}
+
                 </form>
+
             </div>
         </div>
     )
