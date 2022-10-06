@@ -5,7 +5,7 @@ import CreateTweetForm from "./CreateTweetForm";
 import './CreateTweetModal.css';
 
 
-function CreateTweetModal({ tweetId, tweet, edit }) {
+function CreateTweetModal({ tweetId, currentTweet, edit }) {
     const [showModal, setShowModal] = useState();
 
 
@@ -27,7 +27,7 @@ function CreateTweetModal({ tweetId, tweet, edit }) {
                     <button onClick={() => setShowModal(true)} className="black-btn">Edit Tweet</button>
                     {showModal && (
                         <CommentModal onClose={() => setShowModal(false)}>
-                            <CreateTweetForm setShowModal={setShowModal} edit={edit} tweetId={tweetId} />
+                            <CreateTweetForm setShowModal={setShowModal} edit={edit} tweetId={tweetId} currentTweet={currentTweet} />
                         </CommentModal>
                     )}
                 </div>

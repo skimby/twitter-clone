@@ -1,14 +1,27 @@
 import EditFormModal from "../EditTweetModal";
 import DeleteTweetModal from "../DeleteTweetModal";
 import logo from '../../../images/twitter-logo.png'
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import './TweetSettings.css'
 import CreateTweetModal from "../../CreateTweetModal";
+import { getOneTweetBackend } from '../../../store/tweet';
+
 
 function TweetSettings({ tweet, tweetId, setShowModal }) {
+    const dispatch = useDispatch();
 
-    console.log(tweetId)
     const [edit, setEdit] = useState(true);
+
+    let currentTweet = useSelector(state => state.tweets?.currentTweet);
+
+    useEffect(() => {
+        if (tweetId) {
+            dispatch(getOneTweetBackend(tweetId))
+        }
+    }, [dispatch, tweetId])
+
+    console.log(currentTweet)
 
     return (
         <>
@@ -25,7 +38,10 @@ function TweetSettings({ tweet, tweetId, setShowModal }) {
                 <h2 className="padding">Change or remove your tweet</h2>
                 <ul>
                     <li>
-                        <CreateTweetModal edit={edit} tweetId={tweetId} />
+                        {currentTweet && (
+                            <CreateTweetModal edit={edit} currentTweet={currentTweet} tweetId={tweetId} />
+
+                        )}
                     </li>
                     <li><DeleteTweetModal tweetId={tweetId} /></li>
                 </ul>

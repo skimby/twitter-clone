@@ -8,7 +8,7 @@ import TweetAddOns from "../TweetAddOns";
 import './CreateTweetModal.css'
 
 
-function CreateTweetForm({ setShowModal, edit, tweetId }) {
+function CreateTweetForm({ setShowModal, edit, tweetId, currentTweet }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef();
@@ -60,7 +60,7 @@ function CreateTweetForm({ setShowModal, edit, tweetId }) {
             </div>
 
             <div>
-                <TweetAddOns tweetId={tweetId} setShowModal={setShowModal} edit={edit} />
+                <TweetAddOns tweetId={tweetId} setShowModal={setShowModal} edit={edit} currentTweet={currentTweet} />
             </div>
         </div>
     )

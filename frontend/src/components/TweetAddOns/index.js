@@ -5,20 +5,20 @@ import { createTweetBackend, getOneTweetBackend } from "../../store/tweet";
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
 import '../CreateCommentInline/CreateCommentInline.css'
-import { editTweetBackend, getOne } from '../../store/tweet';
+import { editTweetBackend } from '../../store/tweet';
 
 
-function TweetAddOns({ tweetId, setShowModal, edit }) {
+function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
     const user = useSelector(state => state.session);
-    let currentTweet = useSelector(state => state.tweets?.currentTweet);
+    // let currentTweet = useSelector(state => state.tweets?.currentTweet);
+    console.log(currentTweet)
 
-
-    const [tweet, setTweet] = useState('');
+    const [tweet, setTweet] = useState((currentTweet && currentTweet.tweet) || '');
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
@@ -32,17 +32,17 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
     let rootElement;
     let picker4;
 
-    useEffect(() => {
-        if (currentTweet?.id && !tweet && edit) {
-            setTweet(currentTweet.tweet)
-        }
-    }, [currentTweet, tweet])
+    // useEffect(() => {
+    //     if (currentTweet && !tweet && edit) {
+    //         setTweet(currentTweet.tweet)
+    //     }
+    // }, [currentTweet, tweet])
 
-    useEffect(() => {
-        if (tweetId) {
-            dispatch(getOneTweetBackend(tweetId))
-        }
-    }, [dispatch, tweetId])
+    // useEffect(() => {
+    //     if (tweetId) {
+    //         dispatch(getOneTweetBackend(tweetId))
+    //     }
+    // }, [dispatch, tweetId])
 
     useEffect(() => {
         triggerButton = refButton.current
