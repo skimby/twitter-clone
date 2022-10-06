@@ -6,7 +6,7 @@ import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
 import '../CreateCommentInline/CreateCommentInline.css'
 
-function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
+function CommentAddOns({ tweetId, setShowModalComment }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
@@ -14,6 +14,7 @@ function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
 
     const [style, setStyle] = useState({})
     const [comment, setComment] = useState('');
+    const [completeComment, setCompleteComment] = useState(false)
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
@@ -23,27 +24,27 @@ function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
     const user = useSelector(state => state.session);
 
 
-    useEffect(() => {
-        if (comment) {
-            setStyle({ backgroundColor: "rgb(30, 155, 239)" });
-        }
-    }, [comment]);
+    // useEffect(() => {
+    //     if (comment) {
+    //         setStyle({ backgroundColor: "rgb(30, 155, 239)" });
+    //     }
+    // }, [comment]);
 
 
     //EMOJI STUFF
     let triggerButton;
     let rootElement;
-    let picker4;
+    let picker2;
 
     useEffect(() => {
         triggerButton = refButton.current
         rootElement = refContainer.current;
-    }, [inputClick, gifOrImg, comment, gif])
+    }, [inputClick, gifOrImg, comment, gif, image])
 
     // Create the picker
     useEffect(() => {
         if (triggerButton && rootElement) {
-            picker4 = createPopup({
+            picker2 = createPopup({
                 animate: false,
                 autoFocus: 'auto',
                 rootElement
@@ -53,19 +54,21 @@ function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
                 position: 'bottom-start'
             });
 
-            picker4.addEventListener('emoji:select', event => {
+            picker2.addEventListener('emoji:select', event => {
                 setComment(comment + event.emoji)
             });
         }
-    }, [inputClick, gifOrImg, comment, gif])
+        console.log(comment, triggerButton, rootElement, picker2)
+    }, [inputClick, gifOrImg, comment, gif, image])
 
-    // useEffect(() => {
-    //     if (comment) {
-    //         setCompleteComment(true)
-    //     } else {
-    //         setCompleteComment(false)
-    //     }
-    // }, [comment])
+
+    useEffect(() => {
+        if (comment) {
+            setCompleteComment(true)
+        } else {
+            setCompleteComment(false)
+        }
+    }, [comment])
 
 
     useEffect(() => {
@@ -81,11 +84,6 @@ function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-
-        // if (comment === '') {
-        //     setErrors('Please provide a comment.')
-        // }
-        console.log(errors)
         const commentInput = {
             comment,
             gif,
@@ -101,8 +99,7 @@ function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
                 }
             });
 
-
-        if (newComment) {
+        if (!errors) {
             setComment('')
             setImage(null)
             setGif(null)
@@ -117,8 +114,8 @@ function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
     };
 
 
-    const handleOpenEmoji4 = () => {
-        picker4.open()
+    const handleOpenEmoji2 = () => {
+        picker2.open()
     }
 
     const focusInput = (e) => {
@@ -186,18 +183,18 @@ function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
                                 </>
                             )}
 
-                            <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji4}>
+                            <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji2}>
                                 <i className="fa-regular fa-face-smile blue-icon"></i>
                             </div>
 
                             <div className='emoji-container3' id='inline' ref={refContainer} ></div>
 
-                            {/* {completeComment && (
+                            {completeComment && (
                                 <button className='btn-float-right' type=' submit'>Reply</button>
-                            )} */}
-                            {/* {!completeComment && ( */}
-                            <button className="disabled-btn btn-float-right" style={style}>Reply</button>
-                            {/* )} */}
+                            )}
+                            {!completeComment && (
+                                <button className="disabled-btn btn-float-right" >Reply</button>
+                            )}
                         </div>
 
 

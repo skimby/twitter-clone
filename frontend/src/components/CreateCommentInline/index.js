@@ -92,7 +92,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                     console.log(data)
                 }
             });
-        if (newComment) {
+        if (!errors) {
             setComment('')
             setImage(null)
             setGif(null)

@@ -92,7 +92,7 @@ function TweetAddOns({ tweetId, setShowModal }) {
                 }
             });
 
-        console.log(errors)
+
 
         if (!errors.length) {
             setTweet('')
