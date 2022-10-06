@@ -6,7 +6,7 @@ import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
 import '../CreateCommentInline/CreateCommentInline.css'
 import { editTweetBackend } from '../../store/tweet';
-
+import giphyTag from '../../images/powered-by-giphy.png'
 
 function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     const dispatch = useDispatch();
@@ -164,12 +164,17 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
 
 
                     {gif && (
-                        <div className="display-img-gif">
-                            <div className="remove-gif-box">
-                                <i className="fa-solid fa-circle-xmark" onClick={removeGif}></i>
+                        <>
+                            <div className="display-img-gif">
+                                <div className="remove-gif-box">
+                                    <i className="fa-solid fa-circle-xmark" onClick={removeGif}></i>
+                                </div>
+                                <img src={gif} className='img-gif' width='200' />
                             </div>
-                            <img src={gif} className='img-gif' width='200' />
-                        </div>
+                            <div className="div-bottom-padding">
+                                <img src={giphyTag} width='110px' />
+                            </div>
+                        </>
                     )}
 
 

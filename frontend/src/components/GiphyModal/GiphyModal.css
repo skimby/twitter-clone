@@ -3,11 +3,12 @@
     height: 615px;
 }
 
-.form .search-styling {
+.search-styling {
     border: 2px solid rgb(29, 155, 240);
     border-radius: 20px;
     margin: 10px;
-    width: 430px;
+    width: 335px;
+    padding: 5px 0;
 }
 
 .gif-display-grid {

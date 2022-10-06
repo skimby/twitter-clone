@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { getAllSearchedGifsBackend } from '../../store/gif';
 import { useHistory } from 'react-router-dom';
+import giphyTag from '../../images/powered-by-giphy.png'
 import './GiphyModal.css';
 
 function Giphy({ setShowModal, setGif }) {
@@ -35,6 +36,9 @@ function Giphy({ setShowModal, setGif }) {
                     {/* <form onSubmit={handleSubmitGif} className='form'> */}
                     <input className='search-styling' type='text' onChange={(e) => setQuery(e.target.value)}>
                     </input>
+                    {/* <div className="div-bottom-padding"> */}
+                    <img src={giphyTag} width='110px' />
+                    {/* </div> */}
 
                     <div className='search-button'>
                         <button className='search-btn-icon' type='submit' onClick={handleSubmitGif}  >
