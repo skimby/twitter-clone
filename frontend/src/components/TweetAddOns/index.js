@@ -18,7 +18,7 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
     const currentTweet = useSelector(state => state.tweets?.currentTweet);
 
 
-    const [tweet, setTweet] = useState((currentTweet?.tweet) || '');
+    const [tweet, setTweet] = useState('');
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
@@ -26,14 +26,18 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
     const [completeTweet, setCompleteTweet] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
 
-
-
-    console.log(currentTweet?.tweet)
+    // console.log(currentTweet?.tweet)
 
     //EMOJI STUFF
     let triggerButton;
     let rootElement;
     let picker4;
+
+    useEffect(() => {
+        if (currentTweet && !tweet) {
+            setTweet(currentTweet.tweet)
+        }
+    }, [tweet, currentTweet])
 
     useEffect(() => {
         if (tweetId) {
