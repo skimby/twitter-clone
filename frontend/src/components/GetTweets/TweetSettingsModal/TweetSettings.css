@@ -1,0 +1,23 @@
+.settings-header {
+    display: inline-block;
+    width: 100%;
+    height: 35px;
+}
+
+.settings-logo-box {
+    display: inline-block;
+    height: 40px;
+    padding-top: 10px;
+    width: 190px;
+    padding: 0 auto;
+    text-align: center;
+}
+
+.settings-box {
+    text-align: center;
+    padding: 5% 10% 10% 10%;
+}
+
+.padding {
+    padding-bottom: 30px;
+}

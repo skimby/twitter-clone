@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { Modal } from "../../../context/Modal"
+import { SmallModal } from "../../../context/Modal"
 import DeleteTweetForm from "./DeleteTweetForm";
 
 
 function DeleteTweetModal({ tweetId }) {
-    const [showModal, setShowModal] = useState();
+    const [showModalDelete, setShowModalDelete] = useState();
 
     return (
         <>
-            <p onClick={() => setShowModal(true)} >Delete Tweet</p>
+            <button className='outline-btn' onClick={() => setShowModalDelete(true)} >Delete Tweet</button>
 
-            {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
-                    <DeleteTweetForm tweetId={tweetId} />
-                </Modal>
+            {showModalDelete && (
+                <SmallModal onClose={() => setShowModalDelete(false)}>
+                    <DeleteTweetForm tweetId={tweetId} setShowModalDelete={setShowModalDelete} />
+                </SmallModal>
             )}
         </>
     );

@@ -1,7 +1,6 @@
 import TweetSettingsModal from './TweetSettingsModal';
-import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
+import { useEffect } from 'react';
 import Likes from '../Likes';
 import CreateCommentModal from '../CreateCommentModal';
 import './GetTweets.css'
@@ -9,7 +8,6 @@ import './GetTweets.css'
 
 function GetTweets({ tweets }) {
     const history = useHistory();
-
 
     return (
         <>
@@ -34,9 +32,13 @@ function GetTweets({ tweets }) {
 
                                             <span className='thin-styling'> @{tweet?.User?.username} · {tweet?.updatedAt[1]} {tweet?.updatedAt[2]}</span></h5>
                                     </div>
+
+
                                     <div className='settings-btn' >
                                         <TweetSettingsModal tweet={tweet} />
                                     </div>
+
+
 
                                 </div>
 

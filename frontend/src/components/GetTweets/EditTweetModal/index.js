@@ -7,7 +7,8 @@ function EditFormModal({ tweetId, tweet }) {
 
     return (
         <>
-            <p onClick={() => setShowModal(true)} >Edit Tweet</p>
+            <button className='black-btn' onClick={() => setShowModal(true)}>Edit Tweet</button>
+            {/* <p onClick={() => setShowModal(true)} >Edit Tweet</p> */}
 
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>

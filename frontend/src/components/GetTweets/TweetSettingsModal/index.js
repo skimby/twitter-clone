@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal } from "../../../context/Modal";
+import { SmallModal } from "../../../context/Modal";
 import TweetSettings from "./TweetSettings";
 import { useDispatch, useSelector } from "react-redux"
 
@@ -16,11 +16,14 @@ function TweetSettingsModal({ tweet }) {
     })
     return (
         <>
-            <i onClick={() => setShowModal(true)} className="fa-solid fa-ellipsis"></i>
+            {isUsersTweet && (
+                <i onClick={() => setShowModal(true)} className="fa-solid fa-ellipsis"></i>
+
+            )}
             {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
-                    <TweetSettings tweet={tweet} />
-                </Modal>
+                <SmallModal onClose={() => setShowModal(false)}>
+                    <TweetSettings setShowModal={setShowModal} tweet={tweet} />
+                </SmallModal>
             )}
         </>
     );

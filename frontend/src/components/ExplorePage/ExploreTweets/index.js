@@ -6,14 +6,17 @@ import GetTweets from '../../GetTweets';
 function ExploreTweets() {
     const dispatch = useDispatch();
     const tweets = useSelector(state => state.tweets);
+    let allTweets = Object.values(tweets?.exploreTweets).sort(function (a, b) { return 0.5 - Math.random() });;
+
 
     useEffect(() => {
         dispatch(getExploreTweetsBackend())
     }, [dispatch])
+
+
     return (
         <>
-            <h1>explore page</h1>
-            <GetTweets tweets={tweets?.exploreTweets} />
+            <GetTweets tweets={allTweets} />
         </>
     )
 }

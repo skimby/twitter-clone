@@ -33,7 +33,7 @@ p {
 }
 
 button {
-    border-radius: 20px;
+    border-radius: 25px;
     font-weight: 700;
     background-color: rgb(30, 155, 239);
     border: none;
@@ -41,6 +41,25 @@ button {
     padding: 13px 40px;
     color: white;
 }
+
+.black-btn {
+    background-color: rgb(15, 20, 25);
+    width: 100%;
+}
+
+.red-btn {
+    background-color: rgb(244, 33, 46);
+    width: 100%;
+}
+
+.outline-btn {
+    background-color: white;
+    border: 1px solid lightgrey;
+    color: rgb(15, 20, 25);
+    width: 100%;
+    margin-top: 10px
+}
+
 
 #main-container {
     padding: 0 18%;

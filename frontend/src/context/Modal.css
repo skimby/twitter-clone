@@ -55,3 +55,12 @@
   border-radius: 20px;
 
 }
+
+#modal-content-small {
+  position: absolute;
+  background-color: white;
+  width: 290px;
+  height: 310px;
+  border-radius: 20px;
+
+}

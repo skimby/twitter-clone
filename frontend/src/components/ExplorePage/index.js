@@ -14,7 +14,6 @@ function ExplorePage() {
     const tweets = useSelector(state => state.tweets)
     const likes = useSelector(state => state.likes)
 
-    console.log(tweets)
 
     useEffect(() => {
         dispatch(getFeedTweetsBackend())
@@ -33,7 +32,7 @@ function ExplorePage() {
 
 
             <div className='home-div'>
-                <h2>Home</h2>
+                <h2>Explore</h2>
             </div>
 
             <div>
@@ -41,7 +40,7 @@ function ExplorePage() {
             </div>
 
             <div>
-                <ExploreTweets tweets={tweets?.feedTweets} />
+                <ExploreTweets />
             </div>
 
         </>

@@ -58,7 +58,6 @@ function CommentAddOns({ tweetId, setShowModalComment }) {
                 setComment(comment + event.emoji)
             });
         }
-        console.log(comment, triggerButton, rootElement, picker2)
     }, [inputClick, gifOrImg, comment, gif, image])
 
 

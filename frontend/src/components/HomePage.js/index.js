@@ -18,14 +18,6 @@ function HomePage() {
     const follows = useSelector(state => state.follows)
 
 
-    console.log(sessionUser)
-    // console.log(Object.values(sessionUser.user).length)
-    // useEffect(() => {
-    //     if (Object.values(sessionUser.user).length) {
-    //         history.push('/welcome')
-    //     }
-    // }, [])
-
     useEffect(() => {
         dispatch(getFeedTweetsBackend())
     }, [dispatch, likes, sessionUser, follows])
@@ -39,7 +31,6 @@ function HomePage() {
 
     }, [sessionUser])
 
-    // if (sessionUser) {
     return (
         <>
             <div className='home-div'>
@@ -51,13 +42,7 @@ function HomePage() {
             </div>
         </>
     )
-    // } else {
-    //     return (
-    //         // <Redirect to='/welcome' >
-    //         <SignupPage />
-    //         // </Redirect >
-    //     )
-    // }
+
 }
 
 export default HomePage;
