@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Likes from '../Likes';
 import CreateCommentModal from '../CreateCommentModal';
 import './GetTweets.css'
+import giphyTag from '../../images/powered-by-giphy.png'
 
 
 function GetTweets({ tweets }) {
@@ -53,7 +54,10 @@ function GetTweets({ tweets }) {
                                         <img className='img-gif' src={tweet?.image} />
                                     )}
                                     {tweet?.gif !== null && (
-                                        <img className='img-gif' src={tweet?.gif} />
+                                        <>
+                                            <img className='img-gif' src={tweet?.gif} />
+                                            <img className="padding-top " src={giphyTag} width='110px' />
+                                        </>
                                     )}
                                 </div>
 

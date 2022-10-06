@@ -145,3 +145,7 @@ button {
 .div-bottom-padding {
     padding: 0 0 30px 0;
 }
+
+.padding-top {
+    padding: 15px 0;
+}

@@ -8,6 +8,7 @@ import { getUserBackend } from "../../../store/user";
 import { getOneTweetBackend } from '../../../store/tweet'
 import CreateCommentModal from '../../CreateCommentModal'
 import CreateCommentInline from '../../CreateCommentInline';
+import giphyTag from '../../../images/powered-by-giphy.png'
 import '../../UserProfile/UserProfile.css'
 import './GetOneTweet.css'
 import '../../GetTweets/GetTweets.css'
@@ -106,12 +107,19 @@ function GetOneTweet({ tweetId }) {
 
                         <div className='comment-img-gif'>
                             {tweet?.image !== null && (
-                                <img src={tweet?.image} className='img-gif' width='200' />
+                                <>
+                                    <img src={tweet?.image} className='img-gif' width='200' />
+
+                                </>
                             )}
                             {tweet?.gif !== null && (
-                                <img className='img-gif' src={tweet?.gif} width='200' />
+                                <>
+                                    <img className='img-gif' src={tweet?.gif} width='200' />
+                                    <img className="padding-top " src={giphyTag} width='110px' />
+                                </>
                             )}
                         </div>
+
 
 
                         <div>

@@ -1,17 +1,22 @@
 import { Redirect, useHistory, Link } from 'react-router-dom';
 import CommentSettingsModal from "../../GetTweets/CommentSettingsModal";
+import giphyTag from '../../../images/powered-by-giphy.png'
 
 function GetComment({ comment, tweetId, isOwnComment }) {
     const history = useHistory();
 
     return (
         <>
-            <div className='profile-img'>
-                <Link to={`/${comment?.User?.username}/${comment?.User?.id}`}>
-                    <img className='profile-img' src={comment?.User?.profileImage} />
-                </Link>
+            <div className='tweet-profile-img' onClick={() => { history.push(`/${comment?.User?.username}/${comment?.User?.id}`) }}>
 
+                <img className='profile-img' src={comment?.User?.profileImage} />
             </div>
+
+
+
+
+
+
 
             <div className='tweet-text-box'>
                 <div>
@@ -25,8 +30,9 @@ function GetComment({ comment, tweetId, isOwnComment }) {
 
                 <div>
                     <p>{comment?.comment}</p>
-                    <img src={comment?.image} width='200' />
-                    <img src={comment?.gif} width='200' />
+                    <img className='img-gif' src={comment?.image} width='200' />
+                    <img className='img-gif' src={comment?.gif} width='200' />
+                    <img className="padding-top " src={giphyTag} width='110px' />
                 </div>
 
                 {isOwnComment && (
