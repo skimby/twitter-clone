@@ -21,7 +21,6 @@ function CreateTweet() {
 
 
 
-
     // const triggerButton = document.querySelector('#emoji-button');
     // const rootElement = document.querySelector('.emoji-container');
     const triggerButton = refButton.current;
