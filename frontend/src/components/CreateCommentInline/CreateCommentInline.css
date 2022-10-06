@@ -1,5 +1,5 @@
 .comment-inline-container {
-    padding: 18px 0;
+    padding: 18px 0 0 0;
     display: grid;
 
 }
@@ -9,7 +9,7 @@
     padding-bottom: 20px;
     display: grid;
     grid-template-columns: 60px 1fr;
-    border-bottom: 1px solid rgb(235, 235, 235);
+    /* border-bottom: 1px solid rgb(235, 235, 235); */
 }
 
 .tweet-comment-container2 {

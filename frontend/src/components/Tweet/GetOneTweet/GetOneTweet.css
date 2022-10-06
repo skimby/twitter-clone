@@ -4,7 +4,7 @@
 }
 
 .one-tweet-container {
-    padding: 13px;
+    /* padding: 13px; */
 
 }
 
@@ -40,4 +40,17 @@
 
 .test {
     vertical-align: center;
+}
+
+.get-one-tweet-container {
+    padding: 13px;
+}
+
+.comment-user-info-box {
+    display: inline-block;
+}
+
+.inline {
+    display: inline-block;
+    width: 378px;
 }

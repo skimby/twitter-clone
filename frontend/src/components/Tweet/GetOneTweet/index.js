@@ -68,31 +68,32 @@ function GetOneTweet({ tweetId }) {
 
     return (
         <>
-            <div className='user-profile-header'>
-                <div className='x-box'>
-                    <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
-                </div>
-                <div className='user-information-box'>
-                    <h5 className='tweet-bold-styling'>Tweet</h5>
-                </div>
-            </div>
-
-
-            <div className='one-tweet-container'>
-
-                <div className='user-info-container'>
-                    <div className='profile-img'>
-                        <img className='profile-img' src={user?.User?.profileImage} />
+            <div className='get-one-tweet-container'>
+                <div className='user-profile-header'>
+                    <div className='x-box'>
+                        <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
                     </div>
+                    <div className='user-information-box'>
+                        <h5 className='tweet-bold-styling'>Tweet</h5>
+                    </div>
+                </div>
 
-                    <div className='user-info-content'>
-                        <div>
-                            <h5>{user?.User?.firstName}</h5>
-                            <h5>  <span className='thin-styling'>@{user?.User?.username}</span></h5>
+
+                <div className='one-tweet-container'>
+
+                    <div className='user-info-container'>
+                        <div className='profile-img'>
+                            <img className='profile-img' src={user?.User?.profileImage} />
+                        </div>
+
+                        <div className='user-info-content'>
+                            <div>
+                                <h5>{user?.User?.firstName}</h5>
+                                <h5>  <span className='thin-styling'>@{user?.User?.username}</span></h5>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {/* <div className='cover-image-container'>
+                    {/* <div className='cover-image-container'>
                     <img className='cover-img' src={user?.coverImage} />
                 </div>
 
@@ -101,73 +102,75 @@ function GetOneTweet({ tweetId }) {
                 </div> */}
 
 
-                {tweet && (
-                    <>
-                        <h3>{tweet?.tweet}</h3>
+                    {tweet && (
+                        <>
+                            <h3>{tweet?.tweet}</h3>
 
-                        <div className='comment-img-gif'>
-                            {tweet?.image !== null && (
-                                <>
-                                    <img src={tweet?.image} className='img-gif' width='200' />
+                            <div className='comment-img-gif'>
+                                {tweet?.image !== null && (
+                                    <>
+                                        <img src={tweet?.image} className='img-gif' width='200' />
 
-                                </>
-                            )}
-                            {tweet?.gif !== null && (
-                                <>
-                                    <img className='img-gif' src={tweet?.gif} width='200' />
-                                    <img className="padding-top " src={giphyTag} width='110px' />
-                                </>
-                            )}
-                        </div>
-
-
-
-                        <div>
-                            <p className='gray-p'>{tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}, {tweet?.updatedAt?.[3]}</p>
-                        </div>
-
-
-                        <div className='outline'>
-                            <div className='comment-stats-box'>
-
-                                <p className='gray-p follower-styling' >
-                                    <span className='bold'>{tweet?.retweetCount} </span>
-                                    Retweets</p>
-                                <p className='gray-p follower-styling'><span className='bold'>{tweet?.commentCount} </span>Quote Tweets</p>
-                                <p className='gray-p follower-styling'><span className='bold'>{tweet?.likeCount} </span>Likes</p>
-                            </div>
-                        </div>
-
-                        <div className='comment-icons-box'>
-                            <div className='tweet-icon'>
-                                <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} singleTweet={singleTweet} />
-                            </div>
-                            <div className='tweet-icon'>
-                                <i className="fa-solid fa-retweet gray-icon"></i>
-
-                            </div>
-                            <div className='tweet-icon'>
-                                <Likes likeCount={tweet?.likeCount} tweet={tweet} singleTweet={singleTweet} />
+                                    </>
+                                )}
+                                {tweet?.gif !== null && (
+                                    <>
+                                        <img className='img-gif' src={tweet?.gif} width='200' />
+                                        <img className="padding-top " src={giphyTag} width='110px' />
+                                    </>
+                                )}
                             </div>
 
-                        </div>
-                    </>
-                )}
-                <CreateCommentInline tweetId={tweetId} />
 
 
-
-                {tweet?.Comments && (
-                    tweet?.Comments.map((comment, index) => {
-                        return (
-                            <div key={index}>
-                                <GetComment comment={comment} isOwnComment={isOwnComment} />
+                            <div>
+                                <p className='gray-p'>{tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}, {tweet?.updatedAt?.[3]}</p>
                             </div>
-                        )
-                    })
-                )}
 
+
+                            <div className='outline'>
+                                <div className='comment-stats-box'>
+
+                                    <p className='gray-p follower-styling' >
+                                        <span className='bold'>{tweet?.retweetCount} </span>
+                                        Retweets</p>
+                                    <p className='gray-p follower-styling'><span className='bold'>{tweet?.commentCount} </span>Quote Tweets</p>
+                                    <p className='gray-p follower-styling'><span className='bold'>{tweet?.likeCount} </span>Likes</p>
+                                </div>
+                            </div>
+
+                            <div className='comment-icons-box'>
+                                <div className='tweet-icon'>
+                                    <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} singleTweet={singleTweet} />
+                                </div>
+                                <div className='tweet-icon'>
+                                    <i className="fa-solid fa-retweet gray-icon"></i>
+
+                                </div>
+                                <div className='tweet-icon'>
+                                    <Likes likeCount={tweet?.likeCount} tweet={tweet} singleTweet={singleTweet} />
+                                </div>
+
+                            </div>
+                        </>
+                    )}
+                    <CreateCommentInline tweetId={tweetId} />
+
+
+                </div>
             </div>
+            {tweet?.Comments && (
+                tweet?.Comments.map((comment, index) => {
+                    return (
+                        <div key={index}>
+                            <GetComment comment={comment} isOwnComment={isOwnComment} />
+                        </div>
+                    )
+                })
+            )}
+
+            {/* </div> */}
+
         </>
     )
 }
