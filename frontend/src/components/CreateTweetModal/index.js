@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal } from "../../context/Modal"
+import { CommentModal } from "../../context/Modal"
 import CreateTweetForm from "./CreateTweetForm";
 import './CreateTweetModal.css';
 
@@ -12,9 +12,9 @@ function CreateTweetModal({ tweetId, tweet }) {
             <div className="tweet-modal-container">
                 <button onClick={() => setShowModal(true)} className="nav-button">Tweet</button>
                 {showModal && (
-                    <Modal onClose={() => setShowModal(false)}>
+                    <CommentModal onClose={() => setShowModal(false)}>
                         <CreateTweetForm setShowModal={setShowModal} />
-                    </Modal>
+                    </CommentModal>
                 )}
             </div>
         </>

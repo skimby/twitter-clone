@@ -1,23 +1,23 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { createCommentBackend } from '../../store/comment';
+import { createTweetBackend } from "../../store/tweet";
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
 import '../CreateCommentInline/CreateCommentInline.css'
 
-function TweetAddOns({ tweetId, setShowModalComment }) {
+function TweetAddOns({ tweetId, setShowModal }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
-    const [comment, setComment] = useState('');
+    const [tweet, setTweet] = useState('');
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
     const [errors, setErrors] = useState([]);
-    const [completeComment, setCompleteComment] = useState(false);
+    const [completeTweet, setCompleteTweet] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
 
     const user = useSelector(state => state.session);
@@ -31,7 +31,7 @@ function TweetAddOns({ tweetId, setShowModalComment }) {
     useEffect(() => {
         triggerButton = refButton.current
         rootElement = refContainer.current;
-    }, [inputClick, gifOrImg, comment, gif])
+    }, [inputClick, gifOrImg, tweet, gif, image])
 
     // Create the picker
     useEffect(() => {
@@ -47,18 +47,18 @@ function TweetAddOns({ tweetId, setShowModalComment }) {
             });
 
             picker4.addEventListener('emoji:select', event => {
-                setComment(comment + event.emoji)
+                setTweet(tweet + event.emoji)
             });
         }
-    }, [inputClick, gifOrImg, comment, gif])
+    }, [inputClick, gifOrImg, tweet, gif, image])
 
     useEffect(() => {
-        if (comment) {
-            setCompleteComment(true)
+        if (tweet) {
+            setCompleteTweet(true)
         } else {
-            setCompleteComment(false)
+            setCompleteTweet(false)
         }
-    }, [comment])
+    }, [tweet])
 
 
     useEffect(() => {
@@ -76,35 +76,30 @@ function TweetAddOns({ tweetId, setShowModalComment }) {
 
         setErrors([]);
 
-        const commentInput = {
-            comment,
+        const tweetInput = {
+            tweet,
             gif,
             image
         }
 
-        await dispatch(createCommentBackend(tweetId, commentInput))
+        const newTweet = await dispatch(createTweetBackend(tweetInput))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
                     setErrors(data.errors)
-                    console.log(data)
-                } else {
-
+                    // console.log(data)
                 }
             });
         if (!errors.length) {
-            setComment('')
+            setTweet('')
             setImage(null)
             setGif(null)
-            setShowModalComment(false)
+            setShowModal(false)
+            history.push(`/${user?.user?.username}/tweets/${newTweet.id}`)
         }
-        // console.log(errors)
-
-        // history.push(`/${user?.user?.username}/tweets/${tweetId}`)
-        // history.go()
     }
 
-    // console.log(image.name)
+
     const updateFile = (e) => {
         const file = e.target.files[0];
         if (file) setImage(file);
@@ -123,88 +118,88 @@ function TweetAddOns({ tweetId, setShowModalComment }) {
     }
 
     return (
-        <div className="comment-inline-container">
-            <div className="tweet-comment-container2">
-                <div className='profile-image-box'>
-                    {user?.user?.profileImage && (
-                        <img className='profile-img' src={user?.user?.profileImage} />
-                    )}
-                </div>
+        // <div className="comment-inline-container">
+        <div className="tweet-comment-container3">
+            <div className='profile-image-box'>
+                {user?.user?.profileImage && (
+                    <img className='profile-img' src={user?.user?.profileImage} />
+                )}
+            </div>
 
-                <div className='tweet-text-box'>
-
-
-                    <form onSubmit={handleSubmit} className='form comment-form'>
-                        <input
-                            onClick={focusInput}
-                            placeholder="Tweet your reply"
-                            type='text'
-                            value={comment}
-                            onChange={(e) => setComment(e.target.value)}>
-                        </input>
+            <div className='tweet-text-box'>
 
 
-                        {gif && (
-                            <div className="display-img-gif">
-                                <div className="remove-gif-box">
-                                    <i className="fa-solid fa-circle-xmark" onClick={removeGif}></i>
-                                </div>
-                                <img src={gif} className='img-gif' width='200' />
+                <form onSubmit={handleSubmit} className='form comment-form'>
+                    <input
+                        onClick={focusInput}
+                        placeholder="What's happening?"
+                        type='text'
+                        value={tweet}
+                        onChange={(e) => setTweet(e.target.value)}>
+                    </input>
+
+
+                    {gif && (
+                        <div className="display-img-gif">
+                            <div className="remove-gif-box">
+                                <i className="fa-solid fa-circle-xmark" onClick={removeGif}></i>
                             </div>
+                            <img src={gif} className='img-gif' width='200' />
+                        </div>
+                    )}
+
+
+
+                    <div className="comment-icons-gif-img">
+                        {!gifOrImg && (
+                            <>
+                                <label className="upload-btn inline" htmlFor='inputTag'>
+                                    <i className="fa-regular fa-image blue-icon"></i>
+                                    <input id='inputTag' type="file" onChange={updateFile} />
+                                </label>
+
+                                <div className="inline">
+                                    <GiphyModal setGif={setGif} />
+                                </div>
+                            </>
                         )}
 
+                        {gifOrImg && (
+                            <>
+                                <div className="inline">
+                                    <i className="fa-regular fa-image disabled-blue-icon"></i>
+                                </div>
+                                <div className="inline">
+                                    <i className="fa-solid fa-gift disabled-blue-icon" />
+                                </div>
+                            </>
+                        )}
 
-
-                        <div className="comment-icons-gif-img">
-                            {!gifOrImg && (
-                                <>
-                                    <label className="upload-btn inline" htmlFor='inputTag'>
-                                        <i className="fa-regular fa-image blue-icon"></i>
-                                        <input id='inputTag' type="file" onChange={updateFile} />
-                                    </label>
-
-                                    <div className="inline">
-                                        <GiphyModal setGif={setGif} />
-                                    </div>
-                                </>
-                            )}
-
-                            {gifOrImg && (
-                                <>
-                                    <div className="inline">
-                                        <i className="fa-regular fa-image disabled-blue-icon"></i>
-                                    </div>
-                                    <div className="inline">
-                                        <i className="fa-solid fa-gift disabled-blue-icon" />
-                                    </div>
-                                </>
-                            )}
-
-                            <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji4}>
-                                <i className="fa-regular fa-face-smile blue-icon"></i>
-                            </div>
-
-                            <div className='emoji-container3' id='inline' ref={refContainer} ></div>
-
-                            {completeComment && (
-                                <button className='btn-float-right' type=' submit'>Tweet</button>
-                            )}
-                            {!completeComment && (
-                                <button className="disabled-btn btn-float-right">Tweet</button>
-                            )}
+                        <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji4}>
+                            <i className="fa-regular fa-face-smile blue-icon"></i>
                         </div>
 
+                        <div className='emoji-container3' id='inline' ref={refContainer} ></div>
 
-                    </form>
-                    {errors && (
-                        <ul>
-                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                        </ul>
+                        {completeTweet && (
+                            <button className='btn-float-right' type=' submit'>Tweet</button>
+                        )}
+                        {!completeTweet && (
+                            <button className="disabled-btn btn-float-right">Tweet</button>
+                        )}
+                    </div>
 
-                    )}
-                </div>
+
+                </form>
+                {errors && (
+                    <ul>
+                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
+
+                )}
             </div>
-        </div >
+        </div>
+        // </div >
     )
 }
 

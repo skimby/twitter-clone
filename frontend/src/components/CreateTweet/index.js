@@ -5,7 +5,7 @@ import { createTweetBackend } from '../../store/tweet';
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from '../GiphyModal';
 import './CreateTweet.css'
-
+import TweetAddOns from '../TweetAddOns';
 
 function CreateTweet() {
     const dispatch = useDispatch();
@@ -73,7 +73,7 @@ function CreateTweet() {
         if (file) setImage(file);
     };
 
-    console.log(triggerButton, rootElement, picker)
+    // console.log(triggerButton, rootElement, picker)
     const handleOpenEmoji = () => {
         console.log(picker.isOpen)
         picker.open()
@@ -81,13 +81,18 @@ function CreateTweet() {
     }
 
     return (
-        <div className='create-tweet-container'>
-            <div className='profile-image-box'>
-                {user?.user?.profileImage && (
-                    <img className='profile-img' src={user?.user?.profileImage} />
-                )}
-            </div>
-            <div className='create-tweet-box'>
+        <div>
+            <TweetAddOns />
+        </div>
+    )
+    // <div className='create-tweet-container'>
+    //     <div className='profile-image-box'>
+    //         {user?.user?.profileImage && (
+    //             <img className='profile-img' src={user?.user?.profileImage} />
+    //         )}
+    //     </div>
+
+    {/* <div className='create-tweet-box'>
                 <form onSubmit={handleSubmit} className='form'>
                     <input
                         placeholder="What's happening?"
@@ -99,10 +104,10 @@ function CreateTweet() {
                         <input type="file" onChange={updateFile} />
                     </label>
                 </form>
-            </div>
+            </div> */}
 
 
-            <div className='tweet-addons-box'>
+    {/* <div className='tweet-addons-box'>
 
                 <div className='emoji-container' ref={refContainer}></div>
 
@@ -115,18 +120,18 @@ function CreateTweet() {
                 </div>
 
 
-            </div>
+            </div> */}
 
 
-            <div>
+    //     <div>
 
 
 
-                {submitButton()}
-            </div>
-        </div>
+    //         {submitButton()}
+    //     </div>
+    // </div>
 
-    )
+
 }
 
 export default CreateTweet;

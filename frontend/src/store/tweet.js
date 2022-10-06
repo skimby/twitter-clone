@@ -191,7 +191,7 @@ const tweetsReducer = (state = initialState, action) => {
             action.payload.Tweets.forEach(tweet => {
                 getTweetsUser.userTweets[tweet.id] = tweet
             })
-            console.log(getTweetsUser)
+            // console.log(getTweetsUser)
 
             return getTweetsUser;
         case GET_TWEETS_LOGGED_USER:

@@ -4,10 +4,9 @@ import { useHistory } from "react-router-dom";
 import { createCommentBackend } from '../../store/comment';
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
-import './CreateCommentInline.css'
+import '../CreateCommentInline/CreateCommentInline.css'
 
-
-function CreateCommentInline({ tweetId, setShowModalComment }) {
+function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
@@ -32,7 +31,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     useEffect(() => {
         triggerButton = refButton.current
         rootElement = refContainer.current;
-    }, [inputClick, gifOrImg, gif, image, comment])
+    }, [inputClick, gifOrImg, comment, gif])
 
     // Create the picker
     useEffect(() => {
@@ -51,7 +50,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                 setComment(comment + event.emoji)
             });
         }
-    }, [inputClick, gifOrImg, gif, image, comment])
+    }, [inputClick, gifOrImg, comment, gif])
 
     useEffect(() => {
         if (comment) {
@@ -97,10 +96,11 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
             setComment('')
             setImage(null)
             setGif(null)
+            setShowModalComment(false)
+            history.push(`/${user?.user?.username}/tweets/${tweetId}`)
         }
         // console.log(errors)
 
-        // history.push(`/${user?.user?.username}/tweets/${tweetId}`)
         // history.go()
     }
 
@@ -124,7 +124,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
 
     return (
         <div className="comment-inline-container">
-            <div className="tweet-comment-container">
+            <div className="tweet-comment-container2">
                 <div className='profile-image-box'>
                     {user?.user?.profileImage && (
                         <img className='profile-img' src={user?.user?.profileImage} />
@@ -154,48 +154,47 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                         )}
 
 
-                        {inputClick && (
-                            <>
-                                <div className="comment-icons-gif-img">
-                                    {!gifOrImg && (
-                                        <>
-                                            <label className="upload-btn inline" htmlFor='inputTag'>
-                                                <i className="fa-regular fa-image blue-icon"></i>
-                                                <input id='inputTag' type="file" onChange={updateFile} />
-                                            </label>
 
-                                            <div className="inline">
-                                                <GiphyModal setGif={setGif} />
-                                            </div>
-                                        </>
-                                    )}
+                        <div className="comment-icons-gif-img">
+                            {!gifOrImg && (
+                                <>
+                                    <label className="upload-btn inline" htmlFor='inputTag'>
+                                        <i className="fa-regular fa-image blue-icon"></i>
+                                        <input id='inputTag' type="file" onChange={updateFile} />
+                                    </label>
 
-                                    {gifOrImg && (
-                                        <>
-                                            <div className="inline">
-                                                <i className="fa-regular fa-image disabled-blue-icon"></i>
-                                            </div>
-                                            <div className="inline">
-                                                <i className="fa-solid fa-gift disabled-blue-icon" />
-                                            </div>
-                                        </>
-                                    )}
-
-                                    <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji4}>
-                                        <i className="fa-regular fa-face-smile blue-icon"></i>
+                                    <div className="inline">
+                                        <GiphyModal setGif={setGif} />
                                     </div>
+                                </>
+                            )}
 
-                                    <div className='emoji-container3' id='inline' ref={refContainer} ></div>
+                            {gifOrImg && (
+                                <>
+                                    <div className="inline">
+                                        <i className="fa-regular fa-image disabled-blue-icon"></i>
+                                    </div>
+                                    <div className="inline">
+                                        <i className="fa-solid fa-gift disabled-blue-icon" />
+                                    </div>
+                                </>
+                            )}
 
-                                    {completeComment && (
-                                        <button className='btn-float-right' type=' submit'>Tweet</button>
-                                    )}
-                                    {!completeComment && (
-                                        <button className="disabled-btn btn-float-right">Tweet</button>
-                                    )}
-                                </div>
-                            </>
-                        )}
+                            <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji4}>
+                                <i className="fa-regular fa-face-smile blue-icon"></i>
+                            </div>
+
+                            <div className='emoji-container3' id='inline' ref={refContainer} ></div>
+
+                            {completeComment && (
+                                <button className='btn-float-right' type=' submit'>Reply</button>
+                            )}
+                            {!completeComment && (
+                                <button className="disabled-btn btn-float-right">Reply</button>
+                            )}
+                        </div>
+
+
                     </form>
                     {errors && (
                         <ul>
@@ -209,4 +208,4 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     )
 }
 
-export default CreateCommentInline;
+export default CommentAddOns;

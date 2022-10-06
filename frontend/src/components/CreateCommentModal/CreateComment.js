@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { createCommentBackend } from '../../store/comment';
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
-import TweetAddOns from "../TweetAddOns";
+import CommentAddOns from "../CommentAddOns";
 import '../GetTweets/GetTweets.css'
 
 function CreateComment({ tweetId, setShowModalComment, tweet }) {
@@ -69,9 +69,7 @@ function CreateComment({ tweetId, setShowModalComment, tweet }) {
 
                     <img className='profile-img' src={tweet?.User?.profileImage} />
 
-                    {/* <div className="line-box"> */}
                     <div className="vl"></div>
-                    {/* </div> */}
                 </div>
 
 
@@ -96,7 +94,7 @@ function CreateComment({ tweetId, setShowModalComment, tweet }) {
 
             </div>
             <div>
-                <TweetAddOns tweetId={tweetId} setShowModalComment={setShowModalComment} />
+                <CommentAddOns tweetId={tweetId} setShowModalComment={setShowModalComment} tweet={tweet} />
             </div>
 
 

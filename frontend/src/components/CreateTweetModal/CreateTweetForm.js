@@ -4,11 +4,11 @@ import { useHistory } from "react-router-dom";
 import { createTweetBackend } from '../../store/tweet'
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
+import TweetAddOns from "../TweetAddOns";
 import './CreateTweetModal.css'
-import { restoreCSRF } from "../../store/csrf";
 
 
-function CreateTweetForm() {
+function CreateTweetForm({ setShowModal }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef();
@@ -82,39 +82,18 @@ function CreateTweetForm() {
     }, [image]);
 
 
-    //EMOJI STUFF
-    let triggerButton;
-    let rootElement;
-    let picker1;
-
-    useEffect(() => {
-        triggerButton = refButton.current;
-        rootElement = refContainer.current;
-    }, [])
-
-    useEffect(() => {
-        picker1 = createPopup({
-            animate: false,
-            autoFocus: 'auto',
-            rootElement
-        }, {
-            triggerElement: triggerButton,
-            referenceElement: triggerButton,
-            position: 'bottom-start'
-        });
-        picker1.addEventListener('emoji:select', event => {
-            setTweet(tweet + event.emoji)
-        });
-
-    })
-
-    const handleOpenEmoji = () => {
-        picker1.open()
-    }
-
     return (
         <div>
-            <div className='profile-image-box'>
+            <div className="replying-to-comment">
+                <div className="x-box" onClick={() => setShowModal(false)}>
+                    <i className="fa-solid fa-x"></i>
+                </div>
+            </div>
+
+            <div>
+                <TweetAddOns setShowModal={setShowModal} />
+            </div>
+            {/* <div className='profile-image-box'>
                 {user?.user?.profileImage && (
                     <img className='profile-img' src={user?.user?.profileImage} />
                 )}
@@ -167,7 +146,7 @@ function CreateTweetForm() {
 
                 </form>
 
-            </div>
+            </div> */}
         </div>
     )
 }
