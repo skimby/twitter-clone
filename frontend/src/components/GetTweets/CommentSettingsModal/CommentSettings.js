@@ -7,7 +7,7 @@ import { getOneTweetBackend } from '../../../store/tweet'
 import { useDispatch, useSelector } from "react-redux";
 
 
-function CommentSettings({ comment, setShowModal }) {
+function CommentSettings({ comment, setShowModalSettings }) {
     const [edit, setEdit] = useState(true)
     const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ function CommentSettings({ comment, setShowModal }) {
     return (
         <>
             <div className="settings-header">
-                <div className="x-box" onClick={() => setShowModal(false)}>
+                <div className="x-box" onClick={() => setShowModalSettings(false)}>
                     <i className="fa-solid fa-x"></i>
                 </div>
                 <div className="settings-logo-box">
@@ -32,8 +32,8 @@ function CommentSettings({ comment, setShowModal }) {
             <div className='settings-box'>
                 <h2 className="padding">Change or remove your comment</h2>
                 <ul>
-                    <li><CreateCommentModal commentId={comment?.id} comment={comment} edit={edit} tweet={tweet} setShowModal={setShowModal} /></li>
-                    <li><DeleteCommentModal comment={comment} /></li>
+                    <li><CreateCommentModal commentId={comment?.id} comment={comment} edit={edit} tweet={tweet} setShowModalSettings={setShowModalSettings} /></li>
+                    <li><DeleteCommentModal comment={comment} setShowModalSettings={setShowModalSettings} /></li>
                 </ul>
             </div>
 

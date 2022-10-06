@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CommentModal } from "../../context/Modal"
 import CreateComment from "./CreateComment";
 
-function CreateCommentModal({ commentCount, comment, tweet, singleTweet, edit, setShowModal }) {
+function CreateCommentModal({ commentCount, comment, tweet, singleTweet, edit, setShowModalSettings }) {
     const [showModalComment, setShowModalComment] = useState();
 
     return (
@@ -29,7 +29,7 @@ function CreateCommentModal({ commentCount, comment, tweet, singleTweet, edit, s
 
                     {showModalComment && (
                         <CommentModal onClose={() => setShowModalComment(false)}>
-                            <CreateComment setShowModalComment={setShowModalComment} tweetId={tweet?.id} tweet={tweet} edit={edit} currentComment={comment} setShowModal={setShowModal}
+                            <CreateComment setShowModalComment={setShowModalComment} tweetId={tweet?.id} tweet={tweet} edit={edit} currentComment={comment} setShowModalSettings={setShowModalSettings}
                             />
 
                         </CommentModal>

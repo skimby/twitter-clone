@@ -4,7 +4,7 @@ import { deleteCommentBackend } from "../../../../store/comment";
 import { useHistory } from 'react-router-dom';
 
 
-function DeleteComment({ commentId, tweetId, setShowModal }) {
+function DeleteComment({ commentId, tweetId, setShowModal, setShowModalSettings }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -12,6 +12,7 @@ function DeleteComment({ commentId, tweetId, setShowModal }) {
         await dispatch(deleteCommentBackend(commentId, tweetId))
 
         setShowModal(false)
+        setShowModalSettings(false)
     }
 
     return (

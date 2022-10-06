@@ -19,10 +19,13 @@ function GetComment({ comment, tweetId, isOwnComment }) {
 
 
                 <div className='tweet-text-box'>
-                    <div className='comment-user-info-box'>
+                    <div className='tweet-user-header'>
                         {/* <Link to={`/${comment?.User?.username}/${comment?.User?.id}/tweets/${comment?.tweetId}`}> */}
 
-                        <h5 className='inline'>{comment?.User?.firstName} <span className='thin-styling'>@{comment?.User?.username} • {comment?.updatedAt?.[1]} {comment?.updatedAt?.[2]}</span></h5>
+                        <div className='username-name-box'>
+                            <h5 className='name-username'>{comment?.User?.firstName} <span className='thin-styling'>@{comment?.User?.username} • {comment?.updatedAt?.[1]} {comment?.updatedAt?.[2]}</span></h5>
+                        </div>
+
                         {isOwnComment && (
                             <div className='settings-btn' >
                                 <CommentSettingsModal comment={comment} />

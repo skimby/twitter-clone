@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 
 function CommentSettingsModal({ comment }) {
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModalSettings] = useState(false);
     const [isUsersTweet, setIsUsersTweet] = useState();
     const loggedUser = useSelector(state => state.session)
 
@@ -18,10 +18,10 @@ function CommentSettingsModal({ comment }) {
         <>
             {isUsersTweet && (
                 <>
-                    <i onClick={() => setShowModal(true)} className="fa-solid fa-ellipsis"></i>
+                    <i onClick={() => setShowModalSettings(true)} className="fa-solid fa-ellipsis"></i>
                     {showModal && (
-                        <SmallModal onClose={() => setShowModal(false)}>
-                            <CommentSettings comment={comment} setShowModal={setShowModal} />
+                        <SmallModal onClose={() => setShowModalSettings(false)}>
+                            <CommentSettings comment={comment} setShowModalSettings={setShowModalSettings} />
                         </SmallModal>
                     )}
                 </>

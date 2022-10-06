@@ -7,7 +7,7 @@ import GiphyModal from "../GiphyModal";
 import giphyTag from '../../images/powered-by-giphy.png'
 import '../CreateCommentInline/CreateCommentInline.css'
 
-function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowModal, edit }) {
+function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowModalSettings, edit }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
@@ -93,7 +93,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
 
             if (editedComent) {
                 setShowModalComment(false)
-                setShowModal(false)
+                setShowModalSettings(false)
             }
         } else {
 
