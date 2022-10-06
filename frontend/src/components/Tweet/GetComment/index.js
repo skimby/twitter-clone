@@ -1,7 +1,7 @@
 import { Redirect, useHistory, Link } from 'react-router-dom';
 import CommentSettingsModal from "../../GetTweets/CommentSettingsModal";
 
-function GetComment({ comment, tweetId }) {
+function GetComment({ comment, tweetId, isOwnComment }) {
     const history = useHistory();
 
     return (
@@ -29,10 +29,11 @@ function GetComment({ comment, tweetId }) {
                     <img src={comment?.gif} width='200' />
                 </div>
 
-
-                <div className='settings-btn' >
-                    <CommentSettingsModal comment={comment} />
-                </div>
+                {isOwnComment && (
+                    <div className='settings-btn' >
+                        <CommentSettingsModal comment={comment} />
+                    </div>
+                )}
 
             </div>
         </>

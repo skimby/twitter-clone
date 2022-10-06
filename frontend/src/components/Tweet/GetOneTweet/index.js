@@ -16,7 +16,9 @@ function GetOneTweet({ tweetId }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const [isOwnComment, setIsOwnComment] = useState()
     const [singleTweet, setSingleTweet] = useState(true);
+    const loggedUser = useSelector(state => state.session.user)
     const user = useSelector(state => state.users)
     const likes = useSelector(state => state.likes)
     const tweets = useSelector(state => state.tweets)
@@ -30,8 +32,17 @@ function GetOneTweet({ tweetId }) {
         allComments2.sort((a, b) => {
             return new Date(b.createdAt1) - new Date(a.createdAt1)
         })
-
     }
+
+    useEffect(() => {
+        if (tweet) {
+            if (tweet?.userId === loggedUser.id) {
+                setIsOwnComment(true)
+            } else {
+                setIsOwnComment(false)
+            }
+        }
+    }, [dispatch, tweet])
 
     useEffect(() => {
         dispatch(getOneTweetBackend(tweetId))
@@ -142,7 +153,7 @@ function GetOneTweet({ tweetId }) {
                     tweet?.Comments.map((comment, index) => {
                         return (
                             <div key={index}>
-                                <GetComment comment={comment} />
+                                <GetComment comment={comment} isOwnComment={isOwnComment} />
                             </div>
                         )
                     })

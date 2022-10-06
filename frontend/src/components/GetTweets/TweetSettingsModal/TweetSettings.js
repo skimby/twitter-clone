@@ -21,7 +21,7 @@ function TweetSettings({ tweet, tweetId, setShowModal }) {
         }
     }, [dispatch, tweetId])
 
-    console.log(currentTweet)
+
 
     return (
         <>

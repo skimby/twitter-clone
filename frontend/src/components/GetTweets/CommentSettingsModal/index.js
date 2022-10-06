@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal } from "../../../context/Modal";
+import { SmallModal } from "../../../context/Modal";
 import CommentSettings from "./CommentSettings";
 import { useDispatch, useSelector } from "react-redux"
 
@@ -20,9 +20,9 @@ function CommentSettingsModal({ comment }) {
                 <>
                     <i onClick={() => setShowModal(true)} className="fa-solid fa-ellipsis"></i>
                     {showModal && (
-                        <Modal onClose={() => setShowModal(false)}>
-                            <CommentSettings comment={comment} />
-                        </Modal>
+                        <SmallModal onClose={() => setShowModal(false)}>
+                            <CommentSettings comment={comment} setShowModal={setShowModal} />
+                        </SmallModal>
                     )}
                 </>
             )}
