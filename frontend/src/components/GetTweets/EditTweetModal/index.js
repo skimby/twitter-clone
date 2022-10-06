@@ -4,15 +4,16 @@ import EditTweetForm from "./EditTweetForm";
 
 function EditFormModal({ tweetId, tweet }) {
     const [showModal, setShowModal] = useState();
+    const [edit, setEdit] = useState(true);
 
     return (
         <>
             <button className='black-btn' onClick={() => setShowModal(true)}>Edit Tweet</button>
-            {/* <p onClick={() => setShowModal(true)} >Edit Tweet</p> */}
+
 
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <EditTweetForm tweetId={tweetId} tweet={tweet} />
+                    <EditTweetForm edit={edit} tweetId={tweetId} tweet={tweet} />
                 </Modal>
             )}
         </>

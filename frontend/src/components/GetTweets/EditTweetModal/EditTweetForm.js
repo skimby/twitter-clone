@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { editTweetBackend } from '../../../store/tweet';
+import CreateTweetModal from "../../CreateTweetModal";
 
 function EditTweetForm({ tweet, tweetId }) {
     const dispatch = useDispatch();
@@ -13,18 +14,19 @@ function EditTweetForm({ tweet, tweetId }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Edit Tweet
-                <input
-                    type="text"
-                    value={editTweet}
-                    onChange={(e) => setEditTweet(e.target.value)}
-                    required
-                />
-            </label>
-            <button type="submit">Tweet</button>
-        </form>
+        <CreateTweetModal />
+        // <form onSubmit={handleSubmit}>
+        //     <label>
+        //         Edit Tweet
+        //         <input
+        //             type="text"
+        //             value={editTweet}
+        //             onChange={(e) => setEditTweet(e.target.value)}
+        //             required
+        //         />
+        //     </label>
+        //     <button type="submit">Tweet</button>
+        // </form>
     )
 }
 

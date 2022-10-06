@@ -1,18 +1,24 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { createTweetBackend } from "../../store/tweet";
+import { createTweetBackend, getOneTweetBackend } from "../../store/tweet";
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
 import '../CreateCommentInline/CreateCommentInline.css'
+import { editTweetBackend, getOne } from '../../store/tweet';
 
-function TweetAddOns({ tweetId, setShowModal }) {
+
+function TweetAddOns({ tweetId, setShowModal, edit }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
-    const [tweet, setTweet] = useState('');
+    const user = useSelector(state => state.session);
+    const currentTweet = useSelector(state => state.tweets?.currentTweet);
+
+
+    const [tweet, setTweet] = useState((currentTweet?.tweet) || '');
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
@@ -20,15 +26,20 @@ function TweetAddOns({ tweetId, setShowModal }) {
     const [completeTweet, setCompleteTweet] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
 
-    const user = useSelector(state => state.session);
 
-    console.log(errors)
 
+    console.log(currentTweet?.tweet)
 
     //EMOJI STUFF
     let triggerButton;
     let rootElement;
     let picker4;
+
+    useEffect(() => {
+        if (tweetId) {
+            dispatch(getOneTweetBackend(tweetId))
+        }
+    }, [dispatch, tweetId])
 
     useEffect(() => {
         triggerButton = refButton.current
@@ -76,30 +87,35 @@ function TweetAddOns({ tweetId, setShowModal }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setErrors([]);
+        if (edit) {
+            const tweetInput = { tweet: tweet }
 
-        const tweetInput = {
-            tweet,
-            gif,
-            image
-        }
+            const editedTweet = dispatch(editTweetBackend(tweetId, tweetInput));
+        } else {
 
-        const newTweet = await dispatch(createTweetBackend(tweetInput))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) {
-                    setErrors(data.errors)
-                }
-            });
+            setErrors([]);
 
+            const tweetInput = {
+                tweet,
+                gif,
+                image
+            }
 
+            const newTweet = await dispatch(createTweetBackend(tweetInput))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) {
+                        setErrors(data.errors)
+                    }
+                });
 
-        if (!errors.length) {
-            setTweet('')
-            setImage(null)
-            setGif(null)
-            setShowModal(false)
-            history.push(`/${user?.user?.username}/tweets/${newTweet.id}`)
+            if (!errors.length) {
+                setTweet('')
+                setImage(null)
+                setGif(null)
+                setShowModal(false)
+                history.push(`/${user?.user?.username}/tweets/${newTweet.id}`)
+            }
         }
     }
 
@@ -152,7 +168,7 @@ function TweetAddOns({ tweetId, setShowModal }) {
 
 
                     <div className="comment-icons-gif-img">
-                        {!gifOrImg && (
+                        {(!gifOrImg && !edit) && (
                             <>
                                 <label className="upload-btn inline" htmlFor='inputTag'>
                                     <i className="fa-regular fa-image blue-icon"></i>
@@ -165,7 +181,7 @@ function TweetAddOns({ tweetId, setShowModal }) {
                             </>
                         )}
 
-                        {gifOrImg && (
+                        {(gifOrImg || edit) && (
                             <>
                                 <div className="inline">
                                     <i className="fa-regular fa-image disabled-blue-icon"></i>

@@ -1,9 +1,14 @@
 import EditFormModal from "../EditTweetModal";
 import DeleteTweetModal from "../DeleteTweetModal";
 import logo from '../../../images/twitter-logo.png'
+import { useState } from "react";
 import './TweetSettings.css'
+import CreateTweetModal from "../../CreateTweetModal";
 
-function TweetSettings({ tweet, setShowModal }) {
+function TweetSettings({ tweet, tweetId, setShowModal }) {
+
+    console.log(tweetId)
+    const [edit, setEdit] = useState(true);
 
     return (
         <>
@@ -19,8 +24,10 @@ function TweetSettings({ tweet, setShowModal }) {
             <div className='settings-box'>
                 <h2 className="padding">Change or remove your tweet</h2>
                 <ul>
-                    <li><EditFormModal tweetId={tweet?.id} tweet={tweet} /></li>
-                    <li><DeleteTweetModal tweetId={tweet?.id} /></li>
+                    <li>
+                        <CreateTweetModal edit={edit} tweetId={tweetId} />
+                    </li>
+                    <li><DeleteTweetModal tweetId={tweetId} /></li>
                 </ul>
             </div>
         </>

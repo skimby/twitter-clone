@@ -8,7 +8,7 @@ import TweetAddOns from "../TweetAddOns";
 import './CreateTweetModal.css'
 
 
-function CreateTweetForm({ setShowModal }) {
+function CreateTweetForm({ setShowModal, edit, tweetId }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef();
@@ -22,6 +22,7 @@ function CreateTweetForm({ setShowModal }) {
     const [completeTweet, setCompleteTweet] = useState(false);
     const [gifSet, setGifSet] = useState(false);
     const [imageSet, setImageSet] = useState(false);
+    console.log('2', tweetId)
 
 
     useEffect(() => {
@@ -59,7 +60,7 @@ function CreateTweetForm({ setShowModal }) {
             </div>
 
             <div>
-                <TweetAddOns setShowModal={setShowModal} />
+                <TweetAddOns tweetId={tweetId} setShowModal={setShowModal} edit={edit} />
             </div>
         </div>
     )

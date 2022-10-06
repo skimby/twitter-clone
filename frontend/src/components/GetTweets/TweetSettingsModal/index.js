@@ -22,7 +22,7 @@ function TweetSettingsModal({ tweet }) {
             )}
             {showModal && (
                 <SmallModal onClose={() => setShowModal(false)}>
-                    <TweetSettings setShowModal={setShowModal} tweet={tweet} />
+                    <TweetSettings setShowModal={setShowModal} tweet={tweet} tweetId={tweet?.id} />
                 </SmallModal>
             )}
         </>

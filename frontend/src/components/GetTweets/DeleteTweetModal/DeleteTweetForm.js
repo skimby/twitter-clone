@@ -10,7 +10,6 @@ function DeleteTweetForm({ tweetId, setShowModalDelete }) {
 
     const handleDelete = async () => {
         await dispatch(deleteTweetBackend(tweetId))
-
         history.go()
     }
 
