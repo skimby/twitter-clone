@@ -9,13 +9,6 @@ import './GetTweets.css'
 function GetTweets({ tweets }) {
     const history = useHistory();
 
-
-    console.log(tweets)
-    // useEffect(() => {
-    //     tweets = Object.values(tweets).sort((a, b) => {
-    //         return new Date(b.createdAt1) - new Date(a.createdAt1)
-    //     })
-    // })
     return (
         <>
             {tweets && (

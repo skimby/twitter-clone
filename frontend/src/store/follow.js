@@ -158,7 +158,6 @@ const followsReducer = (state = initialState, action) => {
 
             if (createFollowState.nonFollowers[action.payload.followerId]) {
                 delete createFollowState.nonFollowers[action.payload.followerId]
-
             }
 
             if (action.isOwnPage) {
@@ -174,9 +173,9 @@ const followsReducer = (state = initialState, action) => {
             if (action.isOwnPage) {
                 delete deleteFollowState.following[action.payload.id]
             }
+            deleteFollowState.nonFollowers[action.payload.id] = action.payload;
             return deleteFollowState;
         case GET_NONFOLLOWERS:
-            console.log(action.payload)
             const getNonFollowersState = { ...state };
             getNonFollowersState.nonFollowers = {}
             action.payload.nonFollowers.forEach((follow) => {

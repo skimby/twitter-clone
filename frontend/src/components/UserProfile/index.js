@@ -92,11 +92,15 @@ function UserProfile({ sessionUser }) {
             </div>
 
             <div className='following-button-box'>
-                {alreadyFollowing && (
-                    <FollowingButton loggedUserId={sessionUser?.id} userId={userId} />
-                )}
-                {!alreadyFollowing && (
-                    <FollowButton loggedUserId={sessionUser?.id} userId={userId} />
+                {!isOwnPage && (
+                    <>
+                        {alreadyFollowing && (
+                            <FollowingButton loggedUserId={sessionUser?.id} userId={userId} />
+                        )}
+                        {!alreadyFollowing && (
+                            <FollowButton loggedUserId={sessionUser?.id} userId={userId} />
+                        )}
+                    </>
                 )}
             </div>
 

@@ -10,7 +10,7 @@ function FollowingButton({ loggedUserId, userId, isOwnPage }) {
         // await dispatch(getFeedTweetsBackend())
     }
     return (
-        <button onClick={handleUnfollow}>Following</button>
+        <button className='following-btn outline-btn' onClick={handleUnfollow}>Following</button>
     )
 }
 export default FollowingButton;

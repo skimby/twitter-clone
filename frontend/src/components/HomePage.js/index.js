@@ -16,7 +16,6 @@ function HomePage() {
     const follows = useSelector(state => state.follows)
 
 
-    console.log(tweets?.feedTweets)
     useEffect(() => {
         dispatch(getFeedTweetsBackend())
     }, [dispatch, likes, sessionUser, follows])
