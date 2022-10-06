@@ -22,7 +22,7 @@ function CreateTweetForm({ setShowModal, edit, tweetId }) {
     const [completeTweet, setCompleteTweet] = useState(false);
     const [gifSet, setGifSet] = useState(false);
     const [imageSet, setImageSet] = useState(false);
-    console.log('2', tweetId)
+
 
 
     useEffect(() => {

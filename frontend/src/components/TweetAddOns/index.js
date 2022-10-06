@@ -87,18 +87,23 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
     }, [gif, image]);
 
 
-
+    console.log(tweet)
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (edit) {
             const tweetInput = { tweet: tweet }
 
-            const editedTweet = dispatch(editTweetBackend(tweetId, tweetInput));
+            const editedTweet = await dispatch(editTweetBackend(tweetId, tweetInput));
+
+            console.log(editedTweet)
+            if (editedTweet) {
+                setTweet('')
+                history.push(`/${currentTweet?.User?.username}/tweets/${currentTweet?.id}`)
+            }
         } else {
 
             setErrors([]);
-
             const tweetInput = {
                 tweet,
                 gif,

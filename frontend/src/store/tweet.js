@@ -108,6 +108,7 @@ export const editTweetBackend = (tweetId, tweetEdit) => async (dispatch) => {
     if (res.ok) {
         const parsedRes = await res.json();
         dispatch(editTweet(parsedRes));
+        return parsedRes;
     }
 }
 

@@ -8,7 +8,7 @@ import './CreateTweetModal.css';
 function CreateTweetModal({ tweetId, tweet, edit }) {
     const [showModal, setShowModal] = useState();
 
-    console.log('1', tweetId)
+
     return (
         <>
             {!edit && (
