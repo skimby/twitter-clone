@@ -16,7 +16,6 @@ const validateTweet = [
     handleValidationErrors
 ];
 
-
 //================== CREATE A TWEET =================//
 router.post('/create', singleMulterUpload("image"), requireAuth, validateTweet, async (req, res, next) => {
     let { tweet, gif } = req.body;

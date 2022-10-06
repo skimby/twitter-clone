@@ -6,6 +6,7 @@
 
 .tweet-comment-container {
     /* padding: 13px; */
+    padding-bottom: 20px;
     display: grid;
     grid-template-columns: 60px 1fr;
     border-bottom: 1px solid rgb(235, 235, 235);

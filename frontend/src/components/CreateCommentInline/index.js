@@ -17,11 +17,12 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState(false);
     const [completeComment, setCompleteComment] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
 
     const user = useSelector(state => state.session);
+
 
 
     //EMOJI STUFF
@@ -75,7 +76,6 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setErrors([]);
 
         const commentInput = {
             comment,
@@ -83,17 +83,16 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
             image
         }
 
-        await dispatch(createCommentBackend(tweetId, commentInput))
+        const newComment = await dispatch(createCommentBackend(tweetId, commentInput))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
+                    setErrors([]);
                     setErrors(data.errors)
                     console.log(data)
-                } else {
-
                 }
             });
-        if (!errors.length) {
+        if (newComment) {
             setComment('')
             setImage(null)
             setGif(null)
@@ -197,9 +196,12 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                             </>
                         )}
                     </form>
+
                     {errors && (
-                        <ul>
-                            {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                        <ul className="validation-errors-comments-inline">
+                            {errors.map((error, idx) => (
+                                <li key={idx}>{error}</li>
+                            ))}
                         </ul>
 
                     )}

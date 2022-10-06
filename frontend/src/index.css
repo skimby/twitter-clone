@@ -29,7 +29,7 @@ a {
 }
 
 p {
-    font-size: 14.5px;
+    font-size: 15px;
 }
 
 button {
@@ -101,10 +101,24 @@ button {
 
 .fa-heart:hover {
     color: rgb(249, 24, 128);
-
 }
 
 .gray-p {
     color: rgb(83, 100, 113);
     display: inline-block;
+}
+
+.validation-errors {
+    padding-bottom: 30px;
+    color: #EE4F4F;
+}
+
+.validation-errors-comments {
+    padding: 40px 0 10px 0;
+    color: #EE4F4F;
+}
+
+.validation-errors-comments-inline {
+    padding: 25px 0 10px 0;
+    color: #EE4F4F;
 }

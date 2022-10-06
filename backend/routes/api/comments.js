@@ -6,13 +6,6 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const router = express.Router();
 
-const validateComment = [
-    check('comment')
-        .exists({ checkFalsy: true })
-        .notEmpty()
-        .withMessage("Please provide a comment."),
-    handleValidationErrors
-];
 
 
 //================== GET ALL COMMENTS =================//
@@ -37,10 +30,15 @@ router.get('/tweets/:tweetId', requireAuth, async (req, res, next) => {
     }
 })
 
-
+const validateComment = [
+    check('comment')
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide a comment."),
+    handleValidationErrors
+];
 
 //================== CREATE A COMMENT =================//
-router.post('/tweets/:tweetId', singleMulterUpload("image"), requireAuth, async (req, res, next) => {
+router.post('/tweets/:tweetId', singleMulterUpload("image"), requireAuth, validateComment, async (req, res, next) => {
     let { comment, gif } = req.body;
 
     const { tweetId } = req.params;

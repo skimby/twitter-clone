@@ -22,6 +22,8 @@ function TweetAddOns({ tweetId, setShowModal }) {
 
     const user = useSelector(state => state.session);
 
+    console.log(errors)
+
 
     //EMOJI STUFF
     let triggerButton;
@@ -87,9 +89,11 @@ function TweetAddOns({ tweetId, setShowModal }) {
                 const data = await res.json();
                 if (data && data.errors) {
                     setErrors(data.errors)
-                    // console.log(data)
                 }
             });
+
+        console.log(errors)
+
         if (!errors.length) {
             setTweet('')
             setImage(null)
@@ -99,12 +103,10 @@ function TweetAddOns({ tweetId, setShowModal }) {
         }
     }
 
-
     const updateFile = (e) => {
         const file = e.target.files[0];
         if (file) setImage(file);
     };
-
 
     const handleOpenEmoji4 = () => {
         picker4.open()
@@ -127,7 +129,6 @@ function TweetAddOns({ tweetId, setShowModal }) {
             </div>
 
             <div className='tweet-text-box'>
-
 
                 <form onSubmit={handleSubmit} className='form comment-form'>
                     <input
@@ -195,7 +196,6 @@ function TweetAddOns({ tweetId, setShowModal }) {
                     <ul>
                         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                     </ul>
-
                 )}
             </div>
         </div>

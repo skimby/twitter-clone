@@ -12,15 +12,22 @@ function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
+    const [style, setStyle] = useState({})
     const [comment, setComment] = useState('');
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
-    const [errors, setErrors] = useState([]);
-    const [completeComment, setCompleteComment] = useState(false);
+    const [errors, setErrors] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
 
     const user = useSelector(state => state.session);
+
+
+    useEffect(() => {
+        if (comment) {
+            setStyle({ backgroundColor: "rgb(30, 155, 239)" });
+        }
+    }, [comment]);
 
 
     //EMOJI STUFF
@@ -52,13 +59,13 @@ function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
         }
     }, [inputClick, gifOrImg, comment, gif])
 
-    useEffect(() => {
-        if (comment) {
-            setCompleteComment(true)
-        } else {
-            setCompleteComment(false)
-        }
-    }, [comment])
+    // useEffect(() => {
+    //     if (comment) {
+    //         setCompleteComment(true)
+    //     } else {
+    //         setCompleteComment(false)
+    //     }
+    // }, [comment])
 
 
     useEffect(() => {
@@ -74,37 +81,36 @@ function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setErrors([]);
 
+        // if (comment === '') {
+        //     setErrors('Please provide a comment.')
+        // }
+        console.log(errors)
         const commentInput = {
             comment,
             gif,
             image
         }
 
-        await dispatch(createCommentBackend(tweetId, commentInput))
+        const newComment = await dispatch(createCommentBackend(tweetId, commentInput))
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.errors) {
+                if (data) {
+                    setErrors([]);
                     setErrors(data.errors)
-                    console.log(data)
-                } else {
-
                 }
             });
-        if (!errors.length) {
+
+
+        if (newComment) {
             setComment('')
             setImage(null)
             setGif(null)
             setShowModalComment(false)
             history.push(`/${user?.user?.username}/tweets/${tweetId}`)
         }
-        // console.log(errors)
-
-        // history.go()
     }
 
-    // console.log(image.name)
     const updateFile = (e) => {
         const file = e.target.files[0];
         if (file) setImage(file);
@@ -186,21 +192,20 @@ function CommentAddOns({ tweetId, setShowModalComment, tweet }) {
 
                             <div className='emoji-container3' id='inline' ref={refContainer} ></div>
 
-                            {completeComment && (
+                            {/* {completeComment && (
                                 <button className='btn-float-right' type=' submit'>Reply</button>
-                            )}
-                            {!completeComment && (
-                                <button className="disabled-btn btn-float-right">Reply</button>
-                            )}
+                            )} */}
+                            {/* {!completeComment && ( */}
+                            <button className="disabled-btn btn-float-right" style={style}>Reply</button>
+                            {/* )} */}
                         </div>
 
 
                     </form>
                     {errors && (
-                        <ul>
+                        <ul className="validation-errors-comments">
                             {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                         </ul>
-
                     )}
                 </div>
             </div>
