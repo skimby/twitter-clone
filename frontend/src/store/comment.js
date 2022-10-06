@@ -79,6 +79,7 @@ export const editCommentBackend = (commentId, commentInput, tweetId) => async (d
     if (res.ok) {
         const parsedRes = await res.json();
         dispatch(editComment(parsedRes));
+        return parsedRes;
     }
 }
 

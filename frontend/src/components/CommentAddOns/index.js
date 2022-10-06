@@ -1,20 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { createCommentBackend } from '../../store/comment';
+import { createCommentBackend, editCommentBackend } from '../../store/comment';
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
 import giphyTag from '../../images/powered-by-giphy.png'
 import '../CreateCommentInline/CreateCommentInline.css'
 
-function CommentAddOns({ tweetId, setShowModalComment }) {
+function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowModal, edit }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
     const [style, setStyle] = useState({})
-    const [comment, setComment] = useState('');
+    const [comment, setComment] = useState(currentComment?.comment || '');
     const [completeComment, setCompleteComment] = useState(false)
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
@@ -40,7 +40,7 @@ function CommentAddOns({ tweetId, setShowModalComment }) {
     useEffect(() => {
         triggerButton = refButton.current
         rootElement = refContainer.current;
-    }, [inputClick, gifOrImg, comment, gif, image])
+    }, [inputClick, gifOrImg, comment, gif, image, currentComment])
 
     // Create the picker
     useEffect(() => {
@@ -59,7 +59,7 @@ function CommentAddOns({ tweetId, setShowModalComment }) {
                 setComment(comment + event.emoji)
             });
         }
-    }, [inputClick, gifOrImg, comment, gif, image])
+    }, [inputClick, gifOrImg, comment, gif, image, currentComment])
 
 
     useEffect(() => {
@@ -84,27 +84,41 @@ function CommentAddOns({ tweetId, setShowModalComment }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const commentInput = {
-            comment,
-            gif,
-            image
-        }
 
-        const newComment = await dispatch(createCommentBackend(tweetId, commentInput))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data) {
-                    setErrors([]);
-                    setErrors(data.errors)
-                }
-            });
 
-        if (!errors) {
-            setComment('')
-            setImage(null)
-            setGif(null)
-            setShowModalComment(false)
-            history.push(`/${user?.user?.username}/tweets/${tweetId}`)
+        if (edit) {
+            const commentInput = { comment: comment }
+
+            const editedComent = await dispatch(editCommentBackend(currentComment.id, commentInput, tweetId))
+
+            if (editedComent) {
+                setShowModalComment(false)
+                setShowModal(false)
+            }
+        } else {
+
+            const commentInput = {
+                comment,
+                gif,
+                image
+            }
+
+            const newComment = await dispatch(createCommentBackend(tweetId, commentInput))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data) {
+                        setErrors([]);
+                        setErrors(data.errors)
+                    }
+                });
+
+            if (!errors) {
+                setComment('')
+                setImage(null)
+                setGif(null)
+                setShowModalComment(false)
+                history.push(`/${user?.user?.username}/tweets/${tweetId}`)
+            }
         }
     }
 

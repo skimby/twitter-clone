@@ -1,6 +1,5 @@
 import TweetSettingsModal from './TweetSettingsModal';
 import { useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
 import Likes from '../Likes';
 import CreateCommentModal from '../CreateCommentModal';
 import './GetTweets.css'
