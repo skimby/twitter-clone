@@ -15,7 +15,7 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
     const refContainer = useRef(null);
 
     const user = useSelector(state => state.session);
-    const currentTweet = useSelector(state => state.tweets?.currentTweet);
+    let currentTweet = useSelector(state => state.tweets?.currentTweet);
 
 
     const [tweet, setTweet] = useState('');
@@ -26,7 +26,6 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
     const [completeTweet, setCompleteTweet] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
 
-    // console.log(currentTweet?.tweet)
 
     //EMOJI STUFF
     let triggerButton;
@@ -34,10 +33,10 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
     let picker4;
 
     useEffect(() => {
-        if (currentTweet && !tweet) {
+        if (currentTweet?.id && !tweet) {
             setTweet(currentTweet.tweet)
         }
-    }, [tweet, currentTweet])
+    }, [currentTweet, tweet])
 
     useEffect(() => {
         if (tweetId) {
@@ -48,7 +47,7 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
     useEffect(() => {
         triggerButton = refButton.current
         rootElement = refContainer.current;
-    }, [inputClick, gifOrImg, tweet, gif, image])
+    }, [inputClick, gifOrImg, tweet, gif, image, currentTweet])
 
     // Create the picker
     useEffect(() => {
@@ -67,7 +66,7 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
                 setTweet(tweet + event.emoji)
             });
         }
-    }, [inputClick, gifOrImg, tweet, gif, image])
+    }, [inputClick, gifOrImg, tweet, gif, image, currentTweet])
 
     useEffect(() => {
         if (tweet) {
@@ -87,7 +86,7 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
     }, [gif, image]);
 
 
-    console.log(tweet)
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -96,9 +95,8 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
 
             const editedTweet = await dispatch(editTweetBackend(tweetId, tweetInput));
 
-            console.log(editedTweet)
             if (editedTweet) {
-                setTweet('')
+                setTweet(null)
                 history.push(`/${currentTweet?.User?.username}/tweets/${currentTweet?.id}`)
             }
         } else {

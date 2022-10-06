@@ -21,25 +21,6 @@ function CreateTweet() {
 
 
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const tweetInput = {
-            tweet,
-            gif,
-            image
-        }
-        const newTweet = await dispatch(createTweetBackend(tweetInput))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) {
-                    const newErrors = data.errors;
-                    setErrors(newErrors);
-                    // console.log(errors)
-                }
-            });
-        history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
-    }
 
     // const triggerButton = document.querySelector('#emoji-button');
     // const rootElement = document.querySelector('.emoji-container');
@@ -61,24 +42,6 @@ function CreateTweet() {
         setTweet(tweet + event.emoji)
     });
 
-
-    const submitButton = () => {
-        return (
-            <button className='tweet-button' type='submit' onClick={handleSubmit}>Tweet</button>
-        )
-    }
-
-    const updateFile = (e) => {
-        const file = e.target.files[0];
-        if (file) setImage(file);
-    };
-
-    // console.log(triggerButton, rootElement, picker)
-    const handleOpenEmoji = () => {
-        console.log(picker.isOpen)
-        picker.open()
-        console.log(picker.isOpen)
-    }
 
     return (
         <div>

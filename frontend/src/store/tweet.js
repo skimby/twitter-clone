@@ -165,6 +165,7 @@ const tweetsReducer = (state = initialState, action) => {
         case GET_FEED_TWEETS:
             const getFeedTweetsState = { ...state };
             getFeedTweetsState.feedTweets = {};
+            getFeedTweetsState.currentTweet = {};
             action.payload.Tweets.forEach(tweet => {
                 getFeedTweetsState.feedTweets[tweet.id] = tweet
             });
