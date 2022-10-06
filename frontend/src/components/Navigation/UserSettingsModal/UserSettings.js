@@ -1,12 +1,11 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react';
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import { logout } from '../../../store/session'
-
-function UserSettings() {
+import logo from '../../../images/twitter-logo.png'
+function UserSettings({ setShowModal }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const sessionUser = useSelector(state => state.session)
+    // const sessionUser = useSelector(state => state.session)
 
     const handleLogout = async () => {
         await dispatch(logout())
@@ -15,23 +14,23 @@ function UserSettings() {
 
 
     return (
-        <div className='settings-box'>
-            <div className='user-info-container' >
-                <div className='profile-img'>
-                    <img className='profile-img' src={sessionUser?.user?.profileImage} />
+        <>
+            <div className="settings-header">
+                <div className="x-box" onClick={() => setShowModal(false)}>
+                    <i className="fa-solid fa-x"></i>
                 </div>
-
-                <div className='user-info-content'>
-                    <div>
-                        <h5>{sessionUser?.user?.firstName}</h5>
-                        <h5>  <span className='thin-styling'>@{sessionUser?.user?.username}</span></h5>
-                    </div>
+                <div className="settings-logo-box">
+                    <img src={logo} className='logo-container-module' />
                 </div>
             </div>
-            <ul>
-                <li onClick={handleLogout}>Log out @{sessionUser?.user?.username}</li>
-            </ul>
-        </div>
+            <div className="settings-box">
+                <h2>Log out of Twitter?</h2>
+                <p>You can always log back in at any time. See you soon!</p>
+                <button onClick={handleLogout} className="black-btn">Log out</button>
+                <button onClick={() => setShowModal(false)} className="outline-btn">Cancel</button>
+            </div>
+
+        </>
     )
 }
 

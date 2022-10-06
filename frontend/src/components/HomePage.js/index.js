@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import CreateTweet from '../CreateTweet';
 import GetTweets from '../GetTweets';
 import { getFeedTweetsBackend } from '../../store/tweet'
-import SignupPage from '../SignupPage';
 import './HomePage.css'
 
 function HomePage() {
-    const history = useHistory();
     const dispatch = useDispatch();
     const [isLoggedIn, setIsLoggedIn] = useState();
 
@@ -18,6 +16,7 @@ function HomePage() {
     const follows = useSelector(state => state.follows)
 
 
+    console.log(tweets?.feedTweets)
     useEffect(() => {
         dispatch(getFeedTweetsBackend())
     }, [dispatch, likes, sessionUser, follows])
@@ -38,7 +37,9 @@ function HomePage() {
             </div>
             <CreateTweet />
             <div>
-                <GetTweets tweets={tweets?.feedTweets} />
+                <GetTweets tweets={Object.values(tweets?.feedTweets).sort((a, b) => {
+                    return new Date(b.createdAt1) - new Date(a.createdAt1)
+                })} />
             </div>
         </>
     )

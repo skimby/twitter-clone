@@ -9,6 +9,7 @@ module.exports = {
         tweet: 'my first tweet!',
         image: null,
         gif: 'https://media.giphy.com/media/YAGcqpFNT5DXO/giphy.gif'
+
       },
       {
         id: 2,

@@ -119,6 +119,7 @@ router.get('/feed', requireAuth, async (req, res, next) => {
                 tweetId: tweet.id
             }
         })
+        tweet.dataValues.createdAt1 = tweet.dataValues.createdAt
         tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
         tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
         tweet.dataValues.commentCount = comments.count;
@@ -135,10 +136,28 @@ router.get('/feed', requireAuth, async (req, res, next) => {
     })
 
 })
+const { Op } = require("sequelize");
 
 //========== EXPLORER PAGE: GET ALL TWEETS ============//
 router.get('/explore', requireAuth, async (req, res, next) => {
+
+    const followers = await Follow.findAll({
+        where: {
+            userId: req.user.id
+        }
+    })
+    const followerIds = Object.values(followers).map(follow => {
+        return follow.followerId
+    })
+    followerIds.push(1)
+
+    // return res.json(followerIds)
     const tweets = await Tweet.findAll({
+        where: {
+            userId: {
+                [Op.notIn]: followerIds
+            }
+        },
         attributes: ['id', 'userId', 'tweet', 'image', 'gif', 'createdAt', 'updatedAt'],
         include: [{
             model: User,
@@ -163,6 +182,7 @@ router.get('/explore', requireAuth, async (req, res, next) => {
                 tweetId: tweet.id
             }
         })
+        tweet.dataValues.createdAt1 = tweet.dataValues.createdAt
         tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
         tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
         tweet.dataValues.commentCount = comments.count;

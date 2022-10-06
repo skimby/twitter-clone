@@ -9,6 +9,13 @@ import './GetTweets.css'
 function GetTweets({ tweets }) {
     const history = useHistory();
 
+
+    console.log(tweets)
+    // useEffect(() => {
+    //     tweets = Object.values(tweets).sort((a, b) => {
+    //         return new Date(b.createdAt1) - new Date(a.createdAt1)
+    //     })
+    // })
     return (
         <>
             {tweets && (
@@ -30,7 +37,7 @@ function GetTweets({ tweets }) {
                                         <h5 className='name-username' onClick={() => { history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`) }}>
                                             {tweet?.User?.firstName}
 
-                                            <span className='thin-styling'> @{tweet?.User?.username} · {tweet?.updatedAt[1]} {tweet?.updatedAt[2]}</span></h5>
+                                            <span className='thin-styling'> @{tweet?.User?.username} · {tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}</span></h5>
                                     </div>
 
 

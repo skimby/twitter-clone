@@ -33,7 +33,7 @@ function TweetAddOns({ tweetId, setShowModal, edit }) {
     let picker4;
 
     useEffect(() => {
-        if (currentTweet?.id && !tweet) {
+        if (currentTweet?.id && !tweet && edit) {
             setTweet(currentTweet.tweet)
         }
     }, [currentTweet, tweet])

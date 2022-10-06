@@ -6,17 +6,21 @@ import GetTweets from '../../GetTweets';
 function ExploreTweets() {
     const dispatch = useDispatch();
     const tweets = useSelector(state => state.tweets);
-    let allTweets = Object.values(tweets?.exploreTweets).sort(function (a, b) { return 0.5 - Math.random() });;
+
+    let allTweets = tweets?.exploreTweets
+    const likes = useSelector(state => state.likes)
 
 
     useEffect(() => {
         dispatch(getExploreTweetsBackend())
-    }, [dispatch])
+    }, [dispatch, likes])
 
 
     return (
         <>
-            <GetTweets tweets={allTweets} />
+            <GetTweets tweets={Object.values(allTweets).sort((a, b) => {
+                return new Date(b.createdAt1) - new Date(a.createdAt1)
+            })} />
         </>
     )
 }
