@@ -175,10 +175,20 @@ router.delete('/users/:userId/unfollow', requireAuth, async (req, res, next) => 
 
     if (user) {
         if (existingFollow) {
-            const follow = await existingFollow.destroy();
-            const resFollow = await User.findByPk(follow.followerId)
+
+            const follow = await Follow.findOne({
+                where: {
+                    followerId: userId
+                },
+                include: [{
+                    model: User, as: 'Following',
+                    attributes: ['id', 'firstName', 'profileImage', 'username', 'bio', 'verified']
+                }]
+            })
+            const deletedFollow = await existingFollow.destroy();
+
             res.status(200)
-            return res.json(resFollow)
+            return res.json(follow)
         } else {
             const err = new Error("Cannot unfollow a user you do not already follow.");
             err.message = "Cannot unfollow a user you do not already follow.";

@@ -76,7 +76,7 @@
 }
 
 .remove-gif-box {
-    z-index: 3;
+    z-index: 0;
     position: relative;
     top: 35px;
     left: 10px;

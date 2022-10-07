@@ -133,7 +133,7 @@ const followsReducer = (state = initialState, action) => {
             const getFollowingState = { ...state };
             getFollowingState.following = {};
             action.payload.Following.forEach(follow => {
-                getFollowingState.following[follow.id] = follow;
+                getFollowingState.following[follow.followerId] = follow;
             })
             return getFollowingState;
 
@@ -141,41 +141,45 @@ const followsReducer = (state = initialState, action) => {
             const getFollowersState = { ...state };
             getFollowersState.followers = {};
             action.payload.Following.forEach(follow => {
-                getFollowersState.followers[follow.id] = follow;
+                getFollowersState.followers[follow.followerId] = follow;
             })
             return getFollowersState;
 
         case GET_LOGGED_USER_FOLLOWING:
             const getLoggedUserFollowingState = { ...state };
             action.payload.LoggedUserFollowing.forEach(follow => {
-                getLoggedUserFollowingState.loggedUserFollowing[follow.id] = follow;
+                getLoggedUserFollowingState.loggedUserFollowing[follow.followerId] = follow;
             })
             return getLoggedUserFollowingState;
 
         case CREATE_FOLLOW:
             const createFollowState = { ...state };
-            createFollowState.loggedUserFollowing[action.payload.id] = action.payload
+            createFollowState.loggedUserFollowing[action.payload.followerId] = action.payload
 
             if (createFollowState.nonFollowers[action.payload.followerId]) {
                 delete createFollowState.nonFollowers[action.payload.followerId]
             }
 
             if (action.isOwnPage) {
-                createFollowState.following[action.payload.id] = action.payload
+                createFollowState.following[action.payload.followerId] = action.payload
             }
 
             return createFollowState;
 
         case DELETE_FOLLOW:
+            console.log(action.payload)
+
             const deleteFollowState = { ...state };
-            delete deleteFollowState.loggedUserFollowing[action.payload.id]
+            delete deleteFollowState.loggedUserFollowing[action.payload.followerId]
 
             if (action.isOwnPage) {
-                delete deleteFollowState.following[action.payload.id]
+                delete deleteFollowState.following[action.payload.followerId]
             }
-            deleteFollowState.nonFollowers[action.payload.id] = action.payload;
+            deleteFollowState.nonFollowers[action.payload.followerId] = action.payload.Following;
             return deleteFollowState;
+
         case GET_NONFOLLOWERS:
+            console.log(action.payload)
             const getNonFollowersState = { ...state };
             getNonFollowersState.nonFollowers = {}
             action.payload.nonFollowers.forEach((follow) => {

@@ -81,7 +81,7 @@ function SignupForm({ setShowModal }) {
       </div>
 
 
-      <h1 className="center-h1">Create your account</h1>
+      <h1 className="center-h1-signup">Create your account</h1>
 
 
       <div className="signup-modal-container">
@@ -151,18 +151,26 @@ function SignupForm({ setShowModal }) {
           />
 
 
-          <label>
+          <label className="half-input1">
             Profile Image
-            <input className="half-input1" type="file" onChange={updateFile}
+            <input
+              className="half-input1"
+              type="file"
+              onChange={updateFile}
+              id='signupImg'
             />
+            <i className="fa-solid fa-image-portrait signup"></i>
           </label>
 
-          <label>
+          <label className="half-input">
             Cover Image
             <input
               className="half-input"
               type="file"
-              onChange={updateFile2} />
+              onChange={updateFile2}
+              id='coverImg'
+            />
+            <i className="fa-solid fa-users-between-lines signup"></i>
           </label>
 
 

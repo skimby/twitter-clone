@@ -7,7 +7,7 @@ import GiphyModal from "../GiphyModal";
 import CommentAddOns from "../CommentAddOns";
 import '../GetTweets/GetTweets.css'
 
-function CreateComment({ tweetId, setShowModalComment, tweet, currentComment, setShowModalSettings, edit }) {
+function CreateComment({ tweetId, setShowModalComment, tweet, currentComment, setShowModalSettings, edit, newComment }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
@@ -94,7 +94,7 @@ function CreateComment({ tweetId, setShowModalComment, tweet, currentComment, se
 
             </div>
             <div>
-                <CommentAddOns tweetId={tweetId} setShowModalComment={setShowModalComment} currentComment={currentComment} tweet={tweet} setShowModalSettings={setShowModalSettings} edit={edit} />
+                <CommentAddOns tweetId={tweetId} setShowModalComment={setShowModalComment} currentComment={currentComment} tweet={tweet} setShowModalSettings={setShowModalSettings} edit={edit} newComment={newComment} />
             </div>
 
 

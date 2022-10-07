@@ -18,6 +18,7 @@ function GetOneTweet({ tweetId }) {
     const history = useHistory();
 
     const [isOwnComment, setIsOwnComment] = useState()
+    const [newComment, setNewComment] = useState(true)
     const [singleTweet, setSingleTweet] = useState(true);
     const loggedUser = useSelector(state => state.session.user)
     const user = useSelector(state => state.users)
@@ -141,7 +142,7 @@ function GetOneTweet({ tweetId }) {
 
                             <div className='comment-icons-box'>
                                 <div className='tweet-icon'>
-                                    <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} singleTweet={singleTweet} />
+                                    <CreateCommentModal newComment={newComment} commentCount={tweet?.commentCount} tweet={tweet} singleTweet={singleTweet} />
                                 </div>
                                 <div className='tweet-icon'>
                                     <i className="fa-solid fa-retweet gray-icon"></i>

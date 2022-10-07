@@ -7,15 +7,12 @@ import GiphyModal from "../GiphyModal";
 import giphyTag from '../../images/powered-by-giphy.png'
 import '../CreateCommentInline/CreateCommentInline.css'
 
-function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowModalSettings, edit }) {
+function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowModalSettings, edit, newComment }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
     const refContainer = useRef(null);
-    const refForm = useRef(null);
 
-
-    const [style, setStyle] = useState({})
     const [comment, setComment] = useState(currentComment?.comment || '');
     const [completeComment, setCompleteComment] = useState(false)
     const [image, setImage] = useState(null);
@@ -24,18 +21,9 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
     const [errors, setErrors] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
     const [previewImageComment, setPreviewImageComment] = useState(null);
-    const [isComment, setIsComment] = useState(true);
-
 
     const user = useSelector(state => state.session);
     let file;
-
-    // useEffect(() => {
-    //     if (comment) {
-    //         setStyle({ backgroundColor: "rgb(30, 155, 239)" });
-    //     }
-    // }, [comment]);
-
 
     //EMOJI STUFF
     let triggerButton;
@@ -45,7 +33,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
     useEffect(() => {
         triggerButton = refButton.current
         rootElement = refContainer.current;
-    }, [inputClick, gifOrImg, comment, gif, image, currentComment])
+    }, [inputClick, gifOrImg, comment, gif, image, currentComment, edit])
 
     // Create the picker
     useEffect(() => {
@@ -64,7 +52,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                 setComment(comment + event.emoji)
             });
         }
-    }, [inputClick, gifOrImg, comment, gif, image, currentComment])
+    }, [inputClick, gifOrImg, comment, gif, image, currentComment, edit])
 
 
     useEffect(() => {
@@ -83,8 +71,6 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
             setGifOrImg(false)
         }
     }, [gif, image, file]);
-
-    // console.log(gifOrImg)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -199,24 +185,40 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
 
 
                         <div className="comment-icons-gif-img">
-                            {!gifOrImg && (
-                                <>
-                                    <label className="upload-btn inline" htmlFor='inputTag2'>
-                                        <i className="fa-regular fa-image blue-icon"></i>
-                                        <input
-                                            name='commentImgUpload'
-                                            id='inputTag2'
-                                            type="file"
-                                            onChange={updateFileComment} />
-                                    </label>
 
-                                    <div className="inline">
-                                        <GiphyModal setGif={setGif} />
-                                    </div>
+                            {newComment && (
+                                <>
+
+                                    {!gifOrImg && (
+                                        <>
+                                            <label className="upload-btn inline" htmlFor='inputTag2'>
+                                                <i className="fa-regular fa-image blue-icon"></i>
+                                                <input
+                                                    name='commentImgUpload'
+                                                    id='inputTag2'
+                                                    type="file"
+                                                    onChange={updateFileComment} />
+                                            </label>
+
+                                            <div className="inline">
+                                                <GiphyModal setGif={setGif} />
+                                            </div>
+                                        </>
+                                    )}
+
+                                    {gifOrImg && (
+                                        <>
+                                            <div className="inline">
+                                                <i className="fa-regular fa-image disabled-blue-icon"></i>
+                                            </div>
+                                            <div className="inline">
+                                                <i className="fa-solid fa-gift disabled-blue-icon" />
+                                            </div>
+                                        </>
+                                    )}
                                 </>
                             )}
-
-                            {gifOrImg && (
+                            {edit && (
                                 <>
                                     <div className="inline">
                                         <i className="fa-regular fa-image disabled-blue-icon"></i>

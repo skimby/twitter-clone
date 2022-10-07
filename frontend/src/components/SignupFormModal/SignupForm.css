@@ -54,3 +54,19 @@ input #file-upload-button {
     color: gray;
     font-size: 17px;
 }
+
+.center-h1-signup {
+    text-align: center;
+    padding: 35px 0 15px 0;
+}
+
+#signupImg,
+#coverImg {
+    display: none;
+}
+
+.signup {
+    color: rgb(29, 155, 240);
+    font-size: 25px;
+    padding: 0 15px;
+}

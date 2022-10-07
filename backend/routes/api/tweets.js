@@ -149,7 +149,7 @@ router.get('/explore', requireAuth, async (req, res, next) => {
     const followerIds = Object.values(followers).map(follow => {
         return follow.followerId
     })
-    followerIds.push(1)
+    followerIds.push(req.user.id)
 
     // return res.json(followerIds)
     const tweets = await Tweet.findAll({

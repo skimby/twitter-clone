@@ -4,10 +4,12 @@ import Likes from '../Likes';
 import CreateCommentModal from '../CreateCommentModal';
 import './GetTweets.css'
 import giphyTag from '../../images/powered-by-giphy.png'
+import { useState } from 'react';
 
 
 function GetTweets({ tweets }) {
     const history = useHistory();
+    const [newComment, setNewComment] = useState(true)
 
     return (
         <>
@@ -65,7 +67,7 @@ function GetTweets({ tweets }) {
                                 <div className='tweet-icons-box'>
 
                                     <div className='tweet-icon'>
-                                        <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} />
+                                        <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} newComment={newComment} />
                                     </div>
                                     <div className='tweet-icon'>
                                         <i className="fa-solid fa-retweet gray-icon"></i>
