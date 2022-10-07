@@ -14,8 +14,6 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
-    const refFocus = useRef(null)
-
     const user = useSelector(state => state.session);
 
     const [tweet, setTweet] = useState((currentTweet && currentTweet.tweet) || '');

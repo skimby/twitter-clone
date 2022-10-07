@@ -7,6 +7,7 @@ import commentsReducer from "./comment";
 import followsReducer from "./follow";
 import likesReducer from "./like";
 import gifReducer from "./gif";
+import retweetReducer from './retweet'
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   comments: commentsReducer,
   follows: followsReducer,
   likes: likesReducer,
-  gifs: gifReducer
+  gifs: gifReducer,
+  retweets: retweetReducer
 });
 
 let enhancer;

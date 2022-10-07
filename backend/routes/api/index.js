@@ -6,6 +6,7 @@ const tweetsRouter = require('./tweets.js')
 const followsRouter = require('./follows.js')
 const commentsRouter = require('./comments.js')
 const likesRouter = require('./likes.js')
+const retweetsRouter = require('./retweets.js')
 
 router.use("/session", sessionRouter);
 router.use("/users", usersRouter);
@@ -13,6 +14,7 @@ router.use("/tweets", tweetsRouter)
 router.use("/follows", followsRouter)
 router.use("/comments", commentsRouter)
 router.use('/likes', likesRouter)
+router.use('/retweets', retweetsRouter)
 
 router.post("/test", (req, res) => {
   res.json({ requestBody: req.body });

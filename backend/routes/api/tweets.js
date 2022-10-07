@@ -126,6 +126,8 @@ router.get('/feed', requireAuth, async (req, res, next) => {
         tweet.dataValues.retweetCount = retweets.count;
         tweet.dataValues.likeCount = likes.count;
         tweet.dataValues.likes = likes.rows;
+        tweet.dataValues.retweets = retweets.rows;
+
 
         tweets2.push(tweet)
     }
@@ -189,6 +191,8 @@ router.get('/explore', requireAuth, async (req, res, next) => {
         tweet.dataValues.retweetCount = retweets.count;
         tweet.dataValues.likeCount = likes.count;
         tweet.dataValues.likes = likes.rows;
+        tweet.dataValues.retweets = retweets.rows;
+
 
     }
     res.status(200)
@@ -270,6 +274,7 @@ router.get('/:tweetId', async (req, res, next) => {
         tweet.dataValues.retweetCount = retweets.count;
         tweet.dataValues.likeCount = likes.count;
         tweet.dataValues.likes = likes.rows;
+        tweet.dataValues.retweets = retweets.rows;
 
 
         res.status(200)
@@ -356,6 +361,8 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
             tweet.dataValues.retweetCount = retweets.count;
             tweet.dataValues.likeCount = likes.count;
             tweet.dataValues.likes = likes.rows;
+            tweet.dataValues.retweets = retweets.rows;
+
 
         }
 

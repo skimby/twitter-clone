@@ -1,6 +1,7 @@
 import TweetSettingsModal from './TweetSettingsModal';
 import { useHistory } from 'react-router-dom';
 import Likes from '../Likes';
+import Retweets from '../Retweet';
 import CreateCommentModal from '../CreateCommentModal';
 import './GetTweets.css'
 import giphyTag from '../../images/powered-by-giphy.png'
@@ -70,8 +71,7 @@ function GetTweets({ tweets }) {
                                         <CreateCommentModal commentCount={tweet?.commentCount} tweet={tweet} newComment={newComment} />
                                     </div>
                                     <div className='tweet-icon'>
-                                        <i className="fa-solid fa-retweet gray-icon"></i>
-                                        <p className='gray-p'></p>
+                                        <Retweets retweetCount={tweet?.retweetCount} tweet={tweet} />
                                     </div>
                                     <div className='tweet-icon'>
                                         <Likes likeCount={tweet?.likeCount} tweet={tweet} />
