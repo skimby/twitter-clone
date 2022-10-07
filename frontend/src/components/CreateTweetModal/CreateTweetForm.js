@@ -1,26 +1,13 @@
-import { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from "react-router-dom";
-import { createTweetBackend } from '../../store/tweet'
-import { createPopup } from '@picmo/popup-picker';
-import GiphyModal from "../GiphyModal";
-import TweetAddOns from "../TweetAddOns";
-// import ModalTweetAddOns from "../ModalTweetAddOns";
+import { useState, useEffect } from "react";
+import ModalTweetAddOns from "../ModalTweetsAddOns";
 
 import './CreateTweetModal.css'
 
 
-function CreateTweetForm({ setShowModal, edit, tweetId, currentTweet }) {
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const refButton = useRef();
-    const refContainer = useRef();
-
-
+function CreateTweetForm({ setShowModalTweet, edit, tweetId, currentTweet }) {
     const [tweet, setTweet] = useState('');
     const [gif, setGif] = useState(null);
     const [image, setImage] = useState(null);
-    const [errors, setErrors] = useState()
     const [completeTweet, setCompleteTweet] = useState(false);
     const [gifSet, setGifSet] = useState(false);
     const [imageSet, setImageSet] = useState(false);
@@ -56,13 +43,13 @@ function CreateTweetForm({ setShowModal, edit, tweetId, currentTweet }) {
     return (
         <div>
             <div className="replying-to-comment">
-                <div className="x-box" onClick={() => setShowModal(false)}>
+                <div className="x-box" onClick={() => setShowModalTweet(false)}>
                     <i className="fa-solid fa-x"></i>
                 </div>
             </div>
 
             <div>
-                <TweetAddOns tweetId={tweetId} setShowModal={setShowModal} edit={edit} currentTweet={currentTweet} />
+                <ModalTweetAddOns tweetId={tweetId} setShowModalTweet={setShowModalTweet} edit={edit} currentTweet={currentTweet} />
             </div>
         </div>
     )

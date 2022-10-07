@@ -6,17 +6,17 @@ import './CreateTweetModal.css';
 
 
 function CreateTweetModal({ tweetId, currentTweet, edit }) {
-    const [showModal, setShowModal] = useState();
+    const [showModal, setShowModalTweet] = useState();
 
 
     return (
         <>
             {!edit && (
                 <div className="tweet-modal-container">
-                    <button onClick={() => setShowModal(true)} className="nav-button">Tweet</button>
+                    <button onClick={() => setShowModalTweet(true)} className="nav-button">Tweet</button>
                     {showModal && (
-                        <CommentModal onClose={() => setShowModal(false)}>
-                            <CreateTweetForm setShowModal={setShowModal} tweetId={tweetId} />
+                        <CommentModal onClose={() => setShowModalTweet(false)}>
+                            <CreateTweetForm setShowModalTweet={setShowModalTweet} tweetId={tweetId} />
                         </CommentModal>
                     )}
                 </div>
@@ -24,10 +24,10 @@ function CreateTweetModal({ tweetId, currentTweet, edit }) {
 
             {edit && (
                 <div >
-                    <button onClick={() => setShowModal(true)} className="black-btn">Edit Tweet</button>
+                    <button onClick={() => setShowModalTweet(true)} className="black-btn">Edit Tweet</button>
                     {showModal && (
-                        <CommentModal onClose={() => setShowModal(false)}>
-                            <CreateTweetForm setShowModal={setShowModal} edit={edit} tweetId={tweetId} currentTweet={currentTweet} />
+                        <CommentModal onClose={() => setShowModalTweet(false)}>
+                            <CreateTweetForm setShowModalTweet={setShowModalTweet} edit={edit} tweetId={tweetId} currentTweet={currentTweet} />
                         </CommentModal>
                     )}
                 </div>

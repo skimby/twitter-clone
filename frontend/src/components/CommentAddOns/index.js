@@ -127,11 +127,8 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
 
 
     const updateFileComment = (e) => {
-        // if(ref.current)
         file = e.target.files[0];
 
-        // if (file) setImage(file)
-        // const test = refForm.current
         if (file) {
             setImage(file);
             const uploadedImageURL = URL.createObjectURL(file)
@@ -139,7 +136,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
         }
     };
 
-    console.log(file)
+
     const handleOpenEmoji2 = () => {
         picker2.open()
     }
@@ -204,10 +201,11 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                         <div className="comment-icons-gif-img">
                             {!gifOrImg && (
                                 <>
-                                    <label className="upload-btn inline" htmlFor='inputTag'>
+                                    <label className="upload-btn inline" htmlFor='inputTag2'>
                                         <i className="fa-regular fa-image blue-icon"></i>
                                         <input
-                                            id='inputTag'
+                                            name='commentImgUpload'
+                                            id='inputTag2'
                                             type="file"
                                             onChange={updateFileComment} />
                                     </label>

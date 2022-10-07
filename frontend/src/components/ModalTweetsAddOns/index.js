@@ -1,20 +1,18 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { createTweetBackend, getOneTweetBackend } from "../../store/tweet";
+import { createTweetBackend } from "../../store/tweet";
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
 import '../CreateCommentInline/CreateCommentInline.css'
 import { editTweetBackend } from '../../store/tweet';
 import giphyTag from '../../images/powered-by-giphy.png'
 
-function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
+function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
     const refContainer = useRef(null);
-
-    const refFocus = useRef(null)
 
     const user = useSelector(state => state.session);
 
@@ -39,7 +37,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     useEffect(() => {
         triggerButton = refButton.current
         rootElement = refContainer.current;
-    }, [inputClick, gifOrImg, tweet, gif, image, currentTweet])
+    }, [inputClick, gifOrImg, tweet, gif, image, currentTweet, previewImage])
 
     // Create the picker
     useEffect(() => {
@@ -58,7 +56,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                 setTweet(tweet + event.emoji)
             });
         }
-    }, [inputClick, gifOrImg, tweet, gif, image, currentTweet])
+    }, [inputClick, gifOrImg, tweet, gif, image, currentTweet, previewImage])
 
     useEffect(() => {
         if (tweet) {
@@ -112,7 +110,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                 setTweet('')
                 setImage(null)
                 setGif(null)
-                // setShowModal(false)
+                setShowModalTweet(false)
                 history.push(`/${user?.user?.username}/tweets/${newTweet.id}`)
             }
         }
@@ -132,31 +130,6 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
         picker4.open()
     }
 
-
-    // let focusElement;
-    // useEffect(() => {
-    //     focusElement = refFocus.current
-    //     console.log(focusElement)
-    // }, [inputClick])
-
-
-    // useEffect(() => {
-
-    //     focusElement.addEventListener('focusout', (event) => {
-    //         console.log('test')
-
-    //     });
-    //     // if (focusElement.onClick) {
-    //     // }
-    // }, [])
-
-
-    // const focusInput = (e) => {
-    //     setInputClick(true)
-    //     focusElement = refFocus.current
-
-    //     console.log('focus')
-    // }
     const removeGif = () => {
         setGif(false)
     }
@@ -178,12 +151,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                     <input
                         onFocus={() => {
                             setInputClick(true)
-                            console.log(inputClick)
                         }}
-                        // onBlur={() => {
-                        //     setInputClick(false)
-                        //     console.log(inputClick)
-                        // }}
                         placeholder="What's happening?"
                         type='text'
                         value={tweet}
@@ -217,17 +185,15 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                     )}
 
 
-
-
                     <div className="comment-icons-gif-img">
                         {(!gifOrImg && !edit) && (
                             <>
 
-                                <label className="upload-btn inline" htmlFor='inputTag'>
+                                <label className="upload-btn inline" htmlFor='inputTag4'>
                                     <i className="fa-regular fa-image blue-icon"></i>
                                     <input
 
-                                        id='inputTag'
+                                        id='inputTag4'
                                         type="file"
                                         onChange={updateFile}
                                         className='uploaded-file'
@@ -279,4 +245,4 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     )
 }
 
-export default TweetAddOns;
+export default ModalTweetAddOns;

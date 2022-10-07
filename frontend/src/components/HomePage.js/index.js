@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory } from 'react-router-dom';
 import CreateTweet from '../CreateTweet';
 import GetTweets from '../GetTweets';
 import { getFeedTweetsBackend } from '../../store/tweet'
@@ -35,6 +34,8 @@ function HomePage() {
                 <h2>Home</h2>
             </div>
             <CreateTweet />
+            {/* <CreateTweet /> */}
+
             <div>
                 <GetTweets tweets={Object.values(tweets?.feedTweets).sort((a, b) => {
                     return new Date(b.createdAt1) - new Date(a.createdAt1)

@@ -45,9 +45,11 @@
     padding-top: 10px;
 }
 
-#inputTag {
+#inputTag,
+#inputTag2,
+#inputTag3,
+#inputTag4 {
     display: none;
-
 }
 
 .btn-float-right {

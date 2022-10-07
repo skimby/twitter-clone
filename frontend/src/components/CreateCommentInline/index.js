@@ -180,9 +180,9 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                                 <div className="comment-icons-gif-img">
                                     {!gifOrImg && (
                                         <>
-                                            <label className="upload-btn inline" htmlFor='inputTag'>
+                                            <label className="upload-btn inline" htmlFor='inputTag3'>
                                                 <i className="fa-regular fa-image blue-icon"></i>
-                                                <input id='inputTag' type="file" onChange={updateFile} />
+                                                <input id='inputTag3' type="file" onChange={updateFile} />
                                             </label>
 
                                             <div className="inline">
