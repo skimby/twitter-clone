@@ -21,6 +21,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     const [errors, setErrors] = useState(false);
     const [completeComment, setCompleteComment] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
+    const [previewImage, setPreviewImage] = useState(null);
 
     const user = useSelector(state => state.session);
 
@@ -104,10 +105,14 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
         // history.go()
     }
 
-    // console.log(image.name)
+
     const updateFile = (e) => {
         const file = e.target.files[0];
-        if (file) setImage(file);
+        if (file) {
+            setImage(file);
+            const uploadedImageURL = URL.createObjectURL(file)
+            setPreviewImage(uploadedImageURL)
+        }
     };
 
 
@@ -121,7 +126,9 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     const removeGif = () => {
         setGif(false)
     }
-
+    const removeImage = () => {
+        setImage(false)
+    }
     return (
         <div className="comment-inline-container">
             <div className="tweet-comment-container">
@@ -157,7 +164,16 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                                 </div>
                             </>
                         )}
-
+                        {image && (
+                            <>
+                                <div className="display-img-gif" >
+                                    <div className="remove-gif-box">
+                                        <i className="fa-solid fa-circle-xmark" onClick={removeImage}></i>
+                                    </div>
+                                    <img src={previewImage} className='img-gif' width='200' />
+                                </div>
+                            </>
+                        )}
 
                         {inputClick && (
                             <>

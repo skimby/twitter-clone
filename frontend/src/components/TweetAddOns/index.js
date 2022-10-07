@@ -14,6 +14,8 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
+    const refFocus = useRef(null)
+
     const user = useSelector(state => state.session);
 
     const [tweet, setTweet] = useState((currentTweet && currentTweet.tweet) || '');
@@ -31,6 +33,8 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     let triggerButton;
     let rootElement;
     let picker4;
+
+
 
     useEffect(() => {
         triggerButton = refButton.current
@@ -108,7 +112,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                 setTweet('')
                 setImage(null)
                 setGif(null)
-                setShowModal(false)
+                // setShowModal(false)
                 history.push(`/${user?.user?.username}/tweets/${newTweet.id}`)
             }
         }
@@ -118,8 +122,8 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
         const file = e.target.files[0];
         if (file) {
             setImage(file);
-            const uploadedImageURL = URL.createObjectURL(file)
-            setPreviewImage(uploadedImageURL)
+            // const uploadedImageURL = URL.createObjectURL(file)
+            // setPreviewImage(uploadedImageURL)
         }
     };
 
@@ -128,9 +132,31 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
         picker4.open()
     }
 
-    const focusInput = (e) => {
-        setInputClick(true)
-    }
+
+    // let focusElement;
+    // useEffect(() => {
+    //     focusElement = refFocus.current
+    //     console.log(focusElement)
+    // }, [inputClick])
+
+
+    // useEffect(() => {
+
+    //     focusElement.addEventListener('focusout', (event) => {
+    //         console.log('test')
+
+    //     });
+    //     // if (focusElement.onClick) {
+    //     // }
+    // }, [])
+
+
+    // const focusInput = (e) => {
+    //     setInputClick(true)
+    //     focusElement = refFocus.current
+
+    //     console.log('focus')
+    // }
     const removeGif = () => {
         setGif(false)
     }
@@ -150,7 +176,14 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
 
                 <form onSubmit={handleSubmit} className='form comment-form'>
                     <input
-                        onClick={focusInput}
+                        onFocus={() => {
+                            setInputClick(true)
+                            console.log(inputClick)
+                        }}
+                        // onBlur={() => {
+                        //     setInputClick(false)
+                        //     console.log(inputClick)
+                        // }}
                         placeholder="What's happening?"
                         type='text'
                         value={tweet}
@@ -172,7 +205,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                         </>
                     )}
 
-                    {image && !isComment && (
+                    {/* {image && !isComment && (
                         <>
                             <div className="display-img-gif" >
                                 <div className="remove-gif-box">
@@ -181,55 +214,59 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                                 <img src={previewImage} className='img-gif' width='200' />
                             </div>
                         </>
-                    )}
+                    )} */}
 
 
+                    {inputClick && (
 
-                    <div className="comment-icons-gif-img">
-                        {(!gifOrImg && !edit) && (
-                            <>
-                                <label className="upload-btn inline" htmlFor='inputTag'>
-                                    <i className="fa-regular fa-image blue-icon"></i>
-                                    <input
-                                        id='inputTag'
-                                        type="file"
-                                        onChange={updateFile}
-                                        className='uploaded-file'
 
-                                    />
-                                </label>
+                        <div className="comment-icons-gif-img">
+                            {(!gifOrImg && !edit) && (
+                                <>
 
-                                <div className="inline" >
-                                    <GiphyModal setGif={setGif} />
-                                </div>
-                            </>
-                        )}
+                                    <label className="upload-btn inline" htmlFor='inputTag'>
+                                        <i className="fa-regular fa-image blue-icon"></i>
+                                        <input
 
-                        {(gifOrImg || edit) && (
-                            <>
-                                <div className="inline" >
-                                    <i className="fa-regular fa-image disabled-blue-icon"></i>
-                                </div>
-                                <div className="inline">
-                                    <i className="fa-solid fa-gift disabled-blue-icon" />
-                                </div>
-                            </>
-                        )}
+                                            id='inputTag'
+                                            type="file"
+                                            onChange={updateFile}
+                                            className='uploaded-file'
 
-                        <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji4}>
-                            <i className="fa-regular fa-face-smile blue-icon"></i>
+                                        />
+                                    </label>
+
+                                    <div className="inline" >
+                                        <GiphyModal setGif={setGif} />
+                                    </div>
+                                </>
+                            )}
+
+                            {(gifOrImg || edit) && (
+                                <>
+                                    <div className="inline" >
+                                        <i className="fa-regular fa-image disabled-blue-icon"></i>
+                                    </div>
+                                    <div className="inline">
+                                        <i className="fa-solid fa-gift disabled-blue-icon" />
+                                    </div>
+                                </>
+                            )}
+
+                            <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji4}>
+                                <i className="fa-regular fa-face-smile blue-icon"></i>
+                            </div>
+
+                            <div className='emoji-container3' id='inline' ref={refContainer} ></div>
+
+                            {completeTweet && (
+                                <button className='btn-float-right' type=' submit'>Tweet</button>
+                            )}
+                            {!completeTweet && (
+                                <button className="disabled-btn btn-float-right">Tweet</button>
+                            )}
                         </div>
-
-                        <div className='emoji-container3' id='inline' ref={refContainer} ></div>
-
-                        {completeTweet && (
-                            <button className='btn-float-right' type=' submit'>Tweet</button>
-                        )}
-                        {!completeTweet && (
-                            <button className="disabled-btn btn-float-right">Tweet</button>
-                        )}
-                    </div>
-
+                    )}
 
                 </form>
                 {errors && (

@@ -14,6 +14,7 @@ function CommentSettingsModal({ comment }) {
             setIsUsersTweet(true)
         }
     })
+
     return (
         <>
             {isUsersTweet && (

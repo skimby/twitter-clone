@@ -13,6 +13,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
+
     const [style, setStyle] = useState({})
     const [comment, setComment] = useState(currentComment?.comment || '');
     const [completeComment, setCompleteComment] = useState(false)
@@ -26,7 +27,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
 
 
     const user = useSelector(state => state.session);
-
+    let file;
 
     // useEffect(() => {
     //     if (comment) {
@@ -80,14 +81,12 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
         } else {
             setGifOrImg(false)
         }
-    }, [gif, image]);
+    }, [gif, image, file]);
 
-
+    // console.log(gifOrImg)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-
 
         if (edit) {
             const commentInput = { comment: comment }
@@ -125,10 +124,13 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
         }
     }
 
-    const updateFile = (e) => {
 
-        console.log('!!!!', e)
-        const file = e.target.files[0];
+    const updateFileComment = (e) => {
+        // if(ref.current)
+        file = e.target.files[0];
+
+        // if (file) setImage(file)
+
         if (file) {
             setImage(file);
             const uploadedImageURL = URL.createObjectURL(file)
@@ -136,6 +138,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
         }
     };
 
+    console.log(file)
     const handleOpenEmoji2 = () => {
         picker2.open()
     }
@@ -151,7 +154,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
     }
 
     return (
-        <div className="comment-inline-container">
+        <div className="comment-inline-container" >
             <div className="tweet-comment-container2">
                 <div className='profile-image-box'>
                     {user?.user?.profileImage && (
@@ -162,7 +165,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                 <div className='tweet-text-box'>
 
 
-                    <form onSubmit={handleSubmit} className='form comment-form'>
+                    <form onSubmit={handleSubmit} className='form comment-form' >
                         <input
                             onClick={focusInput}
                             placeholder="Tweet your reply"
@@ -204,7 +207,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                                         <input
                                             id='inputTag'
                                             type="file"
-                                            onChange={updateFile} />
+                                            onChange={updateFileComment} />
                                     </label>
 
                                     <div className="inline">
