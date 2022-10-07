@@ -62,12 +62,24 @@
     margin-bottom: 20px;
     float: left;
     text-align: left;
+    /* z-index: 3; */
+}
 
+.display-img-gif-comment {
+    width: 100%;
+    margin-bottom: 20px;
+    float: left;
+    text-align: left;
+    /* z-index: 3; */
 }
 
 .remove-gif-box {
     z-index: 3;
     position: relative;
-    top: 25px;
-    left: 5px;
+    top: 35px;
+    left: 10px;
+}
+
+.fa-circle-xmark {
+    font-size: 25px;
 }

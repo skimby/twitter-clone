@@ -21,6 +21,9 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
     const [inputClick, setInputClick] = useState(false);
     const [errors, setErrors] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
+    const [previewImageComment, setPreviewImageComment] = useState(null);
+    const [isComment, setIsComment] = useState(true);
+
 
     const user = useSelector(state => state.session);
 
@@ -124,7 +127,11 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
 
     const updateFile = (e) => {
         const file = e.target.files[0];
-        if (file) setImage(file);
+        if (file) {
+            setImage(file);
+            const uploadedImageURL = URL.createObjectURL(file)
+            setPreviewImageComment(uploadedImageURL)
+        }
     };
 
 
@@ -137,6 +144,9 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
     }
     const removeGif = () => {
         setGif(false)
+    }
+    const removeImage = () => {
+        setImage(false)
     }
 
     return (
@@ -175,6 +185,16 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                             </>
                         )}
 
+                        {image && (
+                            <>
+                                <div className="display-img-gif-comment" >
+                                    <div className="remove-gif-box">
+                                        <i className="fa-solid fa-circle-xmark" onClick={removeImage}></i>
+                                    </div>
+                                    <img src={previewImageComment} className='img-gif' width='200' />
+                                </div>
+                            </>
+                        )}
 
 
                         <div className="comment-icons-gif-img">

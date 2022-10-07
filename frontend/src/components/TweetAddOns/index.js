@@ -15,8 +15,6 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     const refContainer = useRef(null);
 
     const user = useSelector(state => state.session);
-    // let currentTweet = useSelector(state => state.tweets?.currentTweet);
-    console.log(currentTweet)
 
     const [tweet, setTweet] = useState((currentTweet && currentTweet.tweet) || '');
     const [image, setImage] = useState(null);
@@ -25,24 +23,14 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     const [errors, setErrors] = useState([]);
     const [completeTweet, setCompleteTweet] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
+    const [previewImage, setPreviewImage] = useState(null);
+    const [isComment, setIsComment] = useState(false);
 
 
     //EMOJI STUFF
     let triggerButton;
     let rootElement;
     let picker4;
-
-    // useEffect(() => {
-    //     if (currentTweet && !tweet && edit) {
-    //         setTweet(currentTweet.tweet)
-    //     }
-    // }, [currentTweet, tweet])
-
-    // useEffect(() => {
-    //     if (tweetId) {
-    //         dispatch(getOneTweetBackend(tweetId))
-    //     }
-    // }, [dispatch, tweetId])
 
     useEffect(() => {
         triggerButton = refButton.current
@@ -128,8 +116,13 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
 
     const updateFile = (e) => {
         const file = e.target.files[0];
-        if (file) setImage(file);
+        if (file) {
+            setImage(file);
+            const uploadedImageURL = URL.createObjectURL(file)
+            setPreviewImage(uploadedImageURL)
+        }
     };
+
 
     const handleOpenEmoji4 = () => {
         picker4.open()
@@ -141,7 +134,9 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     const removeGif = () => {
         setGif(false)
     }
-
+    const removeImage = () => {
+        setImage(false)
+    }
     return (
         // <div className="comment-inline-container">
         <div className="tweet-comment-container3">
@@ -165,7 +160,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
 
                     {gif && (
                         <>
-                            <div className="display-img-gif">
+                            <div className="display-img-gif" >
                                 <div className="remove-gif-box">
                                     <i className="fa-solid fa-circle-xmark" onClick={removeGif}></i>
                                 </div>
@@ -177,6 +172,18 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                         </>
                     )}
 
+                    {image && !isComment && (
+                        <>
+                            <div className="display-img-gif" >
+                                <div className="remove-gif-box">
+                                    <i className="fa-solid fa-circle-xmark" onClick={removeImage}></i>
+                                </div>
+                                <img src={previewImage} className='img-gif' width='200' />
+                            </div>
+
+                        </>
+                    )}
+
 
 
                     <div className="comment-icons-gif-img">
@@ -184,10 +191,16 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                             <>
                                 <label className="upload-btn inline" htmlFor='inputTag'>
                                     <i className="fa-regular fa-image blue-icon"></i>
-                                    <input id='inputTag' type="file" onChange={updateFile} />
+                                    <input
+                                        id='inputTag'
+                                        type="file"
+                                        onChange={updateFile}
+                                        className='uploaded-file'
+
+                                    />
                                 </label>
 
-                                <div className="inline">
+                                <div className="inline" >
                                     <GiphyModal setGif={setGif} />
                                 </div>
                             </>
@@ -195,7 +208,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
 
                         {(gifOrImg || edit) && (
                             <>
-                                <div className="inline">
+                                <div className="inline" >
                                     <i className="fa-regular fa-image disabled-blue-icon"></i>
                                 </div>
                                 <div className="inline">

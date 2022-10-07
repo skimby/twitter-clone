@@ -19,7 +19,7 @@
     object-fit: cover;
     border-radius: 100%;
     border: 5px white solid;
-    z-index: 1;
+    z-index: 0;
     position: absolute;
     /* bottom: 10%; */
     top: -70px;

@@ -47,51 +47,6 @@ function CreateTweet() {
             <TweetAddOns />
         </div>
     )
-    // <div className='create-tweet-container'>
-    //     <div className='profile-image-box'>
-    //         {user?.user?.profileImage && (
-    //             <img className='profile-img' src={user?.user?.profileImage} />
-    //         )}
-    //     </div>
-
-    {/* <div className='create-tweet-box'>
-                <form onSubmit={handleSubmit} className='form'>
-                    <input
-                        placeholder="What's happening?"
-                        type='text'
-                        value={tweet}
-                        onChange={(e) => setTweet(e.target.value)}>
-                    </input>
-                    <label>
-                        <input type="file" onChange={updateFile} />
-                    </label>
-                </form>
-            </div> */}
-
-
-    {/* <div className='tweet-addons-box'>
-
-                <div className='emoji-container' ref={refContainer}></div>
-
-                <div id='emoji-button' ref={refButton} onClick={handleOpenEmoji}>
-                    <i className="fa-regular fa-face-smile blue-icon"></i>
-                </div>
-
-                <div>
-                    <GiphyModal setGif={setGif} />
-                </div>
-
-
-            </div> */}
-
-
-    //     <div>
-
-
-
-    //         {submitButton()}
-    //     </div>
-    // </div>
 
 
 }
