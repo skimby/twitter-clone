@@ -1,18 +1,25 @@
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import coverImg from '../../images/cover-image.jpeg';
+import coverImg from '../../images/cover-image1.jpg'
 import logo from '../../images/twitter-logo.png';
+import { demoLogin } from '../../store/session';
+import { useDispatch } from 'react-redux';
 
 import './SignupPage.css';
 
 
 function SignupPage() {
+    const dispatch = useDispatch();
+
+    const demoUser = () => {
+        dispatch(demoLogin());
+    }
 
     return (
         <>
             <div className="signup-page-container">
                 <div className="cover-img-container">
-                    <img src={coverImg} className="cover-img" />
+                    <img src={coverImg} className="cover-img-img" />
                 </div>
 
                 <div className="cover-text-box">
@@ -22,6 +29,17 @@ function SignupPage() {
                     <div className='login-buttons'>
                         <LoginFormModal />
                         <SignupFormModal />
+
+                        <div className='or-box'>
+                            <div className='line'></div>
+                            <div className='or'>
+                                <p className='or-style'>or</p></div>
+                            <div className='line'></div>
+                        </div>
+
+                        <button onClick={demoUser} className='black-btn demo-btn'>Demo User</button>
+                    </div>
+                    <div>
                     </div>
                 </div>
             </div>
