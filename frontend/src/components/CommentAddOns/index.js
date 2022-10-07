@@ -12,6 +12,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
     const history = useHistory();
     const refButton = useRef(null);
     const refContainer = useRef(null);
+    const refForm = useRef(null);
 
 
     const [style, setStyle] = useState({})
@@ -130,7 +131,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
         file = e.target.files[0];
 
         // if (file) setImage(file)
-
+        // const test = refForm.current
         if (file) {
             setImage(file);
             const uploadedImageURL = URL.createObjectURL(file)
@@ -172,6 +173,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                             type='text'
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}>
+
                         </input>
 
 

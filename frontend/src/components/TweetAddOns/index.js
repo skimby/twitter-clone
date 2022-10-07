@@ -205,7 +205,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                         </>
                     )}
 
-                    {/* {image && !isComment && (
+                    {image && (
                         <>
                             <div className="display-img-gif" >
                                 <div className="remove-gif-box">
@@ -214,59 +214,58 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                                 <img src={previewImage} className='img-gif' width='200' />
                             </div>
                         </>
-                    )} */}
-
-
-                    {inputClick && (
-
-
-                        <div className="comment-icons-gif-img">
-                            {(!gifOrImg && !edit) && (
-                                <>
-
-                                    <label className="upload-btn inline" htmlFor='inputTag'>
-                                        <i className="fa-regular fa-image blue-icon"></i>
-                                        <input
-
-                                            id='inputTag'
-                                            type="file"
-                                            onChange={updateFile}
-                                            className='uploaded-file'
-
-                                        />
-                                    </label>
-
-                                    <div className="inline" >
-                                        <GiphyModal setGif={setGif} />
-                                    </div>
-                                </>
-                            )}
-
-                            {(gifOrImg || edit) && (
-                                <>
-                                    <div className="inline" >
-                                        <i className="fa-regular fa-image disabled-blue-icon"></i>
-                                    </div>
-                                    <div className="inline">
-                                        <i className="fa-solid fa-gift disabled-blue-icon" />
-                                    </div>
-                                </>
-                            )}
-
-                            <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji4}>
-                                <i className="fa-regular fa-face-smile blue-icon"></i>
-                            </div>
-
-                            <div className='emoji-container3' id='inline' ref={refContainer} ></div>
-
-                            {completeTweet && (
-                                <button className='btn-float-right' type=' submit'>Tweet</button>
-                            )}
-                            {!completeTweet && (
-                                <button className="disabled-btn btn-float-right">Tweet</button>
-                            )}
-                        </div>
                     )}
+
+
+
+
+                    <div className="comment-icons-gif-img">
+                        {(!gifOrImg && !edit) && (
+                            <>
+
+                                <label className="upload-btn inline" htmlFor='inputTag'>
+                                    <i className="fa-regular fa-image blue-icon"></i>
+                                    <input
+
+                                        id='inputTag'
+                                        type="file"
+                                        onChange={updateFile}
+                                        className='uploaded-file'
+
+                                    />
+                                </label>
+
+                                <div className="inline" >
+                                    <GiphyModal setGif={setGif} />
+                                </div>
+                            </>
+                        )}
+
+                        {(gifOrImg || edit) && (
+                            <>
+                                <div className="inline" >
+                                    <i className="fa-regular fa-image disabled-blue-icon"></i>
+                                </div>
+                                <div className="inline">
+                                    <i className="fa-solid fa-gift disabled-blue-icon" />
+                                </div>
+                            </>
+                        )}
+
+                        <div ref={refButton} className='inline' id='emoji-button3' onClick={handleOpenEmoji4}>
+                            <i className="fa-regular fa-face-smile blue-icon"></i>
+                        </div>
+
+                        <div className='emoji-container3' id='inline' ref={refContainer} ></div>
+
+                        {completeTweet && (
+                            <button className='btn-float-right' type=' submit'>Tweet</button>
+                        )}
+                        {!completeTweet && (
+                            <button className="disabled-btn btn-float-right">Tweet</button>
+                        )}
+                    </div>
+
 
                 </form>
                 {errors && (
