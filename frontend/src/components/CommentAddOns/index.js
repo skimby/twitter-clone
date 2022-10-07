@@ -126,6 +126,8 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
     }
 
     const updateFile = (e) => {
+
+        console.log('!!!!', e)
         const file = e.target.files[0];
         if (file) {
             setImage(file);
@@ -133,7 +135,6 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
             setPreviewImageComment(uploadedImageURL)
         }
     };
-
 
     const handleOpenEmoji2 = () => {
         picker2.open()
@@ -186,14 +187,12 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                         )}
 
                         {image && (
-                            <>
-                                <div className="display-img-gif-comment" >
-                                    <div className="remove-gif-box">
-                                        <i className="fa-solid fa-circle-xmark" onClick={removeImage}></i>
-                                    </div>
-                                    <img src={previewImageComment} className='img-gif' width='200' />
+                            <div className="display-img-gif-comment" >
+                                <div className="remove-gif-box">
+                                    <i className="fa-solid fa-circle-xmark" onClick={removeImage}></i>
                                 </div>
-                            </>
+                                <img src={previewImageComment} className='img-gif' width='200' />
+                            </div>
                         )}
 
 
@@ -202,7 +201,10 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                                 <>
                                     <label className="upload-btn inline" htmlFor='inputTag'>
                                         <i className="fa-regular fa-image blue-icon"></i>
-                                        <input id='inputTag' type="file" onChange={updateFile} />
+                                        <input
+                                            id='inputTag'
+                                            type="file"
+                                            onChange={updateFile} />
                                     </label>
 
                                     <div className="inline">

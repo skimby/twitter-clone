@@ -180,7 +180,6 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                                 </div>
                                 <img src={previewImage} className='img-gif' width='200' />
                             </div>
-
                         </>
                     )}
 
