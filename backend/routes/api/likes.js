@@ -63,34 +63,66 @@ router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 })
+const { Op } = require("sequelize");
 
 //=========== GET LIKES BY USER ID =============//
 router.get('/users/:userId', requireAuth, async (req, res, next) => {
     const { userId } = req.params;
-
     const likes = await Like.findAll({
         where: {
             userId
+        }
+    })
+    const likeIds = []
+
+    likes.map(like => {
+        likeIds.push(like.tweetId)
+    })
+
+    const likedTweets = await Tweet.findAll({
+        where: {
+            id: likeIds,
         },
         include: [{
-            model: Tweet,
-            include: [{
-                model: User
-            }]
+            model: User
         }]
     })
-    // res.json(likes)
 
+    let resTweets = []
+    for (let i = 0; i < likedTweets.length; i++) {
+        let tweet = likedTweets[i];
 
+        tweet.dataValues.createdAt1 = tweet.dataValues.createdAt
+        tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
+        tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
+        resTweets.push(tweet)
 
-    likes.forEach(async (like) => {
-        like.dataValues.Tweet.dataValues.createdAt1 = like.dataValues.Tweet.dataValues.createdAt
-        like.dataValues.Tweet.dataValues.createdAt = like.dataValues.Tweet.dataValues.createdAt.toDateString().toString().split(' ');
-        like.dataValues.Tweet.dataValues.updatedAt = like.dataValues.Tweet.dataValues.updatedAt.toDateString().toString().split(' ');
-    })
+        const comments = await Comment.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        const retweets = await Retweet.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        const likes = await Like.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+
+        tweet.dataValues.commentCount = comments.count;
+        tweet.dataValues.retweetCount = retweets.count;
+        tweet.dataValues.likeCount = likes.count;
+        tweet.dataValues.likes = likes.rows;
+        tweet.dataValues.retweets = retweets.rows;
+
+    }
 
     res.status(200)
-    return res.json(likes)
+    return res.json(resTweets)
 })
 
 //===================== UNLIKE (DELETE) ===================//

@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
 import { useRef } from 'react'
 
+
+
+//DO NOT USE
 function EachLike({ tweetId, isOwnPage }) {
     const dispatch = useDispatch();
     const [liked, setLiked] = useState();
@@ -13,7 +16,7 @@ function EachLike({ tweetId, isOwnPage }) {
     const tweet = useSelector(state => state.tweets.currentTweet)
     const newLikes = useSelector(state => state.likes)
     const likes = tweet?.likes
-    console.log(tweetId)
+    console.log(tweet, likes)
 
     useEffect(() => {
         if (tweetId) {
@@ -24,15 +27,28 @@ function EachLike({ tweetId, isOwnPage }) {
 
     useEffect(() => {
         if (likes) {
-            const tweetIsLiked = tweet?.likes.find(like => like.userId === loggedUser?.id)
-            myLike.current = tweetIsLiked;
+            if (isOwnPage) {
+                const tweetIsLiked = likes.find(like => like.userId === loggedUser?.id)
+                myLike.current = tweetIsLiked;
 
-            if (tweetIsLiked) {
-                setLiked(true)
+                if (tweetIsLiked) {
+                    setLiked(true)
+                } else {
+                    setLiked(false)
+                }
+                console.log(tweetId, liked)
+
             } else {
-                setLiked(false)
+                const tweetIsLiked = likes.find(like => like.userId === loggedUser?.id)
+                myLike.current = tweetIsLiked;
+
+                if (tweetIsLiked) {
+                    setLiked(true)
+                } else {
+                    setLiked(false)
+                }
+                console.log(tweetId, liked)
             }
-            console.log(tweetId, liked)
         }
 
     }, [dispatch, likes])

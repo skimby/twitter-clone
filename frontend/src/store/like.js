@@ -94,12 +94,12 @@ const likesReducer = (state = initialState, action) => {
             const getLikesState = { ...state };
             getLikesState.tweet = {};
             action.payload.forEach(like => {
-                getLikesState.tweet[like.tweetId] = like;
+                getLikesState.tweet[like.id] = like;
             })
             return getLikesState;
 
         case GET_USER_LIKES:
-
+            console.log(action.payload)
             const getUserLikesState = { ...state };
             getUserLikesState.userLikes = {};
             getUserLikesState.loggedUserLikes = {};
@@ -107,33 +107,33 @@ const likesReducer = (state = initialState, action) => {
 
             if (action.isOwnPage) {
                 action.payload.forEach(like => {
-                    getUserLikesState.loggedUserLikes[like.tweetId] = like;
+                    getUserLikesState.loggedUserLikes[like.id] = like;
                 })
             } else {
                 action.payload.forEach(like => {
-                    getUserLikesState.userLikes[like.tweetId] = like;
+                    getUserLikesState.userLikes[like.id] = like;
                 })
             }
             return getUserLikesState;
 
         case LIKE:
             const likeState = { ...state };
-            likeState.loggedUserLikes[action.payload.tweetId] = action.payload
+            likeState.loggedUserLikes[action.payload.id] = action.payload
 
             if (action.isOwnPage) {
-                likeState.userLikes[action.payload.tweetId] = action.payload
+                likeState.userLikes[action.payload.id] = action.payload
             }
-            likeState.tweet[action.payload.tweetId] = action.payload
+            likeState.tweet[action.payload.id] = action.payload
 
             return likeState;
 
         case UNLIKE:
             const unLikeState = { ...state };
             if (action.isOwnPage) {
-                delete unLikeState.userLikes[action.payload.tweetId]
+                delete unLikeState.userLikes[action.payload.id]
             }
             delete unLikeState.loggedUserLikes[action.payload.tweetId]
-            delete unLikeState.tweet[action.payload.tweetId]
+            delete unLikeState.tweet[action.payload.id]
 
             return unLikeState
 
