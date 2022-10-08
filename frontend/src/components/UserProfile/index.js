@@ -23,6 +23,7 @@ function UserProfile({ sessionUser }) {
         paddingTop: '10px'
     }
     const noStyling = {}
+
     const [activeFeatureTweets, setActiveFeatureTweets] = useState(blueLineStyling)
     const [activeFeatureRetweets, setActiveFeatureRetweets] = useState(noStyling)
     const [activeFeatureLikes, setActiveFeatureLikes] = useState(noStyling)
@@ -31,7 +32,7 @@ function UserProfile({ sessionUser }) {
     const [alreadyFollowing, setAlreadyFollowing] = useState();
     const tweets = useSelector(state => state.tweets);
 
-    // const loggedUser = useSelector(state => state.session.user)
+
     const user = useSelector(state => state.users.User);
     const follows = useSelector(state => state.follows)
     const likes = useSelector(state => state.likes)
@@ -78,38 +79,28 @@ function UserProfile({ sessionUser }) {
     const handleBack = () => {
         history.push('/')
     }
+    console.log(activeFeatureTweets, activeFeatureLikes, activeFeatureRetweets)
+
 
     const handleTweets = (e) => {
         e.preventDefault();
-        if (Object.values(activeFeatureTweets).length) {
-            setActiveFeatureTweets(noStyling)
-        } else {
-            setActiveFeatureTweets(blueLineStyling)
-            setActiveFeatureLikes(noStyling)
-            setActiveFeatureRetweets(noStyling)
-        }
+        setActiveFeatureTweets(blueLineStyling)
+        setActiveFeatureRetweets(noStyling)
+        setActiveFeatureLikes(noStyling)
     }
 
     const handleRetweets = (e) => {
         e.preventDefault();
-        if (Object.values(activeFeatureRetweets).length) {
-            setActiveFeatureRetweets(noStyling)
-        } else {
-            setActiveFeatureRetweets(blueLineStyling)
-            setActiveFeatureLikes(noStyling)
-            setActiveFeatureTweets(noStyling)
-        }
+        setActiveFeatureRetweets(blueLineStyling)
+        setActiveFeatureLikes(noStyling)
+        setActiveFeatureTweets(noStyling)
     }
 
     const handleLikes = (e) => {
         e.preventDefault();
-        if (Object.values(activeFeatureLikes).length) {
-            setActiveFeatureRetweets(noStyling)
-        } else {
-            setActiveFeatureLikes(blueLineStyling)
-            setActiveFeatureRetweets(noStyling)
-            setActiveFeatureTweets(noStyling)
-        }
+        setActiveFeatureLikes(blueLineStyling)
+        setActiveFeatureTweets(noStyling)
+        setActiveFeatureRetweets(noStyling)
     }
     return (
         <>
@@ -186,7 +177,6 @@ function UserProfile({ sessionUser }) {
                         </div>
                     </>
                 )}
-
             </div>
 
 
@@ -211,7 +201,7 @@ function UserProfile({ sessionUser }) {
 
 
 
-            {activeFeatureTweets.borderBottom && (
+            {activeFeatureTweets?.borderBottom && (
                 <div>
                     {isOwnPage && (
                         <GetTweets tweets={Object.values(tweets?.loggedUserTweets).sort((a, b) => {
@@ -227,14 +217,14 @@ function UserProfile({ sessionUser }) {
                 </div>
             )}
 
-            {activeFeatureRetweets.borderBottom && (
+            {activeFeatureRetweets?.borderBottom && (
                 <div>
                     <UserRetweets userId={userId} isOwnPage={isOwnPage} />
 
                 </div>
             )}
 
-            {activeFeatureLikes.borderBottom && (
+            {activeFeatureLikes?.borderBottom && (
                 <div>
                     <UserLikes userId={userId} isOwnPage={isOwnPage} />
                 </div>
