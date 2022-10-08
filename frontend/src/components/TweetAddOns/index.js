@@ -112,7 +112,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                 setGif(null)
                 // setShowModal(false)
                 if (newTweet) {
-                    history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
+                    history.push(`/${user?.user?.username}/tweets/${newTweet.id}`)
                 }
             }
         }
@@ -178,7 +178,6 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                     <input
                         onFocus={() => {
                             setInputClick(true)
-                            console.log(inputClick)
                         }}
                         // onBlur={() => {
                         //     setInputClick(false)
