@@ -39,7 +39,6 @@ function UserProfile({ sessionUser }) {
     let joinedDate = user?.createdAt
 
 
-    console.log(isOwnPage)
 
     useEffect(() => {
         dispatch(getUserBackend(userId))

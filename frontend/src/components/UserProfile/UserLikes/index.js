@@ -16,10 +16,10 @@ function UserLikes({ userId, isOwnPage }) {
     const [newComment, setNewComment] = useState(true)
 
     useEffect(() => {
-        console.log('look', isOwnPage)
         dispatch(getUserLikesBackend(userId, isOwnPage))
     }, [dispatch, userId])
 
+    console.log(likes?.userLikes)
     return (
         <>
             {!isOwnPage && (
@@ -32,7 +32,6 @@ function UserLikes({ userId, isOwnPage }) {
 
                                         <img className='profile-img' src={like?.Tweet?.User?.profileImage} />
                                     </div>
-
 
                                     <div className='tweet-text-box'>
                                         <div className='tweet-user-header'>
@@ -74,7 +73,7 @@ function UserLikes({ userId, isOwnPage }) {
                                                 <Retweets retweetCount={like?.Tweet?.retweetCount} tweet={like?.Tweet} />
                                             </div>
                                             <div className='tweet-icon'>
-                                                <EachLike likeCount={like?.Tweet?.likeCount} tweetId={like?.Tweet?.id} isOwnPage={isOwnPage} />
+                                                <EachLike tweetId={like?.Tweet?.id} />
                                             </div>
                                             {/* <i onClick={handleLike(tweet)} className="fa-regular fa-heart"></i>{tweet?.likeCount} */}
 

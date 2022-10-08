@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
 import { useRef } from 'react'
 
-function EachLike({ likeCount, tweetId, isOwnPage }) {
+function EachLike({ tweetId, isOwnPage }) {
     const dispatch = useDispatch();
     const [liked, setLiked] = useState();
     const loggedUser = useSelector(state => state.session.user)
@@ -13,25 +13,26 @@ function EachLike({ likeCount, tweetId, isOwnPage }) {
     const tweet = useSelector(state => state.tweets.currentTweet)
     const newLikes = useSelector(state => state.likes)
     const likes = tweet?.likes
+    console.log(tweetId)
 
-
-    console.log(isOwnPage)
     useEffect(() => {
         if (tweetId) {
             dispatch(getOneTweetBackend(tweetId))
         }
     }, [dispatch, tweetId, newLikes])
 
+
     useEffect(() => {
         if (likes) {
-            const tweetIsLiked = likes.find(like => like.userId === loggedUser?.id)
-
+            const tweetIsLiked = tweet?.likes.find(like => like.userId === loggedUser?.id)
             myLike.current = tweetIsLiked;
+
             if (tweetIsLiked) {
                 setLiked(true)
             } else {
                 setLiked(false)
             }
+            console.log(tweetId, liked)
         }
 
     }, [dispatch, likes])
@@ -40,8 +41,6 @@ function EachLike({ likeCount, tweetId, isOwnPage }) {
     const handleLike = (e) => {
         e.preventDefault();
         dispatch(createLikeBackend(parseInt(tweet?.id), isOwnPage))
-
-
         setLiked(true)
     }
 
