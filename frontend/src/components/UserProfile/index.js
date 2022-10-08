@@ -34,6 +34,7 @@ function UserProfile({ sessionUser }) {
     // const loggedUser = useSelector(state => state.session.user)
     const user = useSelector(state => state.users.User);
     const follows = useSelector(state => state.follows)
+    const likes = useSelector(state => state.likes)
     const loggedUserFollowingTest = Object.values(useSelector(state => state.follows.loggedUserFollowing));
     const following = Object.values(follows?.following)
     let joinedDate = user?.createdAt
@@ -52,7 +53,7 @@ function UserProfile({ sessionUser }) {
             setIsOwnPage(false)
             dispatch(getTweetsUserBackend(parseInt(userId)))
         }
-    }, [dispatch, userId])
+    }, [dispatch, userId, likes])
 
     useEffect(() => {
         dispatch(getLoggedUserFollowingBackend())

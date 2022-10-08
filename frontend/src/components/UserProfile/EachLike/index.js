@@ -40,14 +40,14 @@ function EachLike({ tweetId, isOwnPage }) {
 
     const handleLike = (e) => {
         e.preventDefault();
-        dispatch(createLikeBackend(parseInt(tweet?.id), isOwnPage))
+        dispatch(createLikeBackend(parseInt(tweetId), isOwnPage))
         setLiked(true)
     }
 
     const handleUnlike = (e) => {
         e.preventDefault();
-        dispatch(deleteLikeBackend(parseInt(tweet?.id), parseInt(myLike?.current?.id), isOwnPage))
-        dispatch(getLikesBackend(tweet?.id));
+        dispatch(deleteLikeBackend(parseInt(tweetId), parseInt(myLike?.current?.id), isOwnPage))
+        dispatch(getLikesBackend(tweetId));
         setLiked(false)
     }
 
