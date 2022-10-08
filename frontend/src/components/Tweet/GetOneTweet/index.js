@@ -9,6 +9,7 @@ import { getOneTweetBackend } from '../../../store/tweet'
 import CreateCommentModal from '../../CreateCommentModal'
 import CreateCommentInline from '../../CreateCommentInline';
 import giphyTag from '../../../images/powered-by-giphy.png'
+import Retweets from '../../Retweet';
 import '../../UserProfile/UserProfile.css'
 import './GetOneTweet.css'
 import '../../GetTweets/GetTweets.css'
@@ -145,8 +146,7 @@ function GetOneTweet({ tweetId }) {
                                     <CreateCommentModal newComment={newComment} commentCount={tweet?.commentCount} tweet={tweet} singleTweet={singleTweet} />
                                 </div>
                                 <div className='tweet-icon'>
-                                    <i className="fa-solid fa-retweet gray-icon"></i>
-
+                                    <Retweets retweetCount={tweet?.retweetCount} tweet={tweet} singleTweet={singleTweet} />
                                 </div>
                                 <div className='tweet-icon'>
                                     <Likes likeCount={tweet?.likeCount} tweet={tweet} singleTweet={singleTweet} />

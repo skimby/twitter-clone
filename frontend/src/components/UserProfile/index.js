@@ -7,6 +7,8 @@ import FollowingButton from '../FollowButtons/FollowingButton';
 import FollowButton from '../FollowButtons/FollowButton';
 import { getFollowingBackend, getLoggedUserFollowingBackend } from '../../store/follow';
 import GetTweets from '../GetTweets';
+import UserLikes from './UserLikes';
+
 import './UserProfile.css'
 
 
@@ -16,7 +18,14 @@ function UserProfile({ sessionUser }) {
     let { userId } = useParams();
     userId = parseInt(userId);
 
-
+    const blueLineStyling = {
+        borderBottom: "4px solid rgb(29, 155, 240)",
+        paddingTop: '10px'
+    }
+    const noStyling = {}
+    const [activeFeatureTweets, setActiveFeatureTweets] = useState(blueLineStyling)
+    const [activeFeatureRetweets, setActiveFeatureRetweets] = useState(noStyling)
+    const [activeFeatureLikes, setActiveFeatureLikes] = useState(noStyling)
 
     const [isOwnPage, setIsOwnPage] = useState();
     const [alreadyFollowing, setAlreadyFollowing] = useState();
@@ -28,8 +37,6 @@ function UserProfile({ sessionUser }) {
     const loggedUserFollowingTest = Object.values(useSelector(state => state.follows.loggedUserFollowing));
     const following = Object.values(follows?.following)
     let joinedDate = user?.createdAt
-
-
 
     useEffect(() => {
         dispatch(getUserBackend(userId))
@@ -69,6 +76,35 @@ function UserProfile({ sessionUser }) {
         history.push('/')
     }
 
+    const handleTweets = () => {
+        if (Object.values(activeFeatureTweets).length) {
+            setActiveFeatureTweets(noStyling)
+        } else {
+            setActiveFeatureTweets(blueLineStyling)
+            setActiveFeatureLikes(noStyling)
+            setActiveFeatureRetweets(noStyling)
+        }
+    }
+
+    const handleRetweets = () => {
+        if (Object.values(activeFeatureRetweets).length) {
+            setActiveFeatureRetweets(noStyling)
+        } else {
+            setActiveFeatureRetweets(blueLineStyling)
+            setActiveFeatureLikes(noStyling)
+            setActiveFeatureTweets(noStyling)
+        }
+    }
+
+    const handleLikes = () => {
+        if (Object.values(activeFeatureLikes).length) {
+            setActiveFeatureRetweets(noStyling)
+        } else {
+            setActiveFeatureLikes(blueLineStyling)
+            setActiveFeatureRetweets(noStyling)
+            setActiveFeatureTweets(noStyling)
+        }
+    }
     return (
         <>
 
@@ -147,20 +183,51 @@ function UserProfile({ sessionUser }) {
 
             </div>
 
-            <div>
-                {isOwnPage && (
-                    <GetTweets tweets={Object.values(tweets?.loggedUserTweets).sort((a, b) => {
-                        return new Date(b.createdAt1) - new Date(a.createdAt1)
-                    })} />
-                )}
-                {!isOwnPage && (
-                    <GetTweets tweets={Object.values(tweets?.userTweets).sort((a, b) => {
-                        return new Date(b.createdAt1) - new Date(a.createdAt1)
-                    })} />
 
-                )}
+
+            <div className='features-container'>
+
+                <div onClick={handleTweets}>
+                    <h5 className='features'>Tweets</h5>
+                    <div className='active-feature-div' style={activeFeatureTweets}></div>
+                </div>
+
+                <div onClick={handleRetweets}>
+                    <h5 className='features'>Retweets</h5>
+                    <div className='active-feature-div' style={activeFeatureRetweets}></div>
+                </div>
+
+                <div onClick={handleLikes}>
+                    <h5 className='features'>Likes</h5>
+                    <div className='active-feature-div' style={activeFeatureLikes}></div>
+                </div>
             </div>
 
+
+
+            {activeFeatureTweets.borderBottom && (
+                <div>
+                    {isOwnPage && (
+                        <GetTweets tweets={Object.values(tweets?.loggedUserTweets).sort((a, b) => {
+                            return new Date(b.createdAt1) - new Date(a.createdAt1)
+                        })} />
+                    )}
+                    {!isOwnPage && (
+                        <GetTweets tweets={Object.values(tweets?.userTweets).sort((a, b) => {
+                            return new Date(b.createdAt1) - new Date(a.createdAt1)
+                        })} />
+
+                    )}
+                </div>
+            )}
+
+            {activeFeatureLikes.borderBottom && (
+                <div>
+                    <UserLikes userId={userId} />
+                    likes
+
+                </div>
+            )}
         </>
     )
 }

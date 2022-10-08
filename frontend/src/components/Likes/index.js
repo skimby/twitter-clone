@@ -45,7 +45,7 @@ function Likes({ likeCount, tweet, singleTweet }) {
                 <>
                     <i onClick={handleUnlike} className="fa-solid fa-heart pink-icon"></i>
                     {!singleTweet && (
-                        <p className="gray-p">{likeCount}</p>
+                        <p className="pink-p">{likeCount}</p>
                     )}
                 </>
             )}

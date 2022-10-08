@@ -13,11 +13,11 @@ function HomePage() {
     const tweets = useSelector(state => state.tweets)
     const likes = useSelector(state => state.likes)
     const follows = useSelector(state => state.follows)
-
+    const retweets = useSelector(state => state.retweets)
 
     useEffect(() => {
         dispatch(getFeedTweetsBackend())
-    }, [dispatch, likes, sessionUser, follows])
+    }, [dispatch, likes, sessionUser, follows, retweets])
 
     useEffect(() => {
         if (sessionUser) {

@@ -1,23 +1,22 @@
 import {
-    getRetweetBackend, createRetweetBackend
+    getRetweetBackend, createRetweetBackend, deleteRetweetBackend
 } from '../../store/retweet'
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
 import { useRef } from 'react'
-import './Retweet.css'
 
 function Retweets({ retweetCount, tweet, singleTweet }) {
     const dispatch = useDispatch();
     const [retweeted, setRetweeted] = useState();
     const retweets = tweet?.retweets
     const loggedUser = useSelector(state => state.session.user)
-    // const myLike = useRef()
+    const myRetweet = useRef()
 
     useEffect(() => {
         if (retweets) {
             const tweetIsRetweeted = retweets.find(retweet => retweet.userId === loggedUser?.id)
 
-            // myLike.current = tweetIsLiked;
+            myRetweet.current = tweetIsRetweeted;
 
             if (tweetIsRetweeted) {
                 setRetweeted(true)
@@ -35,19 +34,19 @@ function Retweets({ retweetCount, tweet, singleTweet }) {
         setRetweeted(true)
     }
 
-    const handleUnretweet = () => {
-        // dispatch(deleteLikeBackend(parseInt(tweet?.id), parseInt(myLike?.current?.id)))
-        // dispatch(getLikesBackend(tweet?.id));
-        // setRetweeted(false)
+    const handleDeleteRetweet = () => {
+        dispatch(deleteRetweetBackend(parseInt(tweet?.id), parseInt(myRetweet?.current?.id)))
+        dispatch(getRetweetBackend(tweet?.id));
+        setRetweeted(false)
     }
 
     return (
         <>
             {retweeted && (
                 <>
-                    <i onClick={handleUnretweet} className="fa-solid fa-retweet green-icon"></i>
+                    <i onClick={handleDeleteRetweet} className="fa-solid fa-retweet green-icon"></i>
                     {!singleTweet && (
-                        <p className="gray-p">{retweetCount}</p>
+                        <p className="green-p">{retweetCount}</p>
                     )}
                 </>
             )}

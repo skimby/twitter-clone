@@ -5,7 +5,7 @@ const user = require("../../db/models/user");
 
 const router = express.Router();
 
-//================== GET LIKES =================//
+//=========== GET LIKES FOR TWEET BY TWEET ID =============//
 router.get('/tweets/:tweetId', requireAuth, async (req, res, next) => {
     const { tweetId } = req.params;
     const tweet = await Tweet.findByPk(tweetId)
@@ -27,6 +27,9 @@ router.get('/tweets/:tweetId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 })
+
+
+
 
 //================== CREATE A LIKE =================//
 router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
@@ -59,6 +62,34 @@ router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
         err.status = 404;
         return next(err);
     }
+})
+
+//=========== GET LIKES BY USER ID =============//
+router.get('/users/:userId', requireAuth, async (req, res, next) => {
+    const { userId } = req.params;
+
+    const likes = await Like.findAll({
+        where: {
+            userId
+        },
+        include: [{
+            model: Tweet,
+            include: [{
+                model: User
+            }]
+        }]
+    })
+    // res.json(likes.dataValues)
+
+    likes.forEach(like => {
+        like.dataValues.Tweet.dataValues.createdAt1 = like.dataValues.Tweet.dataValues.createdAt1
+        like.dataValues.Tweet.dataValues.createdAt = like.dataValues.Tweet.dataValues.createdAt.toDateString().toString().split(' ');
+        like.dataValues.Tweet.dataValues.updatedAt = like.dataValues.Tweet.dataValues.updatedAt.toDateString().toString().split(' ');
+
+    })
+
+    res.status(200)
+    return res.json(likes)
 })
 
 //===================== UNLIKE (DELETE) ===================//

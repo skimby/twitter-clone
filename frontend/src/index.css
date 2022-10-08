@@ -114,6 +114,12 @@ button {
     padding-right: 13px;
 }
 
+.green-icon {
+    color: rgb(0, 186, 124);
+    padding-right: 13px;
+}
+
+
 .pointer {
     cursor: pointer;
 }
@@ -125,6 +131,17 @@ button {
 .gray-p {
     color: rgb(83, 100, 113);
     display: inline-block;
+}
+
+.pink-p {
+    color: rgb(249, 24, 128);
+    display: inline-block;
+}
+
+.green-p {
+    color: rgb(0, 186, 124);
+    display: inline-block;
+
 }
 
 .validation-errors {

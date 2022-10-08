@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 // TYPE
 const RETWEET = 'retweets/retweet'
-const UNRETWEET = 'retweets/unretweet'
+const DELETE_RETWEET = 'retweets/deleteRetweet'
 const GET_RETWEETS = 'retweets/getretweets'
 
 
@@ -13,9 +13,9 @@ const createRetweet = (retweet) => {
         payload: retweet
     }
 }
-const unRetweet = (retweet) => {
+const deleteRetweet = (retweet) => {
     return {
-        type: UNRETWEET,
+        type: DELETE_RETWEET,
         payload: retweet
     }
 }
@@ -30,7 +30,7 @@ const getRetweets = (retweets) => {
 // CREATE RETWEET
 export const createRetweetBackend = (tweetId) => async (dispatch) => {
 
-    const res = await csrfFetch(`/api/retweet/tweets/${tweetId}`, {
+    const res = await csrfFetch(`/api/retweets/tweets/${tweetId}`, {
         method: "POST",
         body: JSON.stringify()
     });
@@ -41,15 +41,15 @@ export const createRetweetBackend = (tweetId) => async (dispatch) => {
 }
 
 // // DELETE RETWEET
-// export const deleteLikeBackend = (tweetId, likeId) => async (dispatch) => {
-//     const res = await csrfFetch(`/api/likes/${likeId}/tweets/${tweetId}`, {
-//         method: 'DELETE'
-//     });
-//     if (res.ok) {
-//         const parsedRes = await res.json();
-//         dispatch(unlike(parsedRes));
-//     }
-// }
+export const deleteRetweetBackend = (tweetId, retweetId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/retweets/${retweetId}/tweets/${tweetId}`, {
+        method: 'DELETE'
+    });
+    if (res.ok) {
+        const parsedRes = await res.json();
+        dispatch(deleteRetweet(parsedRes));
+    }
+}
 
 // GET LIKES
 export const getRetweetBackend = (tweetId) => async (dispatch) => {
@@ -69,7 +69,7 @@ const initialState = {}
 const retweetReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_RETWEETS:
-            const getRetweetsState = { ...state };
+            let getRetweetsState = { ...state };
             getRetweetsState = {};
             action.payload.forEach(retweet => {
                 getRetweetsState[retweet.id] = retweet;
@@ -81,10 +81,10 @@ const retweetReducer = (state = initialState, action) => {
             retweetState[action.payload.tweetId] = action.payload
 
             return retweetState;
-        // case UNLIKE:
-        //     const unLikeState = { ...state };
-        //     delete unLikeState.tweet[action.payload.tweetId]
-        //     return unLikeState
+        case DELETE_RETWEET:
+            const deleteRetweetState = { ...state };
+            delete deleteRetweetState[action.payload.tweetId]
+            return deleteRetweetState;
         default:
             return state;
     }

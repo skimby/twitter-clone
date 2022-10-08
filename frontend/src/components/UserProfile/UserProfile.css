@@ -58,7 +58,7 @@
 }
 
 .user-info-box-contents {
-    padding: 95px 15px 45px 15px;
+    padding: 95px 15px 40px 15px;
 }
 
 .website-calendar-box {
@@ -94,4 +94,25 @@
     font-weight: 700;
     color: black;
     padding-right: 5px;
+}
+
+
+.features-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 33px;
+    text-align: center;
+    /* margin: 0 0 15px 0; */
+}
+
+.features {
+    font-weight: 500;
+    color: rgb(120, 132, 143);
+}
+
+.active-feature-div {
+    height: 1px;
+    width: 70px;
+    padding: 0 auto;
+    display: inline-block;
 }
