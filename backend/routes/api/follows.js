@@ -149,8 +149,18 @@ router.post('/users/:userId/follow', requireAuth, async (req, res, next) => {
                 userId: req.user.id,
                 followerId: parseInt(userId)
             })
+
+            const newFollow = await Follow.findOne({
+                where: {
+                    id: follow.id
+                },
+                include: [{
+                    model: User, as: 'Following',
+                    attributes: ['id', 'firstName', 'profileImage', 'username', 'bio', 'verified']
+                }]
+            })
             res.status(200)
-            return res.json(follow)
+            return res.json(newFollow)
         }
     } else {
         const err = new Error("Could not find a User with the specified id.");

@@ -29,11 +29,12 @@ const getLoggedUserFollowing = (follows) => {
         payload: follows
     }
 }
-const createFollow = (follow, userId) => {
+const createFollow = (follow, userId, isOwnPage) => {
     return {
         type: CREATE_FOLLOW,
         payload: follow,
-        userId: userId
+        userId: userId,
+        isOwnPage
     }
 }
 
@@ -88,7 +89,7 @@ export const getLoggedUserFollowingBackend = () => async (dispatch) => {
 }
 
 // CREATE FOLLOW
-export const createFollowBackend = (userId, userPageId) => async (dispatch) => {
+export const createFollowBackend = (userId, userPageId, isOwnPage) => async (dispatch) => {
 
     const res = await csrfFetch(`/api/follows/users/${userPageId}/follow`, {
         method: "POST",
@@ -99,7 +100,7 @@ export const createFollowBackend = (userId, userPageId) => async (dispatch) => {
     });
     if (res.ok) {
         const parsedRes = await res.json();
-        dispatch(createFollow(parsedRes, userId));
+        dispatch(createFollow(parsedRes, userId, isOwnPage));
     }
 }
 // DELETE TWEET
@@ -153,8 +154,8 @@ const followsReducer = (state = initialState, action) => {
             return getLoggedUserFollowingState;
 
         case CREATE_FOLLOW:
+            console.log(action.payload)
             const createFollowState = { ...state };
-            console.log(action.isOwnPage)
             createFollowState.loggedUserFollowing[action.payload.followerId] = action.payload
 
             if (createFollowState.nonFollowers[action.payload.followerId]) {
