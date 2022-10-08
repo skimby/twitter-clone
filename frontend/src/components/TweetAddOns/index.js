@@ -111,7 +111,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                 setImage(null)
                 setGif(null)
                 // setShowModal(false)
-                history.push(`/${user?.user?.username}/tweets/${newTweet.id}`)
+                history.push(`/${user?.user?.username}/tweets/${newTweet?.id}`)
             }
         }
     }
