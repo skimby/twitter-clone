@@ -1,10 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
 import { getNonFollowersBackend } from '../../store/follow'
 import EachRecommendedFollow from './EachRecommendedFollow';
 
 function WhoToFollow() {
     const dispatch = useDispatch();
+    const { userId } = useParams();
+
+    const [isOwnPage, setIsOwnPage] = useState();
+
     const loggedUser = useSelector(state => state.session.user)
     let follows = useSelector(state => state.follows)
     follows = Object.values(follows?.nonFollowers)
@@ -15,6 +20,14 @@ function WhoToFollow() {
         }
     }, [dispatch])
 
+    console.log(userId, loggedUser?.id)
+    useEffect(() => {
+        if (parseInt(userId) === loggedUser?.id) {
+            setIsOwnPage(true)
+        } else {
+            setIsOwnPage(false)
+        }
+    }, [dispatch, userId])
 
     return (
         <>
@@ -23,13 +36,13 @@ function WhoToFollow() {
                     <h4>Who to follow</h4>
                     {follows && follows[0] && (
                         <div>
-                            <EachRecommendedFollow follow={follows[0]} loggedUser={loggedUser} />
+                            <EachRecommendedFollow follow={follows[0]} loggedUser={loggedUser} isOwnPage={isOwnPage} />
                         </div>
                     )
                     }
                     {follows && follows[1] && (
                         <div>
-                            <EachRecommendedFollow follow={follows[1]} loggedUser={loggedUser} />
+                            <EachRecommendedFollow follow={follows[1]} loggedUser={loggedUser} isOwnPage={isOwnPage} />
                         </div>
                     )
                     }

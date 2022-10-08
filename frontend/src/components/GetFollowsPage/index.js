@@ -14,27 +14,33 @@ function GetFollowsPage({ followingCount }) {
     const [isOwnPage, setIsOwnPage] = useState();
 
     const user = useSelector(state => state.users)
-    const loggedUser = useSelector(state => state.session.users)
+    const loggedUser = useSelector(state => state.session.user)
     const follows = useSelector(state => state.follows);
     const following = Object.values(follows?.following);
-
+    console.log(isOwnPage)
 
     useEffect(() => {
         dispatch(getUserBackend(userId))
     }, [dispatch, userId])
 
+    console.log(parseInt(userId), loggedUser?.id)
+
+
     useEffect(() => {
-        if (parseInt(userId) === loggedUser?.id) {
-            setIsOwnPage(true)
-        } else {
-            setIsOwnPage(false)
+        if (loggedUser) {
+            if (parseInt(userId) === loggedUser?.id) {
+
+                setIsOwnPage(true)
+            } else {
+                setIsOwnPage(false)
+            }
         }
-    }, [dispatch, userId])
+    }, [dispatch, userId, loggedUser])
 
     useEffect(() => {
         dispatch(getFollowingBackend(userId))
         dispatch(getLoggedUserFollowingBackend())
-    }, [dispatch])
+    }, [dispatch, userId, follows?.loggedUserFollowing])
 
     const handleBack = () => {
         history.goBack();

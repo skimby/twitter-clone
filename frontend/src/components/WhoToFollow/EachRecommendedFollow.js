@@ -8,7 +8,7 @@ import FollowingButton from '../FollowButtons/FollowingButton';
 import './WhoToFollow.css'
 
 
-function EachRecommendedFollow({ follow, loggedUser }) {
+function EachRecommendedFollow({ follow, loggedUser, isOwnPage }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [alreadyFollowing, setAlreadyFollowing] = useState();
@@ -17,7 +17,7 @@ function EachRecommendedFollow({ follow, loggedUser }) {
     const loggedUserFollowing = Object.values(follows?.loggedUserFollowing);
 
 
-    // console.log(follow)
+    console.log(isOwnPage)
     useEffect(() => {
         dispatch(getLoggedUserFollowingBackend())
     }, [dispatch])
@@ -55,11 +55,11 @@ function EachRecommendedFollow({ follow, loggedUser }) {
 
                 <div className='follow-btn-box'>
                     {alreadyFollowing && (
-                        <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.id} />
+                        <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.id} isOwnPage={isOwnPage} />
                     )}
 
                     {!alreadyFollowing && (
-                        <FollowButton loggedUserId={loggedUser?.id} userId={follow?.id} />
+                        <FollowButton loggedUserId={loggedUser?.id} userId={follow?.id} isOwnPage={isOwnPage} />
                     )}
                 </div>
             </div>
