@@ -40,7 +40,7 @@ function EachFollower({ follow, isOwnPage }) {
     return (
         <>
             <div className='tweet-container-follow' >
-                <div className='tweet-profile-img' onClick={() => { history.push(`/${follow?.Follower?.username}/${follow?.User?.id}`) }}>
+                <div className='tweet-profile-img' onClick={() => { history.push(`/${follow?.Follower?.username}/${follow?.Follower?.id}`) }}>
 
                     <img className='profile-img' src={follow?.Follower?.profileImage} />
                 </div>

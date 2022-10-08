@@ -17,13 +17,10 @@ function GetFollowsPage({ followingCount }) {
     const loggedUser = useSelector(state => state.session.user)
     const follows = useSelector(state => state.follows);
     const following = Object.values(follows?.following);
-    console.log(isOwnPage)
 
     useEffect(() => {
         dispatch(getUserBackend(userId))
     }, [dispatch, userId])
-
-    console.log(parseInt(userId), loggedUser?.id)
 
 
     useEffect(() => {
