@@ -79,13 +79,14 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
             }]
         }]
     })
-    // res.json(likes.dataValues)
+    // res.json(likes)
 
-    likes.forEach(like => {
+
+
+    likes.forEach(async (like) => {
         like.dataValues.Tweet.dataValues.createdAt1 = like.dataValues.Tweet.dataValues.createdAt1
         like.dataValues.Tweet.dataValues.createdAt = like.dataValues.Tweet.dataValues.createdAt.toDateString().toString().split(' ');
         like.dataValues.Tweet.dataValues.updatedAt = like.dataValues.Tweet.dataValues.updatedAt.toDateString().toString().split(' ');
-
     })
 
     res.status(200)

@@ -84,7 +84,7 @@ export const getUserLikesBackend = (userId) => async (dispatch) => {
 }
 
 //REDUCER
-const initialState = { tweet: {}, comment: {} }
+const initialState = { tweet: {}, comment: {}, userLikes: {} }
 
 const likesReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -97,21 +97,24 @@ const likesReducer = (state = initialState, action) => {
             return getLikesState;
         case GET_USER_LIKES:
             const getUserLikesState = { ...state };
-            getUserLikesState.tweet = {};
+            getUserLikesState.userLikes = {};
             action.payload.forEach(like => {
-                getUserLikesState.tweet[like.tweetId] = like;
+                getUserLikesState.userLikes[like.tweetId] = like;
             })
             return getUserLikesState;
 
         case LIKE:
             const likeState = { ...state };
             likeState.tweet[action.payload.tweetId] = action.payload
+            likeState.userLikes[action.payload.tweetId] = action.payload
 
             return likeState;
 
         case UNLIKE:
             const unLikeState = { ...state };
             delete unLikeState.tweet[action.payload.tweetId]
+            delete unLikeState.userLikes[action.payload.tweetId]
+
             return unLikeState
 
         default:

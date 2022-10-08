@@ -4,14 +4,14 @@ import { useHistory, Link, useParams } from 'react-router-dom';
 import { getUserLikesBackend } from '../../../store/like'
 import CreateCommentModal from '../../CreateCommentModal';
 import Retweets from '../../Retweet';
-import Likes from '../../Likes';
+import EachLike from '../EachLike';
 import giphyTag from '../../../images/powered-by-giphy.png'
 
 function UserLikes({ userId }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const likes = useSelector(state => state.likes.tweet)
+    const likes = useSelector(state => state.likes.userLikes)
 
     const [newComment, setNewComment] = useState(true)
 
@@ -72,7 +72,7 @@ function UserLikes({ userId }) {
                                             <Retweets retweetCount={like?.Tweet?.retweetCount} tweet={like?.Tweet} />
                                         </div>
                                         <div className='tweet-icon'>
-                                            <Likes likeCount={like?.Tweet?.likeCount} tweet={like?.Tweet} />
+                                            <EachLike likeCount={like?.Tweet?.likeCount} tweetId={like?.Tweet?.id} />
                                         </div>
                                         {/* <i onClick={handleLike(tweet)} className="fa-regular fa-heart"></i>{tweet?.likeCount} */}
 

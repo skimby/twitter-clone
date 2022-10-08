@@ -1,17 +1,21 @@
-import { createLikeBackend, getLikesBackend, deleteLikeBackend } from '../../store/like'
-import { getOneTweetBackend } from '../../store/tweet';
+import { createLikeBackend, getLikesBackend, deleteLikeBackend } from '../../../store/like'
+import { getOneTweetBackend } from '../../../store/tweet';
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
 import { useRef } from 'react'
 
-function Likes({ likeCount, tweet, singleTweet, like }) {
+function EachLike({ likeCount, tweetId }) {
     const dispatch = useDispatch();
     const [liked, setLiked] = useState();
-    const likes = tweet?.likes
     const loggedUser = useSelector(state => state.session.user)
     const myLike = useRef()
 
+    const tweet = useSelector(state => state.tweets.currentTweet)
+    const likes = tweet?.likes
 
+    useEffect(() => {
+        dispatch(getOneTweetBackend(tweetId))
+    }, [dispatch, tweetId])
 
     useEffect(() => {
         if (likes) {
@@ -43,29 +47,25 @@ function Likes({ likeCount, tweet, singleTweet, like }) {
 
     return (
         <>
-
             {liked && (
                 <>
                     <i onClick={handleUnlike} className="fa-solid fa-heart pink-icon"></i>
-                    {!singleTweet && (
-                        <p className="pink-p">{likeCount}</p>
-                    )}
+
+                    <p className="pink-p">{likeCount}</p>
+
                 </>
             )}
 
             {!liked && (
                 <>
                     <i onClick={handleLike} className="fa-regular fa-heart gray-icon"></i>
-                    {!singleTweet && (
-                        <p className="gray-p">{likeCount}</p>
-                    )}
+
+                    <p className="gray-p">{likeCount}</p>
+
                 </>
             )}
+
         </>
     )
 }
-
-
-
-
-export default Likes;
+export default EachLike;
