@@ -58,7 +58,7 @@ function GetOneTweet({ tweetId }) {
     }, [dispatch, tweet?.id])
 
     useEffect(() => {
-        if (tweet) {
+        if (tweet?.userId) {
             dispatch(getUserBackend(tweet?.userId))
         }
     }, [dispatch, tweet])
