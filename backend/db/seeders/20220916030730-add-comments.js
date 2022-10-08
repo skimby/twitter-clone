@@ -4,7 +4,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Comments', [
       {
-        id: 1,
+
         userId: 2,
         tweetId: 1,
         comment: 'omg how cool!',
@@ -12,7 +12,7 @@ module.exports = {
         gif: null
       },
       {
-        id: 2,
+
         userId: 2,
         tweetId: 5,
         comment: 'hello you',
@@ -20,7 +20,7 @@ module.exports = {
         gif: null
       },
       {
-        id: 3,
+
         userId: 1,
         tweetId: 4,
         comment: 'i feel the same way!',
@@ -28,7 +28,7 @@ module.exports = {
         gif: 'https://media.giphy.com/media/QCJFiJfnDCdFa84sLG/giphy.gif'
       },
       {
-        id: 4,
+
         userId: 1,
         tweetId: 4,
         comment: 'cool!',
@@ -36,7 +36,7 @@ module.exports = {
         gif: 'https://media.giphy.com/media/QCJFiJfnDCdFa84sLG/giphy.gif'
       },
       {
-        id: 5,
+
         userId: 1,
         tweetId: 1,
         comment: 'yay!',

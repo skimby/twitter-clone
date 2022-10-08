@@ -4,42 +4,42 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Likes', [
       {
-        id: 1,
+
         userId: 1,
         tweetId: 2
       },
       {
-        id: 2,
+
         userId: 1,
         tweetId: 4
       },
       {
-        id: 3,
+
         userId: 2,
         tweetId: 5
       },
       {
-        id: 4,
+
         userId: 3,
         tweetId: 1
       },
       {
-        id: 5,
+
         userId: 3,
         tweetId: 2
       },
       {
-        id: 6,
+
         userId: 3,
         tweetId: 5
       },
       {
-        id: 7,
+
         userId: 3,
         tweetId: 6
       },
       {
-        id: 8,
+
         userId: 2,
         tweetId: 1
       },
