@@ -42,30 +42,30 @@ function GetFollowsPage({ followingCount }) {
 
     return (
         <>
-            <div className="middle-container">
-                <div>
-                    <div>
-                        <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
-                    </div>
-                    <div>
-                        <h3>{user?.User?.firstName}</h3>
-                        <h5>@{user?.User?.username}</h5>
-                    </div>
-
-                    <div>
-                        <h4>Following</h4>
-                        {following && (
-                            following.map((follow, index) => {
-                                return (
-                                    <div key={index}>
-                                        <EachFollow follow={follow} isOwnPage={isOwnPage} />
-                                    </div>
-                                )
-                            })
-                        )}
-                    </div>
+            <div className='user-profile-header'>
+                <div className='x-box'>
+                    <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
+                </div>
+                <div className='user-information-box'>
+                    <h5 className='user-bold-styling'>{user?.User?.username}</h5>
+                    <p className='p-gray-small'>@{user?.User?.username}</p>
                 </div>
             </div>
+
+
+            <div>
+                <h4>Following</h4>
+                {following && (
+                    following.map((follow, index) => {
+                        return (
+                            <div key={index}>
+                                <EachFollow follow={follow} isOwnPage={isOwnPage} />
+                            </div>
+                        )
+                    })
+                )}
+            </div>
+
         </>
     )
 }

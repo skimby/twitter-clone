@@ -33,27 +33,38 @@ function EachFollow({ follow, isOwnPage }) {
 
     return (
         <>
-            <div className='tweet-profile-img' onClick={() => {
-                history.push(`/${follow?.Following?.username}/${follow?.followerId}`)
-            }}>
+            <div className='tweet-container-follow' >
+                <div className='tweet-profile-img' onClick={() => { history.push(`/${follow?.Following?.username}/${follow?.User?.id}`) }}>
 
-                <img className='profile-img' src={follow?.Following?.profileImage} />
+                    <img className='profile-img' src={follow?.Following?.profileImage} />
+                </div>
 
-            </div>
-            <div>
+                <div className='tweet-text-box'>
 
-                <h5>{follow?.Following?.firstName}  </h5>
-                <h5>@{follow?.Following?.username}</h5>
-                <p>{follow?.Following?.bio}</p>
+                    <div className='tweet-user-header-follow'>
+                        <div className='username-name-box'>
+                            <h5 className='name-username' onClick={() => { history.push(`/${follow?.Following?.username}/${follow?.Following?.id}`) }}>
+                                {follow?.Following?.firstName}</h5>
+                            <div>
+                                <h5><span className='thin-styling-small'> @{follow?.Following?.username} </span></h5>
+                            </div>
 
+                        </div>
+                        <div>
+                            {alreadyFollowing && (
+                                <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.followerId} isOwnPage={isOwnPage} />
+                            )}
 
-                {alreadyFollowing && (
-                    <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.followerId} isOwnPage={isOwnPage} />
-                )}
+                            {!alreadyFollowing && (
+                                <FollowButton loggedUserId={loggedUser?.id} userId={follow?.followerId} isOwnPage={isOwnPage} />
+                            )}
+                        </div>
 
-                {!alreadyFollowing && (
-                    <FollowButton loggedUserId={loggedUser?.id} userId={follow?.followerId} isOwnPage={isOwnPage} />
-                )}
+                        <div className='bio-styling'>
+                            <p>{follow?.Following?.bio}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     )

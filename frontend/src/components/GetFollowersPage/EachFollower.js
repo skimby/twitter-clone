@@ -39,26 +39,48 @@ function EachFollower({ follow, isOwnPage }) {
 
     return (
         <>
-            <div className='tweet-profile-img' onClick={() => {
-                history.push(`/${follow?.Follower?.username}/${follow?.userId}`)
-            }}>
-                <img className='profile-img' src={follow?.Follower?.profileImage} />
+            <div className='tweet-container-follow' >
+                <div className='tweet-profile-img' onClick={() => { history.push(`/${follow?.Follower?.username}/${follow?.User?.id}`) }}>
+
+                    <img className='profile-img' src={follow?.Follower?.profileImage} />
+                </div>
+
+                <div className='tweet-text-box'>
+
+                    <div className='tweet-user-header-follow'>
+                        <div className='username-name-box'>
+                            <h5 className='name-username' onClick={() => { history.push(`/${follow?.Follower?.username}/${follow?.Follower?.id}`) }}>
+                                {follow?.Follower?.firstName}</h5>
+                            <div>
+                                <h5><span className='thin-styling-small'> @{follow?.Follower?.username} </span></h5>
+                            </div>
+
+                        </div>
+                        <div>
+                            {alreadyFollowing && (
+                                <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.Follower.id} isOwnPage={isOwnPage} />
+                            )}
+
+                            {!alreadyFollowing && (
+                                <FollowButton loggedUserId={loggedUser?.id} userId={follow?.userId} isOwnPage={isOwnPage} />
+                            )}
+                        </div>
+
+                        <div className='bio-styling'>
+                            <p>{follow?.Follower?.bio}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
 
-                <h5>{follow?.Follower?.firstName}  </h5>
-                <h5>@{follow?.Follower?.username}</h5>
-                <p>{follow?.Follower?.bio}</p>
-
-
-                {alreadyFollowing && (
+            {/* {alreadyFollowing && (
                     <FollowingButton loggedUserId={loggedUser?.id} userId={follow?.Follower.id} isOwnPage={isOwnPage} />
                 )}
 
                 {!alreadyFollowing && (
                     <FollowButton loggedUserId={loggedUser?.id} userId={follow?.userId} isOwnPage={isOwnPage} />
                 )}
-            </div>
+            </div> */}
         </>
     )
 }
