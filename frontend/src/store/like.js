@@ -11,16 +11,18 @@ const GET_USER_LIKES = 'likes/getUserLikes'
 
 
 // ACTION
-const createLike = (like) => {
+const createLike = (like, isOwnPage) => {
     return {
         type: LIKE,
-        payload: like
+        payload: like,
+        isOwnPage: isOwnPage
     }
 }
-const unlike = (like) => {
+const unlike = (like, isOwnPage) => {
     return {
         type: UNLIKE,
-        payload: like
+        payload: like,
+        isOwnPage: isOwnPage
     }
 }
 const getLikes = (likes) => {
@@ -29,36 +31,37 @@ const getLikes = (likes) => {
         payload: likes
     }
 }
-const getUserLikes = (likes) => {
+const getUserLikes = (likes, isOwnPage) => {
     return {
         type: GET_USER_LIKES,
-        payload: likes
+        payload: likes,
+        isOwnPage: isOwnPage
     }
 }
 // THUNK
 
 
 // CREATE LIKES
-export const createLikeBackend = (tweetId) => async (dispatch) => {
-
+export const createLikeBackend = (tweetId, isOwnPage) => async (dispatch) => {
+    console.log(isOwnPage)
     const res = await csrfFetch(`/api/likes/tweets/${tweetId}`, {
         method: "POST",
         body: JSON.stringify()
     });
     if (res.ok) {
         const parsedRes = await res.json();
-        dispatch(createLike(parsedRes));
+        dispatch(createLike(parsedRes, isOwnPage));
     }
 }
 
 // DELETE LIKE
-export const deleteLikeBackend = (tweetId, likeId) => async (dispatch) => {
+export const deleteLikeBackend = (tweetId, likeId, isOwnPage) => async (dispatch) => {
     const res = await csrfFetch(`/api/likes/${likeId}/tweets/${tweetId}`, {
         method: 'DELETE'
     });
     if (res.ok) {
         const parsedRes = await res.json();
-        dispatch(unlike(parsedRes));
+        dispatch(unlike(parsedRes, isOwnPage));
     }
 }
 
@@ -72,19 +75,18 @@ export const getLikesBackend = (tweetId) => async (dispatch) => {
         dispatch(getLikes(parsedRes));
     }
 }
+
 // GET LIKES FOR USER
-export const getUserLikesBackend = (userId) => async (dispatch) => {
-
+export const getUserLikesBackend = (userId, isOwnPage) => async (dispatch) => {
     const res = await csrfFetch(`/api/likes/users/${userId}`);
-
     if (res.ok) {
         const parsedRes = await res.json();
-        dispatch(getUserLikes(parsedRes));
+        dispatch(getUserLikes(parsedRes, isOwnPage));
     }
 }
 
 //REDUCER
-const initialState = { tweet: {}, comment: {}, userLikes: {} }
+const initialState = { tweet: {}, comment: {}, userLikes: {}, loggedUserLikes: {} }
 
 const likesReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -95,25 +97,43 @@ const likesReducer = (state = initialState, action) => {
                 getLikesState.tweet[like.tweetId] = like;
             })
             return getLikesState;
+
         case GET_USER_LIKES:
+
             const getUserLikesState = { ...state };
             getUserLikesState.userLikes = {};
-            action.payload.forEach(like => {
-                getUserLikesState.userLikes[like.tweetId] = like;
-            })
+            getUserLikesState.loggedUserLikes = {};
+
+
+            if (action.isOwnPage) {
+                action.payload.forEach(like => {
+                    getUserLikesState.loggedUserLikes[like.tweetId] = like;
+                })
+            } else {
+                action.payload.forEach(like => {
+                    getUserLikesState.userLikes[like.tweetId] = like;
+                })
+            }
             return getUserLikesState;
 
         case LIKE:
             const likeState = { ...state };
+            likeState.loggedUserLikes[action.payload.tweetId] = action.payload
+
+            if (action.isOwnPage) {
+                likeState.userLikes[action.payload.tweetId] = action.payload
+            }
             likeState.tweet[action.payload.tweetId] = action.payload
-            likeState.userLikes[action.payload.tweetId] = action.payload
 
             return likeState;
 
         case UNLIKE:
             const unLikeState = { ...state };
+            if (action.isOwnPage) {
+                delete unLikeState.userLikes[action.payload.tweetId]
+            }
+            delete unLikeState.loggedUserLikes[action.payload.tweetId]
             delete unLikeState.tweet[action.payload.tweetId]
-            delete unLikeState.userLikes[action.payload.tweetId]
 
             return unLikeState
 

@@ -28,14 +28,15 @@ function Likes({ likeCount, tweet, singleTweet, like }) {
     }, [dispatch, likes])
 
 
-    const handleLike = () => {
+    const handleLike = (e) => {
+        e.preventDefault();
         dispatch(createLikeBackend(parseInt(tweet?.id)))
-        // dispatch(getLikesBackend(tweet?.id));
 
         setLiked(true)
     }
 
-    const handleUnlike = () => {
+    const handleUnlike = (e) => {
+        e.preventDefault();
         dispatch(deleteLikeBackend(parseInt(tweet?.id), parseInt(myLike?.current?.id)))
         dispatch(getLikesBackend(tweet?.id));
         setLiked(false)

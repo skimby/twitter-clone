@@ -38,6 +38,9 @@ function UserProfile({ sessionUser }) {
     const following = Object.values(follows?.following)
     let joinedDate = user?.createdAt
 
+
+    console.log(isOwnPage)
+
     useEffect(() => {
         dispatch(getUserBackend(userId))
     }, [dispatch, userId, follows])
@@ -76,7 +79,8 @@ function UserProfile({ sessionUser }) {
         history.push('/')
     }
 
-    const handleTweets = () => {
+    const handleTweets = (e) => {
+        e.preventDefault();
         if (Object.values(activeFeatureTweets).length) {
             setActiveFeatureTweets(noStyling)
         } else {
@@ -86,7 +90,8 @@ function UserProfile({ sessionUser }) {
         }
     }
 
-    const handleRetweets = () => {
+    const handleRetweets = (e) => {
+        e.preventDefault();
         if (Object.values(activeFeatureRetweets).length) {
             setActiveFeatureRetweets(noStyling)
         } else {
@@ -96,7 +101,8 @@ function UserProfile({ sessionUser }) {
         }
     }
 
-    const handleLikes = () => {
+    const handleLikes = (e) => {
+        e.preventDefault();
         if (Object.values(activeFeatureLikes).length) {
             setActiveFeatureRetweets(noStyling)
         } else {
@@ -223,9 +229,7 @@ function UserProfile({ sessionUser }) {
 
             {activeFeatureLikes.borderBottom && (
                 <div>
-                    <UserLikes userId={userId} />
-                    likes
-
+                    <UserLikes userId={userId} isOwnPage={isOwnPage} />
                 </div>
             )}
         </>

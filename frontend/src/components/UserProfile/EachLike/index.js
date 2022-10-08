@@ -4,18 +4,23 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
 import { useRef } from 'react'
 
-function EachLike({ likeCount, tweetId }) {
+function EachLike({ likeCount, tweetId, isOwnPage }) {
     const dispatch = useDispatch();
     const [liked, setLiked] = useState();
     const loggedUser = useSelector(state => state.session.user)
     const myLike = useRef()
 
     const tweet = useSelector(state => state.tweets.currentTweet)
+    const newLikes = useSelector(state => state.likes)
     const likes = tweet?.likes
 
+
+    console.log(isOwnPage)
     useEffect(() => {
-        dispatch(getOneTweetBackend(tweetId))
-    }, [dispatch, tweetId])
+        if (tweetId) {
+            dispatch(getOneTweetBackend(tweetId))
+        }
+    }, [dispatch, tweetId, newLikes])
 
     useEffect(() => {
         if (likes) {
@@ -32,15 +37,17 @@ function EachLike({ likeCount, tweetId }) {
     }, [dispatch, likes])
 
 
-    const handleLike = () => {
-        dispatch(createLikeBackend(parseInt(tweet?.id)))
-        // dispatch(getLikesBackend(tweet?.id));
+    const handleLike = (e) => {
+        e.preventDefault();
+        dispatch(createLikeBackend(parseInt(tweet?.id), isOwnPage))
+
 
         setLiked(true)
     }
 
-    const handleUnlike = () => {
-        dispatch(deleteLikeBackend(parseInt(tweet?.id), parseInt(myLike?.current?.id)))
+    const handleUnlike = (e) => {
+        e.preventDefault();
+        dispatch(deleteLikeBackend(parseInt(tweet?.id), parseInt(myLike?.current?.id), isOwnPage))
         dispatch(getLikesBackend(tweet?.id));
         setLiked(false)
     }
@@ -51,8 +58,7 @@ function EachLike({ likeCount, tweetId }) {
                 <>
                     <i onClick={handleUnlike} className="fa-solid fa-heart pink-icon"></i>
 
-                    <p className="pink-p">{likeCount}</p>
-
+                    <p className="pink-p">{tweet?.likeCount}</p>
                 </>
             )}
 
@@ -60,8 +66,7 @@ function EachLike({ likeCount, tweetId }) {
                 <>
                     <i onClick={handleLike} className="fa-regular fa-heart gray-icon"></i>
 
-                    <p className="gray-p">{likeCount}</p>
-
+                    <p className="gray-p">{tweet?.likeCount}</p>
                 </>
             )}
 

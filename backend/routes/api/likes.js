@@ -84,7 +84,7 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
 
 
     likes.forEach(async (like) => {
-        like.dataValues.Tweet.dataValues.createdAt1 = like.dataValues.Tweet.dataValues.createdAt1
+        like.dataValues.Tweet.dataValues.createdAt1 = like.dataValues.Tweet.dataValues.createdAt
         like.dataValues.Tweet.dataValues.createdAt = like.dataValues.Tweet.dataValues.createdAt.toDateString().toString().split(' ');
         like.dataValues.Tweet.dataValues.updatedAt = like.dataValues.Tweet.dataValues.updatedAt.toDateString().toString().split(' ');
     })
@@ -95,9 +95,14 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
 
 //===================== UNLIKE (DELETE) ===================//
 router.delete('/:likeId/tweets/:tweetId', requireAuth, async (req, res, next) => {
-    const { likeId, tweetId } = req.params;
+    const { tweetId } = req.params;
     const tweet = await Tweet.findByPk(tweetId)
-    const existingLike = await Like.findByPk(likeId)
+    const existingLike = await Like.findOne({
+        where: {
+            userId: req.user.id,
+            tweetId
+        }
+    })
 
     if (tweet) {
         if (existingLike) {
