@@ -4,7 +4,7 @@ import { csrfFetch } from "./csrf";
 const RETWEET = 'retweets/retweet'
 const DELETE_RETWEET = 'retweets/deleteRetweet'
 const GET_RETWEETS = 'retweets/getretweets'
-
+const GET_USER_RETWEETS = 'retweets/getUserRetweets'
 
 // ACTION
 const createRetweet = (retweet) => {
@@ -25,10 +25,16 @@ const getRetweets = (retweets) => {
         payload: retweets
     }
 }
-
+const getUserRetweets = (retweets, isOwnPage) => {
+    return {
+        type: GET_USER_RETWEETS,
+        payload: retweets,
+        isOwnPage: isOwnPage
+    }
+}
 // THUNK
 // CREATE RETWEET
-export const createRetweetBackend = (tweetId) => async (dispatch) => {
+export const createRetweetBackend = (tweetId, isOwnPage) => async (dispatch) => {
 
     const res = await csrfFetch(`/api/retweets/tweets/${tweetId}`, {
         method: "POST",
@@ -36,22 +42,22 @@ export const createRetweetBackend = (tweetId) => async (dispatch) => {
     });
     if (res.ok) {
         const parsedRes = await res.json();
-        dispatch(createRetweet(parsedRes));
+        dispatch(createRetweet(parsedRes, isOwnPage));
     }
 }
 
 // // DELETE RETWEET
-export const deleteRetweetBackend = (tweetId, retweetId) => async (dispatch) => {
+export const deleteRetweetBackend = (tweetId, retweetId, isOwnPage) => async (dispatch) => {
     const res = await csrfFetch(`/api/retweets/${retweetId}/tweets/${tweetId}`, {
         method: 'DELETE'
     });
     if (res.ok) {
         const parsedRes = await res.json();
-        dispatch(deleteRetweet(parsedRes));
+        dispatch(deleteRetweet(parsedRes, isOwnPage));
     }
 }
 
-// GET LIKES
+// GET RETWEETS
 export const getRetweetBackend = (tweetId) => async (dispatch) => {
 
     const res = await csrfFetch(`/api/retweets/tweets/${tweetId}`);
@@ -62,28 +68,65 @@ export const getRetweetBackend = (tweetId) => async (dispatch) => {
     }
 }
 
+// GET RETWEETS FOR USER
+export const getUserRetweetsBackend = (userId, isOwnPage) => async (dispatch) => {
+    const res = await csrfFetch(`/api/retweets/users/${userId}`);
+    if (res.ok) {
+        const parsedRes = await res.json();
+        dispatch(getUserRetweets(parsedRes, isOwnPage));
+    }
+}
+
 
 //REDUCER
-const initialState = {}
+const initialState = { tweets: {}, userRetweets: {}, loggedUserRetweets: {} }
 
 const retweetReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_RETWEETS:
             let getRetweetsState = { ...state };
-            getRetweetsState = {};
+            getRetweetsState.tweets = {};
             action.payload.forEach(retweet => {
-                getRetweetsState[retweet.id] = retweet;
+                getRetweetsState.tweets[retweet.id] = retweet;
             })
             return getRetweetsState;
 
-        case RETWEET:
-            const retweetState = { ...state };
-            retweetState[action.payload.tweetId] = action.payload
+        case GET_USER_RETWEETS:
+            const getUserRetweetsState = { ...state };
+            getUserRetweetsState.userRetweets = {};
+            getUserRetweetsState.loggedUserRetweets = {};
 
+
+            if (action.isOwnPage) {
+                action.payload.forEach(like => {
+                    getUserRetweetsState.loggedUserRetweets[like.id] = like;
+                })
+            } else {
+                action.payload.forEach(like => {
+                    getUserRetweetsState.userRetweets[like.id] = like;
+                })
+            }
+            return getUserRetweetsState;
+
+        case RETWEET:
+            console.log(action.payload)
+            const retweetState = { ...state };
+            retweetState.loggedUserRetweets[action.payload.id] = action.payload
+
+            retweetState.tweets[action.payload.id] = action.payload
+
+            if (action.isOwnPage) {
+                retweetState.userRetweets[action.payload.id] = action.payload
+            }
             return retweetState;
+
         case DELETE_RETWEET:
             const deleteRetweetState = { ...state };
-            delete deleteRetweetState[action.payload.tweetId]
+            if (action.isOwnPage) {
+                delete deleteRetweetState.userRetweets[action.payload.id]
+            }
+            delete deleteRetweetState.loggedUserRetweets[action.payload.id]
+            delete deleteRetweetState.tweets[action.payload.id]
             return deleteRetweetState;
         default:
             return state;

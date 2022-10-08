@@ -1,6 +1,6 @@
 const express = require("express");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { Tweet, Retweet } = require('../../db/models');
+const { Tweet, User, Comment, Retweet, Like } = require('../../db/models');
 
 const router = express.Router();
 
@@ -59,6 +59,72 @@ router.post('/tweets/:tweetId', requireAuth, async (req, res, next) => {
         return next(err);
     }
 })
+
+
+//=========== GET RETWEETS BY USER ID =============//
+router.get('/users/:userId', requireAuth, async (req, res, next) => {
+    const { userId } = req.params;
+    const retweets = await Retweet.findAll({
+        where: {
+            userId
+        }
+    })
+
+    const retweetIds = []
+    retweets.map(retweet => {
+        retweetIds.push(retweet.tweetId)
+    })
+
+    // res.json(retweetIds)
+
+    const retweetedTweets = await Tweet.findAll({
+        where: {
+            id: retweetIds
+        },
+        include: [{
+            model: User
+        }]
+    })
+
+    // res.json(retweetedTweets)
+
+    let resTweets = []
+    for (let i = 0; i < retweetedTweets.length; i++) {
+        let tweet = retweetedTweets[i];
+
+        tweet.dataValues.createdAt1 = tweet.dataValues.createdAt
+        tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
+        tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
+        resTweets.push(tweet)
+
+        const comments = await Comment.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        const retweets = await Retweet.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+        const likes = await Like.findAndCountAll({
+            where: {
+                tweetId: tweet.id
+            }
+        })
+
+        tweet.dataValues.commentCount = comments.count;
+        tweet.dataValues.retweetCount = retweets.count;
+        tweet.dataValues.likeCount = likes.count;
+        tweet.dataValues.likes = likes.rows;
+        tweet.dataValues.retweets = retweets.rows;
+
+    }
+
+    res.status(200)
+    return res.json(resTweets)
+})
+
 
 //===================== UNRETWEET (DELETE) ===================//
 router.delete('/:retweetId/tweets/:tweetId', requireAuth, async (req, res, next) => {

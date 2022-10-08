@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
 import { useRef } from 'react'
 
-function Retweets({ retweetCount, tweet, singleTweet }) {
+function Retweets({ retweetCount, tweet, singleTweet, isOwnPage }) {
     const dispatch = useDispatch();
     const [retweeted, setRetweeted] = useState();
     const retweets = tweet?.retweets
@@ -29,13 +29,13 @@ function Retweets({ retweetCount, tweet, singleTweet }) {
 
 
     const handleRetweet = () => {
-        dispatch(createRetweetBackend(parseInt(tweet?.id)))
+        dispatch(createRetweetBackend(parseInt(tweet?.id), isOwnPage))
 
         setRetweeted(true)
     }
 
     const handleDeleteRetweet = () => {
-        dispatch(deleteRetweetBackend(parseInt(tweet?.id), parseInt(myRetweet?.current?.id)))
+        dispatch(deleteRetweetBackend(parseInt(tweet?.id), parseInt(myRetweet?.current?.id), isOwnPage))
         dispatch(getRetweetBackend(tweet?.id));
         setRetweeted(false)
     }

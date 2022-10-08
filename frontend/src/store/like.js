@@ -43,7 +43,7 @@ const getUserLikes = (likes, isOwnPage) => {
 
 // CREATE LIKES
 export const createLikeBackend = (tweetId, isOwnPage) => async (dispatch) => {
-    console.log(isOwnPage)
+
     const res = await csrfFetch(`/api/likes/tweets/${tweetId}`, {
         method: "POST",
         body: JSON.stringify()
@@ -99,7 +99,6 @@ const likesReducer = (state = initialState, action) => {
             return getLikesState;
 
         case GET_USER_LIKES:
-            console.log(action.payload)
             const getUserLikesState = { ...state };
             getUserLikesState.userLikes = {};
             getUserLikesState.loggedUserLikes = {};
@@ -132,7 +131,7 @@ const likesReducer = (state = initialState, action) => {
             if (action.isOwnPage) {
                 delete unLikeState.userLikes[action.payload.id]
             }
-            delete unLikeState.loggedUserLikes[action.payload.tweetId]
+            delete unLikeState.loggedUserLikes[action.payload.id]
             delete unLikeState.tweet[action.payload.id]
 
             return unLikeState

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
 import { useRef } from 'react'
 
-function Likes({ likeCount, tweet, singleTweet, like }) {
+function Likes({ likeCount, tweet, singleTweet, like, isOwnPage }) {
     const dispatch = useDispatch();
     const [liked, setLiked] = useState();
     const likes = tweet?.likes
@@ -30,14 +30,14 @@ function Likes({ likeCount, tweet, singleTweet, like }) {
 
     const handleLike = (e) => {
         e.preventDefault();
-        dispatch(createLikeBackend(parseInt(tweet?.id)))
+        dispatch(createLikeBackend(parseInt(tweet?.id), isOwnPage))
 
         setLiked(true)
     }
 
     const handleUnlike = (e) => {
         e.preventDefault();
-        dispatch(deleteLikeBackend(parseInt(tweet?.id), parseInt(myLike?.current?.id)))
+        dispatch(deleteLikeBackend(parseInt(tweet?.id), parseInt(myLike?.current?.id), isOwnPage))
         dispatch(getLikesBackend(tweet?.id));
         setLiked(false)
     }

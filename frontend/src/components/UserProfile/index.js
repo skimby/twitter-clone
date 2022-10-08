@@ -8,7 +8,7 @@ import FollowButton from '../FollowButtons/FollowButton';
 import { getFollowingBackend, getLoggedUserFollowingBackend } from '../../store/follow';
 import GetTweets from '../GetTweets';
 import UserLikes from './UserLikes';
-
+import UserRetweets from './UserRetweets';
 import './UserProfile.css'
 
 
@@ -224,6 +224,13 @@ function UserProfile({ sessionUser }) {
                         })} />
 
                     )}
+                </div>
+            )}
+
+            {activeFeatureRetweets.borderBottom && (
+                <div>
+                    <UserRetweets userId={userId} isOwnPage={isOwnPage} />
+
                 </div>
             )}
 
