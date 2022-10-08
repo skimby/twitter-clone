@@ -26,6 +26,7 @@ function GetOneTweet({ tweetId }) {
     const likes = useSelector(state => state.likes)
     const tweets = useSelector(state => state.tweets)
     const comments = useSelector(state => state.comments)
+    const retweets = useSelector(state => state.retweets)
 
 
     const tweet = tweets?.currentTweet
@@ -49,7 +50,7 @@ function GetOneTweet({ tweetId }) {
 
     useEffect(() => {
         dispatch(getOneTweetBackend(tweetId))
-    }, [dispatch, tweetId, likes, comments])
+    }, [dispatch, tweetId, likes, comments, retweets])
 
     useEffect(() => {
         if (tweet?.id) {
