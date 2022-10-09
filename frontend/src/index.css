@@ -150,6 +150,11 @@ button {
     color: #EE4F4F;
 }
 
+.validation-errors-signup {
+    padding-top: 30px;
+    color: #EE4F4F;
+}
+
 .validation-errors-comments {
     padding: 40px 0 10px 0;
     color: #EE4F4F;

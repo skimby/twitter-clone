@@ -10,6 +10,7 @@ import logo from '../../images/twitter-logo.png'
 function SignupForm({ setShowModal }) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const websitePrefix = 'https://'
 
   const sessionUser = useSelector((state) => state.session);
   const [firstName, setFirstName] = useState("");
@@ -18,12 +19,13 @@ function SignupForm({ setShowModal }) {
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
-  const [website, setWebsite] = useState("");
+  const [website, setWebsite] = useState(websitePrefix + "");
   const [profileImage, setProfileImage] = useState(null);
   const [coverImage, setCoverImage] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+
 
 
   const handleSubmit = async (e) => {
@@ -44,17 +46,15 @@ function SignupForm({ setShowModal }) {
       }))
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) {
-            setErrors(data.errors)
-          } else {
-            history.go()
+          console.log(data, data.errors)
+          if (data.errors) {
+            setErrors([data.errors])
           }
         });
 
-      // if (!errors.length) {
+      if (!errors.length) {
 
-      //   history.go()
-      // }
+      }
     } else {
       return setErrors(['Confirm Password field must be the same as the Password field']);
     }
@@ -86,11 +86,6 @@ function SignupForm({ setShowModal }) {
 
       <div className="signup-modal-container">
         <form className='signup-form' onSubmit={handleSubmit}>
-          {errors && (
-            <ul>
-              {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
-          )}
 
           <input className="half-input1"
             type="text"
@@ -194,6 +189,15 @@ function SignupForm({ setShowModal }) {
 
           <button type="submit">Sign Up</button>
         </form>
+
+        {errors && (
+          <ul className="validation-errors-signup">
+            {errors.map((error, idx) => (
+              <li key={idx}>{error}</li>
+            ))}
+          </ul>
+        )}
+
       </div>
     </>
   );

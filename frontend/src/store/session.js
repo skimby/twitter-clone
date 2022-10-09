@@ -76,7 +76,8 @@ export const logout = () => async (dispatch) => {
 
 
 export const signup = (user) => async (dispatch) => {
-  const { firstName,
+  const {
+    firstName,
     lastName,
     username,
     bio,
@@ -100,8 +101,6 @@ export const signup = (user) => async (dispatch) => {
 
   if (profileImage) formData.append("image", profileImage);
   if (coverImage) formData.append("image2", coverImage);
-
-
 
 
   const response = await csrfFetch("/api/users/signup", {

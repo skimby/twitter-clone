@@ -8,28 +8,7 @@ const { handleValidationErrors } = require("../../utils/validation");
 const { singlePublicFileUpload, singleMulterUpload, fieldMulterUpload } = require('../../aws-sdk.js')
 
 
-const validateSignup = [
-  check("firstName")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a valid first name."),
-  check("lastName")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a valid last name."),
-  check("email")
-    .exists({ checkFalsy: true })
-    .isEmail()
-    .withMessage("Please provide a valid email."),
-  check("username")
-    .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
-    .withMessage("Please provide a username with at least 4 characters."),
-  check("username").not().isEmail().withMessage("Username cannot be an email."),
-  check("password")
-    .exists({ checkFalsy: true })
-    .isLength({ min: 6 })
-    .withMessage("Password must be 6 characters or more."),
-  handleValidationErrors
-];
+
 
 //================== GET LOGGED USER ==========================//
 router.get('/me', requireAuth, restoreUser, async (req, res) => {
@@ -130,6 +109,35 @@ router.get('/:userId', requireAuth, async (req, res, next) => {
   }
 })
 
+const validateSignup = [
+  check("firstName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a valid first name."),
+  check("lastName")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a valid last name."),
+  check("email")
+    .exists({ checkFalsy: true })
+    .isEmail()
+    .withMessage("Please provide a valid email."),
+  check("website")
+    // .exists({ checkFalsy: false })
+    .if((value, { req }) => {
+      value.substring(0, 8) === 'https://'
+    })
+    .withMessage("Please provide a website starting with 'https://'"),
+  check("username")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 4 })
+    .withMessage("Please provide a username with at least 4 characters."),
+  check("username").not().isEmail().withMessage("Username cannot be an email."),
+  check("password")
+    .exists({ checkFalsy: true })
+    .isLength({ min: 6 })
+    .withMessage("Password must be 6 characters or more."),
+  handleValidationErrors
+];
+
 //================== SIGN UP ==========================//
 router.post("/signup", fieldMulterUpload([{ name: "image" }, { name: "image2" }]), validateSignup, async (req, res, next) => {
   let { firstName, lastName, email, bio, location, website, password, username } = req.body;
@@ -186,16 +194,18 @@ router.post("/signup", fieldMulterUpload([{ name: "image" }, { name: "image2" }]
   } else if (existingEmail) {
     res.status(404)
     const err = new Error("Unique email required.");
-    err.message = "A user with that email already exists. You may already have an account created.";
+    err.title = "Unique email required.";
+    err.errors = "A user with that email already exists.";
     err.status = 404;
-    next(err);
+    return next(err);
 
   } else if (existingUsername) {
     res.status(404)
     const err = new Error("Unique username required.");
-    err.message = "A user with that username already exists. You may already have an account created. Otherwise, please choose another username.";
+    err.title = "Unique username required.";
+    err.errors = "A user with that username already exists.";
     err.status = 404;
-    next(err);
+    return next(err);
   }
 });
 
