@@ -41,6 +41,11 @@ function UserRetweets({ userId, isOwnPage }) {
                                                         <h5 className='name-username' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
                                                             {retweet?.User?.firstName}
 
+                                                            {retweet?.User?.verified && (
+                                                                <div className="verified-div2">
+                                                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                                                </div>
+                                                            )}
                                                             <span className='thin-styling'> @{retweet?.User?.username} · {retweet?.updatedAt?.[1]} {retweet?.updatedAt?.[2]}</span></h5>
                                                     </div>
                                                 </div>
@@ -106,6 +111,13 @@ function UserRetweets({ userId, isOwnPage }) {
                                                     <div className='username-name-box'>
                                                         <h5 className='name-username' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
                                                             {retweet?.User?.firstName}
+
+
+                                                            {retweet?.User?.verified && (
+                                                                <div className="verified-div2">
+                                                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                                                </div>
+                                                            )}
 
                                                             <span className='thin-styling'> @{retweet?.User?.username} · {retweet?.updatedAt?.[1]} {retweet?.updatedAt?.[2]}</span></h5>
                                                     </div>
