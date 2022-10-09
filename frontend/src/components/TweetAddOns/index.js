@@ -28,31 +28,31 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
 
 
     //EMOJI STUFF
-    let triggerButton;
-    let rootElement;
-    let picker4;
+    let triggerButton = useRef();
+    let rootElement = useRef();
+    let picker4 = useRef();
 
 
 
     useEffect(() => {
-        triggerButton = refButton.current
-        rootElement = refContainer.current;
+        triggerButton.current = refButton.current
+        rootElement.current = refContainer.current;
     }, [inputClick, gifOrImg, tweet, gif, image, currentTweet])
 
     // Create the picker
     useEffect(() => {
         if (triggerButton && rootElement) {
-            picker4 = createPopup({
+            picker4.current = createPopup({
                 animate: false,
                 autoFocus: 'auto',
-                rootElement
+                rootElement: rootElement.current
             }, {
-                triggerElement: triggerButton,
-                referenceElement: triggerButton,
+                triggerElement: triggerButton.current,
+                referenceElement: triggerButton.current,
                 position: 'bottom-start'
             });
 
-            picker4.addEventListener('emoji:select', event => {
+            picker4.current.addEventListener('emoji:select', event => {
                 setTweet(tweet + event.emoji)
             });
         }
@@ -129,7 +129,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
 
 
     const handleOpenEmoji4 = () => {
-        picker4.open()
+        picker4.current.open()
     }
 
 
@@ -268,8 +268,10 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
 
                 </form>
                 {errors && (
-                    <ul>
-                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    <ul className="validation-errors-comments-inline">
+                        {errors.map((error, idx) => (
+                            <li key={idx}>{error}</li>
+                        ))}
                     </ul>
                 )}
             </div>

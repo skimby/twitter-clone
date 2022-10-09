@@ -197,6 +197,7 @@ const tweetsReducer = (state = initialState, action) => {
             return getTweetsUser;
         case GET_TWEETS_LOGGED_USER:
             const getTweetsLoggedUser = { ...state }
+            getTweetsLoggedUser.loggedUserTweets = {};
             action.payload.Tweets.forEach(tweet => {
                 getTweetsLoggedUser.loggedUserTweets[tweet.id] = tweet
             })

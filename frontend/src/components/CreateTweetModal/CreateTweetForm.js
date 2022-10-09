@@ -4,7 +4,7 @@ import ModalTweetAddOns from "../ModalTweetsAddOns";
 import './CreateTweetModal.css'
 
 
-function CreateTweetForm({ setShowModalTweet, edit, tweetId, currentTweet }) {
+function CreateTweetForm({ showModalTweet, setShowModalTweet, edit, tweetId, currentTweet }) {
     const [tweet, setTweet] = useState('');
     const [gif, setGif] = useState(null);
     const [image, setImage] = useState(null);
@@ -49,7 +49,7 @@ function CreateTweetForm({ setShowModalTweet, edit, tweetId, currentTweet }) {
             </div>
 
             <div>
-                <ModalTweetAddOns tweetId={tweetId} setShowModalTweet={setShowModalTweet} edit={edit} currentTweet={currentTweet} />
+                <ModalTweetAddOns tweetId={tweetId} setShowModalTweet={setShowModalTweet} edit={edit} currentTweet={currentTweet} showModalTweet={showModalTweet} />
             </div>
         </div>
     )

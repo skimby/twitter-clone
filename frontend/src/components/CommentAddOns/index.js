@@ -18,7 +18,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
-    const [errors, setErrors] = useState(false);
+    const [errors, setErrors] = useState(null);
     const [gifOrImg, setGifOrImg] = useState(false);
     const [previewImageComment, setPreviewImageComment] = useState(null);
 
@@ -26,29 +26,29 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
     let file;
 
     //EMOJI STUFF
-    let triggerButton;
-    let rootElement;
-    let picker2;
+    let triggerButton = useRef();
+    let rootElement = useRef();
+    let picker2 = useRef();
 
     useEffect(() => {
-        triggerButton = refButton.current
-        rootElement = refContainer.current;
+        triggerButton.current = refButton.current
+        rootElement.current = refContainer.current;
     }, [inputClick, gifOrImg, comment, gif, image, currentComment, edit])
 
     // Create the picker
     useEffect(() => {
         if (triggerButton && rootElement) {
-            picker2 = createPopup({
+            picker2.current = createPopup({
                 animate: false,
                 autoFocus: 'auto',
-                rootElement
+                rootElement: rootElement.current
             }, {
-                triggerElement: triggerButton,
-                referenceElement: triggerButton,
+                triggerElement: triggerButton.current,
+                referenceElement: triggerButton.current,
                 position: 'bottom-start'
             });
 
-            picker2.addEventListener('emoji:select', event => {
+            picker2.current.addEventListener('emoji:select', event => {
                 setComment(comment + event.emoji)
             });
         }
@@ -77,15 +77,20 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
 
         if (edit) {
             const commentInput = { comment: comment }
-
             const editedComent = await dispatch(editCommentBackend(currentComment.id, commentInput, tweetId))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) {
+                        setErrors(data.errors)
+                    }
+                });
 
             if (editedComent) {
                 setShowModalComment(false)
                 setShowModalSettings(false)
             }
-        } else {
 
+        } else {
             const commentInput = {
                 comment,
                 gif,
@@ -95,19 +100,18 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
             const newComment = await dispatch(createCommentBackend(tweetId, commentInput))
                 .catch(async (res) => {
                     const data = await res.json();
-                    if (data) {
-                        setErrors([]);
+                    if (data && data.errors) {
                         setErrors(data.errors)
                     }
                 });
+        }
 
-            if (!errors) {
-                setComment('')
-                setImage(null)
-                setGif(null)
-                setShowModalComment(false)
-                history.push(`/${user?.user?.username}/tweets/${tweetId}`)
-            }
+        if (errors) {
+            setComment('')
+            setImage(null)
+            setGif(null)
+            setShowModalComment(false)
+            history.push(`/${user?.user?.username}/tweets/${tweetId}`)
         }
     }
 
@@ -124,7 +128,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
 
 
     const handleOpenEmoji2 = () => {
-        picker2.open()
+        picker2.current.open()
     }
 
     const focusInput = (e) => {
@@ -179,7 +183,9 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                                 <div className="remove-gif-box">
                                     <i className="fa-solid fa-circle-xmark" onClick={removeImage}></i>
                                 </div>
+                                {/* <div className="cropped-attachment"> */}
                                 <img src={previewImageComment} className='img-gif' width='200' alt='comment attachment' />
+                                {/* </div> */}
                             </div>
                         )}
 

@@ -203,3 +203,7 @@ button {
 .tweet-user-header h5 {
     display: inline-block;
 }
+
+.cropped-attachment {
+    max-height: 200px;
+}

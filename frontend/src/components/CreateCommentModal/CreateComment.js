@@ -6,40 +6,6 @@ import '../GetTweets/GetTweets.css'
 
 function CreateComment({ tweetId, setShowModalComment, tweet, currentComment, setShowModalSettings, edit, newComment }) {
     const history = useHistory();
-    const refButton = useRef(null);
-    const refContainer = useRef(null);
-
-    const [comment, setComment] = useState('');
-
-    let triggerButton;
-    let rootElement;
-    let picker3;
-
-    //EMOJI STUFF
-    useEffect(() => {
-        triggerButton = refButton.current;
-        rootElement = refContainer.current;
-    }, [])
-
-    useEffect(() => {
-        if (triggerButton && rootElement) {
-            // Create the picker
-            picker3 = createPopup({
-                animate: false,
-                autoFocus: 'auto',
-                rootElement
-            }, {
-                triggerElement: triggerButton,
-                referenceElement: triggerButton,
-                position: 'bottom-start'
-            });
-
-            picker3.addEventListener('emoji:select', event => {
-                setComment(comment + event.emoji)
-            });
-        }
-    }, [])
-
 
     const linkToUserPage = () => {
         history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`)

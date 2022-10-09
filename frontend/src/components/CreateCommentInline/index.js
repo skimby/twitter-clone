@@ -26,29 +26,29 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
 
 
     //EMOJI STUFF
-    let triggerButton;
-    let rootElement;
-    let picker4;
+    let triggerButton = useRef();
+    let rootElement = useRef();
+    let picker4 = useRef();
 
     useEffect(() => {
-        triggerButton = refButton.current
-        rootElement = refContainer.current;
+        triggerButton.current = refButton.current
+        rootElement.current = refContainer.current;
     }, [inputClick, gifOrImg, gif, image, comment])
 
     // Create the picker
     useEffect(() => {
         if (triggerButton && rootElement) {
-            picker4 = createPopup({
+            picker4.current = createPopup({
                 animate: false,
                 autoFocus: 'auto',
-                rootElement
+                rootElement: rootElement.current
             }, {
-                triggerElement: triggerButton,
-                referenceElement: triggerButton,
+                triggerElement: triggerButton.current,
+                referenceElement: triggerButton.current,
                 position: 'bottom-start'
             });
 
-            picker4.addEventListener('emoji:select', event => {
+            picker4.current.addEventListener('emoji:select', event => {
                 setComment(comment + event.emoji)
             });
         }
@@ -76,14 +76,13 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-
         const commentInput = {
             comment,
             gif,
             image
         }
 
-        const newComment = await dispatch(createCommentBackend(tweetId, commentInput))
+        await dispatch(createCommentBackend(tweetId, commentInput))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
@@ -91,15 +90,13 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                     setErrors(data.errors)
                 }
             });
-        if (!errors) {
+
+        if (!errors.length) {
             setComment('')
             setImage(null)
             setGif(null)
         }
-        // console.log(errors)
 
-        // history.push(`/${user?.user?.username}/tweets/${tweetId}`)
-        // history.go()
     }
 
 
@@ -114,7 +111,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
 
 
     const handleOpenEmoji4 = () => {
-        picker4.open()
+        picker4.current.open()
     }
 
     const focusInput = (e) => {
@@ -222,7 +219,6 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                                 <li key={idx}>{error}</li>
                             ))}
                         </ul>
-
                     )}
                 </div>
             </div>

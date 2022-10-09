@@ -7,8 +7,11 @@ import GiphyModal from "../GiphyModal";
 import '../CreateCommentInline/CreateCommentInline.css'
 import { editTweetBackend } from '../../store/tweet';
 import giphyTag from '../../images/powered-by-giphy.png'
+import '../CreateCommentInline/CreateCommentInline.css'
 
-function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
+
+
+function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet, showModalTweet }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
@@ -27,35 +30,38 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
 
 
     //EMOJI STUFF
-    let triggerButton;
-    let rootElement;
-    let picker4;
-
-
+    let triggerButton = useRef();
+    let rootElement = useRef();
+    let picker4 = useRef();
 
     useEffect(() => {
-        triggerButton = refButton.current
-        rootElement = refContainer.current;
-    }, [inputClick, gifOrImg, tweet, gif, image, currentTweet, previewImage])
+        triggerButton.current = refButton.current
+        rootElement.current = refContainer.current;
+    }, [inputClick, gifOrImg, tweet, gif, image, currentTweet, previewImage, edit, setShowModalTweet, showModalTweet])
 
     // Create the picker
     useEffect(() => {
+
         if (triggerButton && rootElement) {
-            picker4 = createPopup({
+            picker4.current = createPopup({
                 animate: false,
                 autoFocus: 'auto',
-                rootElement
+                rootElement: rootElement.current
             }, {
-                triggerElement: triggerButton,
-                referenceElement: triggerButton,
+                triggerElement: triggerButton.current,
+                referenceElement: triggerButton.current,
                 position: 'bottom-start'
             });
 
-            picker4.addEventListener('emoji:select', event => {
+            picker4.current.addEventListener('emoji:select', event => {
                 setTweet(tweet + event.emoji)
             });
         }
-    }, [inputClick, gifOrImg, tweet, gif, image, currentTweet, previewImage])
+
+
+    }, [inputClick, gifOrImg, tweet, gif, image, currentTweet, previewImage, edit, setShowModalTweet, showModalTweet])
+
+
 
     useEffect(() => {
         if (tweet) {
@@ -82,7 +88,15 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
         if (edit) {
             const tweetInput = { tweet: tweet }
 
-            const editedTweet = await dispatch(editTweetBackend(tweetId, tweetInput));
+            const editedTweet = await dispatch(editTweetBackend(tweetId, tweetInput))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) {
+                        setErrors([]);
+                        setErrors(data.errors)
+                    }
+                });
+
 
             if (editedTweet) {
                 setTweet(null)
@@ -90,7 +104,6 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
             }
         } else {
 
-            setErrors([]);
             const tweetInput = {
                 tweet,
                 gif,
@@ -101,11 +114,12 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) {
+                        setErrors([]);
                         setErrors(data.errors)
                     }
                 });
 
-            if (!errors.length) {
+            if (!errors) {
                 setTweet('')
                 setImage(null)
                 setGif(null)
@@ -126,7 +140,7 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
 
 
     const handleOpenEmoji4 = () => {
-        picker4.open()
+        picker4.current.open()
     }
 
     const removeGif = () => {
@@ -233,8 +247,10 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
 
                 </form>
                 {errors && (
-                    <ul>
-                        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    <ul className="validation-errors-comments-inline">
+                        {errors.map((error, idx) => (
+                            <li key={idx}>{error}</li>
+                        ))}
                     </ul>
                 )}
             </div>
