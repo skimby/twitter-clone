@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 function GetTweets({ tweets }) {
     const history = useHistory();
-    const [newComment, setNewComment] = useState(true)
+    const [newComment] = useState(true)
 
     return (
         <>
@@ -21,7 +21,7 @@ function GetTweets({ tweets }) {
 
                             <div className='tweet-profile-img' onClick={() => { history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`) }}>
 
-                                <img className='profile-img' src={tweet?.User?.profileImage} />
+                                <img className='profile-img' src={tweet?.User?.profileImage} alt='user profile' />
 
 
                             </div>
@@ -34,7 +34,7 @@ function GetTweets({ tweets }) {
                                             {tweet?.User?.firstName}
                                             {tweet?.User?.verified && (
                                                 <div className="verified-div2">
-                                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' alt='verified badge' />
                                                 </div>
                                             )}
                                             <span className='thin-styling'> @{tweet?.User?.username} · {tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}</span></h5>
@@ -57,12 +57,12 @@ function GetTweets({ tweets }) {
 
                                 <div className='tweet-img-gif'>
                                     {tweet?.image !== null && (
-                                        <img className='img-gif' src={tweet?.image} />
+                                        <img className='img-gif' src={tweet?.image} alt='tweet attachment' />
                                     )}
                                     {tweet?.gif !== null && (
                                         <>
-                                            <img className='img-gif' src={tweet?.gif} />
-                                            <img className="padding-top " src={giphyTag} width='110px' />
+                                            <img className='img-gif' src={tweet?.gif} alt='tweet attachment gif' />
+                                            <img className="padding-top " src={giphyTag} width='110px' alt='gif provided by GIPHY' />
                                         </>
                                     )}
                                 </div>

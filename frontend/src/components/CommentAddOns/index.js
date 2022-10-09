@@ -142,7 +142,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
             <div className="tweet-comment-container2">
                 <div className='profile-image-box'>
                     {user?.user?.profileImage && (
-                        <img className='profile-img' src={user?.user?.profileImage} />
+                        <img className='profile-img' alt='user profile' src={user?.user?.profileImage} />
                     )}
                 </div>
 
@@ -166,10 +166,10 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                                     <div className="remove-gif-box">
                                         <i className="fa-solid fa-circle-xmark" onClick={removeGif}></i>
                                     </div>
-                                    <img src={gif} className='img-gif' width='200' />
+                                    <img src={gif} className='img-gif' width='200' alt='comment attachment gif' />
                                 </div>
                                 <div className="div-bottom-padding">
-                                    <img src={giphyTag} width='110px' />
+                                    <img src={giphyTag} width='110px' alt='gif provided by GIPHY' />
                                 </div>
                             </>
                         )}
@@ -179,7 +179,7 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                                 <div className="remove-gif-box">
                                     <i className="fa-solid fa-circle-xmark" onClick={removeImage}></i>
                                 </div>
-                                <img src={previewImageComment} className='img-gif' width='200' />
+                                <img src={previewImageComment} className='img-gif' width='200' alt='comment attachment' />
                             </div>
                         )}
 

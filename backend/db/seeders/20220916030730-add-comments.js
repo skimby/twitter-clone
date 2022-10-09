@@ -11,7 +11,6 @@ module.exports = {
         gif: null
       },
       {
-
         userId: 2,
         tweetId: 5,
         comment: 'hello you',
@@ -19,7 +18,6 @@ module.exports = {
         gif: null
       },
       {
-
         userId: 1,
         tweetId: 4,
         comment: 'i feel the same way!',
@@ -27,7 +25,6 @@ module.exports = {
         gif: 'https://media.giphy.com/media/QCJFiJfnDCdFa84sLG/giphy.gif'
       },
       {
-
         userId: 1,
         tweetId: 4,
         comment: 'cool!',

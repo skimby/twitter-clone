@@ -30,7 +30,6 @@ function UserFollows() {
     const follows = useSelector(state => state.follows);
     const following = Object.values(follows?.following);
 
-    console.log(openFollowers, openFollows)
     useEffect(() => {
         dispatch(getUserBackend(userId))
     }, [dispatch, userId])

@@ -24,7 +24,6 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
     const [completeTweet, setCompleteTweet] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
     const [previewImage, setPreviewImage] = useState(null);
-    const [isComment, setIsComment] = useState(false);
 
 
     //EMOJI STUFF
@@ -137,11 +136,10 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
         setImage(false)
     }
     return (
-        // <div className="comment-inline-container">
         <div className="tweet-comment-container3">
             <div className='profile-image-box'>
                 {user?.user?.profileImage && (
-                    <img className='profile-img' src={user?.user?.profileImage} />
+                    <img className='profile-img' src={user?.user?.profileImage} alt='user profile' />
                 )}
             </div>
 
@@ -165,10 +163,10 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
                                 <div className="remove-gif-box">
                                     <i className="fa-solid fa-circle-xmark" onClick={removeGif}></i>
                                 </div>
-                                <img src={gif} className='img-gif' width='200' />
+                                <img src={gif} className='img-gif' width='200' alt='tweet attachment gif' />
                             </div>
                             <div className="div-bottom-padding">
-                                <img src={giphyTag} width='110px' />
+                                <img src={giphyTag} width='110px' alt='gif provided by GIPHY' />
                             </div>
                         </>
                     )}
@@ -179,7 +177,7 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
                                 <div className="remove-gif-box">
                                     <i className="fa-solid fa-circle-xmark" onClick={removeImage}></i>
                                 </div>
-                                <img src={previewImage} className='img-gif' width='200' />
+                                <img src={previewImage} className='img-gif' width='200' alt='tweet attachment' />
                             </div>
                         </>
                     )}
@@ -241,7 +239,7 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet }) {
                 )}
             </div>
         </div>
-        // </div >
+
     )
 }
 

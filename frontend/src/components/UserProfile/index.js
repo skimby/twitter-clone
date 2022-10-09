@@ -6,7 +6,6 @@ import { getTweetsUserBackend, getTweetsLoggedUserBackend } from '../../store/tw
 import FollowingButton from '../FollowButtons/FollowingButton';
 import FollowButton from '../FollowButtons/FollowButton';
 import { getFollowingBackend, getLoggedUserFollowingBackend } from '../../store/follow';
-import { getUserRetweetsBackend } from '../../store/retweet'
 import GetTweets from '../GetTweets';
 import UserLikes from './UserLikes';
 import UserRetweets from './UserRetweets';
@@ -37,19 +36,10 @@ function UserProfile({ sessionUser }) {
     const user = useSelector(state => state.users.User);
     const follows = useSelector(state => state.follows)
     const likes = useSelector(state => state.likes)
-    // let retweets = useSelector(state => state.retweets)
 
     const loggedUserFollowingTest = Object.values(useSelector(state => state.follows.loggedUserFollowing));
     let joinedDate = user?.createdAt
 
-
-    // console.log(retweets)
-
-    // useEffect(() => {
-    //     if (userId) {
-    //         dispatch(getUserRetweetsBackend(userId, isOwnPage))
-    //     }
-    // }, [dispatch, userId, isOwnPage])
 
     useEffect(() => {
         setActiveFeatureTweets(blueLineStyling)

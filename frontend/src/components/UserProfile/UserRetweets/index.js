@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory, Link, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import CreateCommentModal from '../../CreateCommentModal';
 import Retweets from '../../Retweet';
 import { getUserRetweetsBackend } from '../../../store/retweet';
@@ -13,12 +13,11 @@ function UserRetweets({ userId, isOwnPage }) {
 
     let retweets = useSelector(state => state.retweets)
 
-    const [newComment, setNewComment] = useState(true)
+    const [newComment] = useState(true)
 
-    console.log(retweets?.loggedUserRetweets)
     useEffect(() => {
         dispatch(getUserRetweetsBackend(userId, isOwnPage))
-    }, [dispatch, userId])
+    }, [dispatch, userId, isOwnPage])
 
     return (
         <>
@@ -32,7 +31,7 @@ function UserRetweets({ userId, isOwnPage }) {
                                         <div className='tweet-container' key={index}>
                                             <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
 
-                                                <img className='profile-img' src={retweet?.User?.profileImage} />
+                                                <img className='profile-img' src={retweet?.User?.profileImage} alt='user profile' />
                                             </div>
 
                                             <div className='tweet-text-box'>
@@ -43,7 +42,7 @@ function UserRetweets({ userId, isOwnPage }) {
 
                                                             {retweet?.User?.verified && (
                                                                 <div className="verified-div2">
-                                                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' alt='verified badge' />
                                                                 </div>
                                                             )}
                                                             <span className='thin-styling'> @{retweet?.User?.username} · {retweet?.updatedAt?.[1]} {retweet?.updatedAt?.[2]}</span></h5>
@@ -61,12 +60,12 @@ function UserRetweets({ userId, isOwnPage }) {
 
                                                 <div className='tweet-img-gif'>
                                                     {retweet?.image !== null && (
-                                                        <img className='img-gif' src={retweet?.image} />
+                                                        <img className='img-gif' src={retweet?.image} alt='tweet attachment' />
                                                     )}
                                                     {retweet?.gif !== null && (
                                                         <>
-                                                            <img className='img-gif' src={retweet?.gif} />
-                                                            <img className="padding-top " src={giphyTag} width='110px' />
+                                                            <img className='img-gif' src={retweet?.gif} alt='tweet attachment gif' />
+                                                            <img className="padding-top " src={giphyTag} width='110px' alt='gif provided by GIPHY' />
                                                         </>
                                                     )}
                                                 </div>
@@ -103,7 +102,7 @@ function UserRetweets({ userId, isOwnPage }) {
                                         <div className='tweet-container' key={index}>
                                             <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
 
-                                                <img className='profile-img' src={retweet?.User?.profileImage} />
+                                                <img className='profile-img' src={retweet?.User?.profileImage} alt='user profile' />
                                             </div>
 
                                             <div className='tweet-text-box'>
@@ -115,7 +114,7 @@ function UserRetweets({ userId, isOwnPage }) {
 
                                                             {retweet?.User?.verified && (
                                                                 <div className="verified-div2">
-                                                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' alt='verified badge' />
                                                                 </div>
                                                             )}
 
@@ -134,12 +133,12 @@ function UserRetweets({ userId, isOwnPage }) {
 
                                                 <div className='tweet-img-gif'>
                                                     {retweet?.image !== null && (
-                                                        <img className='img-gif' src={retweet?.image} />
+                                                        <img className='img-gif' src={retweet?.image} alt='tweet attachment' />
                                                     )}
                                                     {retweet?.gif !== null && (
                                                         <>
-                                                            <img className='img-gif' src={retweet?.gif} />
-                                                            <img className="padding-top " src={giphyTag} width='110px' />
+                                                            <img className='img-gif' src={retweet?.gif} alt='tweet attachment gif' />
+                                                            <img className="padding-top " src={giphyTag} width='110px' alt='gif provided by GIPHY' />
                                                         </>
                                                     )}
                                                 </div>

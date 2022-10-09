@@ -48,7 +48,7 @@ function EachLike({ tweetId, isOwnPage }) {
             }
         }
 
-    }, [dispatch, likes])
+    }, [dispatch, likes, isOwnPage, loggedUser?.id])
 
 
     const handleLike = (e) => {

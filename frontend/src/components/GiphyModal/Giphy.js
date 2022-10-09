@@ -1,18 +1,15 @@
-import { useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { getAllSearchedGifsBackend } from '../../store/gif';
-import { useHistory } from 'react-router-dom';
 import giphyTag from '../../images/powered-by-giphy.png'
 import './GiphyModal.css';
 
 function Giphy({ setShowModal, setGif }) {
     const dispatch = useDispatch();
-    const history = useHistory();
     const ref = useRef();
     const [query, setQuery] = useState('');
 
     const gifs = useSelector(state => state.gifs)
-    const allGifs = Object.values(gifs?.allGifs);
 
 
 
@@ -32,13 +29,11 @@ function Giphy({ setShowModal, setGif }) {
                     <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
                 </div>
                 <div className='search-gif'>
-                    {/* <div className='search-div'> */}
-                    {/* <form onSubmit={handleSubmitGif} className='form'> */}
+
                     <input className='search-styling' type='text' onChange={(e) => setQuery(e.target.value)}>
                     </input>
-                    {/* <div className="div-bottom-padding"> */}
-                    <img src={giphyTag} width='110px' />
-                    {/* </div> */}
+                    <img src={giphyTag} width='110px' alt='gif search and gifs provided by GIPHY' />
+
 
                     <div className='search-button'>
                         <button className='search-btn-icon' type='submit' onClick={handleSubmitGif}  >
@@ -58,7 +53,7 @@ function Giphy({ setShowModal, setGif }) {
                                 )
                                 setShowModal(false)
                             }} ref={ref}>
-                                <img src={gif?.images?.original?.url} width='200px' height='200px' />
+                                <img src={gif?.images?.original?.url} width='200px' height='200px' alt='gif selection previews' />
                             </div>
                         )
                     })

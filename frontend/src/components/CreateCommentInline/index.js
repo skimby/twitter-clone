@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from "react-router-dom";
 import { createCommentBackend } from '../../store/comment';
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
@@ -10,7 +9,6 @@ import './CreateCommentInline.css'
 
 function CreateCommentInline({ tweetId, setShowModalComment }) {
     const dispatch = useDispatch();
-    const history = useHistory();
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
@@ -133,7 +131,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
             <div className="tweet-comment-container">
                 <div className='profile-image-box'>
                     {user?.user?.profileImage && (
-                        <img className='profile-img' src={user?.user?.profileImage} />
+                        <img className='profile-img' src={user?.user?.profileImage} alt='user profile' />
                     )}
                 </div>
 
@@ -156,10 +154,10 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                                     <div className="remove-gif-box">
                                         <i className="fa-solid fa-circle-xmark" onClick={removeGif}></i>
                                     </div>
-                                    <img src={gif} className='img-gif' width='200' />
+                                    <img src={gif} className='img-gif' width='200' alt='comment attachment gif' />
                                 </div>
                                 <div className="div-bottom-padding">
-                                    <img src={giphyTag} width='110px' />
+                                    <img src={giphyTag} width='110px' alt='gif provided by GIPHY' />
                                 </div>
                             </>
                         )}
@@ -169,7 +167,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                                     <div className="remove-gif-box">
                                         <i className="fa-solid fa-circle-xmark" onClick={removeImage}></i>
                                     </div>
-                                    <img src={previewImage} className='img-gif' width='200' />
+                                    <img src={previewImage} className='img-gif' width='200' alt='comment attachment' />
                                 </div>
                             </>
                         )}

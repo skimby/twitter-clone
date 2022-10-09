@@ -1,5 +1,4 @@
 import { createLikeBackend, getLikesBackend, deleteLikeBackend } from '../../store/like'
-import { getOneTweetBackend } from '../../store/tweet';
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from 'react';
 import { useRef } from 'react'
@@ -25,7 +24,7 @@ function Likes({ likeCount, tweet, singleTweet, like, isOwnPage }) {
             }
         }
 
-    }, [dispatch, likes])
+    }, [dispatch, likes, loggedUser?.id])
 
 
     const handleLike = (e) => {

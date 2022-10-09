@@ -8,10 +8,8 @@ import './HomePage.css'
 
 function ExplorePage() {
     const dispatch = useDispatch();
-    const [isLoggedIn, setIsLoggedIn] = useState();
 
     const sessionUser = useSelector(state => state.session);
-    const tweets = useSelector(state => state.tweets)
     const likes = useSelector(state => state.likes)
 
 
@@ -19,13 +17,7 @@ function ExplorePage() {
         dispatch(getFeedTweetsBackend())
     }, [dispatch, likes, sessionUser])
 
-    useEffect(() => {
-        if (sessionUser?.user) {
-            setIsLoggedIn(true)
-        } else {
-            setIsLoggedIn(false)
-        }
-    }, [])
+
 
     return (
         <>

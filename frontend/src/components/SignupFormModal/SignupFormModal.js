@@ -43,7 +43,6 @@ function SignupForm({ setShowModal }) {
       }))
         .catch(async (res) => {
           const data = await res.json();
-          console.log(data, data.errors)
           if (data.errors) {
             setErrors([data.errors])
           }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import CreateTweet from '../CreateTweet';
 import GetTweets from '../GetTweets';
@@ -7,7 +7,6 @@ import './HomePage.css'
 
 function HomePage() {
     const dispatch = useDispatch();
-    const [isLoggedIn, setIsLoggedIn] = useState();
 
     const sessionUser = useSelector(state => state.session.user);
     const tweets = useSelector(state => state.tweets)
@@ -19,22 +18,12 @@ function HomePage() {
         dispatch(getFeedTweetsBackend())
     }, [dispatch, likes, sessionUser, follows, retweets])
 
-    useEffect(() => {
-        if (sessionUser) {
-            setIsLoggedIn(true)
-        } else {
-            setIsLoggedIn(false)
-        }
-
-    }, [sessionUser])
-
     return (
         <>
             <div className='home-div'>
                 <h2>Home</h2>
             </div>
             <CreateTweet />
-            {/* <CreateTweet /> */}
 
             <div>
                 <GetTweets tweets={Object.values(tweets?.feedTweets).sort((a, b) => {

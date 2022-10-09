@@ -30,7 +30,7 @@ function EachFollow({ follow, isOwnPage }) {
         } else {
             setAlreadyFollowing(false)
         }
-    }, [follows, follows?.loggedUserFollowing])
+    }, [follows, loggedUserFollowing, follow?.followerId,])
 
 
     return (
@@ -38,7 +38,7 @@ function EachFollow({ follow, isOwnPage }) {
             <div className='tweet-container-follow' >
                 <div className='tweet-profile-img' onClick={() => { history.push(`/${follow?.Following?.username}/${follow?.Following?.id}`) }}>
 
-                    <img className='profile-img' src={follow?.Following?.profileImage} />
+                    <img className='profile-img' src={follow?.Following?.profileImage} alt='user profile' />
                 </div>
 
                 <div className='tweet-text-box'>
@@ -49,7 +49,7 @@ function EachFollow({ follow, isOwnPage }) {
                                 {follow?.Following?.firstName}</h5>
                             {follow?.Following?.verified && (
                                 <div className="verified-div2">
-                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' alt='verified badge icon' />
                                 </div>
                             )}
                             <div>

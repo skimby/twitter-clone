@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import "./LoginForm.css";
 import logo from '../../images/twitter-logo.png'
 
 
 function LoginForm({ setShowModal }) {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const sessionUser = useSelector((state) => state.session);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  // if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +35,7 @@ function LoginForm({ setShowModal }) {
           <i className="fa-solid fa-x"></i>
         </div>
         <div className="logo-box">
-          <img src={logo} className='logo-container-module' />
+          <img src={logo} className='logo-container-module' alt='twitter logo' />
         </div>
       </div>
 

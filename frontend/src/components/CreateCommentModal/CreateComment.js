@@ -1,25 +1,15 @@
 import { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { createCommentBackend } from '../../store/comment';
 import { createPopup } from '@picmo/popup-picker';
-import GiphyModal from "../GiphyModal";
 import CommentAddOns from "../CommentAddOns";
 import '../GetTweets/GetTweets.css'
 
 function CreateComment({ tweetId, setShowModalComment, tweet, currentComment, setShowModalSettings, edit, newComment }) {
-    const dispatch = useDispatch();
     const history = useHistory();
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
     const [comment, setComment] = useState('');
-    const [image, setImage] = useState(null);
-    const [gif, setGif] = useState(null);
-
-    const user = useSelector(state => state.session);
-
-
 
     let triggerButton;
     let rootElement;
