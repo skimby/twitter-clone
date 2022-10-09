@@ -7,11 +7,11 @@
 .settings-logo-box {
     display: inline-block;
     height: 40px;
-    padding-top: 10px;
+    margin-top: 10px;
     width: 190px;
     padding: 0 auto;
     text-align: center;
-    padding-top: 10px;
+
 }
 
 .settings-box {
