@@ -121,7 +121,7 @@ const validateSignup = [
     .isEmail()
     .withMessage("Please provide a valid email."),
   check("website")
-    // .exists({ checkFalsy: false })
+    .exists({ checkFalsy: false })
     .if((value, { req }) => {
       value.substring(0, 8) === 'https://'
     })
@@ -170,6 +170,9 @@ router.post("/signup", fieldMulterUpload([{ name: "image" }, { name: "image2" }]
   })
 
   if (!existingEmail && !existingUsername) {
+    if (website === 'https://') {
+      website = null
+    }
     const user = await User.signup({
       firstName,
       lastName,
