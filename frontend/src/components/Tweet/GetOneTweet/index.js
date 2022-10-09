@@ -89,9 +89,16 @@ function GetOneTweet({ tweetId }) {
                         </div>
 
                         <div className='user-info-content'>
-                            <div>
+                            <div className='tweet-user-header'>
                                 <h5>{user?.User?.firstName}</h5>
-                                <h5>  <span className='thin-styling'>@{user?.User?.username}</span></h5>
+                                {user?.User?.verified && (
+                                    <div className="verified-div2">
+                                        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                    </div>
+                                )}
+                                <div>
+                                    <h5>  <span className='thin-styling'>@{user?.User?.username}</span></h5>
+                                </div>
                             </div>
                         </div>
                     </div>

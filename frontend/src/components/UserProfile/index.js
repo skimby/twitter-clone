@@ -236,10 +236,7 @@ function UserProfile({ sessionUser }) {
             {
                 activeFeatureRetweets?.borderBottom && (
                     <div>
-
                         <UserRetweets userId={userId} isOwnPage={isOwnPage} />
-
-
                     </div>
                 )
             }

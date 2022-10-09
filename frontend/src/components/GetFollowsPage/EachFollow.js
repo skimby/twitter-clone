@@ -47,6 +47,11 @@ function EachFollow({ follow, isOwnPage }) {
                         <div className='username-name-box'>
                             <h5 className='name-username' onClick={() => { history.push(`/${follow?.Following?.username}/${follow?.Following?.id}`) }}>
                                 {follow?.Following?.firstName}</h5>
+                            {follow?.Following?.verified && (
+                                <div className="verified-div2">
+                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                </div>
+                            )}
                             <div>
                                 <h5><span className='thin-styling-small'> @{follow?.Following?.username} </span></h5>
                             </div>

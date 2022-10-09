@@ -32,7 +32,11 @@ function GetTweets({ tweets }) {
                                     <div className='username-name-box'>
                                         <h5 className='name-username' onClick={() => { history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`) }}>
                                             {tweet?.User?.firstName}
-
+                                            {tweet?.User?.verified && (
+                                                <div className="verified-div2">
+                                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                                </div>
+                                            )}
                                             <span className='thin-styling'> @{tweet?.User?.username} · {tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}</span></h5>
                                     </div>
 

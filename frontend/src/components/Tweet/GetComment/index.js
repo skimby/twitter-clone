@@ -23,7 +23,12 @@ function GetComment({ comment, tweetId, isOwnComment }) {
                         {/* <Link to={`/${comment?.User?.username}/${comment?.User?.id}/tweets/${comment?.tweetId}`}> */}
 
                         <div className='username-name-box'>
-                            <h5 className='name-username'>{comment?.User?.firstName} <span className='thin-styling'>@{comment?.User?.username} • {comment?.updatedAt?.[1]} {comment?.updatedAt?.[2]}</span></h5>
+                            <h5 className='name-username'>{comment?.User?.firstName}
+                                {comment?.User?.verified && (
+                                    <div className="verified-div2">
+                                        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                    </div>
+                                )} <span className='thin-styling'>@{comment?.User?.username} • {comment?.updatedAt?.[1]} {comment?.updatedAt?.[2]}</span></h5>
                         </div>
 
                         {isOwnComment && (

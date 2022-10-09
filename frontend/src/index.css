@@ -172,3 +172,34 @@ button {
 .padding-top {
     padding: 15px 0;
 }
+
+.verified-div {
+    display: inline-block;
+    vertical-align: bottom;
+    padding-left: 3px;
+    padding-bottom: 2px;
+    width: 17px;
+    height: 17px;
+    margin: 0;
+}
+
+.verified-div2 {
+    display: inline-block;
+    vertical-align: center;
+    padding-left: 3px;
+    padding-bottom: 2px;
+    width: 17px;
+    height: 17px;
+    margin: 0;
+}
+
+
+.verified-badge {
+    width: 17px;
+    height: 17px;
+    vertical-align: bottom;
+}
+
+.tweet-user-header h5 {
+    display: inline-block;
+}
