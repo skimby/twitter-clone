@@ -104,15 +104,15 @@ function CommentAddOns({ tweetId, setShowModalComment, currentComment, setShowMo
                         setErrors(data.errors)
                     }
                 });
+            if (newComment) {
+                setComment('')
+                setImage(null)
+                setGif(null)
+                setShowModalComment(false)
+                history.push(`/${user?.user?.username}/tweets/${tweetId}`)
+            }
         }
 
-        if (errors) {
-            setComment('')
-            setImage(null)
-            setGif(null)
-            setShowModalComment(false)
-            history.push(`/${user?.user?.username}/tweets/${tweetId}`)
-        }
     }
 
 
