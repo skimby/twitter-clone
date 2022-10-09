@@ -47,8 +47,12 @@ function EachRecommendedFollow({ follow, loggedUser, isOwnPage }) {
                 </div>
 
                 <div className='follower-info-box'>
-                    <p className='small-p-bold'>{follow?.firstName}  </p>
-                    <p className='small-p'>@{follow?.username}</p>
+                    <div>
+                        <p className='small-p-bold'>{follow?.firstName}  </p>
+                    </div>
+                    <div>
+                        <p className='small-p'>@{follow?.username}</p>
+                    </div>
                 </div>
 
 

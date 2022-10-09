@@ -81,8 +81,6 @@ function UserProfile({ sessionUser }) {
         history.push('/')
     }
 
-
-
     const handleTweets = (e) => {
         e.preventDefault();
         setActiveFeatureTweets(blueLineStyling)

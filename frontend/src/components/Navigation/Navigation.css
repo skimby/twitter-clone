@@ -1,3 +1,8 @@
+a {
+    color: rgb(15, 20, 26);
+}
+
+
 .nav-container {
     width: 200px;
     /* padding-left: 220px; */
@@ -6,7 +11,12 @@
     position: fixed;
 }
 
+.active {
+    font-weight: 700;
+    /* color: red; */
+    size: 25px;
 
+}
 
 .nav-container li {
     text-decoration: none;
@@ -27,6 +37,7 @@
 .nav-container h3 {
     display: inline-block;
     font-size: 20px;
+    font-weight: 400;
     margin: 0;
 }
 

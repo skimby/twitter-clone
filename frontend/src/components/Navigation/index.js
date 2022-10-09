@@ -19,37 +19,35 @@ function Navigation({ isLoaded }) {
           <img src={logo} className='logo-container' />
         </li>
 
-        <NavLink exact to="/">
+        <NavLink exact to="/" activeClassName="active">
           <li className="nav-grid">
             <div className='nav-icon-box'>
               <i className="fa-solid fa-house nav-icons"></i>
             </div>
-            <div>
-              <h3>Home</h3>
-            </div>
+            <h3>Home</h3>
+
           </li>
         </NavLink>
 
-        <NavLink exact to="/explore">
+        <NavLink exact to="/explore" activeClassName='active'>
           <li className="nav-grid">
             <div className='nav-icon-box'>
               <i className="fa-light fa-hashtag nav-icons1"></i>
             </div>
-            <div>
-              <h3 className="nav1">Explore</h3>
-            </div>
+
+            <h3 className="nav1">Explore</h3>
+
           </li>
         </NavLink>
 
 
-        <NavLink exact to={`/${sessionUser?.user?.username}/${sessionUser?.user?.id}`}>
-          <li className="nav-grid">
+        <NavLink exact to={`/${sessionUser?.user?.username}/${sessionUser?.user?.id}`} activeClassName='active'>
+          <li className="nav-grid ">
             <div className='nav-icon-box'>
               <i className="fa-regular fa-user nav-icons"></i>
             </div>
-            <div>
-              <h3>Profile</h3>
-            </div>
+            <h3>Profile</h3>
+
           </li>
         </NavLink>
 

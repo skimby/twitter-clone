@@ -122,5 +122,6 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 33px;
     text-align: center;
+    padding-top: 30px;
     /* margin: 0 0 15px 0; */
 }

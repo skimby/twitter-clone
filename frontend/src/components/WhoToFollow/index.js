@@ -32,7 +32,7 @@ function WhoToFollow() {
         <>
             <div className='recommended-follows'>
                 <div className='recommended-follows-content'>
-                    <h4>Who to follow</h4>
+                    <h4 className='bold-large'>Who to follow</h4>
                     {follows && follows[0] && (
                         <div>
                             <EachRecommendedFollow follow={follows[0]} loggedUser={loggedUser} isOwnPage={isOwnPage} />

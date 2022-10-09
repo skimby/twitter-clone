@@ -48,7 +48,6 @@ function GetFollowsPage({ followingCount }) {
 
 
             <div>
-                <h4>Following</h4>
                 {following && (
                     following.map((follow, index) => {
                         return (
