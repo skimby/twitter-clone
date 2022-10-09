@@ -39,9 +39,49 @@ module.exports = {
         tweetId: 6
       },
       {
-
         userId: 2,
         tweetId: 1
+      },
+
+
+      {
+
+        userId: 3,
+        tweetId: 14
+      },
+      {
+
+        userId: 1,
+        tweetId: 17
+      },
+      {
+
+        userId: 5,
+        tweetId: 4
+      },
+      {
+
+        userId: 1,
+        tweetId: 6
+      },
+      {
+
+        userId: 13,
+        tweetId: 1
+      },
+      {
+
+        userId: 12,
+        tweetId: 3
+      },
+      {
+
+        userId: 8,
+        tweetId: 8
+      },
+      {
+        userId: 9,
+        tweetId: 10
       },
     ])
   },
