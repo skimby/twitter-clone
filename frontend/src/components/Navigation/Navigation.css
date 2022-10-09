@@ -85,14 +85,18 @@ a {
 }
 
 .user-info-container {
-
+    /*  */
     display: inline-flex;
     padding-bottom: 15px;
+    display: grid;
+    grid-template-columns: 47px 413px 25px;
 }
 
 .user-info-content {
     width: 80%;
     padding-left: 15px;
+
+
 }
 
 #footer {

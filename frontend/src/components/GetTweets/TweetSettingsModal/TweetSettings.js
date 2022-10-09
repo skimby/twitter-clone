@@ -43,7 +43,7 @@ function TweetSettings({ tweet, tweetId, setShowModal }) {
 
                         )}
                     </li>
-                    <li><DeleteTweetModal tweetId={tweetId} /></li>
+                    <li><DeleteTweetModal tweetId={tweetId} setShowModal={setShowModal} /></li>
                 </ul>
             </div>
         </>

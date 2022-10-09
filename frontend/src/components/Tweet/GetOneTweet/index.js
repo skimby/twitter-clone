@@ -101,9 +101,9 @@ function GetOneTweet({ tweetId }) {
                                     <h5>  <span className='thin-styling'>@{user?.User?.username}</span></h5>
                                 </div>
                             </div>
-                            {/* <div className='settings-btn' >
-                                <TweetSettingsModal tweet={tweet} />
-                            </div> */}
+                        </div>
+                        <div className='settings-btn' >
+                            <TweetSettingsModal tweet={tweet} />
                         </div>
                     </div>
 

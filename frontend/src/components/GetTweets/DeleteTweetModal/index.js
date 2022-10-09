@@ -3,7 +3,7 @@ import { SmallModal } from "../../../context/Modal"
 import DeleteTweetForm from "./DeleteTweetForm";
 
 
-function DeleteTweetModal({ tweetId }) {
+function DeleteTweetModal({ tweetId, setShowModal }) {
     const [showModalDelete, setShowModalDelete] = useState();
 
     return (
@@ -12,7 +12,7 @@ function DeleteTweetModal({ tweetId }) {
 
             {showModalDelete && (
                 <SmallModal onClose={() => setShowModalDelete(false)}>
-                    <DeleteTweetForm tweetId={tweetId} setShowModalDelete={setShowModalDelete} />
+                    <DeleteTweetForm tweetId={tweetId} setShowModalDelete={setShowModalDelete} setShowModal={setShowModal} />
                 </SmallModal>
             )}
         </>

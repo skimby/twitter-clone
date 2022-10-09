@@ -4,13 +4,16 @@ import { deleteTweetBackend } from "../../../store/tweet";
 import { useHistory } from 'react-router-dom';
 
 
-function DeleteTweetForm({ tweetId, setShowModalDelete }) {
+function DeleteTweetForm({ tweetId, setShowModalDelete, setShowModal }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const handleDelete = async () => {
         await dispatch(deleteTweetBackend(tweetId))
-        history.go()
+        history.push('/')
+        setShowModalDelete(false)
+        setShowModal(false)
+        // history.go()
     }
 
     return (
