@@ -38,7 +38,6 @@ function UserProfile({ sessionUser }) {
     const follows = useSelector(state => state.follows)
     const likes = useSelector(state => state.likes)
     const loggedUserFollowingTest = Object.values(useSelector(state => state.follows.loggedUserFollowing));
-    const following = Object.values(follows?.following)
     let joinedDate = user?.createdAt
 
 
@@ -55,12 +54,12 @@ function UserProfile({ sessionUser }) {
             setIsOwnPage(false)
             dispatch(getTweetsUserBackend(parseInt(userId)))
         }
-    }, [dispatch, userId, likes])
+    }, [dispatch, userId, likes, sessionUser?.id])
 
     useEffect(() => {
         dispatch(getLoggedUserFollowingBackend())
         dispatch(getFollowingBackend(userId, isOwnPage))
-    }, [dispatch, userId])
+    }, [dispatch, userId, isOwnPage])
 
     useEffect(() => {
         let isTrue = 0;
@@ -75,7 +74,7 @@ function UserProfile({ sessionUser }) {
         } else {
             setAlreadyFollowing(false)
         }
-    }, [loggedUserFollowingTest])
+    }, [loggedUserFollowingTest, userId])
 
     const handleBack = () => {
         history.push('/')
@@ -116,11 +115,11 @@ function UserProfile({ sessionUser }) {
             </div>
 
             <div className='cover-image-container'>
-                <img className='cover-img' src={user?.coverImage} />
+                <img className='cover-img' src={user?.coverImage} alt='profile page cover' />
             </div>
 
             <div className='user-profile-img-big-container'>
-                <img className='user-profile-img-big' src={user?.profileImage} />
+                <img className='user-profile-img-big' src={user?.profileImage} alt='profile user' />
             </div>
 
             <div className='following-button-box'>

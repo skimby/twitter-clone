@@ -57,7 +57,7 @@ input #file-upload-button {
 
 .center-h1-signup {
     text-align: center;
-    padding: 35px 0 15px 0;
+    padding: 20px 0 10px 0;
 }
 
 #signupImg,
@@ -69,4 +69,12 @@ input #file-upload-button {
     color: rgb(29, 155, 240);
     font-size: 25px;
     padding: 0 15px;
+}
+
+.signup-btn-styling {
+    display: block;
+    width: 100%;
+    background-color: rgb(15, 20, 25);
+    margin-bottom: 30px;
+    margin-top: 10px
 }

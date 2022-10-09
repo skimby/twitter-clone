@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
 import "./SignupForm.css";
 import logo from '../../images/twitter-logo.png'
@@ -9,10 +8,8 @@ import logo from '../../images/twitter-logo.png'
 
 function SignupForm({ setShowModal }) {
   const dispatch = useDispatch();
-  const history = useHistory();
   const websitePrefix = 'https://'
 
-  const sessionUser = useSelector((state) => state.session);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -76,7 +73,7 @@ function SignupForm({ setShowModal }) {
           <i className="fa-solid fa-x"></i>
         </div>
         <div className="logo-box">
-          <img src={logo} className='logo-container-module' />
+          <img src={logo} className='logo-container-module' alt='twitter logo' />
         </div>
       </div>
 
@@ -187,7 +184,7 @@ function SignupForm({ setShowModal }) {
             required
           />
 
-          <button type="submit">Sign Up</button>
+          <button className='signup-btn-styling' type="submit">Sign Up</button>
         </form>
 
         {errors && (

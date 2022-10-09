@@ -1,8 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
 import logo from '../../images/twitter-logo.png'
 import CreateTweetModal from "../CreateTweetModal";
 import UserSettingsModal from "./UserSettingsModal";
@@ -16,7 +14,7 @@ function Navigation({ isLoaded }) {
     <div className="nav-container">
       <ul >
         <li >
-          <img src={logo} className='logo-container' />
+          <img src={logo} className='logo-container' alt='twitter logo' />
         </li>
 
         <li className="nav-grid">
@@ -66,7 +64,7 @@ function Navigation({ isLoaded }) {
           <li>
             <div className='user-info-container'>
               <div className='profile-img'>
-                <img className='profile-img' src={sessionUser?.user?.profileImage} />
+                <img className='profile-img' alt='user page profile' src={sessionUser?.user?.profileImage} />
               </div>
 
               <div className='user-info-content'>

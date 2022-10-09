@@ -120,12 +120,12 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isEmail()
     .withMessage("Please provide a valid email."),
-  check("website")
-    .exists({ checkFalsy: false })
-    .if((value, { req }) => {
-      value.substring(0, 8) === 'https://'
-    })
-    .withMessage("Please provide a website starting with 'https://'"),
+  // check("website")
+  //   .exists({ checkFalsy: true })
+  //   .if((value, { req }) => {
+  //     value.substring(0, 8) === 'https://'
+  //   })
+  //   .withMessage("Please provide a website starting with 'https://'"),
   check("username")
     .exists({ checkFalsy: true })
     .isLength({ min: 4 })

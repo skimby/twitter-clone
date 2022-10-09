@@ -19,8 +19,8 @@ function GetOneTweet({ tweetId }) {
     const history = useHistory();
 
     const [isOwnComment, setIsOwnComment] = useState()
-    const [newComment, setNewComment] = useState(true)
-    const [singleTweet, setSingleTweet] = useState(true);
+    const [newComment] = useState(true)
+    const [singleTweet] = useState(true);
     const loggedUser = useSelector(state => state.session.user)
     const user = useSelector(state => state.users)
     const likes = useSelector(state => state.likes)
@@ -46,7 +46,7 @@ function GetOneTweet({ tweetId }) {
                 setIsOwnComment(false)
             }
         }
-    }, [dispatch, tweet])
+    }, [dispatch, tweet, loggedUser?.id])
 
     useEffect(() => {
         dispatch(getOneTweetBackend(tweetId))
@@ -85,7 +85,7 @@ function GetOneTweet({ tweetId }) {
                 <div className='one-tweet-container'>
                     <div className='user-info-container'>
                         <div className='profile-img' onClick={() => history.push(`/${user?.User?.username}/${user?.User?.id}`)} >
-                            <img className='profile-img' src={user?.User?.profileImage} />
+                            <img className='profile-img' src={user?.User?.profileImage} alt='profile user' />
                         </div>
 
                         <div className='user-info-content'>
@@ -104,14 +104,14 @@ function GetOneTweet({ tweetId }) {
                             <div className='comment-img-gif'>
                                 {tweet?.image !== null && (
                                     <>
-                                        <img src={tweet?.image} className='img-gif' width='200' />
+                                        <img src={tweet?.image} className='img-gif' width='200' alt='attachment for tweet' />
 
                                     </>
                                 )}
                                 {tweet?.gif !== null && (
                                     <>
-                                        <img className='img-gif' src={tweet?.gif} width='200' />
-                                        <img className="padding-top " src={giphyTag} width='110px' />
+                                        <img className='img-gif' src={tweet?.gif} width='200' alt='gif attachment for tweet' />
+                                        <img className="padding-top " src={giphyTag} width='110px' alt='gif provided by GIPHY' />
                                     </>
                                 )}
                             </div>

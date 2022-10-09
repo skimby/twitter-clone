@@ -28,8 +28,7 @@ function LoginForm({ setShowModal }) {
   };
 
   const signUpLink = () => {
-    //update this later
-    history.go()
+    setShowModal(false)
   }
 
   return (

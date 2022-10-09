@@ -151,7 +151,7 @@ button {
 }
 
 .validation-errors-signup {
-    padding-top: 30px;
+    /* padding-top: 10px; */
     color: #EE4F4F;
 }
 
