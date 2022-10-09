@@ -187,7 +187,6 @@ const tweetsReducer = (state = initialState, action) => {
             return deleteTweetState;
 
         case GET_TWEETS_USER:
-            console.log(action.payload)
             const getTweetsUser = { ...state }
             getTweetsUser.userTweets = {};
             action.payload.Tweets.forEach(tweet => {

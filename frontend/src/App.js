@@ -11,7 +11,7 @@ import GetFollowersPage from "./components/GetFollowersPage/index.js";
 import Tweet from "./components/Tweet/index.js";
 import ExplorePage from "./components/ExplorePage/index.js";
 import WhoToFollow from "./components/WhoToFollow/index.js";
-
+import UserFollows from "./components/UserFollows/index.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -56,11 +56,11 @@ function App() {
                             <UserProfile sessionUser={sessionUser} />
                           </Route>
                           <Route path='/:username/:userId/follows' exact >
-                            <GetFollowsPage />
+                            <UserFollows />
                           </Route>
-                          <Route path='/:username/:userId/followers' exact >
+                          {/* <Route path='/:username/:userId/followers' exact >
                             <GetFollowersPage />
-                          </Route>
+                          </Route> */}
 
 
                           <Route path='/:username/tweets/:tweetId' exact >

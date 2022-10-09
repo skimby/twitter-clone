@@ -17,7 +17,6 @@ function EachRecommendedFollow({ follow, loggedUser, isOwnPage }) {
     const loggedUserFollowing = Object.values(follows?.loggedUserFollowing);
 
 
-    console.log(isOwnPage)
     useEffect(() => {
         dispatch(getLoggedUserFollowingBackend())
     }, [dispatch])

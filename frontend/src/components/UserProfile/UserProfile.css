@@ -116,3 +116,11 @@
     padding: 0 auto;
     display: inline-block;
 }
+
+.features-container-follows {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 33px;
+    text-align: center;
+    /* margin: 0 0 15px 0; */
+}

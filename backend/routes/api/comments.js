@@ -43,12 +43,9 @@ router.post('/tweets/:tweetId', singleMulterUpload("image"), requireAuth, valida
 
     const { tweetId } = req.params;
 
-    console.log('-----')
-    console.log(req.file, comment)
 
     const tweet = await Tweet.findByPk(tweetId);
-    console.log('-----')
-    console.log(tweet)
+
     if (tweet) {
 
         let newComment;

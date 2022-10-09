@@ -18,7 +18,6 @@ function GetFollowersPage() {
     const follows = useSelector(state => state.follows);
     const followers = Object.values(follows?.followers);
 
-    console.log(isOwnPage)
 
     useEffect(() => {
         if (parseInt(userId) === loggedUser?.id) {

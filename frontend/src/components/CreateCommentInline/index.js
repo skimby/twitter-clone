@@ -91,7 +91,6 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
                 if (data && data.errors) {
                     setErrors([]);
                     setErrors(data.errors)
-                    console.log(data)
                 }
             });
         if (!errors) {

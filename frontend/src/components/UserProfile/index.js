@@ -28,6 +28,7 @@ function UserProfile({ sessionUser }) {
     const [activeFeatureRetweets, setActiveFeatureRetweets] = useState(noStyling)
     const [activeFeatureLikes, setActiveFeatureLikes] = useState(noStyling)
 
+
     const [isOwnPage, setIsOwnPage] = useState();
     const [alreadyFollowing, setAlreadyFollowing] = useState();
     const tweets = useSelector(state => state.tweets);
@@ -79,7 +80,7 @@ function UserProfile({ sessionUser }) {
     const handleBack = () => {
         history.push('/')
     }
-    console.log(activeFeatureTweets, activeFeatureLikes, activeFeatureRetweets)
+
 
 
     const handleTweets = (e) => {
@@ -165,8 +166,6 @@ function UserProfile({ sessionUser }) {
                             <p className='gray-p follower-styling' onClick={() => {
                                 history.push(`/${user?.username}/${userId}/follows`)
                             }}><span className='bold'>{user?.followingCount}</span> Following</p>
-
-
 
                             <p className='gray-p follower-styling' onClick={() => {
                                 history.push(`/${user?.username}/${userId}/followers`)

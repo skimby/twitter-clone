@@ -20,7 +20,6 @@ function UserLikes({ userId, isOwnPage }) {
         dispatch(getUserLikesBackend(userId, isOwnPage))
     }, [dispatch, userId])
 
-    console.log(likes)
     return (
         <>
             {!isOwnPage && (

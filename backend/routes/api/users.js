@@ -179,8 +179,6 @@ router.post("/signup", fieldMulterUpload([{ name: "image" }, { name: "image2" }]
     await setTokenCookie(res, user);
     user.dataValues.token = req.cookies.token;
 
-    console.log('-----')
-    console.log(user)
     return res.json({
       user
     });

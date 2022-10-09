@@ -109,7 +109,6 @@ const retweetReducer = (state = initialState, action) => {
             return getUserRetweetsState;
 
         case RETWEET:
-            console.log(action.payload)
             const retweetState = { ...state };
             retweetState.loggedUserRetweets[action.payload.id] = action.payload
 

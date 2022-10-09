@@ -154,7 +154,6 @@ const followsReducer = (state = initialState, action) => {
             return getLoggedUserFollowingState;
 
         case CREATE_FOLLOW:
-            console.log(action.payload)
             const createFollowState = { ...state };
             createFollowState.loggedUserFollowing[action.payload.followerId] = action.payload
 

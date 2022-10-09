@@ -16,7 +16,6 @@ function EachLike({ tweetId, isOwnPage }) {
     const tweet = useSelector(state => state.tweets.currentTweet)
     const newLikes = useSelector(state => state.likes)
     const likes = tweet?.likes
-    console.log(tweet, likes)
 
     useEffect(() => {
         if (tweetId) {
@@ -36,7 +35,6 @@ function EachLike({ tweetId, isOwnPage }) {
                 } else {
                     setLiked(false)
                 }
-                console.log(tweetId, liked)
 
             } else {
                 const tweetIsLiked = likes.find(like => like.userId === loggedUser?.id)
@@ -47,7 +45,6 @@ function EachLike({ tweetId, isOwnPage }) {
                 } else {
                     setLiked(false)
                 }
-                console.log(tweetId, liked)
             }
         }
 

@@ -20,7 +20,6 @@ function WhoToFollow() {
         }
     }, [dispatch])
 
-    console.log(userId, loggedUser?.id)
     useEffect(() => {
         if (parseInt(userId) === loggedUser?.id) {
             setIsOwnPage(true)

@@ -45,15 +45,6 @@ function GetFollowsPage({ followingCount }) {
 
     return (
         <>
-            <div className='user-profile-header'>
-                <div className='x-box'>
-                    <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
-                </div>
-                <div className='user-information-box'>
-                    <h5 className='user-bold-styling'>{user?.User?.username}</h5>
-                    <p className='p-gray-small'>@{user?.User?.username}</p>
-                </div>
-            </div>
 
 
             <div>

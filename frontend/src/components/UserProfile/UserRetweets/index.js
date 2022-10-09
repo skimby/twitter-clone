@@ -19,7 +19,6 @@ function UserRetweets({ userId, isOwnPage }) {
         dispatch(getUserRetweetsBackend(userId, isOwnPage))
     }, [dispatch, userId])
 
-    console.log(retweets)
     return (
         <>
             {!isOwnPage && (
