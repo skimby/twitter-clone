@@ -6,6 +6,7 @@ import { getTweetsUserBackend, getTweetsLoggedUserBackend } from '../../store/tw
 import FollowingButton from '../FollowButtons/FollowingButton';
 import FollowButton from '../FollowButtons/FollowButton';
 import { getFollowingBackend, getLoggedUserFollowingBackend } from '../../store/follow';
+import { getUserRetweetsBackend } from '../../store/retweet'
 import GetTweets from '../GetTweets';
 import UserLikes from './UserLikes';
 import UserRetweets from './UserRetweets';
@@ -31,16 +32,30 @@ function UserProfile({ sessionUser }) {
 
     const [isOwnPage, setIsOwnPage] = useState();
     const [alreadyFollowing, setAlreadyFollowing] = useState();
+
     const tweets = useSelector(state => state.tweets);
-
-
     const user = useSelector(state => state.users.User);
     const follows = useSelector(state => state.follows)
     const likes = useSelector(state => state.likes)
+    // let retweets = useSelector(state => state.retweets)
+
     const loggedUserFollowingTest = Object.values(useSelector(state => state.follows.loggedUserFollowing));
     let joinedDate = user?.createdAt
 
 
+    // console.log(retweets)
+
+    // useEffect(() => {
+    //     if (userId) {
+    //         dispatch(getUserRetweetsBackend(userId, isOwnPage))
+    //     }
+    // }, [dispatch, userId, isOwnPage])
+
+    useEffect(() => {
+        setActiveFeatureTweets(blueLineStyling)
+        setActiveFeatureRetweets(noStyling)
+        setActiveFeatureLikes(noStyling)
+    }, [user])
 
     useEffect(() => {
         dispatch(getUserBackend(userId))
@@ -221,7 +236,9 @@ function UserProfile({ sessionUser }) {
             {
                 activeFeatureRetweets?.borderBottom && (
                     <div>
+
                         <UserRetweets userId={userId} isOwnPage={isOwnPage} />
+
 
                     </div>
                 )

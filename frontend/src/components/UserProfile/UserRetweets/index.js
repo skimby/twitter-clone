@@ -15,140 +15,145 @@ function UserRetweets({ userId, isOwnPage }) {
 
     const [newComment, setNewComment] = useState(true)
 
+    console.log(retweets?.loggedUserRetweets)
     useEffect(() => {
         dispatch(getUserRetweetsBackend(userId, isOwnPage))
     }, [dispatch, userId])
 
     return (
         <>
-            {!isOwnPage && (
+            {retweets && (
                 <>
-                    {retweets?.userRetweets && (
-                        Object.values(retweets?.userRetweets).map((retweet, index) => {
-                            return (
-                                <div className='tweet-container' key={index}>
-                                    <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
+                    {!isOwnPage && (
+                        <>
+                            {retweets?.userRetweets && (
+                                Object.values(retweets?.userRetweets).map((retweet, index) => {
+                                    return (
+                                        <div className='tweet-container' key={index}>
+                                            <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
 
-                                        <img className='profile-img' src={retweet?.User?.profileImage} />
-                                    </div>
-
-                                    <div className='tweet-text-box'>
-                                        <div className='tweet-user-header'>
-                                            <div className='username-name-box'>
-                                                <h5 className='name-username' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
-                                                    {retweet?.User?.firstName}
-
-                                                    <span className='thin-styling'> @{retweet?.User?.username} · {retweet?.updatedAt?.[1]} {retweet?.updatedAt?.[2]}</span></h5>
+                                                <img className='profile-img' src={retweet?.User?.profileImage} />
                                             </div>
-                                        </div>
 
-                                        {/* <div className='settings-btn' >
+                                            <div className='tweet-text-box'>
+                                                <div className='tweet-user-header'>
+                                                    <div className='username-name-box'>
+                                                        <h5 className='name-username' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
+                                                            {retweet?.User?.firstName}
+
+                                                            <span className='thin-styling'> @{retweet?.User?.username} · {retweet?.updatedAt?.[1]} {retweet?.updatedAt?.[2]}</span></h5>
+                                                    </div>
+                                                </div>
+
+                                                {/* <div className='settings-btn' >
                                         <TweetSettingsModal tweet={tweet} />
                                     </div> */}
-                                        <div className='tweet-tweet-box'>
-                                            <p className='pointer' onClick={() => { history.push(`/${retweet?.User?.username}/tweets/${retweet?.id}`) }}>
-                                                {retweet?.tweet}
-                                            </p>
+                                                <div className='tweet-tweet-box'>
+                                                    <p className='pointer' onClick={() => { history.push(`/${retweet?.User?.username}/tweets/${retweet?.id}`) }}>
+                                                        {retweet?.tweet}
+                                                    </p>
+                                                </div>
+
+                                                <div className='tweet-img-gif'>
+                                                    {retweet?.image !== null && (
+                                                        <img className='img-gif' src={retweet?.image} />
+                                                    )}
+                                                    {retweet?.gif !== null && (
+                                                        <>
+                                                            <img className='img-gif' src={retweet?.gif} />
+                                                            <img className="padding-top " src={giphyTag} width='110px' />
+                                                        </>
+                                                    )}
+                                                </div>
+
+                                                <div className='tweet-icons-box'>
+
+                                                    <div className='tweet-icon'>
+                                                        <CreateCommentModal commentCount={retweet?.commentCount} tweet={retweet} newComment={newComment} />
+                                                    </div>
+                                                    <div className='tweet-icon'>
+                                                        <Retweets retweetCount={retweet?.retweetCount} tweet={retweet} />
+                                                    </div>
+
+                                                    <div className='tweet-icon'>
+                                                        <Likes likeCount={retweet?.likeCount} tweet={retweet} />
+                                                    </div>
+                                                    {/* <i onClick={handleLike(tweet)} className="fa-regular fa-heart"></i>{tweet?.likeCount} */}
+
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div className='tweet-img-gif'>
-                                            {retweet?.image !== null && (
-                                                <img className='img-gif' src={retweet?.image} />
-                                            )}
-                                            {retweet?.gif !== null && (
-                                                <>
-                                                    <img className='img-gif' src={retweet?.gif} />
-                                                    <img className="padding-top " src={giphyTag} width='110px' />
-                                                </>
-                                            )}
-                                        </div>
-
-                                        <div className='tweet-icons-box'>
-
-                                            <div className='tweet-icon'>
-                                                <CreateCommentModal commentCount={retweet?.commentCount} tweet={retweet} newComment={newComment} />
-                                            </div>
-                                            <div className='tweet-icon'>
-                                                <Retweets retweetCount={retweet?.retweetCount} tweet={retweet} />
-                                            </div>
-
-                                            <div className='tweet-icon'>
-                                                <Likes likeCount={retweet?.likeCount} tweet={retweet} />
-                                            </div>
-                                            {/* <i onClick={handleLike(tweet)} className="fa-regular fa-heart"></i>{tweet?.likeCount} */}
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            )
-                        })
+                                    )
+                                })
+                            )}
+                        </>
                     )}
-                </>
-            )}
 
-            {isOwnPage && (
-                <>
-                    {retweets?.loggedUserRetweets && (
-                        Object.values(retweets?.loggedUserRetweets).map((retweet, index) => {
-                            return (
-                                <div className='tweet-container' key={index}>
-                                    <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
+                    {isOwnPage && (
+                        <>
+                            {retweets?.loggedUserRetweets && (
+                                Object.values(retweets?.loggedUserRetweets).map((retweet, index) => {
+                                    return (
+                                        <div className='tweet-container' key={index}>
+                                            <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
 
-                                        <img className='profile-img' src={retweet?.User?.profileImage} />
-                                    </div>
-
-                                    <div className='tweet-text-box'>
-                                        <div className='tweet-user-header'>
-                                            <div className='username-name-box'>
-                                                <h5 className='name-username' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
-                                                    {retweet?.User?.firstName}
-
-                                                    <span className='thin-styling'> @{retweet?.User?.username} · {retweet?.updatedAt?.[1]} {retweet?.updatedAt?.[2]}</span></h5>
+                                                <img className='profile-img' src={retweet?.User?.profileImage} />
                                             </div>
-                                        </div>
 
-                                        {/* <div className='settings-btn' >
+                                            <div className='tweet-text-box'>
+                                                <div className='tweet-user-header'>
+                                                    <div className='username-name-box'>
+                                                        <h5 className='name-username' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
+                                                            {retweet?.User?.firstName}
+
+                                                            <span className='thin-styling'> @{retweet?.User?.username} · {retweet?.updatedAt?.[1]} {retweet?.updatedAt?.[2]}</span></h5>
+                                                    </div>
+                                                </div>
+
+                                                {/* <div className='settings-btn' >
                                         <TweetSettingsModal tweet={tweet} />
                                     </div> */}
-                                        <div className='tweet-tweet-box'>
-                                            <p className='pointer' onClick={() => { history.push(`/${retweet?.User?.username}/tweets/${retweet?.id}`) }}>
-                                                {retweet?.tweet}
-                                            </p>
+                                                <div className='tweet-tweet-box'>
+                                                    <p className='pointer' onClick={() => { history.push(`/${retweet?.User?.username}/tweets/${retweet?.id}`) }}>
+                                                        {retweet?.tweet}
+                                                    </p>
+                                                </div>
+
+                                                <div className='tweet-img-gif'>
+                                                    {retweet?.image !== null && (
+                                                        <img className='img-gif' src={retweet?.image} />
+                                                    )}
+                                                    {retweet?.gif !== null && (
+                                                        <>
+                                                            <img className='img-gif' src={retweet?.gif} />
+                                                            <img className="padding-top " src={giphyTag} width='110px' />
+                                                        </>
+                                                    )}
+                                                </div>
+
+                                                <div className='tweet-icons-box'>
+
+                                                    <div className='tweet-icon'>
+                                                        <CreateCommentModal commentCount={retweet?.commentCount} tweet={retweet} newComment={newComment} />
+                                                    </div>
+                                                    <div className='tweet-icon'>
+                                                        <Retweets retweetCount={retweet?.retweetCount} tweet={retweet} />
+                                                    </div>
+
+                                                    <div className='tweet-icon'>
+                                                        <Likes likeCount={retweet?.likeCount} tweet={retweet} />
+                                                    </div>
+                                                    {/* <i onClick={handleLike(tweet)} className="fa-regular fa-heart"></i>{tweet?.likeCount} */}
+
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <div className='tweet-img-gif'>
-                                            {retweet?.image !== null && (
-                                                <img className='img-gif' src={retweet?.image} />
-                                            )}
-                                            {retweet?.gif !== null && (
-                                                <>
-                                                    <img className='img-gif' src={retweet?.gif} />
-                                                    <img className="padding-top " src={giphyTag} width='110px' />
-                                                </>
-                                            )}
-                                        </div>
-
-                                        <div className='tweet-icons-box'>
-
-                                            <div className='tweet-icon'>
-                                                <CreateCommentModal commentCount={retweet?.commentCount} tweet={retweet} newComment={newComment} />
-                                            </div>
-                                            <div className='tweet-icon'>
-                                                <Retweets retweetCount={retweet?.retweetCount} tweet={retweet} />
-                                            </div>
-
-                                            <div className='tweet-icon'>
-                                                <Likes likeCount={retweet?.likeCount} tweet={retweet} />
-                                            </div>
-                                            {/* <i onClick={handleLike(tweet)} className="fa-regular fa-heart"></i>{tweet?.likeCount} */}
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            )
-                        })
+                                    )
+                                })
+                            )}
+                        </>
                     )}
                 </>
             )}
