@@ -46,7 +46,7 @@ function GetTweets({ tweets }) {
                                 </div>
 
                                 <div className='tweet-tweet-box'>
-                                    <p onClick={() => { history.push(`/${tweet?.User?.username}/tweets/${tweet.id}`) }}>
+                                    <p className='pointer' onClick={() => { history.push(`/${tweet?.User?.username}/tweets/${tweet.id}`) }}>
                                         {tweet?.tweet}
                                     </p>
                                 </div>

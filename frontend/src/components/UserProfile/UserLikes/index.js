@@ -47,7 +47,7 @@ function UserLikes({ userId, isOwnPage }) {
                                         <TweetSettingsModal tweet={tweet} />
                                     </div> */}
                                         <div className='tweet-tweet-box'>
-                                            <p onClick={() => { history.push(`/${like?.User?.username}/tweets/${like?.id}`) }}>
+                                            <p className='pointer' onClick={() => { history.push(`/${like?.User?.username}/tweets/${like?.id}`) }}>
                                                 {like?.tweet}
                                             </p>
                                         </div>
@@ -113,7 +113,7 @@ function UserLikes({ userId, isOwnPage }) {
                                         <TweetSettingsModal tweet={tweet} />
                                     </div> */}
                                         <div className='tweet-tweet-box'>
-                                            <p onClick={() => { history.push(`/${like?.User?.username}/tweets/${like?.id}`) }}>
+                                            <p className='pointer' onClick={() => { history.push(`/${like?.User?.username}/tweets/${like?.id}`) }}>
                                                 {like?.tweet}
                                             </p>
                                         </div>

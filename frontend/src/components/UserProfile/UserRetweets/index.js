@@ -46,7 +46,7 @@ function UserRetweets({ userId, isOwnPage }) {
                                         <TweetSettingsModal tweet={tweet} />
                                     </div> */}
                                         <div className='tweet-tweet-box'>
-                                            <p onClick={() => { history.push(`/${retweet?.User?.username}/tweets/${retweet?.id}`) }}>
+                                            <p className='pointer' onClick={() => { history.push(`/${retweet?.User?.username}/tweets/${retweet?.id}`) }}>
                                                 {retweet?.tweet}
                                             </p>
                                         </div>
@@ -112,7 +112,7 @@ function UserRetweets({ userId, isOwnPage }) {
                                         <TweetSettingsModal tweet={tweet} />
                                     </div> */}
                                         <div className='tweet-tweet-box'>
-                                            <p onClick={() => { history.push(`/${retweet?.User?.username}/tweets/${retweet?.id}`) }}>
+                                            <p className='pointer' onClick={() => { history.push(`/${retweet?.User?.username}/tweets/${retweet?.id}`) }}>
                                                 {retweet?.tweet}
                                             </p>
                                         </div>

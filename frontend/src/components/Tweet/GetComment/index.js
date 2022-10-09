@@ -34,7 +34,7 @@ function GetComment({ comment, tweetId, isOwnComment }) {
                     </div>
 
                     <div className='tweet-tweet-box'>
-                        <p>{comment?.comment}</p>
+                        <p >{comment?.comment}</p>
                     </div>
                     <div className='tweet-img-gif'>
                         {comment?.image !== null && (
