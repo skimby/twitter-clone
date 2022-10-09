@@ -19,37 +19,43 @@ function Navigation({ isLoaded }) {
           <img src={logo} className='logo-container' />
         </li>
 
-        <NavLink exact to="/" activeClassName="active">
-          <li className="nav-grid">
-            <div className='nav-icon-box'>
-              <i className="fa-solid fa-house nav-icons"></i>
-            </div>
-            <h3>Home</h3>
+        <li className="nav-grid">
+          <div className='nav-icon-box'>
+            <i className="fa-solid fa-house nav-icons"></i>
+          </div>
+          <h3>
+            <NavLink exact to="/" activeClassName="active">
+              Home
+            </NavLink>
+          </h3>
 
-          </li>
-        </NavLink>
+        </li>
 
-        <NavLink exact to="/explore" activeClassName='active'>
-          <li className="nav-grid">
-            <div className='nav-icon-box'>
-              <i className="fa-light fa-hashtag nav-icons1"></i>
-            </div>
+        <li className="nav-grid">
+          <div className='nav-icon-box'>
+            <i className="fa-light fa-hashtag nav-icons1"></i>
+          </div>
 
-            <h3 className="nav1">Explore</h3>
+          <h3 className="nav1">
+            <NavLink exact to="/explore" activeClassName='active'>
+              Explore
+            </NavLink>
+          </h3>
 
-          </li>
-        </NavLink>
+        </li>
 
 
-        <NavLink exact to={`/${sessionUser?.user?.username}/${sessionUser?.user?.id}`} activeClassName='active'>
-          <li className="nav-grid ">
-            <div className='nav-icon-box'>
-              <i className="fa-regular fa-user nav-icons"></i>
-            </div>
-            <h3>Profile</h3>
+        <li className="nav-grid ">
+          <div className='nav-icon-box'>
+            <i className="fa-regular fa-user nav-icons"></i>
+          </div>
+          <h3>
+            <NavLink exact to={`/${sessionUser?.user?.username}/${sessionUser?.user?.id}`} activeClassName='active'>
+              Profile
+            </NavLink>
+          </h3>
 
-          </li>
-        </NavLink>
+        </li>
 
 
         <li>

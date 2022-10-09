@@ -166,7 +166,7 @@ function UserProfile({ sessionUser }) {
                             }}><span className='bold'>{user?.followingCount}</span> Following</p>
 
                             <p className='gray-p follower-styling' onClick={() => {
-                                history.push(`/${user?.username}/${userId}/followers`)
+                                history.push(`/${user?.username}/${userId}/follows`)
                             }}>
                                 <span className='bold'>
                                     {user?.followerCount}</span> Followers
