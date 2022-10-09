@@ -16,7 +16,7 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
-    const [errors, setErrors] = useState(false);
+    const [errors, setErrors] = useState(null);
     const [completeComment, setCompleteComment] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
     const [previewImage, setPreviewImage] = useState(null);
@@ -82,19 +82,19 @@ function CreateCommentInline({ tweetId, setShowModalComment }) {
             image
         }
 
-        await dispatch(createCommentBackend(tweetId, commentInput))
+        const newComment = await dispatch(createCommentBackend(tweetId, commentInput))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
-                    setErrors([]);
+                    // setErrors([]);
                     setErrors(data.errors)
                 }
             });
-
-        if (!errors.length) {
+        if (newComment) {
             setComment('')
             setImage(null)
             setGif(null)
+            setErrors(null)
         }
 
     }

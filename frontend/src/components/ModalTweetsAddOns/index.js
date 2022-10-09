@@ -23,7 +23,7 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet, show
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState(null);
     const [completeTweet, setCompleteTweet] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
     const [previewImage, setPreviewImage] = useState(null);
@@ -119,7 +119,7 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet, show
                     }
                 });
 
-            if (!errors) {
+            if (newTweet) {
                 setTweet('')
                 setImage(null)
                 setGif(null)

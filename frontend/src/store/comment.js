@@ -66,6 +66,7 @@ export const createCommentBackend = (tweetId, commentInput) => async (dispatch) 
     if (res.ok) {
         const parsedRes = await res.json();
         dispatch(createComment(parsedRes));
+        return parsedRes
     }
 }
 

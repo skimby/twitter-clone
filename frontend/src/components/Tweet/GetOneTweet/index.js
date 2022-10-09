@@ -10,6 +10,7 @@ import CreateCommentModal from '../../CreateCommentModal'
 import CreateCommentInline from '../../CreateCommentInline';
 import giphyTag from '../../../images/powered-by-giphy.png'
 import Retweets from '../../Retweet';
+import TweetSettingsModal from '../../GetTweets/TweetSettingsModal';
 import '../../UserProfile/UserProfile.css'
 import './GetOneTweet.css'
 import '../../GetTweets/GetTweets.css'
@@ -28,7 +29,7 @@ function GetOneTweet({ tweetId }) {
     const comments = useSelector(state => state.comments)
     const retweets = useSelector(state => state.retweets)
 
-    console.log(loggedUser)
+
     const tweet = tweets?.currentTweet
     const allComments2 = tweet?.Comments
 
@@ -100,6 +101,9 @@ function GetOneTweet({ tweetId }) {
                                     <h5>  <span className='thin-styling'>@{user?.User?.username}</span></h5>
                                 </div>
                             </div>
+                            {/* <div className='settings-btn' >
+                                <TweetSettingsModal tweet={tweet} />
+                            </div> */}
                         </div>
                     </div>
 

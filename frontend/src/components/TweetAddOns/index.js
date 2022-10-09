@@ -20,7 +20,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     const [image, setImage] = useState(null);
     const [gif, setGif] = useState(null);
     const [inputClick, setInputClick] = useState(false);
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState(null);
     const [completeTweet, setCompleteTweet] = useState(false);
     const [gifOrImg, setGifOrImg] = useState(false);
     const [previewImage, setPreviewImage] = useState(null);
@@ -106,7 +106,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                     }
                 });
 
-            if (!errors.length) {
+            if (newTweet) {
                 setTweet('')
                 setImage(null)
                 setGif(null)
