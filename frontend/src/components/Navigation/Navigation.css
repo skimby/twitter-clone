@@ -26,7 +26,7 @@ a {
 .nav-grid {
     display: grid;
     grid-template-columns: 55px 100px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .nav-icon-box {

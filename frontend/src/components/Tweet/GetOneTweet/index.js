@@ -71,15 +71,15 @@ function GetOneTweet({ tweetId }) {
 
     return (
         <>
-            <div className='get-one-tweet-container'>
-                <div className='user-profile-header'>
-                    <div className='x-box'>
-                        <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
-                    </div>
-                    <div className='user-information-box'>
-                        <h5 className='tweet-bold-styling'>Tweet</h5>
-                    </div>
+            <div className='user-profile-header'>
+                <div className='x-box'>
+                    <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
                 </div>
+                <div className='user-information-box'>
+                    <h5 className='tweet-bold-styling'>Tweet</h5>
+                </div>
+            </div>
+            <div className='get-one-tweet-container'>
 
 
                 <div className='one-tweet-container'>
@@ -107,7 +107,7 @@ function GetOneTweet({ tweetId }) {
 
                     {tweet && (
                         <>
-                            <h3>{tweet?.tweet}</h3>
+                            <p>{tweet?.tweet}</p>
 
                             <div className='comment-img-gif'>
                                 {tweet?.image !== null && (
