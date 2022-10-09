@@ -145,7 +145,10 @@ function UserProfile({ sessionUser }) {
                     {user?.website && (
                         <div className='website-box'>
                             <i className="fa-solid fa-link gray-icon"></i>
-                            <p className='gray-p'>{user?.website}</p>
+                            <Link
+                                to={{ pathname: user?.website }} target="_blank">
+                                <p className='gray-p'>{user?.website}</p>
+                            </Link>
                         </div>
                     )}
 
@@ -198,34 +201,40 @@ function UserProfile({ sessionUser }) {
 
 
 
-            {activeFeatureTweets?.borderBottom && (
-                <div>
-                    {isOwnPage && (
-                        <GetTweets tweets={Object.values(tweets?.loggedUserTweets).sort((a, b) => {
-                            return new Date(b.createdAt1) - new Date(a.createdAt1)
-                        })} />
-                    )}
-                    {!isOwnPage && (
-                        <GetTweets tweets={Object.values(tweets?.userTweets).sort((a, b) => {
-                            return new Date(b.createdAt1) - new Date(a.createdAt1)
-                        })} />
+            {
+                activeFeatureTweets?.borderBottom && (
+                    <div>
+                        {isOwnPage && (
+                            <GetTweets tweets={Object.values(tweets?.loggedUserTweets).sort((a, b) => {
+                                return new Date(b.createdAt1) - new Date(a.createdAt1)
+                            })} />
+                        )}
+                        {!isOwnPage && (
+                            <GetTweets tweets={Object.values(tweets?.userTweets).sort((a, b) => {
+                                return new Date(b.createdAt1) - new Date(a.createdAt1)
+                            })} />
 
-                    )}
-                </div>
-            )}
+                        )}
+                    </div>
+                )
+            }
 
-            {activeFeatureRetweets?.borderBottom && (
-                <div>
-                    <UserRetweets userId={userId} isOwnPage={isOwnPage} />
+            {
+                activeFeatureRetweets?.borderBottom && (
+                    <div>
+                        <UserRetweets userId={userId} isOwnPage={isOwnPage} />
 
-                </div>
-            )}
+                    </div>
+                )
+            }
 
-            {activeFeatureLikes?.borderBottom && (
-                <div>
-                    <UserLikes userId={userId} isOwnPage={isOwnPage} />
-                </div>
-            )}
+            {
+                activeFeatureLikes?.borderBottom && (
+                    <div>
+                        <UserLikes userId={userId} isOwnPage={isOwnPage} />
+                    </div>
+                )
+            }
         </>
     )
 }

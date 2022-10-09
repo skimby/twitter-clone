@@ -20,7 +20,10 @@ h2 {
     margin: 15px 0 0 0;
 }
 
+.big-p {
+    font-size: 20px;
 
+}
 
 a {
     text-decoration: none;

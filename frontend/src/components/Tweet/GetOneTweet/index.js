@@ -28,7 +28,7 @@ function GetOneTweet({ tweetId }) {
     const comments = useSelector(state => state.comments)
     const retweets = useSelector(state => state.retweets)
 
-
+    console.log(loggedUser)
     const tweet = tweets?.currentTweet
     const allComments2 = tweet?.Comments
 
@@ -83,9 +83,8 @@ function GetOneTweet({ tweetId }) {
 
 
                 <div className='one-tweet-container'>
-
                     <div className='user-info-container'>
-                        <div className='profile-img'>
+                        <div className='profile-img' onClick={() => history.push(`/${user?.User?.username}/${user?.User?.id}`)} >
                             <img className='profile-img' src={user?.User?.profileImage} />
                         </div>
 
@@ -96,18 +95,11 @@ function GetOneTweet({ tweetId }) {
                             </div>
                         </div>
                     </div>
-                    {/* <div className='cover-image-container'>
-                    <img className='cover-img' src={user?.coverImage} />
-                </div>
-
-                <div>
-                    <img className='user-profile-img-big' src={user?.profileImage} />
-                </div> */}
 
 
                     {tweet && (
                         <>
-                            <p>{tweet?.tweet}</p>
+                            <p className='big-p'>{tweet?.tweet}</p>
 
                             <div className='comment-img-gif'>
                                 {tweet?.image !== null && (
@@ -161,15 +153,17 @@ function GetOneTweet({ tweetId }) {
 
                 </div>
             </div>
-            {tweet?.Comments && (
-                tweet?.Comments.map((comment, index) => {
-                    return (
-                        <div key={index}>
-                            <GetComment comment={comment} isOwnComment={isOwnComment} />
-                        </div>
-                    )
-                })
-            )}
+            {
+                tweet?.Comments && (
+                    tweet?.Comments.map((comment, index) => {
+                        return (
+                            <div key={index}>
+                                <GetComment comment={comment} isOwnComment={isOwnComment} />
+                            </div>
+                        )
+                    })
+                )
+            }
 
             {/* </div> */}
 
