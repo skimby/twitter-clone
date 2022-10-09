@@ -101,7 +101,7 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet, show
             if (editedTweet) {
                 setTweet('')
                 history.go()
-                // history.push(`/${currentTweet?.User?.username}/tweets/${currentTweet?.id}`)
+
             }
         } else {
 
