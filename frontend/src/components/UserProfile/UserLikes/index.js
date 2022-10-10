@@ -20,7 +20,7 @@ function UserLikes({ userId, isOwnPage }) {
         dispatch(getUserLikesBackend(userId, isOwnPage))
     }, [dispatch, userId])
 
-
+    console.log(likes?.loggedUserLikes)
     return (
         <>
             {!isOwnPage && (
@@ -118,7 +118,7 @@ function UserLikes({ userId, isOwnPage }) {
                                                                 <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
                                                             </div>
                                                         )}
-                                                        <span className='thin-styling'> @{like?.User?.username} · {like?.updatedAt?.[1]} {like?.Tweet?.updatedAt?.[2]}</span></h5>
+                                                        <span className='thin-styling'> @{like?.User?.username} · {like?.updatedAt?.[1]} {like?.updatedAt?.[2]}</span></h5>
                                                 </div>
                                             </div>
 
