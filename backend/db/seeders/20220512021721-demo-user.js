@@ -12,7 +12,7 @@ module.exports = {
         bio: 'I am the demo user and the official Twitter logo!',
         location: 'Everywhere',
         website: 'https://twitter.com',
-        profileImage: 'http://store-images.s-microsoft.com/image/apps.50484.9007199266244427.4d45042b-d7a5-4a83-be66-97779553b24d.2c71c1ea-c28f-4dd1-b72d-c43cdd3476f4',
+        profileImage: 'https://store-images.s-microsoft.com/image/apps.50484.9007199266244427.4d45042b-d7a5-4a83-be66-97779553b24d.2c71c1ea-c28f-4dd1-b72d-c43cdd3476f4',
         coverImage: 'https://media.wired.com/photos/5941a9186600f013e9634520/191:100/w_1910,h_1000,c_limit/Twitter-FeatureArt.jpg',
         verified: true,
         password: bcrypt.hashSync("password")
