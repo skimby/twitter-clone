@@ -20,7 +20,7 @@ This application a pixel perfect clone of the social media application, Twitter.
 
 ## Site Overview
 #### Landing Page
-![Application Home page (unlogged user)](https://twitter-skimby-bucket.s3.amazonaws.com/Screen+Shot+2022-10-10+at+11.46.05+AM.png)
+![Application Home page (unlogged user)](https://twitter-skimby-bucket.s3.amazonaws.com/Screen+Shot+2022-10-10+at+11.14.14+AM.png)
 #### Logged User Home Page
 ![Logged User's Home page](https://twitter-skimby-bucket.s3.amazonaws.com/Screen+Shot+2022-10-10+at+11.14.30+AM.png)
 #### Logged User Home Page
