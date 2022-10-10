@@ -11,9 +11,9 @@ function DeleteTweetForm({ tweetId, setShowModalDelete, setShowModal }) {
     const handleDelete = async () => {
         await dispatch(deleteTweetBackend(tweetId))
         history.push('/')
+        history.go()
         setShowModalDelete(false)
         setShowModal(false)
-        // history.go()
     }
 
     return (
