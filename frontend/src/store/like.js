@@ -5,10 +5,6 @@ const LIKE = 'likes/like'
 const UNLIKE = 'likes/unlike'
 const GET_LIKES = 'likes/getLikes'
 const GET_USER_LIKES = 'likes/getUserLikes'
-// const GET_LOGGED_USER_FOLLOWING = 'follow/getLoggedUserFollowing'
-// const CREATE_FOLLOW = 'follow/createFollow'
-// const DELETE_FOLLOW = 'follow/deleteFollow'
-
 
 // ACTION
 const createLike = (like, isOwnPage) => {
@@ -127,11 +123,13 @@ const likesReducer = (state = initialState, action) => {
             return likeState;
 
         case UNLIKE:
+            console.log(action.payload)
             const unLikeState = { ...state };
-            if (action.isOwnPage) {
+            delete unLikeState.loggedUserLikes[action.payload.id]
+
+            if (!action.isOwnPage) {
                 delete unLikeState.userLikes[action.payload.id]
             }
-            delete unLikeState.loggedUserLikes[action.payload.id]
             delete unLikeState.tweet[action.payload.id]
 
             return unLikeState

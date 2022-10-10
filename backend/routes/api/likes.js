@@ -127,7 +127,7 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
 
 //===================== UNLIKE (DELETE) ===================//
 router.delete('/:likeId/tweets/:tweetId', requireAuth, async (req, res, next) => {
-    const { tweetId } = req.params;
+    const { tweetId, likeId } = req.params;
     const tweet = await Tweet.findByPk(tweetId)
     const existingLike = await Like.findOne({
         where: {
@@ -138,9 +138,23 @@ router.delete('/:likeId/tweets/:tweetId', requireAuth, async (req, res, next) =>
 
     if (tweet) {
         if (existingLike) {
+
             const like = await existingLike.destroy();
+
+            const likeInfo = await Like.findAndCountAll({
+                where: {
+                    id: like.id
+                }
+            })
+
+
+
+            existingLike.dataValues.likeCount = likeInfo.count;
+            console.log('----')
+            console.log(existingLike)
+
             res.status(200)
-            return res.json(like)
+            return res.json(existingLike)
         } else {
             const err = new Error("Cannot unlike a tweet you do not already like.");
             err.message = "Cannot unlike a tweet you do not already like.";

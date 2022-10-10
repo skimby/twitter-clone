@@ -9,6 +9,7 @@ const GET_TWEETS_USER = 'tweets/getTweetsUser'
 const GET_TWEETS_LOGGED_USER = 'tweets/getTweetsLoggedUser'
 const GET_ONE_TWEET = 'tweets/getOneTweet'
 const GET_EXPLORE_TWEETS = 'tweets/getExploreTweets'
+const GET_LIKED_TWEETS = 'tweets/getLikedTweets'
 
 // ACTION
 const createTweet = (tweet) => {
@@ -63,6 +64,14 @@ const getExploreTweets = (tweets) => {
     return {
         type: GET_EXPLORE_TWEETS,
         payload: tweets
+    }
+}
+
+const getLikedTweets = (tweets, isOwnPage) => {
+    return {
+        type: GET_LIKED_TWEETS,
+        payload: tweets,
+        isOwnPage
     }
 }
 // THUNK
@@ -149,9 +158,16 @@ export const getExploreTweetsBackend = () => async (dispatch) => {
     dispatch(getExploreTweets(parsedRes));
 }
 
+// GET LIKED TWEETS
+export const getLikedTweetsBackend = (userId, isOwnPage) => async (dispatch) => {
+    const res = await csrfFetch(`/api/tweets/users/${userId}/likes`);
+    const parsedRes = await res.json();
+    dispatch(getLikedTweets(parsedRes, isOwnPage));
+}
+
 
 //REDUCER
-const initialState = { feedTweets: {}, exploreTweets: {}, loggedUserTweets: {}, userTweets: {}, currentTweet: {} }
+const initialState = { feedTweets: {}, exploreTweets: {}, loggedUserTweets: {}, userTweets: {}, currentTweet: {}, likedTweets: {} }
 
 const tweetsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -217,6 +233,13 @@ const tweetsReducer = (state = initialState, action) => {
             // getExploreTweetsState.exploreTweets = action.payload.Tweets
 
             return getExploreTweetsState;
+        case GET_LIKED_TWEETS:
+            const getLikedTweetState = { ...state };
+            getLikedTweetState.likedTweets = {}
+            action.payload.map(tweet => {
+                getLikedTweetState.likedTweets[tweet.id] = tweet
+            })
+            return getLikedTweetState
         default:
             return state;
     }
