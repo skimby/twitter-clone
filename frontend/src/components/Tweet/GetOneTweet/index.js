@@ -87,7 +87,7 @@ function GetOneTweet({ tweetId }) {
                             <img className='profile-img' src={user?.User?.profileImage} alt='profile user' />
                         </div>
 
-                        <div className='user-info-content'>
+                        <div className=''>
                             <div className='tweet-user-header'>
                                 <h5>{user?.User?.firstName}</h5>
                                 {user?.User?.verified && (

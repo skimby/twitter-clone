@@ -69,7 +69,7 @@ function Navigation({ isLoaded }) {
                 <img className='profile-img' alt='user page profile' src={sessionUser?.user?.profileImage} />
               </div>
 
-              <div className='user-info-content'>
+              <div className='user-info-content2'>
                 <div>
                   <h5>{sessionUser?.user?.firstName}</h5>
                   <h5>  <span className='thin-styling'>@{sessionUser?.user?.username}</span></h5>
