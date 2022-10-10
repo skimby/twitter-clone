@@ -189,17 +189,17 @@ function UserProfile({ sessionUser }) {
             <div className='features-container'>
 
                 <div onClick={handleTweets}>
-                    <h5 className='features'>Tweets</h5>
+                    <h5 className='features pointer'>Tweets</h5>
                     <div className='active-feature-div' style={activeFeatureTweets}></div>
                 </div>
 
                 <div onClick={handleRetweets}>
-                    <h5 className='features'>Retweets</h5>
+                    <h5 className='features pointer'>Retweets</h5>
                     <div className='active-feature-div' style={activeFeatureRetweets}></div>
                 </div>
 
                 <div onClick={handleLikes}>
-                    <h5 className='features'>Likes</h5>
+                    <h5 className='features pointer'>Likes</h5>
                     <div className='active-feature-div' style={activeFeatureLikes}></div>
                 </div>
             </div>
