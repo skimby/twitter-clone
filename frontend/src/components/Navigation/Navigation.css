@@ -2,6 +2,9 @@ a {
     color: rgb(15, 20, 26);
 }
 
+button {
+    cursor: pointer;
+}
 
 .nav-container {
     width: 200px;
@@ -65,6 +68,7 @@ a {
 
 .nav-button {
     width: 100%;
+    cursor: pointer;
 }
 
 .logo-container {

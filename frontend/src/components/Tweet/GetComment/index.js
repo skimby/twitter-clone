@@ -27,20 +27,20 @@ function GetComment({ comment, tweetId }) {
             <div className='tweet-container' >
                 <div className='tweet-profile-img' onClick={() => { history.push(`/${comment?.User?.username}/${comment?.User?.id}`) }}>
 
-                    <img className='profile-img' src={comment?.User?.profileImage} />
+                    <img className='profile-img pointer' src={comment?.User?.profileImage} />
                 </div>
 
 
                 <div className='tweet-text-box'>
                     <div className='tweet-user-header'>
 
-                        <div className='username-name-box'>
-                            <h5 className='name-username'>{comment?.User?.firstName}
+                        <div className='username-name-box pointer' onClick={() => { history.push(`/${comment?.User?.username}/${comment?.User?.id}`) }}>
+                            <h5 className='name-username pointer'>{comment?.User?.firstName}
                                 {comment?.User?.verified && (
                                     <div className="verified-div2">
                                         <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
                                     </div>
-                                )} <span className='thin-styling'>@{comment?.User?.username} • {comment?.updatedAt?.[1]} {comment?.updatedAt?.[2]}</span></h5>
+                                )} <span className='thin-styling pointer'>@{comment?.User?.username} • {comment?.updatedAt?.[1]} {comment?.updatedAt?.[2]}</span></h5>
                         </div>
 
                         {isOwnComment && (

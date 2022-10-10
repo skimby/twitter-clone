@@ -89,6 +89,7 @@ h5 {
     width: 100%;
     padding: 20px 0;
     justify-content: center;
+    /* cursor: pointer; */
 }
 
 .tweet-icon {

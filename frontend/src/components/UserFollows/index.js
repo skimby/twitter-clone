@@ -78,12 +78,12 @@ function UserFollows() {
 
             <div className='features-container-follows'>
                 <div onClick={handleFollow}>
-                    <h5 className='features'>Following</h5>
+                    <h5 className='features pointer'>Following</h5>
                     <div className='active-feature-div' style={openFollows}></div>
                 </div>
 
                 <div onClick={handleFollowers}>
-                    <h5 className='features'>Followers</h5>
+                    <h5 className='features pointer'>Followers</h5>
                     <div className='active-feature-div' style={openFollowers}></div>
                 </div>
 

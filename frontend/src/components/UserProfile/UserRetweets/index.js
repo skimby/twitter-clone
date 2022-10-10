@@ -32,13 +32,13 @@ function UserRetweets({ userId, isOwnPage }) {
                                         <div className='tweet-container' key={index}>
                                             <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
 
-                                                <img className='profile-img' src={retweet?.User?.profileImage} alt='user profile' />
+                                                <img className='profile-img pointer' src={retweet?.User?.profileImage} alt='user profile' />
                                             </div>
 
                                             <div className='tweet-text-box'>
                                                 <div className='tweet-user-header'>
                                                     <div className='username-name-box'>
-                                                        <h5 className='name-username' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
+                                                        <h5 className='name-username pointer' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
                                                             {retweet?.User?.firstName}
 
                                                             {retweet?.User?.verified && (
@@ -103,13 +103,13 @@ function UserRetweets({ userId, isOwnPage }) {
                                         <div className='tweet-container' key={index}>
                                             <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
 
-                                                <img className='profile-img' src={retweet?.User?.profileImage} alt='user profile' />
+                                                <img className='profile-img pointer' src={retweet?.User?.profileImage} alt='user profile' />
                                             </div>
 
                                             <div className='tweet-text-box'>
                                                 <div className='tweet-user-header'>
                                                     <div className='username-name-box'>
-                                                        <h5 className='name-username' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
+                                                        <h5 className='name-username pointer' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
                                                             {retweet?.User?.firstName}
 
 

@@ -33,13 +33,13 @@ function UserLikes({ userId, isOwnPage }) {
                                     <div className='tweet-container' key={index}>
                                         <div className='tweet-profile-img' onClick={() => { history.push(`/${like?.User?.username}/${like?.User?.id}`) }}>
 
-                                            <img className='profile-img' src={like?.User?.profileImage} />
+                                            <img className='profile-img pointer' src={like?.User?.profileImage} />
                                         </div>
 
                                         <div className='tweet-text-box'>
                                             <div className='tweet-user-header'>
                                                 <div className='username-name-box'>
-                                                    <h5 className='name-username' onClick={() => { history.push(`/${like?.User?.username}/${like?.Tweet?.User?.id}`) }}>
+                                                    <h5 className='name-username pointer' onClick={() => { history.push(`/${like?.User?.username}/${like?.User?.id}`) }}>
                                                         {like?.User?.firstName}
 
                                                         {like?.User?.verified && (
@@ -105,13 +105,13 @@ function UserLikes({ userId, isOwnPage }) {
                                     <div className='tweet-container' key={index}>
                                         <div className='tweet-profile-img' onClick={() => { history.push(`/${like?.User?.username}/${like?.User?.id}`) }}>
 
-                                            <img className='profile-img' src={like?.User?.profileImage} />
+                                            <img className='profile-img pointer' src={like?.User?.profileImage} />
                                         </div>
 
                                         <div className='tweet-text-box'>
                                             <div className='tweet-user-header'>
                                                 <div className='username-name-box'>
-                                                    <h5 className='name-username' onClick={() => { history.push(`/${like?.User?.username}/${like?.Tweet?.User?.id}`) }}>
+                                                    <h5 className='name-username pointer' onClick={() => { history.push(`/${like?.User?.username}/${like?.User?.id}`) }}>
                                                         {like?.User?.firstName}
 
                                                         {like?.User?.verified && (

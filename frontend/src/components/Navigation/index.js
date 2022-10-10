@@ -58,7 +58,7 @@ function Navigation({ isLoaded }) {
         </li>
 
 
-        <li>
+        <li >
           <CreateTweetModal />
         </li>
 

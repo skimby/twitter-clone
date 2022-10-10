@@ -17,7 +17,7 @@ function TweetSettingsModal({ tweet }) {
     return (
         <>
             {isUsersTweet && (
-                <i onClick={() => setShowModal(true)} className="fa-solid fa-ellipsis"></i>
+                <i onClick={() => setShowModal(true)} className="fa-solid fa-ellipsis pointer"></i>
 
             )}
             {showModal && (

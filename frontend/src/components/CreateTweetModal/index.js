@@ -13,7 +13,7 @@ function CreateTweetModal({ tweetId, currentTweet, edit }) {
         <>
             {!edit && (
                 <div className="tweet-modal-container">
-                    <button onClick={() => setShowModalTweet(true)} className="nav-button">Tweet</button>
+                    <button onClick={() => setShowModalTweet(true)} className="nav-button pointer">Tweet</button>
                     {showModalTweet && (
                         <CommentModal onClose={() => setShowModalTweet(false)}>
                             <CreateTweetForm setShowModalTweet={setShowModalTweet} tweetId={tweetId} />
@@ -24,7 +24,7 @@ function CreateTweetModal({ tweetId, currentTweet, edit }) {
 
             {edit && (
                 <div >
-                    <button onClick={() => setShowModalTweet(true)} className="black-btn">Edit Tweet</button>
+                    <button onClick={() => setShowModalTweet(true)} className="black-btn pointer">Edit Tweet</button>
                     {showModalTweet && (
                         <CommentModal onClose={() => setShowModalTweet(false)}>
                             <CreateTweetForm setShowModalTweet={setShowModalTweet} edit={edit} tweetId={tweetId} currentTweet={currentTweet} showModalTweet={showModalTweet} />

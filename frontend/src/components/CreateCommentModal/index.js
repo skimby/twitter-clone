@@ -9,7 +9,7 @@ function CreateCommentModal({ commentCount, comment, tweet, singleTweet, edit, s
         <>
             {!edit && (
                 <>
-                    <i onClick={() => setShowModalComment(true)} className="fa-regular fa-comment gray-icon"></i>
+                    <i onClick={() => setShowModalComment(true)} className="fa-regular fa-comment gray-icon pointer"></i>
                     {!singleTweet && (
                         <p className="gray-p">{commentCount}</p>
                     )}

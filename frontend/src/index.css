@@ -100,25 +100,30 @@ button {
 .gray-icon {
     color: rgb(83, 100, 113);
     padding-right: 13px;
+    cursor: pointer;
 }
 
 .gray-icon:hover {
     color: rgb(30, 155, 239);
+    cursor: pointer;
 }
 
 .blue-text {
     color: rgb(30, 155, 239);
+    cursor: pointer;
 
 }
 
 .pink-icon {
     color: rgb(249, 24, 128);
     padding-right: 13px;
+    cursor: pointer;
 }
 
 .green-icon {
     color: rgb(0, 186, 124);
     padding-right: 13px;
+    cursor: pointer;
 }
 
 
@@ -128,6 +133,7 @@ button {
 
 .fa-heart:hover {
     color: rgb(249, 24, 128);
+    cursor: pointer;
 }
 
 .gray-p {

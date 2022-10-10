@@ -38,14 +38,14 @@ function EachFollow({ follow, isOwnPage }) {
             <div className='tweet-container-follow' >
                 <div className='tweet-profile-img' onClick={() => { history.push(`/${follow?.Following?.username}/${follow?.Following?.id}`) }}>
 
-                    <img className='profile-img' src={follow?.Following?.profileImage} alt='user profile' />
+                    <img className='profile-img pointer' src={follow?.Following?.profileImage} alt='user profile' />
                 </div>
 
                 <div className='tweet-text-box'>
 
                     <div className='tweet-user-header-follow'>
                         <div className='username-name-box'>
-                            <h5 className='name-username' onClick={() => { history.push(`/${follow?.Following?.username}/${follow?.Following?.id}`) }}>
+                            <h5 className='name-username pointer' onClick={() => { history.push(`/${follow?.Following?.username}/${follow?.Following?.id}`) }}>
                                 {follow?.Following?.firstName}</h5>
                             {follow?.Following?.verified && (
                                 <div className="verified-div2">

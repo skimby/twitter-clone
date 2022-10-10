@@ -21,7 +21,7 @@ function GetTweets({ tweets }) {
 
                             <div className='tweet-profile-img' onClick={() => { history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`) }}>
 
-                                <img className='profile-img' src={tweet?.User?.profileImage} alt='user profile' />
+                                <img className='profile-img pointer' src={tweet?.User?.profileImage} alt='user profile' />
 
 
                             </div>
@@ -29,8 +29,8 @@ function GetTweets({ tweets }) {
                             <div className='tweet-text-box'>
 
                                 <div className='tweet-user-header'>
-                                    <div className='username-name-box'>
-                                        <h5 className='name-username' onClick={() => { history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`) }}>
+                                    <div className='username-name-box '>
+                                        <h5 className='name-username pointer' onClick={() => { history.push(`/${tweet?.User?.username}/${tweet?.User?.id}`) }}>
                                             {tweet?.User?.firstName}
                                             {tweet?.User?.verified && (
                                                 <div className="verified-div2">
