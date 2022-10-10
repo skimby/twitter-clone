@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage.js";
 import SignupPage from "./components/SignupPage/index.js";
 import * as sessionActions from "./store/session";
@@ -40,39 +40,41 @@ function App() {
               <div className="mid-end-container">
                 {isLoaded && (
                   <>
-                    <Switch>
-                      <>
-                        <div className="middle-container">
-                          <Route path='/' exact >
-                            <HomePage />
-                          </Route>
-
-                          <Route path='/explore' exact >
+                    <div className="middle-container">
+                      <Switch>
+                        <>
+                          <Route exact path='/explore' >
                             <ExplorePage />
                           </Route>
 
-                          <Route path='/:username/:userId' exact >
+                          <Route exact path='/:username/:userId' >
                             <UserProfile sessionUser={sessionUser} />
                           </Route>
-                          <Route path='/:username/:userId/follows' exact >
+
+                          <Route exact path='/:username/:userId/follows' >
                             <UserFollows />
                           </Route>
-                          {/* <Route path='/:username/:userId/followers' exact >
-                            <GetFollowersPage />
-                          </Route> */}
 
-
-                          <Route path='/:username/tweets/:tweetId' exact >
+                          <Route exact path='/:username/tweets/:tweetId' >
                             <Tweet />
                           </Route>
 
-                          <Route>
+                          <Route exact path='/'  >
+                            <HomePage />
+                          </Route>
+
+
+                          <Route >
+                            <Redirect to='/404' />
+                          </Route>
+
+                          <Route exact path="/404">
                             <PageNotFound />
                           </Route>
 
-                        </div>
-                      </>
-                    </Switch>
+                        </>
+                      </Switch>
+                    </div>
 
                     <div className='end-container'>
                       <Switch>
@@ -87,17 +89,21 @@ function App() {
                 )}
               </div>
             </div>
+            {/* <Route>
+              <PageNotFound />
+            </Route> */}
           </>
         )}
 
-        {/* {!sessionUser && (
-        <SignupPage />
-      )} */}
 
 
+        <Route>
+          <PageNotFound />
+        </Route>
 
 
       </Switch>
+
     </>
   );
 }
