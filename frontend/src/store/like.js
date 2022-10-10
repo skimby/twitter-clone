@@ -123,7 +123,6 @@ const likesReducer = (state = initialState, action) => {
             return likeState;
 
         case UNLIKE:
-            console.log(action.payload)
             const unLikeState = { ...state };
             delete unLikeState.loggedUserLikes[action.payload.id]
 
