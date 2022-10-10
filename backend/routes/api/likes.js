@@ -126,8 +126,8 @@ router.get('/users/:userId', requireAuth, async (req, res, next) => {
 })
 
 //===================== UNLIKE (DELETE) ===================//
-router.delete('/:likeId/tweets/:tweetId', requireAuth, async (req, res, next) => {
-    const { tweetId, likeId } = req.params;
+router.delete('/tweets/:tweetId', requireAuth, async (req, res, next) => {
+    const { tweetId } = req.params;
     const tweet = await Tweet.findByPk(tweetId)
     const existingLike = await Like.findOne({
         where: {
@@ -150,8 +150,7 @@ router.delete('/:likeId/tweets/:tweetId', requireAuth, async (req, res, next) =>
 
 
             existingLike.dataValues.likeCount = likeInfo.count;
-            console.log('----')
-            console.log(existingLike)
+
 
             res.status(200)
             return res.json(existingLike)

@@ -63,7 +63,6 @@ export const deleteLikeBackend = (tweetId, likeId, isOwnPage) => async (dispatch
 
 // GET LIKES FOR TWEET
 export const getLikesBackend = (tweetId) => async (dispatch) => {
-
     const res = await csrfFetch(`/api/likes/tweets/${tweetId}`);
 
     if (res.ok) {
