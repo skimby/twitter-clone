@@ -1,9 +1,26 @@
 import { Redirect, useHistory, Link } from 'react-router-dom';
 import CommentSettingsModal from "../../GetTweets/CommentSettingsModal";
 import giphyTag from '../../../images/powered-by-giphy.png'
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-function GetComment({ comment, tweetId, isOwnComment }) {
+function GetComment({ comment, tweetId }) {
     const history = useHistory();
+
+    const [isOwnComment, setIsOwnComment] = useState()
+
+    const loggedUser = useSelector(state => state.session.user)
+
+    useEffect(() => {
+        if (comment) {
+            if (comment?.userId === loggedUser.id) {
+                setIsOwnComment(true)
+            } else {
+                setIsOwnComment(false)
+            }
+        }
+    }, [comment, loggedUser?.id])
+
 
     return (
         <>
@@ -14,13 +31,8 @@ function GetComment({ comment, tweetId, isOwnComment }) {
                 </div>
 
 
-
-
-
-
                 <div className='tweet-text-box'>
                     <div className='tweet-user-header'>
-                        {/* <Link to={`/${comment?.User?.username}/${comment?.User?.id}/tweets/${comment?.tweetId}`}> */}
 
                         <div className='username-name-box'>
                             <h5 className='name-username'>{comment?.User?.firstName}
