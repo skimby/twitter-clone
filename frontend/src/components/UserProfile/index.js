@@ -169,11 +169,11 @@ function UserProfile({ sessionUser }) {
                 {user && (
                     <>
                         <div className='followers-box'>
-                            <p className='gray-p follower-styling' onClick={() => {
+                            <p className='gray-p follower-styling pointer' onClick={() => {
                                 history.push(`/${user?.username}/${userId}/follows`)
                             }}><span className='bold'>{user?.followingCount}</span> Following</p>
 
-                            <p className='gray-p follower-styling' onClick={() => {
+                            <p className='gray-p follower-styling pointer' onClick={() => {
                                 history.push(`/${user?.username}/${userId}/follows`)
                             }}>
                                 <span className='bold'>

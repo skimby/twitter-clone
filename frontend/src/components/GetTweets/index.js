@@ -55,7 +55,7 @@ function GetTweets({ tweets }) {
                                     </p>
                                 </div>
 
-                                <div className='tweet-img-gif'>
+                                <div className='tweet-img-gif pointer' onClick={() => { history.push(`/${tweet?.User?.username}/tweets/${tweet.id}`) }}>
                                     {tweet?.image !== null && (
                                         <img className='img-gif' src={tweet?.image} alt='tweet attachment' />
                                     )}
