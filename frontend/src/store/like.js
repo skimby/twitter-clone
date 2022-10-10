@@ -51,8 +51,8 @@ export const createLikeBackend = (tweetId, isOwnPage) => async (dispatch) => {
 }
 
 // DELETE LIKE
-export const deleteLikeBackend = (tweetId, likeId, isOwnPage) => async (dispatch) => {
-    const res = await csrfFetch(`/api/likes/${likeId}/tweets/${tweetId}`, {
+export const deleteLikeBackend = (tweetId, isOwnPage) => async (dispatch) => {
+    const res = await csrfFetch(`/api/likes/tweets/${tweetId}`, {
         method: 'DELETE'
     });
     if (res.ok) {

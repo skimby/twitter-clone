@@ -36,7 +36,7 @@ function Likes({ likeCount, tweet, singleTweet, like, isOwnPage }) {
 
     const handleUnlike = (e) => {
         e.preventDefault();
-        dispatch(deleteLikeBackend(parseInt(tweet?.id), parseInt(myLike?.current?.id), isOwnPage))
+        dispatch(deleteLikeBackend(parseInt(tweet?.id), isOwnPage))
 
         dispatch(getLikesBackend(tweet?.id));
         setLiked(false)
