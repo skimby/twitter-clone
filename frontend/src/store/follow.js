@@ -145,7 +145,6 @@ const followsReducer = (state = initialState, action) => {
             getFollowersState.followers = {};
 
             action.payload.Following.forEach(follow => {
-                console.log(follow)
                 getFollowersState.followers[follow.userId] = follow;
             })
 

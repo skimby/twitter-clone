@@ -35,7 +35,7 @@ function GetFollowersPage() {
         dispatch(getUserBackend(userId))
     }, [dispatch, userId])
 
-    console.log(followers)
+
 
     return (
         <>
