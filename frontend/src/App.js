@@ -43,6 +43,10 @@ function App() {
                     <div className="middle-container">
                       <Switch>
                         <>
+                          <Route exact path='/'  >
+                            <HomePage />
+                          </Route>
+
                           <Route exact path='/explore' >
                             <ExplorePage />
                           </Route>
@@ -59,18 +63,15 @@ function App() {
                             <Tweet />
                           </Route>
 
-                          <Route exact path='/'  >
-                            <HomePage />
-                          </Route>
-
-
-                          <Route >
+                          {/* <Route path='/:a'>
                             <Redirect to='/404' />
                           </Route>
 
-                          <Route exact path="/404">
+
+
+                          <Route path="/404">
                             <PageNotFound />
-                          </Route>
+                          </Route> */}
 
                         </>
                       </Switch>
@@ -89,9 +90,7 @@ function App() {
                 )}
               </div>
             </div>
-            {/* <Route>
-              <PageNotFound />
-            </Route> */}
+
           </>
         )}
 
