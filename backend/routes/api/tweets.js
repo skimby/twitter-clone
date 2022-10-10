@@ -153,7 +153,6 @@ router.get('/explore', requireAuth, async (req, res, next) => {
     })
     followerIds.push(req.user.id)
 
-    // return res.json(followerIds)
     const tweets = await Tweet.findAll({
         where: {
             userId: {
@@ -192,9 +191,9 @@ router.get('/explore', requireAuth, async (req, res, next) => {
         tweet.dataValues.likeCount = likes.count;
         tweet.dataValues.likes = likes.rows;
         tweet.dataValues.retweets = retweets.rows;
-
-
     }
+
+
     res.status(200)
     return res.json({
         Tweets: tweets

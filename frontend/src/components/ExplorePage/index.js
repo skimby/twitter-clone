@@ -2,27 +2,24 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import CreateTweet from '../CreateTweet';
 import ExploreTweets from './ExploreTweets';
-import { getFeedTweetsBackend } from '../../store/tweet'
+import { getExploreTweetsBackend } from '../../store/tweet'
 
 import './HomePage.css'
 
 function ExplorePage() {
     const dispatch = useDispatch();
 
-    const sessionUser = useSelector(state => state.session);
     const likes = useSelector(state => state.likes)
-
+    const follows = useSelector(state => state.follows)
+    const retweets = useSelector(state => state.retweets)
+    const tweets = useSelector(state => state.tweets)
 
     useEffect(() => {
-        dispatch(getFeedTweetsBackend())
-    }, [dispatch, likes, sessionUser])
-
-
+        dispatch(getExploreTweetsBackend())
+    }, [dispatch, likes, follows, retweets])
 
     return (
         <>
-
-
             <div className='home-div'>
                 <h2>Explore</h2>
             </div>
@@ -32,7 +29,7 @@ function ExplorePage() {
             </div>
 
             <div>
-                <ExploreTweets />
+                <ExploreTweets tweets={tweets} />
             </div>
 
         </>

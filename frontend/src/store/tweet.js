@@ -208,13 +208,14 @@ const tweetsReducer = (state = initialState, action) => {
             return getOneTweet;
 
         case GET_EXPLORE_TWEETS:
+            // console.log(action.payload)
             const getExploreTweetsState = { ...state };
+            getExploreTweetsState.exploreTweets = {}
             action.payload.Tweets.forEach(tweet => {
                 getExploreTweetsState.exploreTweets[tweet.id] = tweet
             })
             // getExploreTweetsState.exploreTweets = action.payload.Tweets
 
-            // console.log(getExploreTweetsState)
             return getExploreTweetsState;
         default:
             return state;
