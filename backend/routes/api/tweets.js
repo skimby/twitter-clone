@@ -391,10 +391,23 @@ router.get('/search/:query', requireAuth, async (req, res, next) => {
         .catch((err) => {
             return err.message
         })
-
-
     return await res.json(promise.data)
+})
+//================== TRENDING GIPHY API =================//
+router.get('/search/trending', requireAuth, async (req, res, next) => {
 
+    const search = `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.GIPHY_API_KEY}&q=${query}&limit=30`;
+
+    const promise = await fetch(search)
+        .then((response) => {
+            return response.json()
+        }).then((json) => {
+            return json
+        })
+        .catch((err) => {
+            return err.message
+        })
+    return await res.json(promise.data)
 })
 
 //================== DELETE A TWEET =================//

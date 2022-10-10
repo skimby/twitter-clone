@@ -19,6 +19,13 @@ export const getAllSearchedGifsBackend = (query) => async (dispatch) => {
     dispatch(getAllSearchedGifs(parsedRes));
 }
 
+// GET TRENDING GIFS
+export const getAllTrendingGifsBackend = () => async (dispatch) => {
+    const res = await csrfFetch(`/api/tweets/search/trending`);
+    const parsedRes = await res.json();
+    dispatch(getAllSearchedGifs(parsedRes));
+}
+
 
 
 const initialState = { allGifs: {}, currentGif: {} }

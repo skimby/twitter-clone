@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
-import { getAllSearchedGifsBackend } from '../../store/gif';
+import { getAllSearchedGifsBackend, getAllTrendingGifsBackend } from '../../store/gif';
 import giphyTag from '../../images/powered-by-giphy.png'
 import './GiphyModal.css';
 
@@ -11,7 +11,9 @@ function Giphy({ setShowModal, setGif }) {
 
     const gifs = useSelector(state => state.gifs)
 
-
+    useEffect(() => {
+        dispatch(getAllTrendingGifsBackend())
+    }, [])
 
     const handleSubmitGif = async (e) => {
         e.preventDefault()
