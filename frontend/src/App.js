@@ -6,8 +6,7 @@ import SignupPage from "./components/SignupPage/index.js";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import UserProfile from "./components/UserProfile/index.js";
-import GetFollowsPage from "./components/GetFollowsPage/index.js";
-import GetFollowersPage from "./components/GetFollowersPage/index.js";
+import PageNotFound from "./components/PageNotFound/index.js";
 import Tweet from "./components/Tweet/index.js";
 import ExplorePage from "./components/ExplorePage/index.js";
 import WhoToFollow from "./components/WhoToFollow/index.js";
@@ -66,6 +65,11 @@ function App() {
                           <Route path='/:username/tweets/:tweetId' exact >
                             <Tweet />
                           </Route>
+
+                          <Route>
+                            <PageNotFound />
+                          </Route>
+
                         </div>
                       </>
                     </Switch>
@@ -75,12 +79,7 @@ function App() {
                         <Route path='/:username/:userId/follows'  >
                           <WhoToFollow />
                         </Route>
-
-
                         <WhoToFollow />
-
-
-
                       </Switch>
                     </div>
 
@@ -94,6 +93,10 @@ function App() {
         {/* {!sessionUser && (
         <SignupPage />
       )} */}
+
+
+
+
       </Switch>
     </>
   );
