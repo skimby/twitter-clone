@@ -1,80 +1,47 @@
-# Twitter-Clone
-![Database Schema for Twitter Clone ](https://github.com/skimby/Twitter-Clone/blob/main/Twitter-Diagram.png?raw=true)
+# Twitter Clone
+This application a pixel perfect clone of the social media application, Twitter. The Twitter Clone imitates functions such as Tweeting, commenting on Tweets, liking Tweets, retweeting Tweets and following users. 
+
+#### Live Link:  https://twitter-skimby.herokuapp.com/
 
 
-## `Users`
-| Column Name    | Data Type | Details               |
-|----------------|-----------|-----------------------|
-| id             | integer   | primary key, auto-increment, not null |
-| firstName     | string(50)| not null              |
-| lastName      | string(50)| not null              |
-| email          | string    | not null, unique      |
-| username       | string(30)| not null, unique      |
-| password       | string    | not null              |
-| bio            | string(160)   |                       |
-| location  | string    |              |
-| website  | url    |             |
-| profileImage  | url    |                       |
-| coverImage  | string    |            |
-| verified  | boolean    | not null              |
-| session token  | string    | not null              |
-| created_at     | date      | not null              |
-| updated_at     | date      | not null              |
+## Technologies
+- JavaScript
+- HTML
+- CSS
+- React/Redux
+- Node.js
+- Express.js
+- Sequelie
+- SQlite3
+- GIPHY
+- PicMo
+- Heroku
+- AWS
 
+## Site Overview
+#### Logged User Home Page
+![Logged User's Home page](https://twitter-skimby-bucket.s3.amazonaws.com/Screen+Shot+2022-10-10+at+11.14.30+AM.png)
+#### Logged User Home Page
+![Logged User Home page that showcases the user's tweets, retweets and liked tweets](https://twitter-skimby-bucket.s3.amazonaws.com/Screen+Shot+2022-10-10+at+11.14.59+AM.png)
+#### User Tweet Creation Form 
+![User's view of tweet creation. Optional image or gif attachment.](https://twitter-skimby-bucket.s3.amazonaws.com/Screen+Shot+2022-10-10+at+11.23.16+AM.png)
+## Features 
+#### Primary Features
+- Create a new user
+- Log In user
+- Demo user login
+- Create new Tweet, edit, view and delete Tweet
+- Create, edit, view and delete a comment on a Tweet
+#### Secondary Features 
+- Like and unlike a tweet (create and delete)
+- Retweet and undo retweet a tweet (create and delete)
+- Follow and unfollow a user (create and delete)
+#### Site Features 
+- A an image or gif to your tweet or comment
+- Explore page introduces user to other, unfollowed users
+- User page displays the users' tweets, liked tweets and retweets
 
-## `Tweets`
-| Column Name    | Data Type | Details               |
-|----------------|-----------|-----------------------|
-| id             | integer   | primary key, auto-increment, not null |
-| userId     | integer| not null              |
-| tweet      | string(280)|       not null        |
-| image          | url    |       |
-| gif       | url|      |
-| retweetId            | integer   |                       |
-| created_at     | date      | not null              |
-| updated_at     | date      | not null              |
+## Future Implementation
+- Add a Search bar to search all users on left panel above recommended Followers
 
-
-## `Retweets`
-| Column Name    | Data Type | Details               |
-|----------------|-----------|-----------------------|
-| id             | integer   | primary key, auto-increment, not null |
-| userId     | integer| not null              |
-| tweetId      | integer |       not null        |
-| created_at     | date      | not null              |
-| updated_at     | date      | not null              |
-
-
-
-## `Comments`
-| Column Name    | Data Type | Details               |
-|----------------|-----------|-----------------------|
-| id             | integer   | primary key, auto-increment, not null |
-| userId     | integer| not null              |
-| tweetId      | integer |       not null        |
-| comment          | string(280)    |       |
-| image          | url    |       |
-| gif       | url|      |
-| created_at     | date      | not null              |
-| updated_at     | date      | not null              |
-
- 
-
- ## `Likes`
-| Column Name    | Data Type | Details               |
-|----------------|-----------|-----------------------|
-| id             | integer   | primary key, auto-increment, not null |
-| userId     | integer| not null              |
-| tweetId      | integer |       not null        |
-| created_at     | date      | not null              |
-| updated_at     | date      | not null              |
-
-
- ## `Follows`
-| Column Name    | Data Type | Details               |
-|----------------|-----------|-----------------------|
-| id             | integer   | primary key, auto-increment, not null |
-| userId     | integer| not null              |
-| followerId      | integer |       not null        |
-| created_at     | date      | not null              |
-| updated_at     | date      | not null              |
+[Original Design Docs](https://github.com/skimby/Twitter-Clone/wiki/Original-Design-Docs)
