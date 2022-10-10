@@ -25,45 +25,49 @@ function App() {
 
   return (
     <>
-      <Switch>
-        {!sessionUser && (
+      {!sessionUser && (
+        <Switch>
           <Route path='/' exact >
             <SignupPage />
           </Route>
-        )}
+          <Route>
+            <PageNotFound />
+          </Route>
+        </Switch>
+      )}
 
-        {sessionUser && (
-          <>
-            <div id='main-container'>
-              <Navigation isLoaded={isLoaded} />
+      {sessionUser && (
+        <>
+          <div id='main-container'>
+            <Navigation isLoaded={isLoaded} />
 
-              <div className="mid-end-container">
-                {isLoaded && (
-                  <>
-                    <div className="middle-container">
+            <div className="mid-end-container">
+              {isLoaded && (
+                <>
+                  <div className="middle-container">
+                    <>
                       <Switch>
-                        <>
-                          <Route exact path='/'  >
-                            <HomePage />
-                          </Route>
+                        <Route exact path='/'  >
+                          <HomePage />
+                        </Route>
 
-                          <Route exact path='/explore' >
-                            <ExplorePage />
-                          </Route>
+                        <Route exact path='/explore' >
+                          <ExplorePage />
+                        </Route>
 
-                          <Route exact path='/:username/:userId' >
-                            <UserProfile sessionUser={sessionUser} />
-                          </Route>
+                        <Route exact path='/:username/:userId' >
+                          <UserProfile sessionUser={sessionUser} />
+                        </Route>
 
-                          <Route exact path='/:username/:userId/follows' >
-                            <UserFollows />
-                          </Route>
+                        <Route exact path='/:username/:userId/follows' >
+                          <UserFollows />
+                        </Route>
 
-                          <Route exact path='/:username/tweets/:tweetId' >
-                            <Tweet />
-                          </Route>
+                        <Route exact path='/:username/tweets/:tweetId' >
+                          <Tweet />
+                        </Route>
 
-                          {/* <Route path='/:a'>
+                        {/* <Route path='/:a'>
                             <Redirect to='/404' />
                           </Route>
 
@@ -73,36 +77,29 @@ function App() {
                             <PageNotFound />
                           </Route> */}
 
-                        </>
-                      </Switch>
-                    </div>
-
-                    <div className='end-container'>
-                      <Switch>
-                        <Route path='/:username/:userId/follows'  >
-                          <WhoToFollow />
+                        <Route>
+                          <PageNotFound />
                         </Route>
-                        <WhoToFollow />
                       </Switch>
-                    </div>
+                    </>
+                  </div>
 
-                  </>
-                )}
-              </div>
+                  <div className='end-container'>
+                    <Switch>
+                      <Route path='/:username/:userId/follows'  >
+                        <WhoToFollow />
+                      </Route>
+                      <WhoToFollow />
+                    </Switch>
+                  </div>
+
+                </>
+              )}
             </div>
+          </div>
 
-          </>
-        )}
-
-
-
-        <Route>
-          <PageNotFound />
-        </Route>
-
-
-      </Switch>
-
+        </>
+      )}
     </>
   );
 }
