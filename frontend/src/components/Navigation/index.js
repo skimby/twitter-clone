@@ -14,7 +14,9 @@ function Navigation({ isLoaded }) {
     <div className="nav-container">
       <ul >
         <li >
-          <img src={logo} className='logo-container' alt='twitter logo' />
+          <NavLink exact to="/" >
+            <img src={logo} className='logo-container' alt='twitter logo' />
+          </NavLink>
         </li>
 
         <li className="nav-grid">

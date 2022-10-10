@@ -40,7 +40,7 @@ function EachRecommendedFollow({ follow, loggedUser, isOwnPage }) {
     return (
         <>
             <div className='each-follower-box'>
-                <div className='follow-profile-img' onClick={() => {
+                <div className='follow-profile-img pointer' onClick={() => {
                     history.push(`/${follow?.username}/${follow?.id}`)
                 }}>
                     <img className='profile-img' src={follow?.profileImage} />
@@ -48,10 +48,14 @@ function EachRecommendedFollow({ follow, loggedUser, isOwnPage }) {
 
                 <div className='follower-info-box'>
                     <div>
-                        <p className='small-p-bold'>{follow?.firstName}  </p>
+                        <p className='small-p-bold pointer' onClick={() => {
+                            history.push(`/${follow?.username}/${follow?.id}`)
+                        }}>{follow?.firstName}  </p>
                     </div>
                     <div>
-                        <p className='small-p'>@{follow?.username}</p>
+                        <p className='small-p pointer' onClick={() => {
+                            history.push(`/${follow?.username}/${follow?.id}`)
+                        }}>@{follow?.username}</p>
                     </div>
                 </div>
 

@@ -33,6 +33,8 @@
 
 .tweet-tweet-box {
     padding: 0 0 10px 0;
+    width: 414px;
+    overflow-wrap: break-word;
 }
 
 .tweet-profile-img {
