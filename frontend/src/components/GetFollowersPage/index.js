@@ -17,6 +17,7 @@ function GetFollowersPage() {
     const followers = Object.values(follows?.followers);
 
 
+
     useEffect(() => {
         if (parseInt(userId) === loggedUser?.id) {
             setIsOwnPage(true)
@@ -34,6 +35,7 @@ function GetFollowersPage() {
         dispatch(getUserBackend(userId))
     }, [dispatch, userId])
 
+    console.log(followers)
 
     return (
         <>

@@ -139,11 +139,16 @@ const followsReducer = (state = initialState, action) => {
             return getFollowingState;
 
         case GET_FOLLOWERS:
+
+
             const getFollowersState = { ...state };
             getFollowersState.followers = {};
+
             action.payload.Following.forEach(follow => {
-                getFollowersState.followers[follow.followerId] = follow;
+                console.log(follow)
+                getFollowersState.followers[follow.userId] = follow;
             })
+
             return getFollowersState;
 
         case GET_LOGGED_USER_FOLLOWING:
