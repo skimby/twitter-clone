@@ -489,4 +489,77 @@ router.get('/users/:userId/likes', requireAuth, async (req, res, next) => {
         return next(err);
     }
 })
+
+
+
+//============== GET ALL RETWEETED TWEETS BY USER ID ===============//
+router.get('/users/:userId/retweets', requireAuth, async (req, res, next) => {
+    const { userId } = req.params;
+    const user = await User.findByPk(userId);
+
+
+    if (user) {
+
+        const retweets = await Retweet.findAll({
+            where: {
+                userId
+            }
+        })
+
+        const retweetIds = []
+        retweets.map(retweet => {
+            retweetIds.push(retweet.tweetId)
+        })
+
+        const retweetedTweets = await Tweet.findAll({
+            where: {
+                id: retweetIds
+            },
+            include: [{
+                model: User
+            }]
+        })
+
+        let resTweets = []
+        for (let i = 0; i < retweetedTweets.length; i++) {
+            let tweet = retweetedTweets[i];
+
+            tweet.dataValues.createdAt1 = tweet.dataValues.createdAt
+            tweet.dataValues.createdAt = tweet.dataValues.createdAt.toDateString().toString().split(' ');
+            tweet.dataValues.updatedAt = tweet.dataValues.updatedAt.toDateString().toString().split(' ');
+            resTweets.push(tweet)
+
+            const comments = await Comment.findAndCountAll({
+                where: {
+                    tweetId: tweet.id
+                }
+            })
+            const retweets = await Retweet.findAndCountAll({
+                where: {
+                    tweetId: tweet.id
+                }
+            })
+            const likes = await Like.findAndCountAll({
+                where: {
+                    tweetId: tweet.id
+                }
+            })
+
+            tweet.dataValues.commentCount = comments.count;
+            tweet.dataValues.retweetCount = retweets.count;
+            tweet.dataValues.likeCount = likes.count;
+            tweet.dataValues.likes = likes.rows;
+            tweet.dataValues.retweets = retweets.rows;
+        }
+
+        res.status(200)
+        return res.json(resTweets)
+
+    } else {
+        const err = new Error("Could not find a user with that id.");
+        err.message = "Could not find a user with that id.";
+        err.status = 404;
+        return next(err);
+    }
+})
 module.exports = router;

@@ -10,6 +10,8 @@ const GET_TWEETS_LOGGED_USER = 'tweets/getTweetsLoggedUser'
 const GET_ONE_TWEET = 'tweets/getOneTweet'
 const GET_EXPLORE_TWEETS = 'tweets/getExploreTweets'
 const GET_LIKED_TWEETS = 'tweets/getLikedTweets'
+const GET_USER_RETWEETS = 'tweets/getUserRetweets'
+
 
 // ACTION
 const createTweet = (tweet) => {
@@ -70,6 +72,14 @@ const getExploreTweets = (tweets) => {
 const getLikedTweets = (tweets, isOwnPage) => {
     return {
         type: GET_LIKED_TWEETS,
+        payload: tweets,
+        isOwnPage
+    }
+}
+
+const getUserRetweets = (tweets, isOwnPage) => {
+    return {
+        type: GET_USER_RETWEETS,
         payload: tweets,
         isOwnPage
     }
@@ -165,9 +175,16 @@ export const getLikedTweetsBackend = (userId, isOwnPage) => async (dispatch) => 
     dispatch(getLikedTweets(parsedRes, isOwnPage));
 }
 
+// GET USER REWEETS
+export const getRetweetsBackend = (userId, isOwnPage) => async (dispatch) => {
+    const res = await csrfFetch(`/api/tweets/users/${userId}/retweets`);
+    const parsedRes = await res.json();
+    dispatch(getUserRetweets(parsedRes, isOwnPage));
+}
+
 
 //REDUCER
-const initialState = { feedTweets: {}, exploreTweets: {}, loggedUserTweets: {}, userTweets: {}, currentTweet: {}, likedTweets: {} }
+const initialState = { feedTweets: {}, exploreTweets: {}, loggedUserTweets: {}, userTweets: {}, currentTweet: {}, likedTweets: {}, loggedUserLikedTweet: {}, retweets: {}, loggedUserRetweets: {} }
 
 const tweetsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -208,7 +225,6 @@ const tweetsReducer = (state = initialState, action) => {
             action.payload.Tweets.forEach(tweet => {
                 getTweetsUser.userTweets[tweet.id] = tweet
             })
-            // console.log(getTweetsUser)
 
             return getTweetsUser;
         case GET_TWEETS_LOGGED_USER:
@@ -224,22 +240,45 @@ const tweetsReducer = (state = initialState, action) => {
             return getOneTweet;
 
         case GET_EXPLORE_TWEETS:
-            // console.log(action.payload)
             const getExploreTweetsState = { ...state };
             getExploreTweetsState.exploreTweets = {}
             action.payload.Tweets.forEach(tweet => {
                 getExploreTweetsState.exploreTweets[tweet.id] = tweet
             })
-            // getExploreTweetsState.exploreTweets = action.payload.Tweets
 
             return getExploreTweetsState;
         case GET_LIKED_TWEETS:
             const getLikedTweetState = { ...state };
-            getLikedTweetState.likedTweets = {}
-            action.payload.map(tweet => {
-                getLikedTweetState.likedTweets[tweet.id] = tweet
-            })
-            return getLikedTweetState
+
+            if (action.isOwnPage) {
+                getLikedTweetState.loggedUserLikedTweets = {}
+                action.payload.map(tweet => {
+                    getLikedTweetState.loggedUserLikedTweets[tweet.id] = tweet
+                })
+            }
+            if (!action.isOwnPage) {
+                getLikedTweetState.likedTweets = {}
+                action.payload.map(tweet => {
+                    getLikedTweetState.likedTweets[tweet.id] = tweet
+                })
+            }
+            return getLikedTweetState;
+        case GET_USER_RETWEETS:
+            const getUserRetweetsState = { ...state };
+
+            if (action.isOwnPage) {
+                getUserRetweetsState.loggedUserRetweets = {}
+                action.payload.map(tweet => {
+                    getUserRetweetsState.loggedUserRetweets[tweet.id] = tweet
+                })
+            }
+            if (!action.isOwnPage) {
+                getUserRetweetsState.retweets = {}
+                action.payload.map(tweet => {
+                    getUserRetweetsState.retweets[tweet.id] = tweet
+                })
+            }
+            return getUserRetweetsState;
         default:
             return state;
     }

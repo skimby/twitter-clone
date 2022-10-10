@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from 'react-router-dom';
 import CreateCommentModal from '../../CreateCommentModal';
 import Retweets from '../../Retweet';
-import { getUserRetweetsBackend } from '../../../store/retweet';
+import { getRetweetsBackend } from '../../../store/tweet';
 import Likes from '../../Likes';
 import giphyTag from '../../../images/powered-by-giphy.png'
 
@@ -11,22 +11,23 @@ function UserRetweets({ userId, isOwnPage }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    let likes = useSelector(state => state.likes)
     let retweets = useSelector(state => state.retweets)
-
+    const tweets = useSelector(state => state.tweets)
     const [newComment] = useState(true)
 
     useEffect(() => {
-        dispatch(getUserRetweetsBackend(userId, isOwnPage))
-    }, [dispatch, userId, isOwnPage])
+        dispatch(getRetweetsBackend(userId, isOwnPage))
+    }, [dispatch, userId, isOwnPage, retweets, likes])
 
     return (
         <>
-            {retweets && (
+            {tweets && (
                 <>
                     {!isOwnPage && (
                         <>
-                            {retweets?.userRetweets && (
-                                Object.values(retweets?.userRetweets).map((retweet, index) => {
+                            {tweets?.retweets && (
+                                Object.values(tweets?.retweets).map((retweet, index) => {
                                     return (
                                         <div className='tweet-container' key={index}>
                                             <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
@@ -96,8 +97,8 @@ function UserRetweets({ userId, isOwnPage }) {
 
                     {isOwnPage && (
                         <>
-                            {retweets?.loggedUserRetweets && (
-                                Object.values(retweets?.loggedUserRetweets).map((retweet, index) => {
+                            {tweets?.loggedUserRetweets && (
+                                Object.values(tweets?.loggedUserRetweets).map((retweet, index) => {
                                     return (
                                         <div className='tweet-container' key={index}>
                                             <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
