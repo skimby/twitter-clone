@@ -208,3 +208,11 @@ button {
 .cropped-attachment {
     max-height: 200px;
 }
+
+.profile-box-text {
+    display: inline-block;
+}
+
+.profile-box-text h5 {
+    display: inline;
+}

@@ -106,6 +106,8 @@ function UserProfile({ sessionUser }) {
         setActiveFeatureTweets(noStyling)
         setActiveFeatureRetweets(noStyling)
     }
+
+
     return (
         <>
 
@@ -142,7 +144,15 @@ function UserProfile({ sessionUser }) {
             </div>
 
             <div className='user-info-box-contents'>
-                <h5 className='user-bold-styling'>{user?.firstName}</h5>
+                <div className='profile-box-text'>
+                    <h5 className='user-bold-styling'>{user?.firstName}</h5>
+                    {user?.verified && (
+                        <div className="verified-div2">
+                            <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' alt='verified badge icon' />
+                        </div>
+                    )}
+
+                </div>
                 <p className='p-gray-small'>@{user?.username}</p>
                 <p className='no-margin'>{user?.bio}</p>
 
