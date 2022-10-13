@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory, } from 'react-router-dom';
-import { getUserLikesBackend } from '../../../store/like'
 import { getLikedTweetsBackend } from '../../../store/tweet';
 import CreateCommentModal from '../../CreateCommentModal';
 import Retweets from '../../Retweet';
@@ -15,7 +14,7 @@ function UserLikes({ userId, isOwnPage }) {
     let tweets = useSelector(state => state.tweets)
     let likes = useSelector(state => state.likes)
     const retweets = useSelector(state => state.retweets)
-    const [newComment, setNewComment] = useState(true)
+    const [newComment] = useState(true)
 
     useEffect(() => {
         dispatch(getLikedTweetsBackend(userId, isOwnPage))
@@ -33,7 +32,7 @@ function UserLikes({ userId, isOwnPage }) {
                                     <div className='tweet-container' key={index}>
                                         <div className='tweet-profile-img' onClick={() => { history.push(`/${like?.User?.username}/${like?.User?.id}`) }}>
 
-                                            <img className='profile-img pointer' src={like?.User?.profileImage} />
+                                            <img className='profile-img pointer' src={like?.User?.profileImage} alt='user profile' />
                                         </div>
 
                                         <div className='tweet-text-box'>
@@ -44,7 +43,7 @@ function UserLikes({ userId, isOwnPage }) {
 
                                                         {like?.User?.verified && (
                                                             <div className="verified-div2">
-                                                                <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                                                <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' alt='verified badge icon' />
                                                             </div>
                                                         )}
                                                         <span className='thin-styling'> @{like?.User?.username} · {like?.updatedAt?.[1]} {like?.updatedAt?.[2]}</span></h5>
@@ -62,12 +61,12 @@ function UserLikes({ userId, isOwnPage }) {
 
                                             <div className='tweet-img-gif'>
                                                 {like?.image !== null && (
-                                                    <img className='img-gif' src={like?.image} />
+                                                    <img className='img-gif' src={like?.image} alt='tweet attachment' />
                                                 )}
                                                 {like?.gif !== null && (
                                                     <>
-                                                        <img className='img-gif' src={like?.gif} />
-                                                        <img className="padding-top " src={giphyTag} width='110px' />
+                                                        <img className='img-gif' src={like?.gif} alt='tweet attachment gif' />
+                                                        <img className="padding-top " src={giphyTag} width='110px' alt='gif provided by GIPHY' />
                                                     </>
                                                 )}
                                             </div>
@@ -105,7 +104,7 @@ function UserLikes({ userId, isOwnPage }) {
                                     <div className='tweet-container' key={index}>
                                         <div className='tweet-profile-img' onClick={() => { history.push(`/${like?.User?.username}/${like?.User?.id}`) }}>
 
-                                            <img className='profile-img pointer' src={like?.User?.profileImage} />
+                                            <img className='profile-img pointer' src={like?.User?.profileImage} alt='user profile' />
                                         </div>
 
                                         <div className='tweet-text-box'>
@@ -116,7 +115,7 @@ function UserLikes({ userId, isOwnPage }) {
 
                                                         {like?.User?.verified && (
                                                             <div className="verified-div2">
-                                                                <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                                                <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' alt='verified badge icon' />
                                                             </div>
                                                         )}
                                                         <span className='thin-styling'> @{like?.User?.username} · {like?.updatedAt?.[1]} {like?.updatedAt?.[2]}</span></h5>
@@ -134,12 +133,12 @@ function UserLikes({ userId, isOwnPage }) {
 
                                             <div className='tweet-img-gif'>
                                                 {like?.image !== null && (
-                                                    <img className='img-gif' src={like?.image} />
+                                                    <img className='img-gif' src={like?.image} alt='tweet attachment' />
                                                 )}
                                                 {like?.gif !== null && (
                                                     <>
-                                                        <img className='img-gif' src={like?.gif} />
-                                                        <img className="padding-top " src={giphyTag} width='110px' />
+                                                        <img className='img-gif' src={like?.gif} alt='tweet attachment gif' />
+                                                        <img className="padding-top " src={giphyTag} width='110px' alt='gif provided by GIPHY' />
                                                     </>
                                                 )}
                                             </div>
