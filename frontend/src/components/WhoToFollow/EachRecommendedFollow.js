@@ -34,7 +34,7 @@ function EachRecommendedFollow({ follow, loggedUser, isOwnPage }) {
             }
         }
 
-    }, [follows, follows?.loggedUserFollowing, follows?.nonFollowers])
+    }, [follows, follows?.loggedUserFollowing, follows?.nonFollowers, loggedUserFollowing])
 
 
     return (
