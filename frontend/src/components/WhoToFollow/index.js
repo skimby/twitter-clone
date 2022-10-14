@@ -18,7 +18,7 @@ function WhoToFollow() {
         if (loggedUser) {
             dispatch(getNonFollowersBackend(loggedUser?.id))
         }
-    }, [dispatch])
+    }, [dispatch, loggedUser, loggedUser?.id])
 
     useEffect(() => {
         if (parseInt(userId) === loggedUser?.id) {
@@ -26,7 +26,7 @@ function WhoToFollow() {
         } else {
             setIsOwnPage(false)
         }
-    }, [dispatch, userId])
+    }, [dispatch, userId, loggedUser?.id])
 
     return (
         <>
