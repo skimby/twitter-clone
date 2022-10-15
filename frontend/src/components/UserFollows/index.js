@@ -13,7 +13,7 @@ function UserFollows() {
     const history = useHistory();
     const { userId } = useParams();
 
-    const [isOwnPage, setIsOwnPage] = useState();
+    const [setIsOwnPage] = useState();
 
     const blueLineStyling = {
         borderBottom: "4px solid rgb(29, 155, 240)",
@@ -28,7 +28,6 @@ function UserFollows() {
     const user = useSelector(state => state.users)
     const loggedUser = useSelector(state => state.session.user)
     const follows = useSelector(state => state.follows);
-    const following = Object.values(follows?.following);
 
     useEffect(() => {
         dispatch(getUserBackend(userId))
