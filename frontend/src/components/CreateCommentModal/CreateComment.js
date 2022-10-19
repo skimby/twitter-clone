@@ -1,6 +1,4 @@
-import { useEffect, useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
-import { createPopup } from '@picmo/popup-picker';
 import CommentAddOns from "../CommentAddOns";
 import '../GetTweets/GetTweets.css'
 
