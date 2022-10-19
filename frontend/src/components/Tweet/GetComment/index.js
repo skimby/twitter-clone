@@ -1,4 +1,4 @@
-import { Redirect, useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import CommentSettingsModal from "../../GetTweets/CommentSettingsModal";
 import giphyTag from '../../../images/powered-by-giphy.png'
 import { useEffect, useState } from 'react';
