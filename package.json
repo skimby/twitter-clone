@@ -1,5 +1,5 @@
 {
-  "name": "twitter-clone",
+  "name": "chirpette",
   "version": "1.0.0",
   "description": "![Database Schema for Twitter Clone ](https://github.com/skimby/Twitter-Clone/blob/main/Twitter-Diagram.png?raw=true)",
   "main": "index.js",
@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skimby/Twitter-Clone.git"
+    "url": "git+https://github.com/skimby/chirpette.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/skimby/Twitter-Clone/issues"
+    "url": "https://github.com/skimby/chirpette/issues"
   },
-  "homepage": "https://github.com/skimby/Twitter-Clone#readme",
+  "homepage": "https://github.com/skimby/chirpette#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
     "node-fetch": "^3.2.10",
