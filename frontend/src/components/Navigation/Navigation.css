@@ -6,13 +6,44 @@ button {
     cursor: pointer;
 }
 
-.nav-container {
-    width: 200px;
-    /* padding-left: 220px; */
+.nav-container-desktop {
     margin: 10px 40px 0 0;
-    display: block;
-    position: fixed;
+    display: inline-block;
+    width: 200px;
+    height: 100px;
 }
+
+.nav-container-mobile {
+    margin: 10px 0 0 0;
+    display: none;
+    width: 65px;
+    height: 100px;
+}
+
+@media (max-width: 1265px) {
+    .nav-container-desktop {
+        display: none;
+    }
+
+    .nav-container-mobile {
+        display: inline-block;
+    }
+}
+
+
+.nav-ul {
+    position: fixed;
+    top: 15px;
+}
+
+.nav-ul-mobile {
+    position: fixed;
+    top: 15px;
+    width: 65px;
+    text-align: center;
+    justify-content: center;
+}
+
 
 .active {
     font-weight: 700;
@@ -35,6 +66,11 @@ button {
 .nav-icon-box {
     width: 30px;
     /* margin: auto; */
+}
+
+.nav-icon-box-mobile {
+    width: 30px;
+    margin: 0 auto;
 }
 
 .nav-container h3 {

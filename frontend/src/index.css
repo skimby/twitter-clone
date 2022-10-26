@@ -1,4 +1,8 @@
 /* TODO Add site wide styles */
+#root {
+    width: 100%;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -64,21 +68,42 @@ button {
 
 
 #main-container {
-    margin: 0 18%;
-    display: inline-block;
-    width: 65%;
+    display: block;
+    padding: 0 14%;
+    height: 100%;
+    align-items: start;
 }
+
+@media (max-width: 1670px) {
+    #main-container {
+        padding: 0 10%;
+    }
+}
+
+@media (max-width: 1500px) {
+    #main-container {
+        padding: 0 5%;
+    }
+}
+
+@media (max-width: 960px) {
+    #middle-container {
+        width: 300px;
+    }
+}
+
+
 
 .mid-end-container {
     display: inline-block;
-    margin-left: 240px;
-    width: 100%;
+    /* margin-left: 240px; */
+    /* width: 100%; */
     vertical-align: top;
 }
 
 .middle-container {
     display: inline-block;
-    width: 500px;
+    width: 595px;
     border: 1px solid rgb(235, 235, 235);
     border-top: none;
     margin: 0 14px;

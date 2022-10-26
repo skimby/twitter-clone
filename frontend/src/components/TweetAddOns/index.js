@@ -1,12 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { createTweetBackend, getOneTweetBackend } from "../../store/tweet";
+import { createTweetBackend } from "../../store/tweet";
 import { createPopup } from '@picmo/popup-picker';
 import GiphyModal from "../GiphyModal";
 import '../CreateCommentInline/CreateCommentInline.css'
 import { editTweetBackend } from '../../store/tweet';
 import giphyTag from '../../images/powered-by-giphy.png'
+import gifIcon from '../../images/gif-icon.png'
+
 
 function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
     const dispatch = useDispatch();
@@ -194,6 +196,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                         <>
                             <div className="display-img-gif" >
                                 <div className="remove-gif-box">
+
                                     <i className="fa-solid fa-circle-xmark" onClick={removeGif}></i>
                                 </div>
                                 <img src={gif} className='img-gif' width='200' />
@@ -246,6 +249,7 @@ function TweetAddOns({ tweetId, setShowModal, edit, currentTweet }) {
                                     <i className="fa-regular fa-image disabled-blue-icon"></i>
                                 </div>
                                 <div className="inline">
+
                                     <i className="fa-solid fa-gift disabled-blue-icon" />
                                 </div>
                             </>
