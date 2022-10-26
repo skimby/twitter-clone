@@ -2,6 +2,10 @@ a {
     color: rgb(15, 20, 26);
 }
 
+h3 {
+    font-weight: normal;
+}
+
 button {
     cursor: pointer;
 }
@@ -47,9 +51,7 @@ button {
 
 .active {
     font-weight: 700;
-    /* color: red; */
     size: 25px;
-
 }
 
 .nav-container li {
@@ -65,7 +67,7 @@ button {
 
 .nav-icon-box {
     width: 30px;
-    /* margin: auto; */
+    padding-top: 15px;
 }
 
 .nav-icon-box-mobile {
@@ -74,6 +76,13 @@ button {
 }
 
 .nav-container h3 {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.nav-container-mobile h3 {
     display: inline-block;
     font-size: 20px;
     font-weight: 400;
@@ -124,12 +133,28 @@ button {
     border-radius: 100%;
 }
 
+.profile-img-mobile {
+    margin: 0 auto;
+    width: 43px;
+    height: 43px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
 .user-info-container {
     /*  */
     display: inline-flex;
     padding-bottom: 15px;
     display: grid;
     grid-template-columns: 47px 413px 25px;
+}
+
+.user-info-container-mobile {
+    /* display: inline; */
+    padding-bottom: 15px;
+    width: 65px;
+    margin: 0 auto;
+
 }
 
 .user-info-content {
@@ -150,4 +175,11 @@ button {
     position: fixed;
     bottom: 0;
     width: 10%;
+}
+
+#footer-mobile {
+    position: fixed;
+    bottom: 0;
+    width: 65px;
+    margin: 0 auto;
 }

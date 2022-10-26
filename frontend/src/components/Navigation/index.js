@@ -43,7 +43,6 @@ function Navigation({ isLoaded }) {
                 Explore
               </NavLink>
             </h3>
-
           </li>
 
 
@@ -101,7 +100,6 @@ function Navigation({ isLoaded }) {
             </div>
             <NavLink exact to="/" activeClassName="active">
             </NavLink>
-
           </li>
 
           <li className='mobile-icons'>
@@ -110,10 +108,7 @@ function Navigation({ isLoaded }) {
             </div>
 
             <NavLink exact to="/explore" activeClassName='active'>
-
             </NavLink>
-
-
           </li>
 
 
@@ -131,22 +126,10 @@ function Navigation({ isLoaded }) {
             <CreateTweetModalMobile />
           </li>
 
-          <div id='footer'>
+          <div id='footer-mobile'>
             <li>
-              <div className='user-info-container'>
-                <div className='profile-img'>
-                  <img className='profile-img' alt='user page profile' src={sessionUser?.user?.profileImage} />
-                </div>
-
-                <div className='user-info-content2'>
-                  <div>
-                    <h5>{sessionUser?.user?.firstName}</h5>
-                    <h5>  <span className='thin-styling'>@{sessionUser?.user?.username}</span></h5>
-                  </div>
-
-                  <UserSettingsModal />
-                </div>
-
+              <div className='user-info-container-mobile'>
+                <UserSettingsModal sessionUser={sessionUser} mobile='mobile' />
               </div>
             </li>
           </div>

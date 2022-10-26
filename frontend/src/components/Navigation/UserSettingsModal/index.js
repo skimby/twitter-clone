@@ -3,17 +3,34 @@ import { SmallModal } from "../../../context/Modal";
 import UserSettings from "./UserSettings";
 
 
-function UserSettingsModal() {
+function UserSettingsModal({ mobile, sessionUser }) {
     const [showModal, setShowModal] = useState(false);
 
 
     return (
         <>
-            <i onClick={() => setShowModal(true)} className="fa-solid fa-ellipsis"></i>
-            {showModal && (
-                <SmallModal onClose={() => setShowModal(false)}>
-                    <UserSettings setShowModal={setShowModal} />
-                </SmallModal>
+            {!mobile && (
+                <>
+                    <i onClick={() => setShowModal(true)} className="fa-solid fa-ellipsis"></i>
+                    {showModal && (
+                        <SmallModal onClose={() => setShowModal(false)}>
+                            <UserSettings setShowModal={setShowModal} />
+                        </SmallModal>
+                    )}
+                </>
+            )}
+
+            {mobile && (
+                <>
+                    <div className='profile-img-mobile' onClick={() => setShowModal(true)}>
+                        <img className='profile-img' alt='user page profile' src={sessionUser?.user?.profileImage} />
+                    </div>
+                    {showModal && (
+                        <SmallModal onClose={() => setShowModal(false)}>
+                            <UserSettings setShowModal={setShowModal} />
+                        </SmallModal>
+                    )}
+                </>
             )}
         </>
     );
