@@ -14,7 +14,7 @@
     background-color: rgb(246, 249, 249);
     border-radius: 4%;
     display: inline-block;
-    position: sticky;
+    position: fixed;
     right: 330px;
 }
 
