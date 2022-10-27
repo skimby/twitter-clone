@@ -96,8 +96,8 @@ button {
 .nav-grid {
     display: grid;
     grid-template-columns: 55px 100px;
-    margin-bottom: 30px;
 }
+
 
 .nav-icon-box {
     width: 30px;
@@ -148,6 +148,7 @@ button {
 .nav-button {
     width: 100%;
     cursor: pointer;
+    margin-top: 30px;
 }
 
 .logo-container {

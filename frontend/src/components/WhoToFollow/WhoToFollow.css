@@ -15,7 +15,7 @@
     border-radius: 4%;
     display: inline-block;
     position: fixed;
-    right: 330px;
+    /* right: 330px; */
 }
 
 .recommended-follows-content {
