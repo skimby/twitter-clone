@@ -48,8 +48,24 @@ button {
     }
 
     .middle-container {
-        width: 400px;
+        width: 308px;
+        margin-left: 0;
+        margin-right: 0;
     }
+
+    .nav-container-mobile {
+        display: inline-block;
+        /* margin-right: 10px; */
+    }
+
+    /* .tweet-container {
+        width: 300px;
+    } */
+
+    .tweet-tweet-box {
+        width: 215px;
+    }
+
 }
 
 .nav-ul {
