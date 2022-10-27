@@ -32,9 +32,9 @@ function WhoToFollow() {
 
     return (
         <>
-            <div>
+            {/* <div>
                 <Search />
-            </div>
+            </div> */}
             <div className='recommended-follows'>
                 <div className='recommended-follows-content'>
                     <h4 className='bold-large'>Who to follow</h4>

@@ -13,7 +13,7 @@ function UserFollows() {
     const history = useHistory();
     const { userId } = useParams();
 
-    const [setIsOwnPage] = useState();
+    const [isOwnPage, setIsOwnPage] = useState();
 
     const blueLineStyling = {
         borderBottom: "4px solid rgb(29, 155, 240)",
