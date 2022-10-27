@@ -28,6 +28,15 @@ router.get('/', restoreUser, (req, res) => {
 }
 );
 
+// ============= GET ALL USERS =================//
+router.get('/all', async (req, res) => {
+  const allUsers = await User.findAll()
+  console.log('------')
+  console.log(allUsers)
+  return res.json(allUsers)
+}
+);
+
 // ============= LOG IN =================//
 router.post("/login", validateLogin, restoreUser, async (req, res, next) => {
   const { username, password } = req.body;

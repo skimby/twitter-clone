@@ -11,6 +11,8 @@ import Tweet from "./components/Tweet/index.js";
 import ExplorePage from "./components/ExplorePage/index.js";
 import WhoToFollow from "./components/WhoToFollow/index.js";
 import UserFollows from "./components/UserFollows/index.js";
+import Search from "./components/Search/index.js";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -88,7 +90,11 @@ function App() {
                       <WhoToFollow />
                     </Route>
                     <WhoToFollow />
+
+
                   </Switch>
+
+
                 </div>
 
               </>

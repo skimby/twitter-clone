@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
 import { getNonFollowersBackend } from '../../store/follow'
 import EachRecommendedFollow from './EachRecommendedFollow';
+import Search from '../Search';
+
 
 function WhoToFollow() {
     const dispatch = useDispatch();
@@ -30,6 +32,9 @@ function WhoToFollow() {
 
     return (
         <>
+            <div>
+                <Search />
+            </div>
             <div className='recommended-follows'>
                 <div className='recommended-follows-content'>
                     <h4 className='bold-large'>Who to follow</h4>
