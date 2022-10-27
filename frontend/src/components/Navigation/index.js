@@ -95,29 +95,29 @@ function Navigation({ isLoaded }) {
           </li>
 
           <li className='mobile-icons'>
-            <div className='nav-icon-box-mobile'>
-              <i className="fa-solid fa-house nav-icons"></i>
-            </div>
             <NavLink exact to="/" activeClassName="active">
+              <div className='nav-icon-box-mobile'>
+                <i className="fa-solid fa-house nav-icons"></i>
+              </div>
             </NavLink>
           </li>
 
           <li className='mobile-icons'>
-            <div className='nav-icon-box-mobile'>
-              <i className="fa-light fa-hashtag nav-icons1"></i>
-            </div>
-
             <NavLink exact to="/explore" activeClassName='active'>
+              <div className='nav-icon-box-mobile'>
+                <i className="fa-light fa-hashtag nav-icons1"></i>
+              </div>
+
             </NavLink>
           </li>
 
 
           <li className='mobile-icons'>
-            <div className='nav-icon-box-mobile'>
-              <i className="fa-regular fa-user nav-icons"></i>
-            </div>
-
             <NavLink exact to={`/${sessionUser?.user?.username}/${sessionUser?.user?.id}`} activeClassName='active'>
+              <div className='nav-icon-box-mobile'>
+                <i className="fa-regular fa-user nav-icons"></i>
+              </div>
+
             </NavLink>
           </li>
 
