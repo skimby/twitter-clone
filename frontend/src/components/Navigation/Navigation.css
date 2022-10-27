@@ -21,7 +21,7 @@ button {
     margin: 10px 0 0 0;
     display: none;
     width: 65px;
-    height: 100px;
+    height: 100%;
 }
 
 @media (max-width: 1265px) {
@@ -34,6 +34,23 @@ button {
     }
 }
 
+@media (max-width: 770px) {
+
+    .middle-container {
+        width: 500px;
+    }
+}
+
+@media (max-width: 662px) {
+
+    #main-container {
+        padding: 0;
+    }
+
+    .middle-container {
+        width: 400px;
+    }
+}
 
 .nav-ul {
     position: fixed;
@@ -46,6 +63,7 @@ button {
     width: 65px;
     text-align: center;
     justify-content: center;
+    /* margin-left: 30px; */
 }
 
 
