@@ -23,7 +23,8 @@ const Search = () => {
 
     const clickEvent = (() => {
         setSearch('')
-        history.push(`/users/${users?.user?.id}`)
+        setSearchResults('')
+        history.push(`/${users?.user?.username}/${users?.user?.id}`)
     })
 
 
@@ -31,7 +32,7 @@ const Search = () => {
         return (
             <>
                 <Link
-                    to={`/users/${user?.id}`}
+                    to={`/${user?.username}/${user?.id}`}
                     key={user?.id}
                     onClick={clickEvent}
                     className="search-result-link"
@@ -60,7 +61,6 @@ const Search = () => {
             </>
         );
     });
-    // console.log(returnResults[0])
 
     return (
         <>
@@ -76,9 +76,9 @@ const Search = () => {
                         placeholder='Search User'
                         onChange={(e) => setSearch(e.target.value)}
                         onClick={() => setSearchResults("results-active")}
-                        onBlur={() => setSearchResults("")} />
+                    // onBlur={() => setSearchResults("")}
+                    />
                 </div>
-
             </form>
 
             <div className={`search-popup ${searchResults}`}>

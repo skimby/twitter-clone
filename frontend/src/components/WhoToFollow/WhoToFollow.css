@@ -5,9 +5,8 @@
     display: inline-block;
     vertical-align: top;
     /* position: fixed; */
-    width: 320px;
+    width: 350px;
     height: 300px;
-
 }
 
 .recommended-follows {
@@ -15,12 +14,17 @@
     border-radius: 4%;
     display: inline-block;
     position: fixed;
+    top: 80px;
+    width: 350px;
     /* right: 330px; */
 }
 
 .recommended-follows-content {
     padding: 15px;
+    align-content: start;
+    vertical-align: start;
     display: inline-block;
+    width: 330px;
 }
 
 .recommended-follows-content h4 {
@@ -31,7 +35,7 @@
 
 .each-follower-box {
     display: grid;
-    grid-template-columns: 55px 165px 80px;
+    grid-template-columns: 55px 185px 80px;
     padding-bottom: 10px;
 }
 

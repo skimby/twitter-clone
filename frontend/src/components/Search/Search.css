@@ -20,19 +20,17 @@
     vertical-align: top;
 }
 
-
 .search-popup {
     padding: 10px 20px;
     width: 334px;
     max-height: 500px;
     display: none;
     z-index: 3;
-    position: absolute;
+    position: fixed;
     background-color: white;
     border-radius: 10px;
+    top: 55px;
     box-shadow: 0 0 10px lightgray;
-
-
 }
 
 .results-active {
@@ -41,6 +39,7 @@
 
 .search-user-styling {
     border: none;
+    position: fixed;
     /* border: 2px solid rgb(29, 155, 240); */
     border-radius: 30px;
     width: 350px;
