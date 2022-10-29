@@ -1,7 +1,7 @@
 .search-profile-div {
     display: block;
     align-items: start;
-    margin: 10px 0;
+    margin: 17px 0;
     align-content: start;
 }
 
@@ -17,13 +17,9 @@
 .search-user-info h5 {
     display: inline-block;
     align-content: start;
-    vertical-align: start;
+    vertical-align: top;
 }
 
-.search-user-info p {
-    align-content: start;
-    vertical-align: start;
-}
 
 .search-popup {
     padding: 10px 20px;
@@ -35,7 +31,7 @@
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 0 10px lightgray;
-    ;
+
 
 }
 
