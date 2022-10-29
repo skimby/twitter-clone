@@ -24,7 +24,8 @@
     padding: 10px 20px;
     width: 334px;
     max-height: 500px;
-    display: none;
+    /* display: none; */
+    visibility: hidden;
     z-index: 3;
     position: fixed;
     background-color: white;
@@ -34,7 +35,8 @@
 }
 
 .results-active {
-    display: block;
+    /* display: block; */
+    visibility: visible;
 }
 
 .search-user-styling {

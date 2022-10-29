@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from "react-router-dom";
 import './Search.css'
 
+
 const Search = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -11,7 +12,7 @@ const Search = () => {
     const users = useSelector(state => state.users);
 
     const [search, setSearch] = useState('');
-    const [searchResults, setSearchResults] = useState("");
+    const [searchResults, setSearchResults] = useState('');
 
     useEffect(() => {
         dispatch(allUsersBackend());
@@ -22,8 +23,8 @@ const Search = () => {
     });
 
     const clickEvent = (() => {
+        setSearchResults("")
         setSearch('')
-        setSearchResults('')
         history.push(`/${users?.user?.username}/${users?.user?.id}`)
     })
 
@@ -62,6 +63,20 @@ const Search = () => {
         );
     });
 
+    const onMouseDownCaptureHandler = () => {
+        setSearchResults('results-active')
+    };
+
+    // const onMouseUpCaptureHandler = () => {
+    //     setSearchResults('')
+    // };
+    const handleBlur = (() => {
+
+        setTimeout(() => {
+            console.log("Delayed for 1 second.");
+        }, "1000")
+    })
+
     return (
         <>
             <form>
@@ -69,14 +84,27 @@ const Search = () => {
                     <div className="mag-glass">
                         <i className="fa-solid fa-magnifying-glass"></i>
                     </div>
+
                     <input
                         type='text'
                         className="hidden-input"
                         value={search}
                         placeholder='Search User'
                         onChange={(e) => setSearch(e.target.value)}
-                        onClick={() => setSearchResults("results-active")}
-                    // onBlur={() => setSearchResults("")}
+                        // onClick={() => setSearchResults("results-active")}
+                        onMouseDown={onMouseDownCaptureHandler}
+                        // onMouseUp={onMouseUpCaptureHandler}
+
+                        onBlur={(e) => {
+                            const target = e.currentTarget;
+                            setTimeout(
+                                function () {
+                                    target.blur();
+                                },
+                                5
+                            );
+
+                        }}
                     />
                 </div>
             </form>
