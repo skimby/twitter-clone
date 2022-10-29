@@ -85,6 +85,9 @@ function App() {
                 </div>
 
                 <div className='end-container'>
+
+                  <Search />
+
                   <Switch>
                     <Route path='/:username/:userId/follows'  >
                       <WhoToFollow />

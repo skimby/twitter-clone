@@ -177,11 +177,16 @@ button {
 }
 
 .user-info-container {
-    /*  */
     display: inline-flex;
     padding-bottom: 15px;
     display: grid;
-    grid-template-columns: 47px 413px 25px;
+    grid-template-columns: 2.94em 31.6em 1.563em;
+}
+
+@media (max-width: 960px) {
+    .user-info-container {
+        grid-template-columns: 2.94em 13.7em 1.563em;
+    }
 }
 
 .user-info-container-mobile {
