@@ -2,6 +2,7 @@ import { allUsersBackend } from "../../store/user";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Link } from "react-router-dom";
+import './Search.css'
 
 const Search = () => {
     const dispatch = useDispatch();
@@ -20,53 +21,62 @@ const Search = () => {
         return user?.username?.toLowerCase().includes(search?.toLowerCase());
     });
 
-
     const clickEvent = (() => {
         setSearch('')
         history.push(`/users/${users?.user?.id}`)
     })
 
 
-
-
-
-    const returnResults = userResults?.map((user) => {
+    const returnResults = userResults?.slice(0, 5)?.map((user) => {
         return (
-            <Link
-                to={`/users/${user?.id}`}
-                key={user?.id}
-                onClick={clickEvent}
-                className="search-result-link"
-            >
-                <h1>result: {user?.username}</h1>
-                {/* <div className="search-result-text">
-                    <img
-                        src={user?.profile_image}
-                        className="search-bar-profile-pic"
-                        alt='preview'
-                    />
-                    <div className="search-bar-profile-username">{user?.username}</div>
-                </div> */}
-            </Link>
+            <>
+                <Link
+                    to={`/users/${user?.id}`}
+                    key={user?.id}
+                    onClick={clickEvent}
+                    className="search-result-link"
+                >
+                    <div className="search-profile-div">
+                        <img
+                            src={user?.profileImage}
+                            className="profile-img-search pointer"
+                            alt='user profile preview'
+                        />
+                        <div className="search-user-info">
+                            <h5 className='name-username pointer'>{user?.username}</h5>
+                            {user?.verified && (
+                                <div className="verified-div2">
+                                    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' alt='verified badge icon' />
+                                </div>
+                            )}
+                            <p className='p-gray-small'>@{user?.username}</p>
+                            {user?.bio && (
+                                <p className='p-gray-small'>{user?.bio.slice(0, 33)}...</p>
+                            )}
+                        </div>
+                    </div>
+                </Link>
+            </>
         );
     });
-    console.log(returnResults)
+    // console.log(returnResults[0])
 
     return (
         <>
-            <h1>Search</h1>
             <form>
-                <label>
-                    Search
-                    <input
-                        type='text'
-                        value={search}
-                        placeholder='Search User'
-                        onChange={(e) => setSearch(e.target.value)} />
-                </label>
+
+                <input
+                    type='text'
+                    className="search-user-styling"
+                    value={search}
+                    placeholder='Search User'
+                    onChange={(e) => setSearch(e.target.value)}
+                    onClick={() => setSearchResults("results-active")}
+                    onBlur={() => setSearchResults("")} />
+
             </form>
-            <div >
-                <h1>results</h1>
+
+            <div className={`search-popup ${searchResults}`}>
                 {returnResults}
             </div>
         </>

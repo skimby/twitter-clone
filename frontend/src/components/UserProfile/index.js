@@ -110,7 +110,6 @@ function UserProfile({ sessionUser }) {
 
     return (
         <>
-
             <div className='user-profile-header'>
                 <div className='x-box'>
                     <i className="fa-solid fa-arrow-left-long" onClick={handleBack}></i>
@@ -119,7 +118,6 @@ function UserProfile({ sessionUser }) {
                     <h5 className='user-bold-styling'>{user?.username}</h5>
                     <p className='p-gray-small'>{user?.tweetCount} Tweets</p>
                 </div>
-
             </div>
 
             <div className='cover-image-container'>

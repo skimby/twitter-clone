@@ -1,5 +1,5 @@
 .tweet-container {
-    padding: 13px;
+    padding: 15px;
     display: grid;
     grid-template-columns: 60px 1fr;
     border: 1px solid rgb(235, 235, 235);

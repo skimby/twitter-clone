@@ -1,0 +1,46 @@
+.search-profile-div {
+    display: block;
+    align-items: start;
+    margin: 10px 0;
+}
+
+.profile-img-search {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 100%;
+    margin-right: 20px;
+}
+
+.search-user-info,
+.search-user-info h5 {
+    display: inline-block;
+}
+
+.search-popup {
+    padding: 10px 20px;
+    width: 334px;
+    max-height: 500px;
+    display: none;
+    z-index: 3;
+    position: absolute;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px lightgray;
+    ;
+
+}
+
+.results-active {
+    display: block;
+}
+
+.search-user-styling {
+    border: none;
+    /* border: 2px solid rgb(29, 155, 240); */
+    border-radius: 20px;
+    width: 335px;
+    padding: 12px 0;
+    background-color: #eff3f4;
+    margin-bottom: 30px;
+}
