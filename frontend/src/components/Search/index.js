@@ -53,6 +53,7 @@ const Search = () => {
                             {user?.bio && (
                                 <p className='p-gray-small'>{user?.bio.slice(0, 33)}...</p>
                             )}
+
                         </div>
                     </div>
                 </Link>
@@ -64,15 +65,19 @@ const Search = () => {
     return (
         <>
             <form>
-
-                <input
-                    type='text'
-                    className="search-user-styling"
-                    value={search}
-                    placeholder='Search User'
-                    onChange={(e) => setSearch(e.target.value)}
-                    onClick={() => setSearchResults("results-active")}
-                    onBlur={() => setSearchResults("")} />
+                <div className="search-user-styling">
+                    <div className="mag-glass">
+                        <i className="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <input
+                        type='text'
+                        className="hidden-input"
+                        value={search}
+                        placeholder='Search User'
+                        onChange={(e) => setSearch(e.target.value)}
+                        onClick={() => setSearchResults("results-active")}
+                        onBlur={() => setSearchResults("")} />
+                </div>
 
             </form>
 

@@ -2,6 +2,7 @@
     display: block;
     align-items: start;
     margin: 10px 0;
+    align-content: start;
 }
 
 .profile-img-search {
@@ -15,6 +16,13 @@
 .search-user-info,
 .search-user-info h5 {
     display: inline-block;
+    align-content: start;
+    vertical-align: start;
+}
+
+.search-user-info p {
+    align-content: start;
+    vertical-align: start;
 }
 
 .search-popup {
@@ -38,9 +46,20 @@
 .search-user-styling {
     border: none;
     /* border: 2px solid rgb(29, 155, 240); */
-    border-radius: 20px;
-    width: 335px;
-    padding: 12px 0;
+    border-radius: 30px;
+    width: 350px;
+    /* padding: 12px 0; */
     background-color: #eff3f4;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
+}
+
+.search-user-styling input {
+    all: unset;
+    font-size: 15px;
+}
+
+.mag-glass {
+    padding: 12px 20px;
+    display: inline-block;
+    color: #6a7985;
 }
