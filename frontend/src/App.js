@@ -18,7 +18,7 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const sessionUser = useSelector(state => state.session.user)
+  const sessionUser = useSelector(state => state.session?.user)
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -43,7 +43,6 @@ function App() {
           <div id='main-container'>
             <Navigation isLoaded={isLoaded} />
 
-            {/* <div className="mid-end-container"> */}
             {isLoaded && (
               <>
                 <div className="middle-container">
@@ -69,14 +68,6 @@ function App() {
                         <Tweet />
                       </Route>
 
-                      {/* <Route path='/:a'>
-                            <Redirect to='/404' />
-                          </Route>
-
-                          <Route path="/404">
-                            <PageNotFound />
-                          </Route> */}
-
                       <Route>
                         <PageNotFound />
                       </Route>
@@ -93,16 +84,11 @@ function App() {
                       <WhoToFollow />
                     </Route>
                     <WhoToFollow />
-
-
                   </Switch>
-
-
                 </div>
 
               </>
             )}
-            {/* </div> */}
           </div>
 
         </>

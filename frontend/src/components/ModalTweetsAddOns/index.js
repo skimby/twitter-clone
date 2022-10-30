@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { createTweetBackend } from "../../store/tweet";
 import { createPopup } from '@picmo/popup-picker';
 import { getFeedTweetsBackend } from "../../store/tweet";
@@ -15,6 +15,7 @@ import '../CreateCommentInline/CreateCommentInline.css'
 function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet, showModalTweet }) {
     const dispatch = useDispatch();
     const history = useHistory();
+    const { username } = useParams()
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
@@ -105,8 +106,12 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet, show
 
             if (editedTweet) {
                 setTweet('')
-                // history.push(`/${user?.user?.username}/tweets/${editedTweet?.id}`)
-                history.go()
+
+                if (username) {
+                    history.go()
+                } else {
+                    history.push(`/${user?.user?.username}/tweets/${editedTweet?.id}`)
+                }
 
             }
         } else {

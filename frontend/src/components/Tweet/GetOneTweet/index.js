@@ -37,16 +37,6 @@ function GetOneTweet({ tweetId }) {
         })
     }
 
-    // useEffect(() => {
-    //     if (tweet) {
-    //         if (tweet?.userId === loggedUser.id) {
-    //             setIsOwnComment(true)
-    //         } else {
-    //             setIsOwnComment(false)
-    //         }
-    //     }
-    // }, [dispatch, tweet, loggedUser?.id])
-
     useEffect(() => {
         dispatch(getOneTweetBackend(tweetId))
     }, [dispatch, tweetId, likes, comments, retweets])

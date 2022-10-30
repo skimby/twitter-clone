@@ -6,16 +6,6 @@ function Tweet() {
     tweetId = parseInt(tweetId);
     userId = parseInt(userId);
 
-    // const { userPageId } = location.state
-
-    // const dispatch = useDispatch();
-
-    // const tweet = useSelector(state => state.tweets);
-
-    // useEffect(() => {
-    //     dispatch(getOneTweetBackend(tweetId));
-    // }, [dispatch])
-
     return (
         <>
             <GetOneTweet tweetId={tweetId} userId={userId} />
