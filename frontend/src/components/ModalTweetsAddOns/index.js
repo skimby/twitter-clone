@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, useLocation } from "react-router-dom";
 import { createTweetBackend } from "../../store/tweet";
 import { createPopup } from '@picmo/popup-picker';
 import { getFeedTweetsBackend } from "../../store/tweet";
@@ -15,12 +15,12 @@ import '../CreateCommentInline/CreateCommentInline.css'
 function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet, showModalTweet }) {
     const dispatch = useDispatch();
     const history = useHistory();
+    const location = useLocation();
     const { username } = useParams()
     const refButton = useRef(null);
     const refContainer = useRef(null);
 
     const user = useSelector(state => state.session);
-    const tweets = useSelector(state => state.tweets);
 
     const [tweet, setTweet] = useState((currentTweet && currentTweet.tweet) || '');
     const [image, setImage] = useState(null);
@@ -60,13 +60,8 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet, show
                 setTweet(tweet + event.emoji)
             });
         }
-
-
     }, [inputClick, gifOrImg, tweet, gif, image, currentTweet, previewImage, edit, setShowModalTweet, showModalTweet])
 
-    useEffect(() => {
-        dispatch(getFeedTweetsBackend())
-    }, [dispatch])
 
 
     useEffect(() => {
@@ -107,7 +102,7 @@ function ModalTweetAddOns({ tweetId, setShowModalTweet, edit, currentTweet, show
             if (editedTweet) {
                 setTweet('')
 
-                if (username) {
+                if (location.pathname.includes('tweets')) {
                     history.go()
                 } else {
                     history.push(`/${user?.user?.username}/tweets/${editedTweet?.id}`)

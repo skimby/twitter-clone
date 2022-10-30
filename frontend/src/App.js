@@ -17,8 +17,19 @@ import Search from "./components/Search/index.js";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [loggedIn, setLoggedIn] = useState()
 
   const sessionUser = useSelector(state => state.session?.user)
+
+  useEffect(() => {
+    if (sessionUser) {
+      setLoggedIn(true)
+    } else {
+      setLoggedIn(false)
+    }
+  })
+
+
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -27,7 +38,7 @@ function App() {
 
   return (
     <>
-      {!sessionUser && (
+      {!loggedIn && (
         <Switch>
           <Route path='/' exact >
             <SignupPage />
@@ -38,7 +49,7 @@ function App() {
         </Switch>
       )}
 
-      {sessionUser && (
+      {loggedIn && (
         <>
           <div id='main-container'>
             <Navigation isLoaded={isLoaded} />
