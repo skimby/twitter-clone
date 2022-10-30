@@ -1,12 +1,17 @@
 .end-container {
-    /* width: 100px;
-    padding: 0; */
+    visibility: visible;
     margin: 10px 0 0 15px;
     display: inline-block;
     vertical-align: top;
     /* position: fixed; */
     width: 350px;
     height: 300px;
+}
+
+@media (max-width: 1170px) {
+    .end-container {
+        visibility: hidden;
+    }
 }
 
 .recommended-follows {

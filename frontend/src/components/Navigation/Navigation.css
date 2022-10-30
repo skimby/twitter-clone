@@ -32,12 +32,24 @@ button {
     .nav-container-mobile {
         display: inline-block;
     }
+
+}
+
+@media (max-width: 1173px) {
+    .end-container {
+        display: hidden;
+    }
 }
 
 @media (max-width: 770px) {
 
     .middle-container {
         width: 500px;
+    }
+
+    .tweet-user-header-follow {
+        grid-template-columns: 310px 100px;
+
     }
 }
 
@@ -58,9 +70,10 @@ button {
         /* margin-right: 10px; */
     }
 
-    /* .tweet-container {
-        width: 300px;
-    } */
+    .tweet-user-header-follow {
+        grid-template-columns: 120px 100px;
+
+    }
 
     .tweet-tweet-box {
         width: 215px;
