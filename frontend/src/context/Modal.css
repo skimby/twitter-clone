@@ -64,3 +64,24 @@
   border-radius: 20px;
 
 }
+
+@media (max-width: 500px) {
+  #modal-content-signup {
+    width: 480px;
+    height: 750px;
+  }
+
+  #modal-content {
+    width: 480px;
+    height: 615px;
+  }
+
+  #modal-content-comment {
+    width: 480px;
+  }
+
+  #modal-content-gif {
+    width: 480px;
+
+  }
+}
