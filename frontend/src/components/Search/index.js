@@ -32,11 +32,6 @@ const Search = () => {
         return user?.username?.toLowerCase().includes(search?.toLowerCase());
     });
 
-    const clickEvent = (() => {
-        setClicked(true)
-        history.push(`/${users?.user?.username}/${users?.user?.id}`)
-    })
-
     const handleClick = (() => {
         setClicked(true)
     })
@@ -53,15 +48,13 @@ const Search = () => {
                 <div className="search-profile-div pointer"
                     onClick={() => {
                         setClicked(true)
-                        // setSearchResults("")
-                        // setSearch('')
+                        setSearch('')
                         history.push(`/${user?.username}/${user?.id}`)
                     }}>
                     <img
                         src={user?.profileImage}
                         className="profile-img-search pointer"
                         alt='user profile preview'
-                        onClick={clickEvent}
                     />
                     <div className="search-user-info">
                         <h5 className='name-username pointer'>{user?.username}</h5>
