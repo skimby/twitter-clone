@@ -84,19 +84,54 @@
 
     .cover-text-box {
         width: 40%;
-        padding: 15.7% 3%;
-
+        padding: 18% 3%;
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 1100px) {
     .cover-img-container {
         display: none;
     }
 
     .cover-text-box {
         width: 100%;
-        padding: 15.7% 3%;
+        padding: 18% 3%;
+        margin: 0 auto;
+    }
+
+    .login-buttons {
+        margin: 25px auto;
+        width: 50%;
+        padding-top: 25px;
+    }
+
+    .logo-box-signup {
+        padding: 0 47%;
+    }
+
+    .big-header,
+    .medium-header {
+        text-align: center;
+    }
+}
+
+@media (max-width: 375px) {
+    .cover-img-container {
+        display: none;
+    }
+
+    .big-header {
+        font-size: 40px;
+    }
+
+    .medium-header {
+        font-size: 28px;
+        font-family: 'Kanit', sans-serif;
+    }
+
+    .cover-text-box {
+        width: auto;
+        padding: 15.7% 5%;
     }
 
     .login-buttons {

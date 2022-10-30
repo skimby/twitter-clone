@@ -65,23 +65,23 @@
 
 }
 
-@media (max-width: 500px) {
+@media (max-width: 375px) {
   #modal-content-signup {
-    width: 480px;
+    width: 300px;
     height: 750px;
   }
 
   #modal-content {
-    width: 480px;
+    width: 300px;
     height: 615px;
   }
 
   #modal-content-comment {
-    width: 480px;
+    width: 300px;
   }
 
   #modal-content-gif {
-    width: 480px;
+    width: 300px;
 
   }
 }

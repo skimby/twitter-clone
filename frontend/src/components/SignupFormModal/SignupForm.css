@@ -4,6 +4,24 @@
 
 }
 
+@media (max-width: 376px) {
+    .signup-modal-container {
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .signup-form-full-input {
+        width: 100px;
+    }
+
+    .half-input,
+    .half-input1 {
+        width: 50px;
+
+    }
+
+
+}
 
 
 .signup-form-full-input {
