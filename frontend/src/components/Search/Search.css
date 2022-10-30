@@ -53,6 +53,7 @@
 .search-user-styling input {
     all: unset;
     font-size: 15px;
+    width: 280px;
 }
 
 .mag-glass {
