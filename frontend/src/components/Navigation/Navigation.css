@@ -24,7 +24,7 @@ button {
     height: 100%;
 }
 
-@media (max-width: 1265px) {
+@media (max-width: 1365px) {
     .nav-container-desktop {
         display: none;
     }
