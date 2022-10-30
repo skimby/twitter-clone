@@ -39,8 +39,7 @@ function SignupPage() {
 
                         <button onClick={demoUser} className='black-btn demo-btn'>Demo User</button>
                     </div>
-                    <div>
-                    </div>
+
                 </div>
             </div>
         </>

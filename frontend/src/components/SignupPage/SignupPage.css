@@ -98,4 +98,10 @@
         width: 100%;
         padding: 15.7% 3%;
     }
+
+    .login-buttons {
+        margin: 25px auto;
+        width: 100%;
+        padding-top: 25px;
+    }
 }
