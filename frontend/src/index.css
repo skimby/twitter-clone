@@ -249,3 +249,26 @@ button {
 .profile-box-text h5 {
     display: inline;
 }
+
+
+.chirpette-info {
+    display: inline-block;
+    position: fixed;
+    top: 300px;
+    width: 350px;
+    padding-left: 15px;
+}
+
+.my-icons {
+    display: inline-block;
+}
+
+.me {
+    padding: 2px 0 0 6px;
+    font-size: 18px;
+    color: #697884;
+}
+
+.chirpette-info p {
+    margin: 3px 0;
+}

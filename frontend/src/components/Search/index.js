@@ -1,7 +1,7 @@
 import { allUsersBackend } from "../../store/user";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import './Search.css'
 
 
@@ -42,6 +42,7 @@ const Search = () => {
         }, 100);
     })
 
+
     const returnResults = userResults?.slice(0, 5)?.map((user) => {
         return (
             <div className="search-profile-div pointer"
@@ -69,13 +70,16 @@ const Search = () => {
                     )}
                 </div>
             </div>
-
         );
     });
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+    };
     return (
         <>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="search-user-styling">
                     <div className="mag-glass">
                         <i className="fa-solid fa-magnifying-glass"></i>
@@ -96,6 +100,12 @@ const Search = () => {
             <div className={`search-popup ${searchResults}`}>
                 {returnResults}
             </div>
+
+            {search && !userResults.length && (
+                <div className={`search-popup ${searchResults}`}>
+                    <p>This user does not exist!</p>
+                </div>
+            )}
         </>
     )
 }

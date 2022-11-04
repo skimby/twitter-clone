@@ -96,6 +96,28 @@ function App() {
                     </Route>
                     <WhoToFollow />
                   </Switch>
+
+                  <div className='chirpette-info'>
+                    <p className="gray-p">
+                      <div className="my-icons">
+                        Developed by Sally J Kim
+                        <a href="https://www.linkedin.com/in/sallyjkim13/" target="_blank"><i className="pointer fa-brands fa-linkedin me"></i></a>
+
+                        <a href="https://github.com/skimby" target="_blank">
+                          <i className="pointer fa-brands fa-square-github me"></i>
+                        </a>
+
+                        <a href="http://www.sallyjkim.site/" target="_blank">
+                          <i className="pointer fa-solid fa-envelope me"></i></a>
+                      </div>
+                      <br></br>
+                    </p>
+
+                    <p className="gray-p">
+                      © Chirpette 2022
+                    </p>
+                  </div>
+
                 </div>
 
               </>
