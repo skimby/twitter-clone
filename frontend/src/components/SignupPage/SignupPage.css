@@ -17,8 +17,8 @@
     background-color: white;
     display: inline-block;
     width: 38%;
-    padding: 15.7% 3%;
-    /* padding: 20% 3%; */
+    height: 100vh;
+    padding: 12% 3%;
     vertical-align: top;
 
 }
