@@ -70,87 +70,90 @@ function GetOneTweet({ tweetId }) {
             </div>
             <div className='get-one-tweet-container'>
 
+                {user && (
+                    <div className='one-tweet-container'>
+                        <div className='user-info-container'>
+                            <div className='profile-img' onClick={() => history.push(`/${user?.User?.username}/${user?.User?.id}`)} >
+                                <img className='profile-img' src={user?.User?.profileImage} alt='profile user' />
+                            </div>
 
-                <div className='one-tweet-container'>
-                    <div className='user-info-container'>
-                        <div className='profile-img' onClick={() => history.push(`/${user?.User?.username}/${user?.User?.id}`)} >
-                            <img className='profile-img' src={user?.User?.profileImage} alt='profile user' />
-                        </div>
-
-                        <div className=''>
-                            <div className='tweet-user-header'>
-                                <h5>{user?.User?.firstName}</h5>
-                                {user?.User?.verified && (
-                                    <div className="verified-div2">
-                                        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                            <div className=''>
+                                <div className='tweet-user-header'>
+                                    <h5>{user?.User?.firstName}</h5>
+                                    {user?.User?.verified && (
+                                        <div className="verified-div2">
+                                            <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/640px-Twitter_Verified_Badge.svg.png' className='verified-badge' />
+                                        </div>
+                                    )}
+                                    <div>
+                                        <h5>  <span className='thin-styling'>@{user?.User?.username}</span></h5>
                                     </div>
-                                )}
+                                </div>
+                            </div>
+                            <div className='settings-btn' >
+                                <TweetSettingsModal tweet={tweet} />
+                            </div>
+                        </div>
+
+
+
+
+                        {tweet && (
+                            <>
+                                <p className='big-p'>{tweet?.tweet}</p>
+
+                                <div className='comment-img-gif'>
+                                    {tweet?.image !== null && (
+                                        <>
+                                            <img src={tweet?.image} className='img-gif' width='200' alt='attachment for tweet' />
+
+                                        </>
+                                    )}
+                                    {tweet?.gif !== null && (
+                                        <>
+                                            <img className='img-gif' src={tweet?.gif} width='200' alt='gif attachment for tweet' />
+                                            <img className="padding-top " src={giphyTag} width='110px' alt='gif provided by GIPHY' />
+                                        </>
+                                    )}
+                                </div>
+
+
+
                                 <div>
-                                    <h5>  <span className='thin-styling'>@{user?.User?.username}</span></h5>
+                                    <p className='gray-p'>{tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}, {tweet?.updatedAt?.[3]}</p>
                                 </div>
-                            </div>
-                        </div>
-                        <div className='settings-btn' >
-                            <TweetSettingsModal tweet={tweet} />
-                        </div>
+
+
+                                <div className='outline'>
+                                    <div className='comment-stats-box'>
+
+                                        <p className='gray-p follower-styling' >
+                                            <span className='bold'>{tweet?.retweetCount} </span>
+                                            Retweets</p>
+                                        <p className='gray-p follower-styling'><span className='bold'>{tweet?.commentCount} </span>Quote Tweets</p>
+                                        <p className='gray-p follower-styling'><span className='bold'>{tweet?.likeCount} </span>Likes</p>
+                                    </div>
+                                </div>
+
+                                <div className='comment-icons-box'>
+                                    <div className='tweet-icon'>
+                                        <CreateCommentModal newComment={newComment} commentCount={tweet?.commentCount} tweet={tweet} singleTweet={singleTweet} />
+                                    </div>
+                                    <div className='tweet-icon'>
+                                        <Retweets retweetCount={tweet?.retweetCount} tweet={tweet} singleTweet={singleTweet} />
+                                    </div>
+                                    <div className='tweet-icon'>
+                                        <Likes likeCount={tweet?.likeCount} tweet={tweet} singleTweet={singleTweet} />
+                                    </div>
+
+                                </div>
+                            </>
+                        )}
+                        <CreateCommentInline tweetId={tweetId} />
+
+
                     </div>
-
-
-                    {tweet && (
-                        <>
-                            <p className='big-p'>{tweet?.tweet}</p>
-
-                            <div className='comment-img-gif'>
-                                {tweet?.image !== null && (
-                                    <>
-                                        <img src={tweet?.image} className='img-gif' width='200' alt='attachment for tweet' />
-
-                                    </>
-                                )}
-                                {tweet?.gif !== null && (
-                                    <>
-                                        <img className='img-gif' src={tweet?.gif} width='200' alt='gif attachment for tweet' />
-                                        <img className="padding-top " src={giphyTag} width='110px' alt='gif provided by GIPHY' />
-                                    </>
-                                )}
-                            </div>
-
-
-
-                            <div>
-                                <p className='gray-p'>{tweet?.updatedAt?.[1]} {tweet?.updatedAt?.[2]}, {tweet?.updatedAt?.[3]}</p>
-                            </div>
-
-
-                            <div className='outline'>
-                                <div className='comment-stats-box'>
-
-                                    <p className='gray-p follower-styling' >
-                                        <span className='bold'>{tweet?.retweetCount} </span>
-                                        Retweets</p>
-                                    <p className='gray-p follower-styling'><span className='bold'>{tweet?.commentCount} </span>Quote Tweets</p>
-                                    <p className='gray-p follower-styling'><span className='bold'>{tweet?.likeCount} </span>Likes</p>
-                                </div>
-                            </div>
-
-                            <div className='comment-icons-box'>
-                                <div className='tweet-icon'>
-                                    <CreateCommentModal newComment={newComment} commentCount={tweet?.commentCount} tweet={tweet} singleTweet={singleTweet} />
-                                </div>
-                                <div className='tweet-icon'>
-                                    <Retweets retweetCount={tweet?.retweetCount} tweet={tweet} singleTweet={singleTweet} />
-                                </div>
-                                <div className='tweet-icon'>
-                                    <Likes likeCount={tweet?.likeCount} tweet={tweet} singleTweet={singleTweet} />
-                                </div>
-
-                            </div>
-                        </>
-                    )}
-                    <CreateCommentInline tweetId={tweetId} />
-
-
-                </div>
+                )}
             </div>
             {
                 tweet?.Comments && (
