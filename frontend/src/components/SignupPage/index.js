@@ -25,7 +25,7 @@ function SignupPage() {
                 <div className="cover-text-box">
                     <img src={logo} className='logo-box-signup' />
                     <h1 className="big-header">Happening now</h1>
-                    <h2 className='medium-header'>Join Twitter today.</h2>
+                    <h2 className='medium-header'>Join Chirpette today.</h2>
                     <div className='login-buttons'>
                         <LoginFormModal />
                         <SignupFormModal />
