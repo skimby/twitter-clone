@@ -27,7 +27,7 @@ function UserRetweets({ userId, isOwnPage }) {
                     {!isOwnPage && (
                         <>
                             {tweets?.retweets && (
-                                Object.values(tweets?.retweets).map((retweet, index) => {
+                                Object.values(tweets?.retweets).sort((a, b) => new Date(b.createdAt1) - new Date(a.createdAt1)).map((retweet, index) => {
                                     return (
                                         <div className='tweet-container' key={index}>
                                             <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>
@@ -98,7 +98,7 @@ function UserRetweets({ userId, isOwnPage }) {
                     {isOwnPage && (
                         <>
                             {tweets?.loggedUserRetweets && (
-                                Object.values(tweets?.loggedUserRetweets).map((retweet, index) => {
+                                Object.values(tweets?.loggedUserRetweets).sort((a, b) => new Date(b.createdAt1) - new Date(a.createdAt1)).map((retweet, index) => {
                                     return (
                                         <div className='tweet-container' key={index}>
                                             <div className='tweet-profile-img' onClick={() => { history.push(`/${retweet?.User?.username}/${retweet?.User?.id}`) }}>

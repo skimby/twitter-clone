@@ -21,13 +21,16 @@ function UserLikes({ userId, isOwnPage }) {
     }, [dispatch, userId, isOwnPage, likes, retweets])
 
 
+    // allComments2.sort((a, b) => {
+    //     return new Date(b.createdAt1) - new Date(a.createdAt1)
+    // })
     return (
         <>
             {
                 isOwnPage && (
                     <>
                         {tweets?.loggedUserLikedTweets && (
-                            Object.values(tweets?.loggedUserLikedTweets).map((like, index) => {
+                            Object.values(tweets?.loggedUserLikedTweets).sort((a, b) => new Date(b.createdAt1) - new Date(a.createdAt1)).map((like, index) => {
                                 return (
                                     <div className='tweet-container' key={index}>
                                         <div className='tweet-profile-img' onClick={() => { history.push(`/${like?.User?.username}/${like?.User?.id}`) }}>
@@ -99,7 +102,7 @@ function UserLikes({ userId, isOwnPage }) {
                 !isOwnPage && (
                     <>
                         {tweets?.likedTweets && (
-                            Object.values(tweets?.likedTweets).map((like, index) => {
+                            Object.values(tweets?.likedTweets).sort((a, b) => new Date(b.createdAt1) - new Date(a.createdAt1)).map((like, index) => {
                                 return (
                                     <div className='tweet-container' key={index}>
                                         <div className='tweet-profile-img' onClick={() => { history.push(`/${like?.User?.username}/${like?.User?.id}`) }}>
