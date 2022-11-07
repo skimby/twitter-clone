@@ -31,8 +31,7 @@ router.get('/', restoreUser, (req, res) => {
 // ============= GET ALL USERS =================//
 router.get('/all', async (req, res) => {
   const allUsers = await User.findAll()
-  console.log('------')
-  console.log(allUsers)
+
   return res.json(allUsers)
 }
 );
