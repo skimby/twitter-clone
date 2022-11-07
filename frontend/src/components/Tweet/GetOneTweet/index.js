@@ -97,7 +97,6 @@ function GetOneTweet({ tweetId }) {
 
 
 
-
                         {tweet && (
                             <>
                                 <p className='big-p'>{tweet?.tweet}</p>
