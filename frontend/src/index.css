@@ -75,18 +75,23 @@ button {
     align-items: start;
 }
 
-@media (max-width: 1700px) {
+@media (max-width: 1730px) {
     #main-container {
         padding: 0 10%;
     }
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1560px) {
     #main-container {
         padding: 0 5%;
     }
 }
 
+@media (max-width: 1387px) {
+    #main-container {
+        padding: 0 3%;
+    }
+}
 
 
 @media (max-width: 960px) {
