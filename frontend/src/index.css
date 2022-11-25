@@ -75,7 +75,7 @@ button {
     align-items: start;
 }
 
-@media (max-width: 1670px) {
+@media (max-width: 1700px) {
     #main-container {
         padding: 0 10%;
     }

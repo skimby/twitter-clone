@@ -41,16 +41,33 @@ button {
     }
 }
 
-@media (max-width: 770px) {
+@media (max-width: 790px) {
 
     .middle-container {
-        width: 500px;
+        width: 480px;
     }
 
     .tweet-user-header-follow {
-        grid-template-columns: 310px 100px;
+        grid-template-columns: 200px 80px;
 
     }
+
+    .tweet-container {
+        display: grid;
+        grid-template-columns: 60px 392px;
+
+    }
+
+    .tweet-tweet-box {
+        width: 392px;
+    }
+
+    .username-name-box {
+        display: inline-block;
+        width: 96%;
+    }
+
+
 }
 
 @media (max-width: 662px) {
@@ -75,8 +92,19 @@ button {
 
     }
 
+    .tweet-container {
+        display: grid;
+        grid-template-columns: 60px 220px;
+
+    }
+
     .tweet-tweet-box {
-        width: 215px;
+        width: 220px;
+    }
+
+    .username-name-box {
+        display: inline-block;
+        width: 92%;
     }
 
 }
